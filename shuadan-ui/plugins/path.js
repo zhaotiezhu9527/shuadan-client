@@ -12,5 +12,8 @@ const home = [
   {
     path: "/pages/headimg",
   },
+  {
+    path: "/pages/realName",
+  },
 ];
 export default home;

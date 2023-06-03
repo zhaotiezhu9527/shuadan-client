@@ -14,6 +14,9 @@
     },
     {
       "path": "pages/headimg"
+    },
+    {
+      "path": "pages/realName"
     }
   ],
   "globalStyle": {

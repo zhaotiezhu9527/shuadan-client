@@ -26,6 +26,7 @@
       </view>
       <view
         class="list-item"
+        @click="goRealName"
       >
         <image class="icon-img" src="../static/img/real_name.png" />
         <label>全民中文名</label>
@@ -78,6 +79,11 @@ export default {
     goHeadimg() {
       uni.navigateTo({
         url: "/pages/headimg",
+      });
+    },
+    goRealName() {
+      uni.navigateTo({
+        url: "/pages/realName",
       });
     },
   },
