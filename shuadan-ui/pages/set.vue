@@ -59,6 +59,7 @@
       </view>
       <view
         class="list-item"
+        @click="goPayPassword"
       >
         <image class="icon-img" src="../static/img/pay_password.png" />
         <label>交易密码</label>
@@ -96,6 +97,11 @@ export default {
     goPassword(){
       uni.navigateTo({
         url: "/pages/password",
+      });
+    },
+    goPayPassword(){
+      uni.navigateTo({
+        url: "/pages/payPassword",
       });
     },
   },

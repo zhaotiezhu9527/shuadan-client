@@ -21,5 +21,8 @@ const home = [
   {
     path: "/pages/password",
   },
+  {
+    path: "/pages/payPassword",
+  },
 ];
 export default home;

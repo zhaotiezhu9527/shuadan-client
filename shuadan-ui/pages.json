@@ -23,6 +23,9 @@
     },
     {
       "path": "pages/password"
+    },
+    {
+      "path": "pages/payPassword"
     }
   ],
   "globalStyle": {
