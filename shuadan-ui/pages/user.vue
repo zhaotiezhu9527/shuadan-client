@@ -27,7 +27,7 @@
             <view>账户金额</view>
             <view class="money-color">¥<label class="money-number">10000.45</label></view>
           </view>
-          <view class="withdrawal">提现</view>
+          <view class="withdrawal" @click="goDeposit">提现</view>
           <view class="recharge">充值</view>
         </view>
         <view class="money-bottom"></view>
@@ -101,6 +101,11 @@ export default {
     goSet() {
       uni.navigateTo({
         url: "/pages/set",
+      });
+    },
+    goDeposit(){
+      uni.navigateTo({
+        url: "/pages/deposit",
       });
     },
   },
