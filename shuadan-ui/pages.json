@@ -5,6 +5,15 @@
   "pages": [
     {
       "path": "pages/index"
+    },
+    {
+      "path": "pages/user"
+    },
+    {
+      "path": "pages/set"
+    },
+    {
+      "path": "pages/headimg"
     }
   ],
   "globalStyle": {
