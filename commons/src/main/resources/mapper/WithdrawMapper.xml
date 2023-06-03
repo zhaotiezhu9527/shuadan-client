@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.WithdrawMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.Withdraw">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="orderNo" column="order_no" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="optAmount" column="opt_amount" jdbcType="DECIMAL"/>
+            <result property="beforeAmount" column="before_amount" jdbcType="DECIMAL"/>
+            <result property="afterAmount" column="after_amount" jdbcType="DECIMAL"/>
+            <result property="walletAddr" column="wallet_addr" jdbcType="VARCHAR"/>
+            <result property="bankCardNum" column="bank_card_num" jdbcType="VARCHAR"/>
+            <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+            <result property="bankAddr" column="bank_addr" jdbcType="VARCHAR"/>
+            <result property="optType" column="opt_type" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="optTime" column="opt_time" jdbcType="TIMESTAMP"/>
+            <result property="checkTime" column="check_time" jdbcType="TIMESTAMP"/>
+            <result property="operator" column="operator" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,order_no,user_name,
+        opt_amount,before_amount,after_amount,
+        wallet_addr,bank_card_num,bank_name,
+        bank_addr,opt_type,status,
+        opt_time,check_time,operator,
+        user_agent,remark
+    </sql>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.ProjectMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.Project">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="projectName" column="project_name" jdbcType="VARCHAR"/>
+            <result property="projectAmount" column="project_amount" jdbcType="DECIMAL"/>
+            <result property="incomeRate" column="income_rate" jdbcType="DECIMAL"/>
+            <result property="limitTime" column="limit_time" jdbcType="INTEGER"/>
+            <result property="minAmount" column="min_amount" jdbcType="DECIMAL"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+            <result property="schedule" column="schedule" jdbcType="VARCHAR"/>
+            <result property="guaranteeCompany" column="guarantee_company" jdbcType="VARCHAR"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+            <result property="img" column="img" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,project_name,project_amount,
+        income_rate,limit_time,min_amount,
+        status,start_time,end_time,
+        schedule,guarantee_company,sort,
+        create_time,modify_time,img
+    </sql>
+</mapper>
