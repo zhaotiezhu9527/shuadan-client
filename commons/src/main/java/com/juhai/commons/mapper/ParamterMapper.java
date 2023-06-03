@@ -1,6 +1,5 @@
 package com.juhai.commons.mapper;
 
-import com.juhai.commons.entity.Paramter;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

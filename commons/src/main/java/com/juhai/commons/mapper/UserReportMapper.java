@@ -1,6 +1,5 @@
 package com.juhai.commons.mapper;
 
-import com.juhai.commons.entity.UserReport;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 

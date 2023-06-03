@@ -1,6 +1,5 @@
 package com.juhai.commons.mapper;
 
-import com.juhai.commons.entity.Account;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
