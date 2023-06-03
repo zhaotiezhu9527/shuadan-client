@@ -15,5 +15,8 @@ const home = [
   {
     path: "/pages/realName",
   },
+  {
+    path: "/pages/bindBank",
+  },
 ];
 export default home;

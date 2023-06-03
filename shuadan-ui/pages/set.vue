@@ -43,6 +43,7 @@
       </view>
       <view
         class="list-item"
+        @click="goBindBank"
       >
         <image class="icon-img" src="../static/img/my_card.png" />
         <label>我的银行卡</label>
@@ -84,6 +85,11 @@ export default {
     goRealName() {
       uni.navigateTo({
         url: "/pages/realName",
+      });
+    },
+    goBindBank(){
+      uni.navigateTo({
+        url: "/pages/bindBank",
       });
     },
   },

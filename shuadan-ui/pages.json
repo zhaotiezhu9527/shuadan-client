@@ -17,6 +17,9 @@
     },
     {
       "path": "pages/realName"
+    },
+    {
+      "path": "pages/bindBank"
     }
   ],
   "globalStyle": {
