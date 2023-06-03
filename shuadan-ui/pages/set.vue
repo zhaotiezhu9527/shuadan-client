@@ -51,6 +51,7 @@
       </view>
       <view
         class="list-item"
+        @click="goPassword"
       >
         <image class="icon-img" src="../static/img/my_password.png" />
         <label>密码管理</label>
@@ -90,6 +91,11 @@ export default {
     goBindBank(){
       uni.navigateTo({
         url: "/pages/bindBank",
+      });
+    },
+    goPassword(){
+      uni.navigateTo({
+        url: "/pages/password",
       });
     },
   },

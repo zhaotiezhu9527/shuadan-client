@@ -18,5 +18,8 @@ const home = [
   {
     path: "/pages/bindBank",
   },
+  {
+    path: "/pages/password",
+  },
 ];
 export default home;

@@ -20,6 +20,9 @@
     },
     {
       "path": "pages/bindBank"
+    },
+    {
+      "path": "pages/password"
     }
   ],
   "globalStyle": {
