@@ -5,6 +5,15 @@
   "pages": [
     {
       "path": "pages/index"
+    },
+    {
+      "path": "pages/richtext"
+    },
+    {
+      "path": "pages/login"
+    },
+    {
+      "path": "pages/register"
     }
   ],
   "globalStyle": {
