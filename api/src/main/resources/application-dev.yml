@@ -19,6 +19,8 @@ login:
     urls:
       - /user/register
       - /user/login
+      - /user/info
       - /system/config
-#      - /project/list
-#      - /project/detail/*
+#token失效时间
+token:
+  expire: 15

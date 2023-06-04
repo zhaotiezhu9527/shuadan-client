@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.WithdrawMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.Withdraw">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="orderNo" column="order_no" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <result property="optAmount" column="opt_amount" jdbcType="DECIMAL"/>
+            <result property="feeRate" column="fee_rate" jdbcType="DECIMAL"/>
+            <result property="realAmount" column="real_amount" jdbcType="DECIMAL"/>
+            <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+            <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+            <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
+            <result property="checkTime" column="check_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+            <result property="userAgentNode" column="user_agent_node" jdbcType="VARCHAR"/>
+            <result property="userAgentLevel" column="user_agent_level" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,order_no,user_name,
+        nick_name,opt_amount,fee_rate,
+        real_amount,bank_name,real_name,
+        bank_no,phone,order_time,
+        check_time,status,update_by,
+        remark,user_agent,user_agent_node,
+        user_agent_level
+    </sql>
+</mapper>

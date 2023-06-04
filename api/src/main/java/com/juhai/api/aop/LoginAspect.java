@@ -18,6 +18,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -36,6 +37,9 @@ import java.util.concurrent.TimeUnit;
 @Aspect
 @ConfigurationProperties(prefix = "login.auth")
 public class LoginAspect {
+
+    @Value("${token.expire}")
+    private int expire;
 
     private List<String> urls;
 
@@ -81,7 +85,7 @@ public class LoginAspect {
         }
 
         // token续期
-        redisTemplate.expireAt(tokenKey, DateUtil.offsetMinute(new Date(), RedisKeyUtil.USER_TOKEN_EXPIRE));
+        redisTemplate.expireAt(tokenKey, DateUtil.offsetMinute(new Date(), expire));
 //        redisTemplate.expireAt(tokenKey, DateUtil.offsetDay(new Date(), RedisKeyUtil.USER_TOKEN_EXPIRE));
         return joinPoint.proceed();
     }
