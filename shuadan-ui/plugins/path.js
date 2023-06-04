@@ -27,5 +27,8 @@ const home = [
   {
     path: "/pages/deposit",
   },
+  {
+    path: "/pages/message",
+  },
 ];
 export default home;

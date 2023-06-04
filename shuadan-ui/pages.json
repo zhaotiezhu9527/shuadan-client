@@ -29,6 +29,9 @@
     },
     {
       "path": "pages/deposit"
+    },
+    {
+      "path": "pages/message"
     }
   ],
   "globalStyle": {

@@ -94,7 +94,7 @@ export default {
         {
           label:'信息公告',
           icon: 'message.png',
-          url:'/pages/set'
+          url:'/pages/message'
         },
         {
           label:'团队报表',
