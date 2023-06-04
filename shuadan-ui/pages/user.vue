@@ -34,37 +34,9 @@
       </view>
       <!-- 导航 -->
       <view class="content">
-        <view class="item" @click="goSet">
-          <image class="item-img" src="../static/img/user.png" />
-          <view class="text">个人信息</view>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/rob.png" />
-          <view class="text">抢单记录</view>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/list.png" />
-          <view class="text">账户明细</view>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/recharge.png" />
-          <view class="text">充值记录</view>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/withdrawal.png" />
-          <view class="text">提现记录</view>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/friend.png" />
-          <view class="text">邀请好友</view>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/message.png" />
-          <view class="text">信息公告</view>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/team.png" />
-          <view class="text">团队报表</view>
+        <view class="item" v-for="(item,index) in list" :key="index" @click="goPage(item.url)">
+          <image class="item-img" :src="'../static/img/' + item.icon" />
+          <view class="text">{{item.label}}</view>
         </view>
       </view>
       <!-- 退出登陆 -->
@@ -88,6 +60,48 @@ export default {
   data() {
     return {
       loading: false,//加载状态
+      list:[
+        {
+          label:'个人信息',
+          icon: 'user.png',
+          url:'/pages/set'
+        },
+        {
+          label:'抢单记录',
+          icon: 'rob.png',
+          url:'/pages/set'
+        },
+        {
+          label:'账户明细',
+          icon: 'list.png',
+          url:'/pages/set'
+        },
+        {
+          label:'充值记录',
+          icon: 'recharge.png',
+          url:'/pages/set'
+        },
+        {
+          label:'提现记录',
+          icon: 'withdrawal.png',
+          url:'/pages/set'
+        },
+        {
+          label:'邀请好友',
+          icon: 'friend.png',
+          url:'/pages/set'
+        },
+        {
+          label:'信息公告',
+          icon: 'message.png',
+          url:'/pages/set'
+        },
+        {
+          label:'团队报表',
+          icon: 'team.png',
+          url:'/pages/set'
+        }
+      ]
     };
   },
   async onLoad() {
@@ -98,9 +112,9 @@ export default {
     loginOut(){
 
     },
-    goSet() {
+    goPage(url) {
       uni.navigateTo({
-        url: "/pages/set",
+        url: url,
       });
     },
     goDeposit(){
