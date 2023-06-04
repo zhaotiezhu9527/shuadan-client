@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.LevelMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.Level">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="levelValue" column="level_value" jdbcType="INTEGER"/>
+            <result property="levelName" column="level_name" jdbcType="VARCHAR"/>
+            <result property="levelPrice" column="level_price" jdbcType="DECIMAL"/>
+            <result property="levelIcon" column="level_icon" jdbcType="VARCHAR"/>
+            <result property="dayOrderCount" column="day_order_count" jdbcType="INTEGER"/>
+            <result property="commissionRate" column="commission_rate" jdbcType="DECIMAL"/>
+            <result property="areaBalance" column="area_balance" jdbcType="DECIMAL"/>
+            <result property="dayWithdrawCount" column="day_withdraw_count" jdbcType="INTEGER"/>
+            <result property="minWithdrawAmount" column="min_withdraw_amount" jdbcType="DECIMAL"/>
+            <result property="maxWithdrawAmount" column="max_withdraw_amount" jdbcType="DECIMAL"/>
+            <result property="withdrawFee" column="withdraw_fee" jdbcType="DECIMAL"/>
+            <result property="withdrawOrderCount" column="withdraw_order_count" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,level_value,level_name,
+        level_price,level_icon,day_order_count,
+        commission_rate,area_balance,day_withdraw_count,
+        min_withdraw_amount,max_withdraw_amount,withdraw_fee,
+        withdraw_order_count,create_time,create_by,
+        update_time,update_by,remark
+    </sql>
+</mapper>

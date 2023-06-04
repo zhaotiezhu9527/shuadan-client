@@ -149,13 +149,14 @@ export default {
       display: flex;
       view {
         width: 100rpx;
-        padding: 4rpx 0;
+        padding: 6rpx 0;
         text-align: center;
         background: #a2b0c8;
         border-radius: 25rpx;
         color: #fff;
         font-weight: 600;
         margin-left: 20rpx;
+        font-size: 26rpx;
       }
     }
   }

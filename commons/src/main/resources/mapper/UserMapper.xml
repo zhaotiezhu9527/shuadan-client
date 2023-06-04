@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.User">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <result property="balance" column="balance" jdbcType="DECIMAL"/>
+            <result property="freezeBalance" column="freeze_balance" jdbcType="DECIMAL"/>
+            <result property="loginPwd" column="login_pwd" jdbcType="VARCHAR"/>
+            <result property="payPwd" column="pay_pwd" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+            <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
+            <result property="bankAddr" column="bank_addr" jdbcType="VARCHAR"/>
+            <result property="creditValue" column="credit_value" jdbcType="INTEGER"/>
+            <result property="levelId" column="level_id" jdbcType="INTEGER"/>
+            <result property="avatarId" column="avatar_id" jdbcType="INTEGER"/>
+            <result property="inviteCode" column="invite_code" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+            <result property="userAgentNode" column="user_agent_node" jdbcType="VARCHAR"/>
+            <result property="userAgentLevel" column="user_agent_level" jdbcType="INTEGER"/>
+            <result property="registerTime" column="register_time" jdbcType="TIMESTAMP"/>
+            <result property="registerIp" column="register_ip" jdbcType="VARCHAR"/>
+            <result property="lastTime" column="last_time" jdbcType="TIMESTAMP"/>
+            <result property="lastIp" column="last_ip" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="remake" column="remake" jdbcType="VARCHAR"/>
+            <result property="updateOrder" column="update_order" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_name,nick_name,
+        balance,freeze_balance,login_pwd,
+        pay_pwd,status,real_name,
+        phone,bank_name,bank_no,
+        bank_addr,credit_value,level_id,
+        avatar_id,invite_code,user_agent,
+        user_agent_node,user_agent_level,register_time,
+        register_ip,last_time,last_ip,
+        create_time,create_by,update_time,
+        update_by,remake,update_order
+    </sql>
+</mapper>

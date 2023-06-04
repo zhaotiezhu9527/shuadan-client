@@ -77,7 +77,6 @@ $uni-font-size-paragraph: 15px;
 
 view,
 text {
-  font-size: 28rpx;
   box-sizing: border-box;
   color: #333;
 }
@@ -95,4 +94,7 @@ text {
   color: #999;
   font-size: 28rpx;
   padding: 20rpx 0;
+}
+.box-right{
+  margin-left: auto;
 }
