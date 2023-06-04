@@ -1,5 +1,6 @@
 package com.juhai.commons.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.juhai.commons.entity.User;
 import com.juhai.commons.service.UserService;
@@ -15,6 +16,10 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
 
+    @Override
+    public User getUserByName(String userName) {
+        return getOne(new LambdaQueryWrapper<User>().eq(User::getUserName, userName));
+    }
 }
 
 
