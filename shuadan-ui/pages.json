@@ -4,9 +4,6 @@
   },
   "pages": [
     {
-      "path": "pages/index"
-    },
-    {
       "path": "pages/user"
     },
     {
@@ -41,6 +38,18 @@
     },
     {
       "path": "pages/accountDetails"
+    },
+    {
+      "path": "pages/index"
+    },
+    {
+      "path": "pages/richtext"
+    },
+    {
+      "path": "pages/login"
+    },
+    {
+      "path": "pages/register"
     }
     
   ],

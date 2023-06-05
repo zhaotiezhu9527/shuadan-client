@@ -4,6 +4,15 @@ const home = [
     aliasPath: "/",
   },
   {
+    path: "/pages/login",
+  },
+  {
+    path: "/pages/register",
+  },
+  {
+    path: "/pages/richtext",
+  },
+  {
     path: "/pages/user",
   },
   {

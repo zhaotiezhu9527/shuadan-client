@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.ParamterMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.Paramter">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="paramName" column="param_name" jdbcType="VARCHAR"/>
+            <result property="paramKey" column="param_key" jdbcType="VARCHAR"/>
+            <result property="paramValue" column="param_value" jdbcType="VARCHAR"/>
+            <result property="isShow" column="is_show" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,param_name,param_key,
+        param_value,is_show
+    </sql>
+</mapper>
