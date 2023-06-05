@@ -30,5 +30,15 @@ const home = [
   {
     path: "/pages/message",
   },
+  {
+    path: "/pages/withdrawalRecords",
+  },
+  {
+    path: "/pages/rechargeRecord",
+  },
+  {
+    path: "/pages/accountDetails",
+  },
+  
 ];
 export default home;

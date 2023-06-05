@@ -32,7 +32,17 @@
     },
     {
       "path": "pages/message"
+    },
+    {
+      "path": "pages/withdrawalRecords"
+    },
+    {
+      "path": "pages/rechargeRecord"
+    },
+    {
+      "path": "pages/accountDetails"
     }
+    
   ],
   "globalStyle": {
     "navigationStyle": "custom"

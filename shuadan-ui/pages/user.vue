@@ -74,17 +74,17 @@ export default {
         {
           label:'账户明细',
           icon: 'list.png',
-          url:'/pages/set'
+          url:'/pages/accountDetails'
         },
         {
           label:'充值记录',
           icon: 'recharge.png',
-          url:'/pages/set'
+          url:'/pages/rechargeRecord'
         },
         {
           label:'提现记录',
           icon: 'withdrawal.png',
-          url:'/pages/set'
+          url:'/pages/withdrawalRecords'
         },
         {
           label:'邀请好友',
