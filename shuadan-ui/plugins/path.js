@@ -4,6 +4,12 @@ const home = [
     aliasPath: "/",
   },
   {
+    path: "/pages/vip",
+  },
+  {
+    path: "/pages/service",
+  },
+  {
     path: "/pages/login",
   },
   {
@@ -14,6 +20,9 @@ const home = [
   },
   {
     path: "/pages/user",
+  },
+  {
+    path: "/pages/order",
   },
   {
     path: "/pages/set",
@@ -48,6 +57,5 @@ const home = [
   {
     path: "/pages/accountDetails",
   },
-  
 ];
 export default home;

@@ -24,6 +24,7 @@
             placeholder="请输入您的中文昵称"
             border="surround"
             placeholderClass="placeholder"
+            v-model="userName"
           ></u-input>
         </view>
         <view class="input">
@@ -33,6 +34,7 @@
             placeholder="请输入字母加数字"
             border="surround"
             placeholderClass="placeholder"
+            v-model="userPhone"
           ></u-input>
         </view>
         <view class="input">
@@ -42,8 +44,10 @@
             placeholder="请输入密码"
             border="surround"
             placeholderClass="placeholder"
+            v-model="password"
+            :password="passicon1"
           >
-            <view slot="suffix">
+            <view slot="suffix" @click="pwdChange">
               <u-icon
                 v-if="passicon1"
                 name="eye"
@@ -61,8 +65,10 @@
             placeholder="请输入交易密码"
             border="surround"
             placeholderClass="placeholder"
+            v-model="payPwd"
+            :password="passicon2"
           >
-            <view slot="suffix">
+            <view slot="suffix" @click="payPwdChange">
               <u-icon
                 v-if="passicon2"
                 name="eye"
@@ -80,6 +86,7 @@
             placeholder="请输入推荐码"
             border="surround"
             placeholderClass="placeholder"
+            v-model="inviteCode"
           ></u-input>
         </view>
         <view class="other">
@@ -100,6 +107,8 @@
             color="#ec0022"
             text="注册"
             hairline
+            :loading="loading"
+            @click="login"
           ></u-button>
           <u-button
             @click="roeute"
@@ -121,8 +130,14 @@ export default {
   data() {
     return {
       radio: "1",
-      passicon1: false,
-      passicon2: false,
+      passicon1: true,
+      passicon2: true,
+      userName: "", //昵称
+      password: "", // 密码
+      userPhone: "", //账号
+      loading: false,
+      payPwd: "", //交易密码
+      inviteCode: "", //推荐码id
     };
   },
   async onLoad() {
@@ -130,6 +145,48 @@ export default {
   },
   onShow() {},
   methods: {
+    pwdChange() {
+      this.passicon1 = !this.passicon1;
+    },
+    payPwdChange() {
+      this.passicon2 = !this.passicon2;
+    },
+    login() {
+      let en = /^(?=.*[a-zA-Z])(?=.*\d).+$/;
+      let cn =
+        /^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$/;
+      if (!cn.test(this.userName) || this.userName.length < 2) {
+        return this.$base.show("请输入中文昵称且长度大于2~");
+      } else if (!en.test(this.userPhone) || this.userPhone.length < 6) {
+        return this.$base.show("请输入账号且长度大于6~");
+      } else if (!this.password || this.password.length < 6) {
+        return this.$base.show("请输入密码且长度大于6~");
+      } else if (!this.payPwd || this.payPwd.length < 6) {
+        return this.$base.show("请输入交易密码且长度大于6~");
+      } else if (!this.inviteCode || this.inviteCode.length < 6) {
+        return this.$base.show("请输入推荐码ID且长度大于6~");
+      }
+      const DATA_OBJ = {
+        //...
+      };
+      this.loading = true;
+      this.$api
+        .user_register(DATA_OBJ)
+        .then((res) => {
+          if (res.data.code == 0) {
+            uni.setStorage({
+              key: "token",
+              data: res.data.token,
+              success: function () {
+                uni.navigateTo({ url: "/pages/user" });
+              },
+            });
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
     roeute() {
       uni.redirectTo({
         url: "/pages/login",

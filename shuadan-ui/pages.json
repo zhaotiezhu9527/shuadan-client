@@ -40,18 +40,26 @@
       "path": "pages/accountDetails"
     },
     {
-      "path": "pages/index"
+      "path": "pages/richtext"
     },
     {
-      "path": "pages/richtext"
+      "path": "pages/register"
     },
     {
       "path": "pages/login"
     },
     {
-      "path": "pages/register"
+      "path": "pages/order"
+    },
+    {
+      "path": "pages/service"
+    },
+    {
+      "path": "pages/index"
+    },
+    {
+      "path": "pages/vip"
     }
-    
   ],
   "globalStyle": {
     "navigationStyle": "custom"

@@ -10,6 +10,7 @@
           border="bottom"
           placeholder="请输入账户"
           placeholderClass="placeholder"
+          v-model="userName"
         >
           <view class="icon" slot="prefix">
             <image mode="widthFix" src="@/static/img/icon01.png" />
@@ -21,11 +22,13 @@
           border="bottom"
           placeholder="请输入密码"
           placeholderClass="placeholder"
+          :password="passicon1"
+          v-model="loginPwd"
         >
           <view class="icon" slot="prefix">
             <image mode="widthFix" src="@/static/img/icon02.png" />
           </view>
-          <view slot="suffix">
+          <view slot="suffix" @click="pwdChange">
             <u-icon
               v-if="passicon1"
               name="eye"
@@ -36,7 +39,13 @@
           </view>
         </u-input>
       </view>
-      <u-button class="button" text="登录" color="#2f3848"></u-button>
+      <u-button
+        class="button"
+        @click="login"
+        text="登录"
+        color="#2f3848"
+        :loading="loading"
+      ></u-button>
       <view class="other">
         <view>忘记密码</view>
         <view @click="roeute">免费注册</view>
@@ -51,7 +60,10 @@ import service from "@/components/service";
 export default {
   data() {
     return {
-      passicon1: false,
+      passicon1: true,
+      loginPwd: "",
+      userName: "",
+      loading: false,
     };
   },
   async onLoad() {
@@ -59,6 +71,36 @@ export default {
   },
   onShow() {},
   methods: {
+    pwdChange() {
+      this.passicon1 = !this.passicon1;
+    },
+    login() {
+      if (!this.userName) {
+        return this.$base.show("请输入登录账号~");
+      } else if (!this.loginPwd) {
+        return this.$base.show("请输入登录密码~");
+      }
+      this.loading = true;
+      this.$api
+        .user_login({
+          userName: this.userName,
+          loginPwd: this.loginPwd,
+        })
+        .then((res) => {
+          if (res.data.code == 0) {
+            uni.setStorage({
+              key: "token",
+              data: res.data.token,
+              success: function () {
+                uni.navigateTo({ url: "/pages/user" });
+              },
+            });
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
     roeute() {
       uni.navigateTo({
         url: "/pages/register",
