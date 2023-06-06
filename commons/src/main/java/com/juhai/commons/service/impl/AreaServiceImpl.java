@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.juhai.commons.entity.Area;
 import com.juhai.commons.service.AreaService;
 import com.juhai.commons.mapper.AreaMapper;
+import icu.mhb.mybatisplus.plugln.base.service.impl.JoinServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 * @createDate 2023-06-04 19:23:17
 */
 @Service
-public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
+public class AreaServiceImpl extends JoinServiceImpl<AreaMapper, Area>
     implements AreaService{
 
 }

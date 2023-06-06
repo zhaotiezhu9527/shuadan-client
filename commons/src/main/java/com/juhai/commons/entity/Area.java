@@ -83,4 +83,6 @@ public class Area implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+    @TableField(exist = false)
+    private Level level;
 }

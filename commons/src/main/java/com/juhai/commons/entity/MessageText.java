@@ -28,6 +28,12 @@ public class MessageText implements Serializable {
     private String code;
 
     /**
+     * 标题
+     */
+    @TableField(value = "title")
+    private String title;
+
+    /**
      * 内容
      */
     @TableField(value = "content")

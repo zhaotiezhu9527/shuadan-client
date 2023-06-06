@@ -1,8 +1,11 @@
 package com.juhai.api.controller;
 
 import cn.hutool.core.collection.CollStreamUtil;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.juhai.commons.entity.MessageText;
 import com.juhai.commons.entity.Paramter;
+import com.juhai.commons.service.MessageTextService;
 import com.juhai.commons.service.ParamterService;
 import com.juhai.commons.utils.R;
 import io.swagger.annotations.Api;
@@ -26,12 +29,23 @@ public class SiteConfigController {
     @Autowired
     private ParamterService paramterService;
 
+    @Autowired
+    private MessageTextService messageTextService;
+
     @ApiOperation(value = "获取系统配置")
     @GetMapping("/config")
     public R config(HttpServletRequest httpServletRequest) {
-        List<Paramter> list = paramterService.list(new LambdaQueryWrapper<Paramter>().eq(Paramter::getIsShow, 0));
-        Map<String, Object> map = CollStreamUtil.toMap(list, Paramter::getParamKey, Paramter::getParamValue);
+        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
+        Map<String, MessageText> allMessageMap = messageTextService.getAllMessageMap();
 
-        return R.ok().put("data", map);
+        JSONObject obj = new JSONObject();
+        // 在线客服
+        obj.put("onlineService", allParamByMap.get("online_service"));
+        // 首页弹窗
+        obj.put("homeMsg", allMessageMap.get("home_msg").getContent());
+        // 首页轮播
+        obj.put("homeNotice", allMessageMap.get("home_notice").getContent());
+
+        return R.ok().put("data", obj);
     }
 }
