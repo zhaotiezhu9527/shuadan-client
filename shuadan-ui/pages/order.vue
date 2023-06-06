@@ -6,7 +6,7 @@
         <view>2532.36</view>
       </view>
       <view class="sub_title">
-        <view>如遇到问题需要帮助请联系在线客服</view>
+        <view>本数据由全民任务官方提供</view>
         <view>剩余可用资产(元)</view>
       </view>
       <view class="tabs">
@@ -56,6 +56,9 @@
               <view class="li">
                 <text>预计返还</text>
                 <text class="moeny">¥ 1969.00</text>
+              </view>
+              <view class="li">
+                <view class="submit">提交订单</view>
               </view>
             </view>
             <image
@@ -224,8 +227,19 @@ export default {
       align-items: center;
       padding-bottom: 30rpx;
       &:nth-child(3) {
-        padding-bottom: 0;
+        padding-bottom: 10rpx;
       }
+      &:nth-child(4) {
+        padding-bottom: 10rpx;
+      }
+    }
+    .submit {
+      background: #ff575c;
+      color: #fff;
+      font-size: 20rpx;
+      text-align: center;
+      padding: 6rpx 20rpx;
+      border-radius: 10rpx;
     }
     text {
       font-size: 28rpx;

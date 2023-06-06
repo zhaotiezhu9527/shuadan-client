@@ -4,34 +4,16 @@
   },
   "pages": [
     {
-      "path": "pages/task"
+      "path": "pages/order"
     },
     {
       "path": "pages/index"
     },
     {
-      "path": "pages/user"
+      "path": "pages/recharge"
     },
     {
-      "path": "pages/vip"
-    },
-    {
-      "path": "pages/set"
-    },
-    {
-      "path": "pages/headimg"
-    },
-    {
-      "path": "pages/realName"
-    },
-    {
-      "path": "pages/bindBank"
-    },
-    {
-      "path": "pages/password"
-    },
-    {
-      "path": "pages/payPassword"
+      "path": "pages/rechargeRecord"
     },
     {
       "path": "pages/deposit"
@@ -49,6 +31,30 @@
       "path": "pages/accountDetails"
     },
     {
+      "path": "pages/realName"
+    },
+    {
+      "path": "pages/headimg"
+    },
+    {
+      "path": "pages/user"
+    },
+    {
+      "path": "pages/vip"
+    },
+    {
+      "path": "pages/set"
+    },
+    {
+      "path": "pages/bindBank"
+    },
+    {
+      "path": "pages/password"
+    },
+    {
+      "path": "pages/payPassword"
+    },
+    {
       "path": "pages/richtext"
     },
     {
@@ -56,9 +62,6 @@
     },
     {
       "path": "pages/login"
-    },
-    {
-      "path": "pages/order"
     },
     {
       "path": "pages/service"
