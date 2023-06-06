@@ -23,4 +23,4 @@ login:
       - /system/config
 #token失效时间
 token:
-  expire: 15
+  expire: 15000

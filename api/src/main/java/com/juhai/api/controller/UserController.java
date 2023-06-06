@@ -1,27 +1,27 @@
 package com.juhai.api.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.DesensitizedUtil;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.servlet.ServletUtil;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.juhai.api.controller.request.LoginRequest;
-import com.juhai.api.controller.request.UserRegisterRequest;
-import com.juhai.api.utils.DataDesensitizeUtils;
+import com.juhai.api.controller.request.*;
 import com.juhai.api.utils.JwtUtils;
+import com.juhai.commons.constants.Constant;
 import com.juhai.commons.entity.*;
 import com.juhai.commons.service.*;
 import com.juhai.commons.utils.MsgUtil;
+import com.juhai.commons.utils.PageUtils;
 import com.juhai.commons.utils.R;
 import com.juhai.commons.utils.RedisKeyUtil;
 import icu.mhb.mybatisplus.plugln.core.JoinLambdaWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -66,6 +65,9 @@ public class UserController {
 
     @Autowired
     private LevelService levelService;
+
+    @Autowired
+    private AccountService accountService;
 
     @ApiOperation(value = "注册")
     @PostMapping("/register")
@@ -220,6 +222,14 @@ public class UserController {
         return R.ok().put("token", token);
     }
 
+    @ApiOperation(value = "退出登录")
+    @PostMapping("/logout")
+    public R logout(HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+        redisTemplate.delete(RedisKeyUtil.UserTokenKey(userName));
+        return R.ok();
+    }
+
     @ApiOperation(value = "用户信息")
     @GetMapping("/info")
     public R info(HttpServletRequest httpServletRequest) {
@@ -237,9 +247,9 @@ public class UserController {
         temp.put("balance", user.getBalance());
         temp.put("freezeBalance", user.getFreezeBalance());
         temp.put("realName", user.getRealName());
-        temp.put("phone", user.getPhone());
+        temp.put("phone", DesensitizedUtil.mobilePhone(user.getPhone()));
         temp.put("bankName", user.getBankName());
-        temp.put("bankNo", user.getBankNo());
+        temp.put("bankNo", DesensitizedUtil.bankCard(user.getBankNo()));
         temp.put("bankAddr", user.getBankAddr());
         temp.put("creditValue", user.getCreditValue());
         temp.put("inviteCode", user.getInviteCode());
@@ -256,5 +266,118 @@ public class UserController {
         temp.put("avatarUrl", avatar == null ? "" : resourceDomain + avatar.getImgUrl());
 
         return R.ok().put("data", temp);
+    }
+
+
+    @ApiOperation(value = "用户修改昵称")
+    @PostMapping("/update/nickName")
+    public R bindUsdt(@Validated UpdNickNameRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getNickName, request.getNickName())
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
+    }
+
+    @ApiOperation(value = "修改用户密码")
+    @PostMapping("/updatePwd")
+    public R updatePwd(@Validated UpdatePwdRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+
+        String oldPwd = SecureUtil.md5(request.getOldPwd());
+        if (!StringUtils.equals(oldPwd, user.getLoginPwd())) {
+            return R.error(MsgUtil.get("system.user.oldpwderror"));
+        }
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getLoginPwd, SecureUtil.md5(request.getNewPwd()))
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
+    }
+
+    @ApiOperation(value = "修改用户支付密码")
+    @PostMapping("/updatePayPwd")
+    public R updatePayPwd(@Validated UpdatePwdRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+
+        String oldPwd = SecureUtil.md5(request.getOldPwd());
+        if (!StringUtils.equals(oldPwd, user.getPayPwd())) {
+            return R.error(MsgUtil.get("system.user.oldpwderror"));
+        }
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getPayPwd, SecureUtil.md5(request.getNewPwd()))
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
+    }
+
+    @ApiOperation(value = "用户绑定银行卡")
+    @PostMapping("/bindBank")
+    public R bindBank(@Validated BindBankRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+        if (StringUtils.isNotBlank(user.getBankNo())) {
+            return R.error(MsgUtil.get("system.user.bindbank"));
+        }
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getBankName, request.getBankName())
+                        .set(User::getBankNo, request.getCardNo())
+                        .set(User::getBankAddr, request.getAddr())
+                        .set(User::getRealName, request.getRealName())
+                        .set(User::getPhone, request.getPhone())
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
+    }
+
+    @ApiOperation(value = "用户资金流动列表")
+    @GetMapping("/account/list")
+    public R accountList(PageBaseRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(Constant.PAGE, request.getPage());
+        params.put(Constant.LIMIT, request.getLimit());
+        params.put("userName", userName);
+
+        PageUtils page = accountService.queryPage(params);
+        List<Account> list = (List<Account>) page.getList();
+        if (CollUtil.isNotEmpty(list)) {
+            Map<Integer, String> typeMap = new HashMap<>();
+            typeMap.put(1, "用户充值");
+            typeMap.put(2, "用户提现");
+            typeMap.put(3, "用户接单");
+            typeMap.put(4, "接单返佣");
+            typeMap.put(5, "下级返佣");
+            JSONArray arr = new JSONArray();
+            for (Account temp : list) {
+                JSONObject obj = new JSONObject();
+                obj.put("amount", temp.getOptAmount());
+                obj.put("optTime", temp.getOptTime());
+                obj.put("optType", temp.getOptType());
+                obj.put("optTypeStr", typeMap.getOrDefault(temp.getOptType(), "未知"));
+                arr.add(obj);
+            }
+            page.setList(arr);
+        }
+        return R.ok().put("page", page);
     }
 }
