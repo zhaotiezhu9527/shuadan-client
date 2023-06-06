@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.juhai.commons.entity.User;
 import com.juhai.commons.service.UserService;
 import com.juhai.commons.mapper.UserMapper;
+import icu.mhb.mybatisplus.plugln.base.service.impl.JoinServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 * @createDate 2023-06-04 19:23:47
 */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+public class UserServiceImpl extends JoinServiceImpl<UserMapper, User>
     implements UserService{
 
     @Override

@@ -8,11 +8,16 @@
 
 package com.juhai.api.config;
 
+import com.baomidou.mybatisplus.core.injector.AbstractMethod;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import icu.mhb.mybatisplus.plugln.injector.JoinDefaultSqlInjector;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * mybatis-plus配置
@@ -21,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @MapperScan({"com.juhai.commons.mapper"})
-public class MybatisPlusConfig {
+public class MybatisPlusConfig extends JoinDefaultSqlInjector {
 
     /**
      * 分页插件
@@ -31,5 +36,10 @@ public class MybatisPlusConfig {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         return interceptor;
+    }
+
+    @Override
+    public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
+        return super.getMethodList(mapperClass, tableInfo);
     }
 }

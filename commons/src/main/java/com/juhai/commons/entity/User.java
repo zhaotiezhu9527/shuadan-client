@@ -198,4 +198,10 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+
+    @TableField(exist = false)
+    private Level level;
+    @TableField(exist = false)
+    private Avatar avatar;
 }

@@ -1,24 +1,24 @@
 package com.juhai.api.controller;
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.DesensitizedUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.servlet.ServletUtil;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.controller.request.LoginRequest;
 import com.juhai.api.controller.request.UserRegisterRequest;
+import com.juhai.api.utils.DataDesensitizeUtils;
 import com.juhai.api.utils.JwtUtils;
-import com.juhai.commons.entity.Avatar;
-import com.juhai.commons.entity.User;
-import com.juhai.commons.entity.UserLog;
-import com.juhai.commons.service.AvatarService;
-import com.juhai.commons.service.ParamterService;
-import com.juhai.commons.service.UserLogService;
-import com.juhai.commons.service.UserService;
+import com.juhai.commons.entity.*;
+import com.juhai.commons.service.*;
 import com.juhai.commons.utils.MsgUtil;
 import com.juhai.commons.utils.R;
 import com.juhai.commons.utils.RedisKeyUtil;
+import icu.mhb.mybatisplus.plugln.core.JoinLambdaWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -62,6 +63,9 @@ public class UserController {
 
     @Autowired
     private AvatarService avatarService;
+
+    @Autowired
+    private LevelService levelService;
 
     @ApiOperation(value = "注册")
     @PostMapping("/register")
@@ -214,5 +218,43 @@ public class UserController {
         /** 删除密码输入错误次数 **/
         redisTemplate.delete(incKey);
         return R.ok().put("token", token);
+    }
+
+    @ApiOperation(value = "用户信息")
+    @GetMapping("/info")
+    public R info(HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
+        wrapper.eq(User::getUserName, userName);
+        wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
+        wrapper.leftJoin(Avatar.class, Avatar::getId, User::getAvatarId).oneToOneSelect(User::getAvatar, Avatar.class).end();
+        JSONObject temp = new JSONObject();
+        User user = userService.joinGetOne(wrapper, User.class);
+
+        temp.put("userName", user.getUserName());
+        temp.put("nickName", user.getNickName());
+        temp.put("balance", user.getBalance());
+        temp.put("freezeBalance", user.getFreezeBalance());
+        temp.put("realName", user.getRealName());
+        temp.put("phone", user.getPhone());
+        temp.put("bankName", user.getBankName());
+        temp.put("bankNo", user.getBankNo());
+        temp.put("bankAddr", user.getBankAddr());
+        temp.put("creditValue", user.getCreditValue());
+        temp.put("inviteCode", user.getInviteCode());
+
+        Map<String, String> params = paramterService.getAllParamByMap();
+        String resourceDomain = params.get("resource_domain");
+        // 等级信息
+        Level level = user.getLevel();
+        temp.put("levelName", level == null ? "" : level.getLevelName());
+        temp.put("levelIcon", level == null ? "" : resourceDomain + level.getLevelIcon());
+
+        // 头像
+        Avatar avatar = user.getAvatar();
+        temp.put("avatarUrl", avatar == null ? "" : resourceDomain + avatar.getImgUrl());
+
+        return R.ok().put("data", temp);
     }
 }

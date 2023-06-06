@@ -59,12 +59,6 @@ public class Level implements Serializable {
     private BigDecimal commissionRate;
 
     /**
-     * 专区最小余额
-     */
-    @TableField(value = "area_balance")
-    private BigDecimal areaBalance;
-
-    /**
      * 每日提现次数
      */
     @TableField(value = "day_withdraw_count")
