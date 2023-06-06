@@ -287,6 +287,24 @@ public class UserController {
         return R.ok().put("data", temp);
     }
 
+    @ApiOperation(value = "用户收益详情")
+    @GetMapping("/income/detail")
+    public R incomeDetail(HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+
+        JSONObject temp = new JSONObject();
+        temp.put("balance", user.getBalance());
+        temp.put("yesterdayIncome", 0);
+        temp.put("todayIncome", 0);
+        temp.put("freezeBalance", user.getFreezeBalance());
+        temp.put("todayOrderCount", 0);
+        temp.put("yesterdayTeamIncome", 0);
+        temp.put("totalIncome", 0);
+
+        return R.ok().put("data", temp);
+    }
 
     @ApiOperation(value = "用户修改昵称")
     @PostMapping("/update/nickName")

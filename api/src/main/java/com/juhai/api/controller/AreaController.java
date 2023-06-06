@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,9 +34,6 @@ public class AreaController {
     private ParamterService paramterService;
 
     @Autowired
-    private MessageTextService messageTextService;
-
-    @Autowired
     private AreaService areaService;
 
     @Autowired
@@ -43,7 +41,7 @@ public class AreaController {
 
     @ApiOperation(value = "获取专区列表")
     @GetMapping("/list")
-    public R config(HttpServletRequest httpServletRequest) {
+    public R list(HttpServletRequest httpServletRequest) {
         String userName = JwtUtils.getUserName(httpServletRequest);
 
         // 用户信息
@@ -82,5 +80,32 @@ public class AreaController {
         }
 
         return R.ok().put("data", array);
+    }
+
+    @ApiOperation(value = "根据ID获取专区详情")
+    @GetMapping("/detail/{id}")
+    public R detail(HttpServletRequest httpServletRequest, @PathVariable(value = "id") String id) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        // 区域信息
+        JoinLambdaWrapper<Area> areaWrapper = new JoinLambdaWrapper<>(Area.class);
+        areaWrapper.eq(Area::getStatus, 0);
+        areaWrapper.eq(Area::getId, id);
+        areaWrapper.leftJoin(Level.class,Level::getId,Area::getLevelId).oneToOneSelect(Area::getLevel, Level.class).end();
+        areaWrapper.orderByDesc(Area::getPxh);
+        Area area = areaService.joinGetOne(areaWrapper, Area.class);
+
+        Map<String, String> params = paramterService.getAllParamByMap();
+        String resourceDomain = params.get("resource_domain");
+
+        JSONObject object = new JSONObject();
+        object.put("areaImg", resourceDomain + area.getAreaIcon());
+        object.put("areaName", area.getAreaName());
+        object.put("areaId", area.getId());
+        object.put("remark", area.getRemark());
+        object.put("levelImg", resourceDomain + area.getLevel().getLevelIcon());
+        object.put("commission", area.getLevel().getCommissionRate());
+
+        return R.ok().put("data", object);
     }
 }
