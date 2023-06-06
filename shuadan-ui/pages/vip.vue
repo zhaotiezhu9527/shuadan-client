@@ -41,10 +41,15 @@
     <view class="more">左右滑动查看更多</view>
     <u-scroll-list>
       <view class="row">
-        <view class="item"></view>
-        <view class="item"></view>
-        <view class="item"></view>
-        <view class="item"></view>
+        <view class="item" v-for="(item, index) in list" :key="index">
+          <view class="title">白银会员</view>
+          <view class="money">0.00元</view>
+          <view class="txt">提现次数:2/天</view>
+          <view class="txt">提现额度:50000.01</view>
+          <view class="txt">接单数量:70/天</view>
+          <view class="txt">佣金比例:0.0030</view>
+          <view class="txt">会员永久有效</view>
+        </view>
       </view>
     </u-scroll-list>
   </view>
@@ -53,7 +58,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      list: [1, 2, 3, 4],
+    };
   },
   async onLoad() {
     await this.$onLaunched;
@@ -151,5 +158,35 @@ export default {
   color: #d4d2d2;
   font-size: 24rpx;
   padding-top: 60rpx;
+}
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20rpx;
+  padding: 10rpx 30rpx;
+  .item {
+    border: 2rpx #f5f5f5 solid;
+    border-radius: 10rpx;
+    width: 240rpx;
+    text-align: center;
+    padding: 20rpx 0;
+  }
+  view {
+    line-height: 1.4;
+  }
+  .title {
+    color: #a29d9d;
+    font-size: 32rpx;
+  }
+  .money {
+    color: #228aff;
+    font-size: 24rpx;
+  }
+  .txt {
+    font-size: 24rpx;
+  }
+}
+/deep/.u-scroll-list__indicator {
+  display: none;
 }
 </style>

@@ -4,7 +4,16 @@
   },
   "pages": [
     {
+      "path": "pages/task"
+    },
+    {
+      "path": "pages/index"
+    },
+    {
       "path": "pages/user"
+    },
+    {
+      "path": "pages/vip"
     },
     {
       "path": "pages/set"
@@ -53,12 +62,6 @@
     },
     {
       "path": "pages/service"
-    },
-    {
-      "path": "pages/index"
-    },
-    {
-      "path": "pages/vip"
     }
   ],
   "globalStyle": {
