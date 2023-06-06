@@ -39,26 +39,6 @@
                   <option name="modulePath" value="$PROJECT_DIR$/commons" />
                   <option name="packageName" value="mapper" />
                 </ModuleInfoGo>
-                <ModuleInfoGo>
-                  <option name="basePath" value="${domain.basePath}" />
-                  <option name="configFileName" value="serviceImpl.ftl" />
-                  <option name="configName" value="serviceImpl" />
-                  <option name="encoding" value="${domain.encoding}" />
-                  <option name="fileName" value="${domain.fileName}ServiceImpl" />
-                  <option name="fileNameWithSuffix" value="${domain.fileName}ServiceImpl.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$/commons" />
-                  <option name="packageName" value="${domain.basePackage}.service.impl" />
-                </ModuleInfoGo>
-                <ModuleInfoGo>
-                  <option name="basePath" value="${domain.basePath}" />
-                  <option name="configFileName" value="serviceInterface.ftl" />
-                  <option name="configName" value="serviceInterface" />
-                  <option name="encoding" value="${domain.encoding}" />
-                  <option name="fileName" value="${domain.fileName}Service" />
-                  <option name="fileNameWithSuffix" value="${domain.fileName}Service.java" />
-                  <option name="modulePath" value="$PROJECT_DIR$/commons" />
-                  <option name="packageName" value="${domain.basePackage}.service" />
-                </ModuleInfoGo>
               </list>
             </option>
             <option name="needsComment" value="true" />
@@ -68,8 +48,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Avatar" />
-                  <option name="tableName" value="t_avatar" />
+                  <option name="className" value="User" />
+                  <option name="tableName" value="t_user" />
                 </TableUIInfo>
               </list>
             </option>

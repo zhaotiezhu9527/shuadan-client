@@ -35,6 +35,9 @@
             <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
             <result property="remake" column="remake" jdbcType="VARCHAR"/>
             <result property="updateOrder" column="update_order" jdbcType="INTEGER"/>
+            <result property="deposit" column="deposit" jdbcType="DECIMAL"/>
+            <result property="withdraw" column="withdraw" jdbcType="DECIMAL"/>
+            <result property="inviteCount" column="invite_count" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -47,6 +50,7 @@
         user_agent_node,user_agent_level,register_time,
         register_ip,last_time,last_ip,
         create_time,create_by,update_time,
-        update_by,remake,update_order
+        update_by,remake,update_order,
+        deposit,withdraw,invite_count
     </sql>
 </mapper>

@@ -1,8 +1,10 @@
 package com.juhai.api.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.DesensitizedUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.servlet.ServletUtil;
@@ -29,10 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -68,6 +67,15 @@ public class UserController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private DepositService depositService;
+
+    @Autowired
+    private WithdrawService withdrawService;
+
+    @Autowired
+    private OrderService orderService;
 
     @ApiOperation(value = "注册")
     @PostMapping("/register")
@@ -130,7 +138,17 @@ public class UserController {
         user.setUpdateBy(null);
         user.setRemake(null);
         user.setUpdateOrder(1);
+        user.setDeposit(new BigDecimal(0));
+        user.setWithdraw(new BigDecimal(0));
+        user.setInviteCount(0);
         userService.save(user);
+
+        // 上级代理累计邀请人数
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .eq(User::getUserName, agent.getUserName())
+                        .set(User::getInviteCount, agent.getInviteCount() + 1)
+        );
 
         // 登录日志
         UserLog log = new UserLog();
@@ -374,6 +392,194 @@ public class UserController {
                 obj.put("optTime", temp.getOptTime());
                 obj.put("optType", temp.getOptType());
                 obj.put("optTypeStr", typeMap.getOrDefault(temp.getOptType(), "未知"));
+                arr.add(obj);
+            }
+            page.setList(arr);
+        }
+        return R.ok().put("page", page);
+    }
+
+
+    @ApiOperation(value = "用户充值记录列表")
+    @GetMapping("/deposit/list")
+    public R depositList(PageBaseRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(Constant.PAGE, request.getPage());
+        params.put(Constant.LIMIT, request.getLimit());
+        params.put("userName", userName);
+
+        PageUtils page = depositService.queryPage(params);
+        List<Deposit> list = (List<Deposit>) page.getList();
+        if (CollUtil.isNotEmpty(list)) {
+            Map<Integer, String> statusMap = new HashMap<>();
+            statusMap.put(0, "待审核");
+            statusMap.put(1, "审核通过");
+            JSONArray arr = new JSONArray();
+            for (Deposit temp : list) {
+                JSONObject obj = new JSONObject();
+                obj.put("time", temp.getOrderTime());
+                obj.put("status", temp.getStatus());
+                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
+                obj.put("amount", temp.getOptAmount());
+                obj.put("orderNo", temp.getOrderNo());
+                arr.add(obj);
+            }
+            page.setList(arr);
+        }
+        return R.ok().put("page", page);
+    }
+
+
+    @ApiOperation(value = "用户提现记录列表")
+    @GetMapping("/withdraw/list")
+    public R withdrawList(PageBaseRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(Constant.PAGE, request.getPage());
+        params.put(Constant.LIMIT, request.getLimit());
+        params.put("userName", userName);
+
+        PageUtils page = withdrawService.queryPage(params);
+        List<Withdraw> list = (List<Withdraw>) page.getList();
+        if (CollUtil.isNotEmpty(list)) {
+            Map<Integer, String> statusMap = new HashMap<>();
+            statusMap.put(0, "待审核");
+            statusMap.put(1, "审核通过");
+            statusMap.put(2, "拒绝");
+            JSONArray arr = new JSONArray();
+            for (Withdraw temp : list) {
+                JSONObject obj = new JSONObject();
+                obj.put("time", temp.getOrderTime());
+                obj.put("status", temp.getStatus());
+                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
+                obj.put("amount", temp.getOptAmount());
+                obj.put("orderNo", temp.getOrderNo());
+                arr.add(obj);
+            }
+            page.setList(arr);
+        }
+        return R.ok().put("page", page);
+    }
+
+
+    @ApiOperation(value = "根据层级获取用户团队成员")
+    @GetMapping("/team/{level}")
+    public R teamList(HttpServletRequest httpServletRequest, @PathVariable(value = "level") Integer level) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+        List<User> teams = userService.list(
+                new LambdaQueryWrapper<User>()
+                        .eq(User::getUserAgentLevel, user.getUserAgentLevel() + level)
+                        .like(User::getUserAgentNode, "|" + userName + "|")
+                        .orderByDesc(User::getDeposit, User::getRegisterTime)
+        );
+        JSONArray array = new JSONArray();
+        for (User temp : teams) {
+            JSONObject obj = new JSONObject();
+            obj.put("nickName", temp.getNickName());
+            obj.put("phone", DesensitizedUtil.mobilePhone(temp.getPhone()));
+            obj.put("deposit", temp.getDeposit());
+            obj.put("withdraw", temp.getWithdraw());
+            obj.put("inviteCount", temp.getInviteCount());
+            obj.put("registerTime", temp.getRegisterTime());
+            array.add(obj);
+        }
+        return R.ok().put("data", array);
+    }
+
+    @ApiOperation(value = "团队报表")
+    @GetMapping("/teamReport")
+    public R teamReport(HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+        User user = userService.getUserByName(userName);
+
+        JSONObject obj = new JSONObject();
+        obj.put("teamAccount", RandomUtil.randomInt(0, 99999));
+        obj.put("teamCommission", RandomUtil.randomInt(0, 99999));
+
+        // 团队人数
+        List<User> teams = userService.list(
+                new LambdaQueryWrapper<User>()
+                        .select(User::getUserName, User::getBalance, User::getDeposit, User::getWithdraw)
+                        .like(User::getUserAgentNode, "|" + userName + "|")
+                        .gt(User::getUserAgentLevel, user.getUserAgentLevel())
+        );
+        // 团队余额
+        BigDecimal teamBalance = new BigDecimal(0);
+        BigDecimal teamDeposit = new BigDecimal(0);
+        BigDecimal teamWithdraw = new BigDecimal(0);
+        Set<String> depositUserSets = new HashSet<>();
+        for (User temp : teams) {
+            teamBalance = NumberUtil.add(teamBalance, temp.getBalance());
+            teamDeposit = NumberUtil.add(teamDeposit, temp.getDeposit());
+            teamWithdraw = NumberUtil.add(teamWithdraw, temp.getWithdraw());
+            if (temp.getDeposit().doubleValue() > 0) {
+                depositUserSets.add(temp.getUserName());
+            }
+        }
+        obj.put("teamMemberCount", teams.size());
+        obj.put("teamBalance", teamBalance);
+        obj.put("teamDeposit", teamDeposit);
+        obj.put("teamWithdraw", teamWithdraw);
+        obj.put("depositCount", depositUserSets.size());
+        // 今日注册
+        Date now = new Date();
+        long newRegisterCount = userService.count(
+                new LambdaQueryWrapper<User>()
+                        .between(User::getRegisterTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
+                        .like(User::getUserAgentNode, "|" + userName + "|")
+                        .gt(User::getUserAgentLevel, user.getUserAgentLevel())
+        );
+        obj.put("newRegisterCount", newRegisterCount);
+        // 活动人数
+        obj.put("activeCount", 0);
+        return R.ok().put("data", obj);
+    }
+
+    @ApiOperation(value = "用户订单列表")
+    @GetMapping("/order/list")
+    public R orderList(OrderListRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(Constant.PAGE, request.getPage());
+        params.put(Constant.LIMIT, request.getLimit());
+        params.put("userName", userName);
+        params.put("status", request.getStatus());
+
+        PageUtils page = orderService.queryPage(params);
+        List<Order> list = (List<Order>) page.getList();
+        if (CollUtil.isNotEmpty(list)) {
+            Map<String, String> paramsMap = paramterService.getAllParamByMap();
+            String resourceDomain = paramsMap.get("resource_domain");
+
+            Map<Integer, String> statusMap = new HashMap<>();
+            statusMap.put(0, "待处理");
+            statusMap.put(1, "已完成");
+            statusMap.put(2, "冻结中");
+
+            JSONArray arr = new JSONArray();
+            for (Order temp : list) {
+                JSONObject obj = new JSONObject();
+                obj.put("orderTime", temp.getOrderTime());
+                obj.put("orderNo", temp.getOrderNo());
+                obj.put("dayOrderCount", temp.getCountNum());
+                obj.put("status", temp.getStatus());
+                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
+                obj.put("orderAmount", temp.getOrderAmount());
+                BigDecimal commissionRate = NumberUtil.div(temp.getCommissionRate(), 100);
+                BigDecimal commission = NumberUtil.mul(temp.getOrderAmount(), commissionRate);
+                obj.put("commission", commission.stripTrailingZeros());
+                obj.put("returnAmount", NumberUtil.add(temp.getOrderAmount(), commission).stripTrailingZeros());
+                obj.put("goodsCount", temp.getGoodsCount());
+                obj.put("goodsPrice", temp.getGoodsPrice());
+                Goods goods = temp.getGoods();
+                obj.put("goodsName", goods == null ? "" : goods.getGoodsName());
+                obj.put("goodsImg", goods == null ? "" : resourceDomain + goods.getGoodsImg());
                 arr.add(obj);
             }
             page.setList(arr);

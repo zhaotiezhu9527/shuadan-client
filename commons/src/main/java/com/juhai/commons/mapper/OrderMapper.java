@@ -2,6 +2,7 @@ package com.juhai.commons.mapper;
 
 import com.juhai.commons.entity.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import icu.mhb.mybatisplus.plugln.base.mapper.JoinBaseMapper;
 
 /**
 * @author Administrator
@@ -9,7 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-06-04 19:23:37
 * @Entity com.juhai.commons.entity.Order
 */
-public interface OrderMapper extends BaseMapper<Order> {
+public interface OrderMapper extends JoinBaseMapper<Order> {
 
 }
 

@@ -196,12 +196,30 @@ public class User implements Serializable {
     @TableField(value = "update_order")
     private Integer updateOrder;
 
+    /**
+     * 总充值
+     */
+    @TableField(value = "deposit")
+    private BigDecimal deposit;
+
+    /**
+     * 总提现
+     */
+    @TableField(value = "withdraw")
+    private BigDecimal withdraw;
+
+    /**
+     * 推荐人数
+     */
+    @TableField(value = "invite_count")
+    private Integer inviteCount;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
+    @TableField(exist = false)
+    private Avatar avatar;
 
     @TableField(exist = false)
     private Level level;
-    @TableField(exist = false)
-    private Avatar avatar;
 }
