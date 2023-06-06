@@ -2,6 +2,9 @@ package com.juhai.commons.mapper;
 
 import com.juhai.commons.entity.User;
 import icu.mhb.mybatisplus.plugln.base.mapper.JoinBaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.math.BigDecimal;
 
 /**
 * @author Administrator
@@ -10,6 +13,14 @@ import icu.mhb.mybatisplus.plugln.base.mapper.JoinBaseMapper;
 * @Entity com.juhai.commons.entity.User
 */
 public interface UserMapper extends JoinBaseMapper<User> {
+
+    /**
+     * 修改用户余额
+     * @param userName
+     * @param balance
+     * @return
+     */
+    int updateUserBalance(@Param("userName") String userName, @Param("balance") BigDecimal balance);
 
 }
 

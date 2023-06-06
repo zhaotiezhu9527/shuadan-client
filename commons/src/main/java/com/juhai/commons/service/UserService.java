@@ -4,6 +4,8 @@ import com.juhai.commons.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import icu.mhb.mybatisplus.plugln.base.service.JoinIService;
 
+import java.math.BigDecimal;
+
 /**
 * @author Administrator
 * @description 针对表【t_user】的数据库操作Service
@@ -12,5 +14,7 @@ import icu.mhb.mybatisplus.plugln.base.service.JoinIService;
 public interface UserService extends JoinIService<User> {
 
     User getUserByName(String userName);
+
+    void updateUserBalance(String userName, BigDecimal balance) throws Exception;
 
 }

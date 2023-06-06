@@ -1,11 +1,10 @@
 package com.juhai.api.controller;
+import java.util.Date;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.DesensitizedUtil;
-import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.*;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson2.JSONArray;
@@ -30,6 +29,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -278,6 +278,7 @@ public class UserController {
         Level level = user.getLevel();
         temp.put("levelName", level == null ? "" : level.getLevelName());
         temp.put("levelIcon", level == null ? "" : resourceDomain + level.getLevelIcon());
+        temp.put("withdrawFee", level == null ? 0 : level.getWithdrawFee());
 
         // 头像
         Avatar avatar = user.getAvatar();
@@ -585,5 +586,127 @@ public class UserController {
             page.setList(arr);
         }
         return R.ok().put("page", page);
+    }
+
+
+    @Transactional
+    @ApiOperation(value = "用户提现")
+    @PostMapping("/withdraw")
+    public R withdraw(@Validated WithdrawRequest request, HttpServletRequest httpServletRequest) throws Exception {
+
+        Date now = new Date();
+        Map<String, String> params = paramterService.getAllParamByMap();
+        // 验证时间段
+        String withdrawTimeStr = params.get("withdraw_time");
+        if (StringUtils.isNotBlank(withdrawTimeStr)) {
+            String today = DateUtil.formatDate(now);
+            String[] timeArr = withdrawTimeStr.split("-");
+            Date beginTime = DateUtil.parse(today + " " + timeArr[0]);
+            Date endTime = DateUtil.parse(today + " " + timeArr[1]);
+            if (!DateUtil.isIn(now, beginTime, endTime)) {
+                return R.error(MsgUtil.get("system.withdraw.time") + ":" + withdrawTimeStr);
+            }
+        }
+
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        // 用户信息
+        JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
+        wrapper.eq(User::getUserName, userName);
+        wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
+        User user = userService.joinGetOne(wrapper, User.class);
+
+        // 验证提现金额
+        BigDecimal amount = new BigDecimal(request.getAmount());
+
+        Double leastWithdrawAmount = user.getLevel().getMinWithdrawAmount().doubleValue();
+        Double largestWithdrawAmount = user.getLevel().getMaxWithdrawAmount().doubleValue();
+        if ((leastWithdrawAmount != 0 && amount.doubleValue() < leastWithdrawAmount)
+                || (largestWithdrawAmount != 0 && amount.doubleValue() > largestWithdrawAmount)) {
+            return R.error(StrUtil.format(MsgUtil.get("system.withdraw.limitamount"), leastWithdrawAmount, largestWithdrawAmount));
+        }
+
+        // 验证支付密码
+        String pwd = SecureUtil.md5(request.getPwd());
+        if (!StringUtils.equals(pwd, user.getPayPwd())) {
+            return R.error(MsgUtil.get("system.order.paypwderror"));
+        }
+
+        if (StringUtils.isBlank(user.getRealName()) || StringUtils.isBlank(user.getBankNo())) {
+            return R.error(MsgUtil.get("system.withdraw.nobank"));
+        }
+        if (user.getStatus().intValue() == 1) {
+            return R.error(MsgUtil.get("system.user.enable"));
+        }
+        if (user.getBalance().doubleValue() < amount.doubleValue()) {
+            return R.error(MsgUtil.get("system.order.balance"));
+        }
+
+        // 查询是否还有待审核的订单
+        long noFinish = withdrawService.count(
+                new LambdaQueryWrapper<Withdraw>()
+                        .eq(Withdraw::getUserName, user.getUserName())
+                        .eq(Withdraw::getStatus, 0)
+        );
+        if (noFinish > 0) {
+            return R.error(MsgUtil.get("system.withdraw.hasorder"));
+        }
+
+        // 校验今日订单量是否满足
+
+        // 校验今日提现次数
+        long finish = withdrawService.count(
+                new LambdaQueryWrapper<Withdraw>()
+                        .eq(Withdraw::getUserName, user.getUserName())
+                        .eq(Withdraw::getStatus, 1)
+                        .between(Withdraw::getOrderTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
+        );
+        if (finish >= user.getLevel().getDayWithdrawCount()) {
+            return R.error(MsgUtil.get("system.withdraw.maxorder"));
+        }
+
+        // 扣钱
+        userService.updateUserBalance(userName, amount.negate());
+
+        String orderNo = IdUtil.getSnowflakeNextIdStr();
+        // 提现记录
+        Withdraw withdraw = new Withdraw();
+        withdraw.setOrderNo(orderNo);
+        withdraw.setUserName(user.getUserName());
+        withdraw.setNickName(user.getNickName());
+        withdraw.setOptAmount(amount);
+        BigDecimal feeRate = user.getLevel().getWithdrawFee();
+        withdraw.setFeeRate(feeRate);
+        BigDecimal fee = NumberUtil.mul(amount, NumberUtil.div(feeRate, 100));
+        withdraw.setRealAmount(NumberUtil.sub(amount, fee));
+        withdraw.setBankName(user.getBankName());
+        withdraw.setRealName(user.getRealName());
+        withdraw.setBankNo(user.getBankNo());
+        withdraw.setPhone(user.getPhone());
+        withdraw.setOrderTime(now);
+        withdraw.setCheckTime(null);
+        withdraw.setStatus(0);
+        withdraw.setUpdateBy(null);
+        withdraw.setRemark(null);
+        withdraw.setUserAgent(user.getUserAgent());
+        withdraw.setUserAgentNode(user.getUserAgentNode());
+        withdraw.setUserAgentLevel(user.getUserAgentLevel());
+        withdrawService.save(withdraw);
+
+        // 添加流水记录
+        Account account = new Account();
+        account.setAccountNo(IdUtil.getSnowflakeNextIdStr());
+        account.setUserName(userName);
+        account.setOptAmount(amount.negate());
+        account.setType(2);
+        account.setOptType(2);
+        account.setUserAgent(user.getUserAgent());
+        account.setUserAgentNode(user.getUserAgentNode());
+        account.setUserAgentLevel(user.getUserAgentLevel());
+        account.setRefNo(orderNo);
+        account.setOptTime(now);
+        account.setRemark("提现金额:" + amount + "元");
+        accountService.save(account);
+        return R.ok(MsgUtil.get("system.withdraw.success"));
     }
 }

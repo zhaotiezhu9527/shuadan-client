@@ -53,4 +53,9 @@
         update_by,remake,update_order,
         deposit,withdraw,invite_count
     </sql>
+
+    <!-- 修改用户余额 -->
+    <update id="updateUserBalance">
+        update t_user set balance = balance + #{balance} where balance + #{balance} >= 0 and user_name = #{userName}
+    </update>
 </mapper>
