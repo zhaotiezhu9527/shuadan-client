@@ -4,13 +4,13 @@
   },
   "pages": [
     {
-      "path": "pages/order"
-    },
-    {
       "path": "pages/index"
     },
     {
       "path": "pages/recharge"
+    },
+    {
+      "path": "pages/order"
     },
     {
       "path": "pages/rechargeRecord"
