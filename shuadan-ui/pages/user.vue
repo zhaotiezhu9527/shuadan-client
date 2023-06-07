@@ -137,7 +137,6 @@ export default {
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.userData = res.data.data;
-          this.$base.storage("infos", res.data.data);
         }
       });
     },

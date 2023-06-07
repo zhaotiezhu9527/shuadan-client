@@ -21,7 +21,7 @@
       >
         <image class="icon-img" src="../static/img/touxiang.png" />
         <label>头像</label>
-        <image class="user-img" src="../static/img/head.png" />
+        <image class="user-img" :src="userData.avatarUrl" />
         <view class="icon"></view>
       </view>
       <view
@@ -30,7 +30,7 @@
       >
         <image class="icon-img" src="../static/img/real_name.png" />
         <label>全民中文名</label>
-        <span class="item-text">小路</span>
+        <span class="item-text">{{ userData.nickName }}</span>
         <view class="icon"></view>
       </view>
       <view
@@ -38,7 +38,7 @@
       >
         <image class="icon-img" src="../static/img/user_name.png" />
         <label>全民用户名</label>
-        <span class="item-text">qwewewew</span>
+        <span class="item-text">{{ userData.userName }}</span>
         <view class="icon"></view>
       </view>
       <view
@@ -72,12 +72,22 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      userData:{
+        nickName: "",//昵称
+        avatarUrl: "",//头像
+        balance: "",//余额
+        creditValue: "",//信用分
+        inviteCode: "",//邀请码
+        userName: "",//用户名
+        levelName: "",//会员名称
+        levelIcon: "",//
+      }
+    };
   },
-  async onLoad() {
-    await this.$onLaunched;
+  onShow() {
+    this.getInfo()
   },
-  onShow() {},
   methods: {
     goHeadimg() {
       uni.navigateTo({
@@ -102,6 +112,14 @@ export default {
     goPayPassword(){
       uni.navigateTo({
         url: "/pages/payPassword",
+      });
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+        }
       });
     },
   },
