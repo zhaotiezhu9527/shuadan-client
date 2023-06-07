@@ -33,6 +33,21 @@ export const user_register = (data) => {
   });
 };
 
+//退出登陆
+export const user_logout = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/logout",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
 //用户数据详情
 export const user_info = (data) => {
   return new Promise((resolve, reject) => {
@@ -98,7 +113,22 @@ export const bindBank = (data) => {
   return new Promise((resolve, reject) => {
     base
       .request({
-        url: "/user/bindBank",
+        url: "user/bindBank",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+//修改密码
+export const updatePwd = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/updatePwd",
         method: "post",
         data: data,
       })

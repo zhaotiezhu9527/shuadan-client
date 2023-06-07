@@ -20,7 +20,8 @@
         <label>真实姓名</label>
         <input
           type="text"
-          v-model="realName"
+          v-model="userData.realName"
+          :disabled="bindStatus"
           class="input-text"
           placeholder="未输入真实姓名，请设置"
         />
@@ -29,7 +30,8 @@
         <label>联系电话</label>
         <input
           type="text"
-          v-model="phone"
+          v-model="userData.phone"
+          :disabled="bindStatus"
           class="input-text"
           placeholder="未输入电话，请设置"
         />
@@ -39,7 +41,8 @@
         <label>银行卡号</label>
         <input
           type="text"
-          v-model="bankNo"
+          v-model="userData.bankNo"
+          :disabled="bindStatus"
           class="input-text"
           placeholder="未输入银行卡号，请设置"
         />
@@ -48,7 +51,8 @@
         <label>银行名称</label>
         <input
           type="text"
-          v-model="bankName"
+          v-model="userData.bankName"
+          :disabled="bindStatus"
           class="input-text"
           placeholder="未输入银行名称，请设置"
         />
@@ -66,7 +70,8 @@
         <label>支行地址</label>
         <input
           type="text"
-          v-model="bankAddr"
+          v-model="userData.bankAddr"
+          :disabled="bindStatus"
           class="input-text"
           placeholder="未输入支行地址，请设置"
         />
@@ -119,15 +124,15 @@ export default {
   methods: {
     submit(){
       if (!this.userData.realName) {
-        return this.$base.show("请输入推荐码ID且长度大于6~");
+        return this.$base.show("真实姓名不能为空~");
       }else if (!this.userData.phone) {
-        return this.$base.show("请输入推荐码ID且长度大于6~");
+        return this.$base.show("请填写联系电话~");
       }else if (!this.userData.bankNo) {
-        return this.$base.show("请输入推荐码ID且长度大于6~");
+        return this.$base.show("请填写银行卡号~");
       }else if (!this.userData.bankName) {
-        return this.$base.show("请输入推荐码ID且长度大于6~");
+        return this.$base.show("请填写银行名称~");
       }else if (!this.userData.bankAddr) {
-        return this.$base.show("请输入推荐码ID且长度大于6~");
+        return this.$base.show("请填写支行地址~");
       }
       this.loading = true
       const DATA_OBJ = {
@@ -143,6 +148,7 @@ export default {
           if (res.data.code == 0) {
             this.$base.show(res.data.msg)
             this.loading = false
+            this.getInfo()
           }
         })
         .finally(() => {
@@ -151,9 +157,9 @@ export default {
     },
     //用户列表数据
     getInfo() {
-      // uni.showLoading({
-      //   title: "加载中",
-      // });
+      uni.showLoading({
+        title: "加载中",
+      });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.userData = res.data.data;

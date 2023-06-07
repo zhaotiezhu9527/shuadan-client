@@ -63,19 +63,38 @@
 export default {
   data() {
     return {
-      oldPwd:'',//真实姓名
+      oldPwd:'',//旧密码
       loading: false,//
-      newPwd:'',//手机
-      password:'',//银行卡号
+      newPwd:'',//新密码
+      password:'',//确认密码
     };
-  },
-  async onLoad() {
-    await this.$onLaunched;
   },
   onShow() {},
   methods: {
     submit(){
-
+      if (!this.oldPwd) {
+        return this.$base.show("旧密码不能为空~");
+      }else if (!this.newPwd) {
+        return this.$base.show("请填写新密码~");
+      }else if (this.newPwd != this.password) {
+        return this.$base.show("两次输入的密码不一致~");
+      }
+      this.loading = true
+      const DATA_OBJ = {
+        newPwd: this.newPwd,//新密码
+        oldPwd: this.oldPwd,//旧密码
+      };
+      this.$api
+        .updatePwd(DATA_OBJ)
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.$base.show(res.data.msg)
+            this.loading = false
+          }
+        })
+        .finally(() => {
+          this.loading = false
+        });
     }
   },
 };

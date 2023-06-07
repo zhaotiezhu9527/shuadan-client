@@ -46,12 +46,24 @@
             class="custom-style"
             color="#2f3848"
             block
-            @click="loginOut"
+            @click="loginoutShow = true"
             :loading="loading"
           >
             退出登陆
           </u-button>
       </view>
+      <u-modal
+        :show="loginoutShow"
+        title="退出登陆"
+        @confirm="loginOut"
+        @cancel="loginoutShow = false"
+        ref="uModal"
+        :asyncClose="true"
+        showCancelButton
+        confirmColor="#4b80af"
+      >
+        <view class="content">你确定退出吗？</view>
+      </u-modal>
     </view>
   </view>
 </template>
@@ -112,7 +124,8 @@ export default {
         userName: "",//用户名
         levelName: "",//会员名称
         levelIcon: "",//
-      }
+      },
+      loginoutShow: false,
     };
   },
   onShow() {
@@ -120,7 +133,16 @@ export default {
   },
   methods: {
     loginOut(){
-
+      this.$api.user_logout().then((res) => {
+        if (res.data.code == 0) {
+          uni.removeStorage({
+            key: "token",
+            success: function (res) {
+              uni.redirectTo({ url: "/pages/login" });
+            },
+          });
+        }
+      });
     },
     goPage(url) {
       uni.navigateTo({
