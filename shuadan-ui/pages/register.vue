@@ -24,7 +24,7 @@
             placeholder="请输入您的中文昵称"
             border="surround"
             placeholderClass="placeholder"
-            v-model="userName"
+            v-model="nickName"
           ></u-input>
         </view>
         <view class="input">
@@ -34,7 +34,7 @@
             placeholder="请输入字母加数字"
             border="surround"
             placeholderClass="placeholder"
-            v-model="userPhone"
+            v-model="userName"
           ></u-input>
         </view>
         <view class="input">
@@ -44,7 +44,7 @@
             placeholder="请输入密码"
             border="surround"
             placeholderClass="placeholder"
-            v-model="password"
+            v-model="loginPwd"
             :password="passicon1"
           >
             <view slot="suffix" @click="pwdChange">
@@ -132,9 +132,9 @@ export default {
       radio: "1",
       passicon1: true,
       passicon2: true,
-      userName: "", //昵称
-      password: "", // 密码
-      userPhone: "", //账号
+      nickName:"",//昵称
+      userName: "", //账号
+      loginPwd: "", // 密码
       loading: false,
       payPwd: "", //交易密码
       inviteCode: "", //推荐码id
@@ -155,11 +155,11 @@ export default {
       let en = /^(?=.*[a-zA-Z])(?=.*\d).+$/;
       let cn =
         /^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$/;
-      if (!cn.test(this.userName) || this.userName.length < 2) {
+      if (!cn.test(this.nickName) || this.nickName.length < 2) {
         return this.$base.show("请输入中文昵称且长度大于2~");
-      } else if (!en.test(this.userPhone) || this.userPhone.length < 6) {
+      } else if (!en.test(this.userName) || this.userName.length < 6) {
         return this.$base.show("请输入账号且长度大于6~");
-      } else if (!this.password || this.password.length < 6) {
+      } else if (!this.loginPwd || this.loginPwd.length < 6) {
         return this.$base.show("请输入密码且长度大于6~");
       } else if (!this.payPwd || this.payPwd.length < 6) {
         return this.$base.show("请输入交易密码且长度大于6~");
@@ -168,6 +168,11 @@ export default {
       }
       const DATA_OBJ = {
         //...
+        userName: this.userName,
+        loginPwd: this.loginPwd,
+        nickName: this.nickName,
+        payPwd: this.payPwd,
+        inviteCode: this.inviteCode
       };
       this.loading = true;
       this.$api
