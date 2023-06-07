@@ -6,8 +6,8 @@
         <view class="money">
           <view class="txt">2520.55</view>
           <view class="btn">
-            <view>提现</view>
-            <view>充值</view>
+            <view @click="routechange('/pages/deposit')">提现</view>
+            <view @click="routechange('/pages/recharge')">充值</view>
           </view>
         </view>
         <view class="ulStyle">
@@ -42,7 +42,12 @@
     </view>
     <view class="task">任务大厅</view>
     <view class="list">
-      <view class="item" v-for="(item, index) in list" :key="index">
+      <view
+        class="item"
+        v-for="(item, index) in list"
+        :key="index"
+        @click="routechange('/pages/task?infos=' + item)"
+      >
         <image :src="item.icon" class="icon" mode="widthFix" />
         <image src="@/static/img/icon07.png" class="bg" mode="widthFix" />
         <view class="content">
@@ -110,6 +115,11 @@ export default {
     change(title) {
       uni.navigateTo({
         url: `/pages/richtext?title=${title}`,
+      });
+    },
+    routechange(url) {
+      uni.navigateTo({
+        url,
       });
     },
   },

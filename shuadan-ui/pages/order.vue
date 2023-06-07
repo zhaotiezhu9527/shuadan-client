@@ -70,9 +70,11 @@
         </view>
       </view>
     </u-list>
+    <success />
   </view>
 </template>
 <script>
+import success from "@/components/success.vue";
 export default {
   data() {
     return {
@@ -85,6 +87,7 @@ export default {
       ],
     };
   },
+  components: { success },
 };
 </script>
 <style lang="scss" scoped>
