@@ -18,7 +18,7 @@
       <view class="title">
         <view class="title-text">
           <span>提现金额</span>
-          <label>提现费率0%</label>
+          <label>提现费率{{ withdrawFee }}%</label>
         </view>
         <view class="title-content">
           <view class="money">
@@ -27,13 +27,13 @@
               class="title-input"
               v-model="amount"
               type="number"
-              placeholder="输入资金密码"
+              placeholder="请输入提现金额"
               @input="update"
             />
           </view>
           <view class="text">
-            <span>余额：¥1000.22元</span>
-            <label>全部提现</label>
+            <span>余额：¥{{ balance }}</span>
+            <label @click="amount = balance">全部提现</label>
           </view>
         </view>
       </view>
@@ -41,27 +41,27 @@
         <view class="item">
           <view class="detail">
             <label>手机号</label>
-            <span>13333333333</span>
+            <span>{{ phone }}</span>
           </view>
           <view class="detail">
             <label>银行卡号</label>
-            <span>13333333333</span>
+            <span>{{ bankNo }}</span>
           </view>
           <view class="detail">
             <label>所属银行</label>
-            <span>13333333333</span>
+            <span>{{ bankName }}</span>
           </view>
           <view class="detail">
             <label>开户名</label>
-            <span>13333333333</span>
+            <span>{{ realName }}</span>
           </view>
           <view class="detail">
             <label>资金密码</label>
             <input
               class="title-input"
-              v-model="amount"
-              type="number"
-              placeholder="输入提现金额"
+              v-model="pwd"
+              type="text"
+              placeholder="请输入支付密码"
             />
           </view>
         </view>
@@ -69,7 +69,7 @@
       <view class="foot-text">
         *<br>
         请仔细核对收款信息<br>
-        本次提现扣除手续费 0%
+        本次提现扣除手续费 {{ withdrawFee }}%
       </view>
       <view class="btn">
         <u-button
@@ -92,16 +92,67 @@ export default {
     return {
       amount:"",
       loading: false,
+      phone: "",//手机号
+      bankNo: "",//银行卡号
+      bankName: "",//银行名称
+      realName: "",//真实姓名
+      pwd: "",//支付密码
+      balance: 0,//余额
+      withdrawFee: 0,//提款手续费
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
+  onShow() {
+    this.getInfo()
   },
-  onShow() {},
   methods: {
     submit(){
-
-    }
+      if (!this.amount) {
+        return this.$base.show("请输入提现金额~");
+      }else if (!this.pwd) {
+        return this.$base.show("请输入资金密码~");
+      }else if (this.amount > this.balance) {
+        return this.$base.show("提现金额不能超过" + this.balance);
+      }
+      this.loading = true
+      const DATA_OBJ = {
+        amount: this.amount,//新密码
+        pwd: this.pwd,//旧密码
+      };
+      this.$api
+        .user_withdraw(DATA_OBJ)
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.$base.show(res.data.msg)
+            this.loading = false
+          }
+        })
+        .finally(() => {
+          this.loading = false
+        });
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.phone = res.data.data.phone
+          this.bankNo = res.data.data.bankNo
+          this.bankName = res.data.data.bankName
+          this.realName = res.data.data.realName
+          this.balance = res.data.data.balance
+          this.withdrawFee = res.data.data.withdrawFee
+        }
+      });
+    },
+    // 金额文本框点击事件
+    update() {
+      if (!this.amount) return false;
+      if (this.amount > this.balance) {
+        this.amount = this.balance;
+      } else if (this.amount <= 0) {
+        this.amount = 0;
+      }
+      // return
+    },
   },
 };
 </script>

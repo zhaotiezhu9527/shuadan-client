@@ -137,3 +137,33 @@ export const updatePwd = (data) => {
       });
   });
 };
+
+//修改支付密码
+export const updatePayPwd = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/updatePayPwd",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+//用户提现
+export const user_withdraw = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/withdraw",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

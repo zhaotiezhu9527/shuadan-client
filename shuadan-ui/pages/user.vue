@@ -126,6 +126,7 @@ export default {
         levelIcon: "",//
       },
       loginoutShow: false,
+      bindStatus: false,//银行卡绑定状态
     };
   },
   onShow() {
@@ -150,15 +151,25 @@ export default {
       });
     },
     goDeposit(){
-      uni.navigateTo({
-        url: "/pages/deposit",
-      });
+      if(this.bindStatus){
+        uni.navigateTo({
+          url: "/pages/deposit",
+        });
+      }else{
+        this.$base.show('请先绑定银行卡')
+      }
+      
     },
     //用户列表数据
     getInfo() {
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.userData = res.data.data;
+          if(this.userData.bankNo === null || !this.userData.bankNo){
+            this.bindStatus = false
+          }else{
+            this.bindStatus = true
+          }
         }
       });
     },
