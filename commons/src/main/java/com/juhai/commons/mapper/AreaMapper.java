@@ -2,6 +2,7 @@ package com.juhai.commons.mapper;
 
 import com.juhai.commons.entity.Area;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import icu.mhb.mybatisplus.plugln.base.mapper.JoinBaseMapper;
 
 /**
 * @author Administrator
@@ -9,7 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-06-04 19:23:17
 * @Entity com.juhai.commons.entity.Area
 */
-public interface AreaMapper extends BaseMapper<Area> {
+public interface AreaMapper extends JoinBaseMapper<Area> {
 
 }
 

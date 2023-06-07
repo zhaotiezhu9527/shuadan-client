@@ -43,12 +43,10 @@
 export default {
   data() {
     return {
-      show: false,
+      show: true,
       content: "测试内容",
     };
   },
-  async onLoad() {},
-  onShow() {},
   methods: {},
 };
 </script>

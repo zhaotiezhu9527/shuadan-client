@@ -3,13 +3,14 @@ import * as base from "plugins/base.js";
 Vue.prototype.$base = base;
 //统一API资源管理
 
-//产品详情
-export const project_info = (data) => {
+//登录
+export const user_login = (data) => {
   return new Promise((resolve, reject) => {
     base
       .request({
-        url: "project/detail/" + data,
-        method: "get",
+        url: "user/login",
+        method: "post",
+        data: data,
       })
       .then((res) => {
         resolve(res);
@@ -17,12 +18,12 @@ export const project_info = (data) => {
   });
 };
 
-//购买产品
-export const order_execute = (data) => {
+//注册
+export const user_register = (data) => {
   return new Promise((resolve, reject) => {
     base
       .request({
-        url: "order/execute",
+        url: "user/register",
         method: "post",
         data: data,
       })

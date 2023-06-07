@@ -14,6 +14,7 @@
             <result property="goodsCount" column="goods_count" jdbcType="INTEGER"/>
             <result property="orderAmount" column="order_amount" jdbcType="DECIMAL"/>
             <result property="commission" column="commission" jdbcType="DECIMAL"/>
+            <result property="commissionRate" column="commission_rate" jdbcType="DECIMAL"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
             <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
@@ -24,7 +25,7 @@
     <sql id="Base_Column_List">
         id,order_no,user_name,
         nick_name,goods_id,goods_price,
-        goods_count,order_amount,commission,
+        goods_count,order_amount,commission,commission_rate,
         status,order_time,pay_time,
         pre_id,count_num
     </sql>

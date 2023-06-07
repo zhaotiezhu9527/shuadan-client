@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.juhai.commons.entity.MessageText">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="code" column="code" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
@@ -17,7 +18,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,code,content,
+        id,code,title,content,
         create_time,create_by,update_time,
         update_by,status,remark
     </sql>

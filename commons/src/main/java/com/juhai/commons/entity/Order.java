@@ -71,6 +71,12 @@ public class Order implements Serializable {
     private BigDecimal commission;
 
     /**
+     * 佣金比例
+     */
+    @TableField(value = "commission_rate")
+    private BigDecimal commissionRate;
+
+    /**
      * 状态(0:待处理 1:已完成 2:冻结中)
      */
     @TableField(value = "status")
@@ -102,4 +108,7 @@ public class Order implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    @TableField(exist = false)
+    private Goods goods;
 }

@@ -4,6 +4,15 @@ const home = [
     aliasPath: "/",
   },
   {
+    path: "/pages/task",
+  },
+  {
+    path: "/pages/vip",
+  },
+  {
+    path: "/pages/service",
+  },
+  {
     path: "/pages/login",
   },
   {
@@ -14,6 +23,9 @@ const home = [
   },
   {
     path: "/pages/user",
+  },
+  {
+    path: "/pages/order",
   },
   {
     path: "/pages/set",
