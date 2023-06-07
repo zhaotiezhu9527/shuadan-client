@@ -5,7 +5,7 @@
       <view class="title">
         <view class="icon">
           <image class="icon-img" src="../static/img/notice.png" />
-          <image class="icon-img box-right" src="../static/img/setting.png" />
+          <image class="icon-img box-right" src="../static/img/setting.png" @click="goPage(list[0].url)"/>
         </view>
         <view class="user">
           <view class="head">
@@ -89,7 +89,7 @@ export default {
         {
           label:'邀请好友',
           icon: 'friend.png',
-          url:'/pages/set'
+          url:'/pages/invite'
         },
         {
           label:'信息公告',
@@ -104,10 +104,9 @@ export default {
       ]
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
+  onShow() {
+    this.getInfo()
   },
-  onShow() {},
   methods: {
     loginOut(){
 
@@ -120,6 +119,15 @@ export default {
     goDeposit(){
       uni.navigateTo({
         url: "/pages/deposit",
+      });
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+          this.$base.storage("infos", res.data.data);
+        }
       });
     },
   },

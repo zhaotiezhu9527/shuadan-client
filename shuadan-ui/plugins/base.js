@@ -25,7 +25,7 @@ export const loading = (title) => {
 };
 const PATH_URL =
   process.env.NODE_ENV === "development"
-    ? "http://192.168.4.85:9522/" //本地环境
+    ? "http://8.222.224.10:9544/" //本地环境
     : "https://api.anke9988.com/"; //预发环境
 
 export const upload = (params) => {

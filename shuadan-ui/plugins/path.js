@@ -48,6 +48,8 @@ const home = [
   {
     path: "/pages/accountDetails",
   },
-  
+  {
+    path: "/pages/invite",
+  },
 ];
 export default home;

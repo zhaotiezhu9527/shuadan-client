@@ -50,6 +50,9 @@
     },
     {
       "path": "pages/register"
+    },
+    {
+      "path": "pages/invite"
     }
     
   ],

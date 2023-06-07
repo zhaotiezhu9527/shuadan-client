@@ -31,3 +31,18 @@ export const order_execute = (data) => {
       });
   });
 };
+
+//用户数据详情
+export const user_info = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/info",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

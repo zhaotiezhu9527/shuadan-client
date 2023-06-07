@@ -16,13 +16,28 @@
     </u-navbar>
     <view class="main">
       <view class="head">
-        <u-datetime-picker
-            :show="startShow"
-            v-model="startTime"
-            mode="date"
-            @confirm="changeStart"
-            ></u-datetime-picker>
-        <u-button @click="startShow = true">打开</u-button>
+        <view class="pull-left">
+          <u-datetime-picker
+              :show="startShow"
+              v-model="startTime"
+              mode="date"
+              @confirm="changeStart"
+              ></u-datetime-picker>
+          <view class="date-input" @click="startShow = true">{{ startTimeText }}</view>
+        </view>
+        <view class="pull-left data-text">至</view>
+        <view class="pull-left">
+          <u-datetime-picker
+              :show="startShow"
+              v-model="startTime"
+              mode="date"
+              @confirm="changeStart"
+              ></u-datetime-picker>
+          <view class="date-input" @click="startShow = true">{{ startTimeText }}</view>
+        </view>
+        <view class="pull-left">
+          <u-button type="error" class="btn-style" shape="circle" icon="search" size="small" text="搜索"></u-button>
+        </view>
       </view>
       <view class="title">
         <view class="tab active">所有类型</view>
@@ -83,6 +98,7 @@ export default {
       page: 0,
       startShow: false,//开始日期显示
       startTime: Number(new Date()),
+      startTimeText:'',//开始日期显示文字
     };
   },
   onLoad() {
@@ -117,16 +133,42 @@ export default {
       //   });
     },
     changeStart(){
-      this.startShow = false
       console.log(this.startTime)
       console.log(new Date(this.startTime))
       console.log(dateFormat("YYYY-mm-dd",new Date(this.startTime)))
+      this.startTimeText = dateFormat("YYYY-mm-dd",new Date(this.startTime))
+      this.startShow = false
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.head{
+  overflow: hidden;
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #eee;
+  .data-text{
+    height: 60rpx;
+    line-height: 60rpx;
+    padding: 0 20rpx;
+  }
+  .date-input{
+    width: 240rpx;
+    height: 60rpx;
+    background-color: #f2f2f2;
+    border-radius: 30rpx;
+    line-height: 60rpx;
+    text-align: center;
+    font-size: 24rpx;
+  }
+  .btn-style{
+    color: #fff;
+    margin-left: 10rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+  }
+}
 .title{
   width: 100%;
   height: 80rpx;

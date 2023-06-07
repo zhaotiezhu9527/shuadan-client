@@ -79,7 +79,7 @@ view,
 text {
   // font-size: 28rpx;
   box-sizing: border-box;
-  color: #333;
+  // color: #333;
 }
 
 .empty {
@@ -98,4 +98,7 @@ text {
 }
 .box-right{
   margin-left: auto;
+}
+.pull-left{
+  float: left;
 }
