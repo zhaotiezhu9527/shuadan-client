@@ -47,3 +47,33 @@ export const user_info = (data) => {
       });
   });
 };
+
+//获取头像
+export const avatar_list = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "avatar/list",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+//设置头像
+export const avatar_set = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "avatar/set/" + data.id,
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

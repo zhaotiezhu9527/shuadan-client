@@ -16,39 +16,12 @@
     </u-navbar>
     <view class="main">
       <view class="head">
-        <image class="head-img" src="../static/img/head1.png"/>
-        <view class="btn">立即设置</view>
+        <image class="head-img" :src="avatarUrl"/>
+        <view class="btn" @click="postHead">立即设置</view>
       </view>
       <view class="content">
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
-        </view>
-        <view class="item">
-          <image class="item-img" src="../static/img/head1.png"/>
+        <view class="item" v-for="(item,index) in list" :key="index" @click="changeAvatar(item)">
+          <image class="item-img" :src="item.url"/>
         </view>
       </view>
     </view>
@@ -58,13 +31,54 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      avatarUrl: "",//用户头像
+      avatarId:'',//头像id
+      list: [],//系统头像列表
+    };
   },
-  async onLoad() {
-    await this.$onLaunched;
+  onShow() {
+    this.getInfo()
+    this.getAvatarList()
   },
-  onShow() {},
-  methods: {},
+  methods: {
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.avatarUrl = res.data.data.avatarUrl;
+        }
+      });
+    },
+    //获取头像列表
+    getAvatarList() {
+      this.$api.avatar_list().then((res) => {
+        if (res.data.code == 0) {
+          this.list = res.data.data;
+        }
+      });
+    },
+    //选取头像
+    changeAvatar(data) {
+      this.avatarUrl = data.url
+      this.avatarId = data.id
+    },
+    //设置头像
+    postHead() {
+      const DATA_OBJ = {
+        id: this.avatarId,
+      };
+      this.$api
+        .avatar_set(DATA_OBJ)
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.$base.show(res.data.msg)
+          }
+        })
+        .finally(() => {
+        });
+    },
+  },
 };
 </script>
 
