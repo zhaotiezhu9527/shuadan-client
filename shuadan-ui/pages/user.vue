@@ -9,23 +9,24 @@
         </view>
         <view class="user">
           <view class="head">
-            <image class="head-img" src="../static/img/head.png" />
+            <image class="head-img" :src="userData.avatarUrl" />
           </view>
           <view class="information">
             <view class="level">
-              <label class="name">小鹿</label>
-              <label class="grade">LV1</label>
-              <label class="credit">信用分:100</label>
+              <label class="name">{{ userData.nickName }}</label>
+              <!-- <label class="grade">{{ userData.levelName }}</label> -->
+              <image class="level-img" :src="userData.levelIcon" />
+              <label class="credit">信用分:{{ userData.creditValue }}</label>
             </view>
             <view class="code">
-              邀请码:017824
+              邀请码: {{ userData.inviteCode }}
             </view>
           </view>
         </view>
         <view class="money">
           <view class="balance">
             <view>账户金额</view>
-            <view class="money-color">¥<label class="money-number">10000.45</label></view>
+            <view class="money-color">¥<label class="money-number">{{ userData.balance }}</label></view>
           </view>
           <view class="withdrawal" @click="goDeposit">提现</view>
           <view class="recharge">充值</view>
@@ -101,7 +102,17 @@ export default {
           icon: 'team.png',
           url:'/pages/set'
         }
-      ]
+      ],
+      userData:{
+        nickName: "",//昵称
+        avatarUrl: "",//头像
+        balance: "",//余额
+        creditValue: "",//信用分
+        inviteCode: "",//邀请码
+        userName: "",//用户名
+        levelName: "",//会员名称
+        levelIcon: "",//
+      }
     };
   },
   onShow() {
@@ -178,15 +189,23 @@ export default {
           font-weight: bold;
           float: left;
         }
-        .grade{
+        // .grade{
+        //   float: left;
+        //   background: rgba(0, 0, 0, .2);
+        //   color: #fff;
+        //   height: 32rpx;
+        //   border-radius: 4rpx;
+        //   font-size: 24rpx;
+        //   margin-left: 12rpx;
+        //   padding: 0 4rpx;
+        //   margin-top: 8rpx;
+        // }
+        .level-img{
           float: left;
-          background: rgba(0, 0, 0, .2);
           color: #fff;
-          height: 32rpx;
-          border-radius: 4rpx;
-          font-size: 24rpx;
+          height: 36rpx;
+          width: 96rpx;
           margin-left: 12rpx;
-          padding: 0 4rpx;
           margin-top: 8rpx;
         }
         .credit{
