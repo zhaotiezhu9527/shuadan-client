@@ -22,7 +22,7 @@
           type="text"
           v-model="realName"
           class="input-text"
-          placeholder="请输入您的真实姓名"
+          placeholder="未输入真实姓名，请设置"
         />
       </view>
       <view class="from-input">
@@ -31,7 +31,7 @@
           type="text"
           v-model="phone"
           class="input-text"
-          placeholder="请输入您的手机号码"
+          placeholder="未输入电话，请设置"
         />
       </view>
       <view class="title">您的银行卡信息</view>
@@ -39,9 +39,9 @@
         <label>银行卡号</label>
         <input
           type="text"
-          v-model="card"
+          v-model="bankNo"
           class="input-text"
-          placeholder="请输入您的真实姓名"
+          placeholder="未输入银行卡号，请设置"
         />
       </view>
       <view class="from-input">
@@ -50,37 +50,46 @@
           type="text"
           v-model="bankName"
           class="input-text"
-          placeholder="请输入您的手机号码"
+          placeholder="未输入银行名称，请设置"
         />
       </view>
-      <view class="from-input">
+      <!-- <view class="from-input">
         <label>开户行</label>
         <input
           type="text"
           v-model="detail"
           class="input-text"
-          placeholder="请输入您的手机号码"
+          placeholder="未输入开户行，请设置"
         />
-      </view>
+      </view> -->
       <view class="from-input">
         <label>支行地址</label>
         <input
           type="text"
-          v-model="addr"
+          v-model="bankAddr"
           class="input-text"
-          placeholder="请输入您的手机号码"
+          placeholder="未输入支行地址，请设置"
         />
       </view>
       <view class="btn">
         <u-button
-              class="custom-style"
-              color="#2f3848"
-              block
-              @click="submit"
-              :loading="loading"
-            >
-              确认修改
-            </u-button>
+          v-if="bindStatus"
+          class="custom-style"
+          color="#9d9d9c"
+          block
+        >
+          修改信息联系客服
+        </u-button>
+        <u-button
+        v-else-if="!bindStatus"
+          class="custom-style"
+          color="#2f3848"
+          block
+          @click="submit"
+          :loading="loading"
+        >
+          设置信息
+        </u-button>
       </view>
     </view>
   </view>
@@ -90,40 +99,91 @@
 export default {
   data() {
     return {
-      realName:'',//真实姓名
       loading: false,//
-      phone:'',//手机
-      card:'',//银行卡号
-      bankName:'',//银行名称
-      detail:'',//开户行
-      addr:''//支行地址
+      userData:{
+        realName:'',//真实姓名
+        phone:'',//手机
+        bankNo:'',//银行卡号
+        bankName:'',//银行名称
+        bankAddr:''//支行地址
+      },
+      bindStatus: false,//绑定状态
     };
   },
   async onLoad() {
     await this.$onLaunched;
   },
-  onShow() {},
+  onShow() {
+    this.getInfo()
+  },
   methods: {
     submit(){
-
-    }
+      if (!this.userData.realName) {
+        return this.$base.show("请输入推荐码ID且长度大于6~");
+      }else if (!this.userData.phone) {
+        return this.$base.show("请输入推荐码ID且长度大于6~");
+      }else if (!this.userData.bankNo) {
+        return this.$base.show("请输入推荐码ID且长度大于6~");
+      }else if (!this.userData.bankName) {
+        return this.$base.show("请输入推荐码ID且长度大于6~");
+      }else if (!this.userData.bankAddr) {
+        return this.$base.show("请输入推荐码ID且长度大于6~");
+      }
+      this.loading = true
+      const DATA_OBJ = {
+        realName: this.userData.realName,//真实姓名
+        phone: this.userData.phone,//手机
+        cardNo: this.userData.bankNo,//银行卡号
+        bankName: this.userData.bankName,//银行名称
+        addr: this.userData.bankAddr//支行地址
+      };
+      this.$api
+        .bindBank(DATA_OBJ)
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.$base.show(res.data.msg)
+            this.loading = false
+          }
+        })
+        .finally(() => {
+          this.loading = false
+        });
+    },
+    //用户列表数据
+    getInfo() {
+      // uni.showLoading({
+      //   title: "加载中",
+      // });
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+          if(this.userData.bankNo === null || !this.userData.bankNo){
+            this.bindStatus = false
+          }else{
+            this.bindStatus = true
+          }
+        }
+      });
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.title{
+.main{
+  .title{
   padding: 0 12rpx;
   background-color: #eee;
   font-size: 27rpx;
   line-height: 75rpx;
   color: #333;
-}
-.from-input {
+  }
+  .from-input {
     margin: 0 40rpx;
     display: flex;
     height: 90rpx;
     line-height: 90rpx;
+    font-size: 28rpx;
     label {
       width: 200rpx;
       margin-right: 20rpx;
@@ -133,10 +193,12 @@ export default {
       flex: 1;
       height: 90rpx;
       line-height: 90rpx;
+      font-size: 28rpx;
     }
   }
   .btn{
     width: 90%;
     margin: 40rpx auto;
   }
+}
 </style>

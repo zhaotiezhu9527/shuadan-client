@@ -77,3 +77,33 @@ export const avatar_set = (data) => {
       });
   });
 };
+
+//修改名称
+export const update_nickName = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/update/nickName",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+//绑定银行卡
+export const bindBank = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "/user/bindBank",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

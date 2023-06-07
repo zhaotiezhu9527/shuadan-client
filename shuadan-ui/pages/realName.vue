@@ -20,7 +20,7 @@
         <label>姓名</label>
         <input
           type="text"
-          v-model="realName"
+          v-model="nickName"
           class="input-text"
           placeholder="请输入您的名称"
         />
@@ -44,18 +44,39 @@
 export default {
   data() {
     return {
-      realName:'',//真实姓名
+      nickName:'',//真实姓名
       loading: false,//
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
+  onShow() {
+    this.getInfo()
   },
-  onShow() {},
   methods: {
     submit(){
-
-    }
+      this.loading = true
+      const DATA_OBJ = {
+        nickName: this.nickName,
+      };
+      this.$api
+        .update_nickName(DATA_OBJ)
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.$base.show(res.data.msg)
+            this.loading = false
+          }
+        })
+        .finally(() => {
+          this.loading = false
+        });
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.nickName = res.data.data.nickName;
+        }
+      });
+    },
   },
 };
 </script>
