@@ -4,13 +4,25 @@
   },
   "pages": [
     {
+      "path": "pages/promotion"
+    },
+    {
+      "path": "pages/accountDetails"
+    },
+    {
+      "path": "pages/home"
+    },
+    {
       "path": "pages/index"
+    },
+    {
+      "path": "pages/order"
     },
     {
       "path": "pages/recharge"
     },
     {
-      "path": "pages/order"
+      "path": "pages/task"
     },
     {
       "path": "pages/rechargeRecord"
@@ -26,9 +38,6 @@
     },
     {
       "path": "pages/rechargeRecord"
-    },
-    {
-      "path": "pages/accountDetails"
     },
     {
       "path": "pages/realName"
@@ -62,9 +71,6 @@
     },
     {
       "path": "pages/login"
-    },
-    {
-      "path": "pages/register"
     },
     {
       "path": "pages/invite"

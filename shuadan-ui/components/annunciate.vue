@@ -65,9 +65,22 @@ export default {
   height: 60vh;
   border-radius: 20rpx;
   width: 100%;
-  background: url("@/static/img/bg-01.png") 50rpx no-repeat,
-    -webkit-gradient(linear, left top, left bottom, from(#ffcc2c), color-stop(60%, #fff));
+  background: linear-gradient(1turn, #fff, #ffcc2c);
+  position: relative;
+  &::after {
+    content: "";
+    top: 0;
+    left: 0;
+    background: url("@/static/img/bg_05.png") 0rpx no-repeat;
+    background-size: 100%;
+    position: absolute;
+    height: 70%;
+    width: 100%;
+    z-index: 1;
+  }
   .message_info {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,6 +97,8 @@ export default {
     }
   }
   .message_info_content {
+    position: relative;
+    z-index: 2;
     background-color: #fff;
     border-radius: 20rpx;
     height: calc(100% - 196rpx);

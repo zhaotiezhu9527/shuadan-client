@@ -58,6 +58,9 @@ const home = [
     path: "/pages/rechargeRecord",
   },
   {
+    path: "/pages/recharge",
+  },
+  {
     path: "/pages/accountDetails",
   },
   {
