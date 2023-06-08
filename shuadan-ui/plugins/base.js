@@ -77,20 +77,20 @@ export const request = (params) => {
       header: params.header,
       success: (res) => {
         uni.hideLoading();
-        if (res.data.code != 0) {
+        if (res.data.code == -2) {
+          uni.redirectTo({
+            url: "/pages/login",
+          });
+          uni.removeStorageSync("token");
+          show(res.data.msg);
+        }
+        else if (res.data.code != 0) {
           uni.showToast({
             title: res?.data?.msg || "存在网络异常",
             duration: 2000,
             icon: "none",
           });
         }
-        // if (res.data.code == -2) {
-        //   uni.redirectTo({
-        //     url: "/pages/login",
-        //   });
-        //   uni.removeStorageSync("token");
-        //   show(res.data.msg);
-        // }
         resolve(res);
       },
       fail: () => {

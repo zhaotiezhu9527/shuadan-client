@@ -25,8 +25,8 @@
           <label>系统公告</label>
           <view class="icon"></view>
         </view>
-        <view class="text">
-          <view class="notice">公告1</view>
+        <view class="text" v-for="(item,index) in list" :key="index">
+          <!-- <view class="notice">公告1</view>
           <view class="prompt">温馨提示：</view>
           <view class="details">
             您好！欢迎来到全民任务APP，
@@ -42,6 +42,10 @@
             传入智能阿里云主机，即可由智能系统匹配订单！
             （温馨提示：注：本平台不会以任何形式向平台内所有会员收取任何费用，
              提现由系统审核通过后2小时内到账。感谢您对本平台的支持与厚爱，祝您抢单愉快！）
+          </view> -->
+          <view class="notice">{{ item.title }}</view>
+          <view class="prompt">温馨提示：</view>
+          <view class="details" v-html="item.content">
           </view>
         </view>
       </view>
@@ -52,13 +56,23 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      list:[],//信息公告列表
+    };
   },
-  async onLoad() {
-    await this.$onLaunched;
+  onShow() {
+    this.getList()
   },
-  onShow() {},
-  methods: {},
+  methods: {
+    //用户列表数据
+    getList() {
+      this.$api.notice_list().then((res) => {
+        if (res.data.code == 0) {
+          this.list = res.data.data
+        }
+      });
+    },
+  },
 };
 </script>
 

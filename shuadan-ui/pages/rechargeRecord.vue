@@ -30,9 +30,9 @@
             </view>
             <view>
               充值状态：
-              <label v-if="item.status == 0" class="yellow-text">待审核</label>
-              <label v-else-if="item.status == 1" class="blue-text">审核通过</label>
-              <label v-else-if="item.status == 2" class="red-text">审核失败</label>
+              <label v-if="item.status == 0" class="yellow-text">{{ item.statusStr }}</label>
+              <label v-else-if="item.status == 1" class="blue-text">{{ item.statusStr }}</label>
+              <label v-else-if="item.status == 2" class="red-text">{{ item.statusStr }}</label>
             </view>
           </view>
         </u-list-item>
@@ -72,10 +72,10 @@ export default {
     };
   },
   onLoad() {
-    // this.list = [];
-    // uni.showLoading();
-    // this.page = 1;
-    // this.dataFn();
+    this.list = [];
+    uni.showLoading();
+    this.page = 1;
+    this.dataFn();
   },
   onShow() {},
   methods: {
@@ -86,21 +86,21 @@ export default {
     },
     dataFn(page = 1, limit = 20) {
       this.loading = true;
-      // this.$api
-      //   .user_withdraw_list({ page, limit })
-      //   .then((res) => {
-      //     if (res.data.code == 0) {
-      //       const vim = res.data.page;
-      //       this.list = this.list.concat(vim.list);
-      //       this.isArray = vim.totalCount ? true : false;
-      //       if (this.page >= vim.totalPage) {
-      //         this.finished = true;
-      //       }
-      //     }
-      //   })
-      //   .finally(() => {
-      //     this.loading = false;
-      //   });
+      this.$api
+        .user_deposit_list({ page, limit })
+        .then((res) => {
+          if (res.data.code == 0) {
+            const vim = res.data.page;
+            this.list = this.list.concat(vim.list);
+            this.isArray = vim.totalCount ? true : false;
+            if (this.page >= vim.totalPage) {
+              this.finished = true;
+            }
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
 };

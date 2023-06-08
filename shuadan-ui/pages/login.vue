@@ -1,7 +1,7 @@
 <template>
   <view class="main">
     <view class="title">
-      <view class="sub">全名任务</view>
+      <view class="sub">全民任务</view>
       <view class="name">用户登录</view>
     </view>
     <view class="form">

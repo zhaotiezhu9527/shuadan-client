@@ -167,3 +167,48 @@ export const user_withdraw = (data) => {
       });
   });
 };
+
+//用户提现记录列表
+export const user_withdraw_list = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/withdraw/list",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+//用户充值记录列表
+export const user_deposit_list = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/deposit/list",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+//信息公告列表
+export const notice_list = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "notice/list",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
