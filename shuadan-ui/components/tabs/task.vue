@@ -99,6 +99,7 @@ import img06 from "@/static/img/icon06.png";
 import wenhao from "@/static/img/wenhao.png";
 import SlotMachine from "@/components/@lucky-canvas/uni/slot-machine";
 export default {
+  components: { SlotMachine },
   data() {
     return {
       items: {
@@ -129,8 +130,9 @@ export default {
       },
     };
   },
-  onLoad() {},
-  onShow() {},
+  mounted() {
+    console.log(this.$refs);
+  },
   methods: {
     startCallBack() {
       // 先开始旋转
@@ -145,7 +147,6 @@ export default {
       console.log(e);
     },
   },
-  components: { SlotMachine },
 };
 </script>
 <style scoped lang="scss">
@@ -153,8 +154,9 @@ export default {
   background-color: #f8f8f8;
   min-height: 100vh;
   padding: 0 30rpx;
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: var(--status-bar-height);
+  padding-bottom: calc(160rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
 }
 .list {
   display: flex;

@@ -18,25 +18,37 @@
       <view class="head">
         <view class="pull-left">
           <u-datetime-picker
-              :show="startShow"
-              v-model="startTime"
-              mode="date"
-              @confirm="changeStart"
-              ></u-datetime-picker>
-          <view class="date-input" @click="startShow = true">{{ startTimeText }}</view>
+            :show="startShow"
+            v-model="startTime"
+            mode="date"
+            @confirm="changeStart"
+          ></u-datetime-picker>
+          <view class="date-input" @click="startShow = true">{{
+            startTimeText
+          }}</view>
         </view>
         <view class="pull-left data-text">至</view>
         <view class="pull-left">
           <u-datetime-picker
-              :show="startShow"
-              v-model="startTime"
-              mode="date"
-              @confirm="changeStart"
-              ></u-datetime-picker>
-          <view class="date-input" @click="startShow = true">{{ startTimeText }}</view>
+            :show="startShow"
+            v-model="startTime"
+            mode="date"
+            @confirm="changeStart"
+          ></u-datetime-picker>
+          <view class="date-input" @click="startShow = true">{{
+            startTimeText
+          }}</view>
         </view>
         <view class="pull-left">
-          <u-button type="error" class="btn-style" shape="circle" icon="search" size="small" text="搜索"></u-button>
+          <u-button
+            type="error"
+            class="btn-style"
+            shape="circle"
+            color="#ff7614"
+            icon="search"
+            size="small"
+            text="搜索"
+          ></u-button>
         </view>
       </view>
       <view class="title">
@@ -52,9 +64,15 @@
             </view>
             <view class="table-foot">
               <view class="table-title">
-                <label v-if="item.status == 0" class="yellow-text">待审核</label>
-                <label v-else-if="item.status == 1" class="blue-text">审核通过</label>
-                <label v-else-if="item.status == 2" class="red-text">审核失败</label>
+                <label v-if="item.status == 0" class="yellow-text"
+                  >待审核</label
+                >
+                <label v-else-if="item.status == 1" class="blue-text"
+                  >审核通过</label
+                >
+                <label v-else-if="item.status == 2" class="red-text"
+                  >审核失败</label
+                >
               </view>
               <view class="table-number">
                 {{ item.orderNo }}
@@ -76,29 +94,29 @@ export default {
   data() {
     return {
       list: [
-        { 
-          amount: '10000',
-          orderNo: '213123213213123213',
-          status: '1'
+        {
+          amount: "10000",
+          orderNo: "213123213213123213",
+          status: "1",
         },
-        { 
-          amount: '10000',
-          orderNo: '213123213213123213',
-          status: '0'
+        {
+          amount: "10000",
+          orderNo: "213123213213123213",
+          status: "0",
         },
-        { 
-          amount: '10000',
-          orderNo: '213123213213123213',
-          status: '2'
+        {
+          amount: "10000",
+          orderNo: "213123213213123213",
+          status: "2",
         },
       ], //列表数据
       loading: false,
       finished: false,
       isArray: true,
       page: 0,
-      startShow: false,//开始日期显示
+      startShow: false, //开始日期显示
       startTime: Number(new Date()),
-      startTimeText:'',//开始日期显示文字
+      startTimeText: "", //开始日期显示文字
     };
   },
   onLoad() {
@@ -132,28 +150,28 @@ export default {
       //     this.loading = false;
       //   });
     },
-    changeStart(){
-      console.log(this.startTime)
-      console.log(new Date(this.startTime))
-      console.log(dateFormat("YYYY-mm-dd",new Date(this.startTime)))
-      this.startTimeText = dateFormat("YYYY-mm-dd",new Date(this.startTime))
-      this.startShow = false
+    changeStart() {
+      console.log(this.startTime);
+      console.log(new Date(this.startTime));
+      console.log(dateFormat("YYYY-mm-dd", new Date(this.startTime)));
+      this.startTimeText = dateFormat("YYYY-mm-dd", new Date(this.startTime));
+      this.startShow = false;
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.head{
+.head {
   overflow: hidden;
   padding: 20rpx 30rpx;
   border-bottom: 1px solid #eee;
-  .data-text{
+  .data-text {
     height: 60rpx;
     line-height: 60rpx;
     padding: 0 20rpx;
   }
-  .date-input{
+  .date-input {
     width: 240rpx;
     height: 60rpx;
     background-color: #f2f2f2;
@@ -162,17 +180,23 @@ export default {
     text-align: center;
     font-size: 24rpx;
   }
-  .btn-style{
+  .btn-style {
     color: #fff;
     margin-left: 10rpx;
     height: 60rpx;
     line-height: 60rpx;
+    display: flex;
+    justify-content: center;
+    /deep/.uicon-search {
+      color: #fff !important;
+      font-size: 30rpx !important;
+    }
   }
 }
-.title{
+.title {
   width: 100%;
   height: 80rpx;
-  .tab{
+  .tab {
     float: left;
     width: 33.3%;
     color: #333;
@@ -183,33 +207,33 @@ export default {
     border-radius: 4rpx;
     box-shadow: 0 0 1rpx #b8bbbf;
     font-size: 28rpx;
-    &.active{
+    &.active {
       color: #be1204;
       border-bottom: 4rpx solid #be1204;
     }
   }
 }
-.content{
+.content {
   padding: 20rpx;
   font-size: 24rpx;
   line-height: 40rpx;
   border-bottom: 1px solid #ccc;
-  .table-money{
+  .table-money {
     font-size: 28rpx;
   }
-  .yellow-text{
-    color:#f0ad4e;
+  .yellow-text {
+    color: #f0ad4e;
   }
-  .blue-text{
-    color:#007aff;
+  .blue-text {
+    color: #007aff;
   }
-  .red-text{
-    color:#dd524d;
+  .red-text {
+    color: #dd524d;
   }
-  .table-title{
+  .table-title {
     float: left;
   }
-  .table-number{
+  .table-number {
     float: left;
     background-color: #f44336;
     color: #fff;

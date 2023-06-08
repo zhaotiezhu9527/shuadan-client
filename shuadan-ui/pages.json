@@ -4,25 +4,19 @@
   },
   "pages": [
     {
+      "path": "pages/index"
+    },
+    {
+      "path": "pages/team"
+    },
+    {
       "path": "pages/promotion"
     },
     {
       "path": "pages/accountDetails"
     },
     {
-      "path": "pages/home"
-    },
-    {
-      "path": "pages/index"
-    },
-    {
-      "path": "pages/order"
-    },
-    {
       "path": "pages/recharge"
-    },
-    {
-      "path": "pages/task"
     },
     {
       "path": "pages/rechargeRecord"
@@ -44,9 +38,6 @@
     },
     {
       "path": "pages/headimg"
-    },
-    {
-      "path": "pages/user"
     },
     {
       "path": "pages/vip"
@@ -74,9 +65,6 @@
     },
     {
       "path": "pages/invite"
-    },
-    {
-      "path": "pages/service"
     }
   ],
   "globalStyle": {

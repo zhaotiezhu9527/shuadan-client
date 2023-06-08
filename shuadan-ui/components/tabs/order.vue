@@ -92,9 +92,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
+  padding-top: var(--status-bar-height);
   .container {
-    padding: var(--status-bar-height) 0 0;
-    height: 100vh;
+    height: calc(100vh - var(--status-bar-height)) !important;
     &::before {
       content: "";
       position: absolute;
@@ -123,7 +123,7 @@ export default {
       justify-content: space-between;
       position: relative;
       z-index: 2;
-      padding: 40rpx 30rpx 0;
+      padding: 40rpx 30rpx;
       view {
         color: #2f3848;
       }
@@ -159,6 +159,9 @@ export default {
   position: relative;
   z-index: 3;
   border-bottom: 6rpx solid #eee;
+  &:nth-last-child(1) {
+    border-bottom: 0;
+  }
   .box {
     padding: 30rpx;
     background-image: url("@/static/img/bg_04.png");
@@ -252,5 +255,9 @@ export default {
       font-size: 45rpx;
     }
   }
+}
+.list {
+  padding-bottom: calc(constant(safe-area-inset-bottom) + 160rpx);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 160rpx);
 }
 </style>
