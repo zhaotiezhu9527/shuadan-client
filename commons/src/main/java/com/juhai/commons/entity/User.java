@@ -209,6 +209,18 @@ public class User implements Serializable {
     private BigDecimal withdraw;
 
     /**
+     * 总收益
+     */
+    @TableField(value = "income")
+    private BigDecimal income;
+
+    /**
+     * 总投注
+     */
+    @TableField(value = "bet")
+    private BigDecimal bet;
+
+    /**
      * 推荐人数
      */
     @TableField(value = "invite_count")

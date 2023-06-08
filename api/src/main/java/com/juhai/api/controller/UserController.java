@@ -122,7 +122,7 @@ public class UserController {
         user.setBankNo(null);
         user.setBankAddr(null);
         user.setCreditValue(100);
-        user.setLevelId(0);
+        user.setLevelId(1);
         user.setAvatarId(avatars.get(0).getId());
         user.setInviteCode(RandomUtil.randomNumbers(6));
         user.setUserAgent(agent.getUserName());
@@ -140,15 +140,18 @@ public class UserController {
         user.setUpdateOrder(1);
         user.setDeposit(new BigDecimal(0));
         user.setWithdraw(new BigDecimal(0));
+        user.setBet(new BigDecimal(0));
+        user.setIncome(new BigDecimal(0));
         user.setInviteCount(0);
         userService.save(user);
 
         // 上级代理累计邀请人数
-        userService.update(
-                new UpdateWrapper<User>().lambda()
-                        .eq(User::getUserName, agent.getUserName())
-                        .set(User::getInviteCount, agent.getInviteCount() + 1)
-        );
+//        userService.update(
+//                new UpdateWrapper<User>().lambda()
+//                        .eq(User::getUserName, agent.getUserName())
+//                        .set(User::getInviteCount, agent.getInviteCount() + 1)
+//        );
+        userService.update(new UpdateWrapper<User>().lambda().setSql("invite_count = invite_count + " + 1).eq(User::getUserName, agent.getUserName()));
 
         // 登录日志
         UserLog log = new UserLog();
@@ -283,6 +286,37 @@ public class UserController {
         // 头像
         Avatar avatar = user.getAvatar();
         temp.put("avatarUrl", avatar == null ? "" : resourceDomain + avatar.getImgUrl());
+        return R.ok().put("data", temp);
+    }
+
+
+    @ApiOperation(value = "VIP等级详情")
+    @GetMapping("/viplv/info")
+    public R vipLvInfo(HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
+        wrapper.eq(User::getUserName, userName);
+        wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
+        User user = userService.joinGetOne(wrapper, User.class);
+
+        JSONObject temp = new JSONObject();
+        temp.put("currLevelName", user.getLevel().getLevelName());
+        temp.put("currDayWithdrawCount", user.getLevel().getDayOrderCount());
+
+        List<Level> levels = levelService.list(new LambdaQueryWrapper<Level>().orderByAsc(Level::getLevelValue));
+        JSONArray levelArr = new JSONArray();
+        for (Level level : levels) {
+            JSONObject obj = new JSONObject();
+            obj.put("levelName", level.getLevelName());
+            obj.put("dayWithdrawCount", level.getDayWithdrawCount());
+            obj.put("maxWithdrawAmount", level.getMaxWithdrawAmount());
+            obj.put("dayOrderCount", level.getDayOrderCount());
+            obj.put("commissionRate", level.getCommissionRate());
+            obj.put("levelPrice", level.getLevelPrice());
+            levelArr.add(obj);
+        }
+        temp.put("levels", levelArr);
 
         return R.ok().put("data", temp);
     }
@@ -517,8 +551,6 @@ public class UserController {
         User user = userService.getUserByName(userName);
 
         JSONObject obj = new JSONObject();
-        obj.put("teamAccount", RandomUtil.randomInt(0, 99999));
-        obj.put("teamCommission", RandomUtil.randomInt(0, 99999));
 
         // 团队人数
         List<User> teams = userService.list(
@@ -531,15 +563,21 @@ public class UserController {
         BigDecimal teamBalance = new BigDecimal(0);
         BigDecimal teamDeposit = new BigDecimal(0);
         BigDecimal teamWithdraw = new BigDecimal(0);
+        BigDecimal teamBet = new BigDecimal(0);
+        BigDecimal teamIncome = new BigDecimal(0);
         Set<String> depositUserSets = new HashSet<>();
         for (User temp : teams) {
             teamBalance = NumberUtil.add(teamBalance, temp.getBalance());
             teamDeposit = NumberUtil.add(teamDeposit, temp.getDeposit());
             teamWithdraw = NumberUtil.add(teamWithdraw, temp.getWithdraw());
+            teamBet = NumberUtil.add(teamBet, temp.getBet());
+            teamIncome = NumberUtil.add(teamIncome, temp.getIncome());
             if (temp.getDeposit().doubleValue() > 0) {
                 depositUserSets.add(temp.getUserName());
             }
         }
+        obj.put("teamBet", teamBet);
+        obj.put("teamIncome", teamIncome);
         obj.put("teamMemberCount", teams.size());
         obj.put("teamBalance", teamBalance);
         obj.put("teamDeposit", teamDeposit);
@@ -554,8 +592,14 @@ public class UserController {
                         .gt(User::getUserAgentLevel, user.getUserAgentLevel())
         );
         obj.put("newRegisterCount", newRegisterCount);
-        // 活动人数
-        obj.put("activeCount", 0);
+        // 活动人数(今日登陆)
+        long activeCount = userService.count(
+                new LambdaQueryWrapper<User>()
+                        .between(User::getLastTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
+                        .like(User::getUserAgentNode, "|" + userName + "|")
+                        .gt(User::getUserAgentLevel, user.getUserAgentLevel())
+        );
+        obj.put("activeCount", activeCount);
         return R.ok().put("data", obj);
     }
 
@@ -671,6 +715,7 @@ public class UserController {
         }
 
         // 校验今日订单量是否满足
+        // TODO: 2023/6/6 校验今日订单量是否满足
 
         // 校验今日提现次数
         long finish = withdrawService.count(

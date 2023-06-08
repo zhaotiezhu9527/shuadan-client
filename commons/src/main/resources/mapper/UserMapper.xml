@@ -37,6 +37,8 @@
             <result property="updateOrder" column="update_order" jdbcType="INTEGER"/>
             <result property="deposit" column="deposit" jdbcType="DECIMAL"/>
             <result property="withdraw" column="withdraw" jdbcType="DECIMAL"/>
+            <result property="bet" column="bet" jdbcType="DECIMAL"/>
+            <result property="income" column="income" jdbcType="DECIMAL"/>
             <result property="inviteCount" column="invite_count" jdbcType="INTEGER"/>
     </resultMap>
 
@@ -51,7 +53,7 @@
         register_ip,last_time,last_ip,
         create_time,create_by,update_time,
         update_by,remake,update_order,
-        deposit,withdraw,invite_count
+        deposit,withdraw,bet,income,invite_count
     </sql>
 
     <!-- 修改用户余额 -->

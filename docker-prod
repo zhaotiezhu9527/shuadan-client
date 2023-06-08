@@ -1,0 +1,34 @@
+docker login --username=zhaot0392@gmail.com registry-intl-vpc.ap-southeast-1.aliyuncs.com
+
+docker stop yiliao-api;docker rm yiliao-api;
+docker run -d -p 9522:9522 --name yiliao-api \
+-e "SPRING_PROFILES_ACTIVE=prod"  \
+-e "spring.cloud.nacos.discovery.server-addr=mse-33f262210-nacos-ans.mse.aliyuncs.com" \
+-e "spring.cloud.nacos.config.namespace=c5af6abb-0661-4508-8a7f-c010d520de39" \
+-e "spring.application.name=api" \
+registry-intl-vpc.ap-southeast-1.aliyuncs.com/juhai/yiliao-api:1.0.9;
+docker logs -f -t --tail 500 yiliao-api
+
+docker pull registry-intl-vpc.ap-southeast-1.aliyuncs.com/juhai/yiliao-api:1.0.9
+
+docker stop yiliao-task;docker rm yiliao-task;
+docker run -d -p 8522:8522 --name yiliao-task \
+-e "SPRING_PROFILES_ACTIVE=prod"  \
+-e "spring.cloud.nacos.discovery.server-addr=mse-33f262210-nacos-ans.mse.aliyuncs.com" \
+-e "spring.cloud.nacos.config.namespace=c5af6abb-0661-4508-8a7f-c010d520de39" \
+-e "spring.application.name=task" \
+registry-intl-vpc.ap-southeast-1.aliyuncs.com/juhai/yiliao-task:1.0.3;
+docker logs -f -t --tail 500 yiliao-task
+
+docker pull registry-intl-vpc.ap-southeast-1.aliyuncs.com/juhai/yiliao-task:1.0.3
+
+docker stop yiliao-admin;docker rm yiliao-admin;
+docker run -d -p 9533:8080 --name yiliao-admin \
+-e "SPRING_PROFILES_ACTIVE=prod"  \
+-e "spring.cloud.nacos.discovery.server-addr=mse-33f262210-nacos-ans.mse.aliyuncs.com" \
+-e "spring.cloud.nacos.config.namespace=c5af6abb-0661-4508-8a7f-c010d520de39" \
+-e "spring.application.name=adminapi" \
+registry-intl-vpc.ap-southeast-1.aliyuncs.com/juhai/yiliao-admin:1.0.5;
+docker logs -f -t --tail 500 yiliao-admin
+
+docker pull registry-intl-vpc.ap-southeast-1.aliyuncs.com/juhai/yiliao-admin:1.0.5

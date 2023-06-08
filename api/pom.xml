@@ -10,7 +10,7 @@
 
     <groupId>com.juhai</groupId>
     <artifactId>api</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.0</version>
     <name>api</name>
     <description>api</description>
     <packaging>jar</packaging>
@@ -113,7 +113,7 @@
                 <configuration>
                     <!--指定生成的镜像名-->
                     <!--                    <imageName>registry.cn-hangzhou.aliyuncs.com/zhaotiezhu/sengre-api</imageName>-->
-                    <imageName>registry-intl.ap-southeast-1.aliyuncs.com/juhai/yiliao-api</imageName>
+                    <imageName>registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-api</imageName>
                     <!--指定标签-->
                     <imageTags>
                         <imageTag>${project.version}</imageTag>
