@@ -1,5 +1,5 @@
 server:
-  port: 9522
+  port: 9544
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

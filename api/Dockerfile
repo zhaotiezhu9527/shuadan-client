@@ -1,5 +1,5 @@
 FROM openjdk
-EXPOSE 9522
+EXPOSE 9544
 VOLUME /tmp
 ADD api.jar /app.jar
 RUN bash -c 'touch /app.jar'

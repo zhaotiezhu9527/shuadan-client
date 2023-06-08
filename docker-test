@@ -1,0 +1,27 @@
+docker login --username=weijing0318 registry.cn-hangzhou.aliyuncs.com
+
+
+docker stop shuadan-api;docker rm shuadan-api;
+docker run -d -p 9544:9544 --name shuadan-api \
+-e "SPRING_PROFILES_ACTIVE=test"  \
+-e "spring.cloud.nacos.discovery.server-addr=mse-33f262210-nacos-ans.mse.aliyuncs.com" \
+-e "spring.cloud.nacos.config.namespace=effcb28d-f1ea-4108-9460-492dd969a225" \
+-e "spring.application.name=api" \
+registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-api:1.0.0;
+docker logs -f -t --tail 500 shuadan-api
+
+docker push registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-api:1.0.0
+docker pull registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-api:1.0.0
+
+
+docker stop shuadan-admin;docker rm shuadan-admin;
+docker run -d -p 9545:8080 --name shuadan-admin \
+-e "SPRING_PROFILES_ACTIVE=test"  \
+-e "spring.cloud.nacos.discovery.server-addr=mse-33f262210-nacos-ans.mse.aliyuncs.com" \
+-e "spring.cloud.nacos.config.namespace=effcb28d-f1ea-4108-9460-492dd969a225" \
+-e "spring.application.name=adminapi" \
+registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-admin:1.0.0;
+docker logs -f -t --tail 500 shuadan-admin
+
+docker push registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-admin:1.0.0
+docker pull registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-admin:1.0.0
