@@ -25,8 +25,9 @@ export const loading = (title) => {
 };
 const PATH_URL =
   process.env.NODE_ENV === "development"
-    ? "http://8.222.224.10:9544/" //本地环境
-    : "https://api.anke9988.com/"; //预发环境
+    // ? "http://8.222.224.10:9544/" //本地环境
+    ? "http://sd.qtapi.juhai.top/" //测试环境
+    : "https://api.anke9988.com/"; //杨杨a1开发环境
 
 export const upload = (params) => {
   let header = {
