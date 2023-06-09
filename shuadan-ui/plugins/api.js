@@ -212,3 +212,48 @@ export const notice_list = (data) => {
       });
   });
 };
+
+//信息公告列表
+export const system_config = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "system/config",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+//VIP等级详情
+export const user_vipiv_info = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/viplv/info",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+// 文本消息相关
+export const message = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "message?code=" + data,
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

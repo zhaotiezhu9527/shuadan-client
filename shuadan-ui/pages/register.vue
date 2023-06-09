@@ -140,10 +140,6 @@ export default {
       inviteCode: "", //推荐码id
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-  },
-  onShow() {},
   methods: {
     pwdChange() {
       this.passicon1 = !this.passicon1;

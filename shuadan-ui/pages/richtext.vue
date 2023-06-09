@@ -30,11 +30,18 @@ export default {
   data() {
     return {
       title: "平台简介",
-      content: "123",
+      content: "",
     };
   },
   onLoad(e) {
     this.title = e.title;
+    this.$api.message(e.title).then(({ data }) => {
+      if (data.code == 0) {
+        this.content = data.data;
+      } else {
+        this.$base.show(data.msg);
+      }
+    });
   },
   onShow() {},
   methods: {},

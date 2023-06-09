@@ -18,8 +18,8 @@
       <view class="car">
         <image class="user" src="@/static/img/head.png" mode="widthFix" />
         <view class="txt">
-          <view>会员等级：钻石会员</view>
-          <view>每天可接单：150单</view>
+          <view>会员等级：{{ items.currLevelName }}</view>
+          <view>每天可接单：{{ items.currDayWithdrawCount }}单</view>
         </view>
         <view class="link" @click="change">会员详情</view>
       </view>
@@ -41,13 +41,13 @@
     <view class="more">左右滑动查看更多</view>
     <u-scroll-list>
       <view class="row">
-        <view class="item" v-for="(item, index) in list" :key="index">
-          <view class="title">白银会员</view>
-          <view class="money">0.00元</view>
-          <view class="txt">提现次数:2/天</view>
-          <view class="txt">提现额度:50000.01</view>
-          <view class="txt">接单数量:70/天</view>
-          <view class="txt">佣金比例:0.0030</view>
+        <view class="item" v-for="(item, index) in items.levels" :key="index">
+          <view class="title">{{ item.levelName }}</view>
+          <view class="money">{{ item.levelPrice }}元</view>
+          <view class="txt">提现次数:{{ item.dayWithdrawCount }}/天</view>
+          <view class="txt">提现额度:{{ item.maxWithdrawAmount }}</view>
+          <view class="txt">接单数量:{{ item.dayOrderCount }}/天</view>
+          <view class="txt">佣金比例:{{ item.commissionRate }}</view>
           <view class="txt">会员永久有效</view>
         </view>
       </view>
@@ -59,13 +59,18 @@
 export default {
   data() {
     return {
-      list: [1, 2, 3, 4],
+      items: {},
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
+  onShow() {
+    this.$api.user_vipiv_info().then(({ data }) => {
+      if (data.code == 0) {
+        this.items = data.data;
+      } else {
+        this.$base.show(data, msg);
+      }
+    });
   },
-  onShow() {},
   methods: {
     change() {
       uni.reLaunch({ url: "/pages/index?tabs=4" });

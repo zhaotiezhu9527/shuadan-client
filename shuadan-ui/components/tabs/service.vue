@@ -7,7 +7,12 @@
     <view class="customer_type">
       <image class="image" src="@/static/img/bg_02.png" mode="widthFix" />
       <view class="list">
-        <view class="item" v-for="(item, index) in list" :key="index">
+        <view
+          class="item"
+          v-for="(item, index) in list"
+          :key="index"
+          @click="route"
+        >
           <view class="name">{{ item.name }}</view>
           <image class="img" src="@/static/img/bg_03.png" mode="widthFix" />
           <view class="txt">{{ item.text }}</view>
@@ -31,8 +36,11 @@ export default {
     };
   },
   methods: {
-    open(e) {
-      console.log(e);
+    open(e) {},
+    route() {
+      uni.navigateTo({
+        url: "/pages/onlineService",
+      });
     },
   },
 };

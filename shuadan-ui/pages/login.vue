@@ -47,8 +47,8 @@
         :loading="loading"
       ></u-button>
       <view class="other">
-        <view>忘记密码</view>
-        <view @click="roeute">免费注册</view>
+        <view @click="nopass">忘记密码</view>
+        <view @click="route">免费注册</view>
       </view>
     </view>
     <service />
@@ -66,10 +66,6 @@ export default {
       loading: false,
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-  },
-  onShow() {},
   methods: {
     pwdChange() {
       this.passicon1 = !this.passicon1;
@@ -101,7 +97,12 @@ export default {
           this.loading = false;
         });
     },
-    roeute() {
+    nopass() {
+      uni.navigateTo({
+        url: "/pages/onlineService",
+      });
+    },
+    route() {
       uni.navigateTo({
         url: "/pages/register",
       });

@@ -46,14 +46,14 @@
       <view class="pour">请牢记密码,如忘记密码,请联系客服。</view>
       <view class="btn">
         <u-button
-              class="custom-style"
-              color="#2f3848"
-              block
-              @click="submit"
-              :loading="loading"
-            >
-              确认修改
-            </u-button>
+          class="custom-style"
+          color="#2f3848"
+          block
+          @click="submit"
+          :loading="loading"
+        >
+          确认修改
+        </u-button>
       </view>
     </view>
   </view>
@@ -63,48 +63,44 @@
 export default {
   data() {
     return {
-      oldPwd:'',//真实姓名
-      loading: false,//
-      newPwd:'',//手机
-      password:'',//银行卡号
+      oldPwd: "", //真实姓名
+      loading: false, //
+      newPwd: "", //手机
+      password: "", //银行卡号
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-  },
-  onShow() {},
   methods: {
-    submit(){
+    submit() {
       if (!this.oldPwd) {
         return this.$base.show("旧密码不能为空~");
-      }else if (!this.newPwd) {
+      } else if (!this.newPwd) {
         return this.$base.show("请填写新密码~");
-      }else if (this.newPwd != this.password) {
+      } else if (this.newPwd != this.password) {
         return this.$base.show("两次输入的密码不一致~");
       }
-      this.loading = true
+      this.loading = true;
       const DATA_OBJ = {
-        newPwd: this.newPwd,//新密码
-        oldPwd: this.oldPwd,//旧密码
+        newPwd: this.newPwd, //新密码
+        oldPwd: this.oldPwd, //旧密码
       };
       this.$api
         .updatePayPwd(DATA_OBJ)
         .then((res) => {
           if (res.data.code == 0) {
-            this.$base.show(res.data.msg)
-            this.loading = false
+            this.$base.show(res.data.msg);
+            this.loading = false;
           }
         })
         .finally(() => {
-          this.loading = false
+          this.loading = false;
         });
-    }
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.title{
+.title {
   padding: 0 12rpx;
   background-color: #eee;
   font-size: 27rpx;
@@ -112,27 +108,27 @@ export default {
   color: #333;
 }
 .from-input {
-    margin: 0 40rpx;
-    display: flex;
+  margin: 0 40rpx;
+  display: flex;
+  height: 90rpx;
+  line-height: 90rpx;
+  label {
+    width: 200rpx;
+    margin-right: 20rpx;
+    color: #999;
+  }
+  .input-text {
+    flex: 1;
     height: 90rpx;
     line-height: 90rpx;
-    label {
-      width: 200rpx;
-      margin-right: 20rpx;
-      color: #999;
-    }
-    .input-text {
-      flex: 1;
-      height: 90rpx;
-      line-height: 90rpx;
-    }
   }
-  .btn{
-    width: 90%;
-    margin: 40rpx auto;
-  }
-  .pour{
-    margin: 50rpx 50rpx;
-    color: #e83323;
-  }
+}
+.btn {
+  width: 90%;
+  margin: 40rpx auto;
+}
+.pour {
+  margin: 50rpx 50rpx;
+  color: #e83323;
+}
 </style>

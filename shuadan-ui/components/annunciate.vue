@@ -47,6 +47,10 @@ export default {
       content: "测试内容",
     };
   },
+  async mounted() {
+    await this.$onLaunched;
+    this.content = uni.getStorageSync("config").homeMsg;
+  },
   methods: {},
 };
 </script>

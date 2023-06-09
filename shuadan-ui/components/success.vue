@@ -89,7 +89,7 @@
 export default {
   data() {
     return {
-      show: true,
+      show: false,
       content: "测试内容",
     };
   },

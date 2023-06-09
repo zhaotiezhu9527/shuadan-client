@@ -8,7 +8,7 @@
           <image
             class="icon-img box-right"
             src="@/static/img/setting.png"
-            @click="goPage(list[0].url)"
+            @click="goPage({ label: '', url: list[0].url })"
           />
         </view>
         <view class="user">
@@ -32,8 +32,12 @@
               >¥<label class="money-number">{{ userData.balance }}</label></view
             >
           </view>
-          <view class="withdrawal" @click="goDeposit">提现</view>
-          <view class="recharge">充值</view>
+          <view class="withdrawal" @click="goDeposit('/pages/deposit')"
+            >提现</view
+          >
+          <view class="recharge" @click="goDeposit('/pages/recharge')"
+            >充值</view
+          >
         </view>
         <view class="money-bottom"></view>
       </view>
@@ -43,7 +47,7 @@
           class="item"
           v-for="(item, index) in list"
           :key="index"
-          @click="goPage(item.url)"
+          @click="goPage(item)"
         >
           <image class="item-img" :src="'../static/img/' + item.icon" />
           <view class="text">{{ item.label }}</view>
@@ -91,7 +95,7 @@ export default {
         {
           label: "抢单记录",
           icon: "rob.png",
-          url: "/pages/set",
+          url: "/pages/index?tabs=1",
         },
         {
           label: "账户明细",
@@ -121,7 +125,7 @@ export default {
         {
           label: "团队报表",
           icon: "team.png",
-          url: "/pages/set",
+          url: "/pages/team",
         },
       ],
       userData: {
@@ -140,7 +144,6 @@ export default {
   },
   methods: {
     open(e) {
-      console.log(e);
       this.getInfo();
     },
     loginOut() {
@@ -155,15 +158,21 @@ export default {
         }
       });
     },
-    goPage(url) {
-      uni.navigateTo({
-        url: url,
-      });
+    goPage({ label, url }) {
+      if (label === "抢单记录") {
+        uni.reLaunch({
+          url: url,
+        });
+      } else {
+        uni.navigateTo({
+          url: url,
+        });
+      }
     },
-    goDeposit() {
+    goDeposit(url) {
       if (this.bindStatus) {
         uni.navigateTo({
-          url: "/pages/deposit",
+          url,
         });
       } else {
         this.$base.show("请先绑定银行卡");

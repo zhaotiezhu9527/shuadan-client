@@ -14,8 +14,7 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="head">
-      </view>
+      <view class="head"> </view>
     </view>
   </view>
 </template>
@@ -23,20 +22,15 @@
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
   },
-  async onLoad() {
-    await this.$onLaunched;
-  },
-  onShow() {},
   methods: {},
 };
 </script>
 
 <style scoped lang="scss">
-.main{
-  .head{
+.main {
+  .head {
     width: 100%;
     height: 372rpx;
     background: url(../static/img/msg.png) no-repeat;
@@ -44,10 +38,14 @@ export default {
     overflow: hidden;
   }
 }
-.nav-custom{
-  color:#fff;
-  font-weight:500;
-  font-size:32rpx;
-  background-image: linear-gradient(135deg, #F9B821 10%, #FBE750 100%)!important;
+.nav-custom {
+  color: #fff;
+  font-weight: 500;
+  font-size: 32rpx;
+  background-image: linear-gradient(
+    135deg,
+    #f9b821 10%,
+    #fbe750 100%
+  ) !important;
 }
 </style>

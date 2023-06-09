@@ -1,6 +1,15 @@
 <script>
 export default {
-  onLaunch: function () {},
+  onLaunch: function () {
+    this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+        this.$base.storage("config", data.data);
+        this.$isResolve();
+      } else {
+        this.$isResolve();
+      }
+    });
+  },
   methods: {},
   onShow: function () {},
 };

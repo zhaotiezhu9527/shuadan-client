@@ -6,8 +6,8 @@
         <view class="money">
           <view class="txt">2520.55</view>
           <view class="btn">
-            <view @click="routechange('/pages/deposit')">提现</view>
-            <view @click="routechange('/pages/recharge')">充值</view>
+            <view @click="goDeposit('/pages/deposit')">提现</view>
+            <view @click="goDeposit('/pages/recharge')">充值</view>
           </view>
         </view>
         <view class="ulStyle">
@@ -32,12 +32,9 @@
       <view class="image">
         <image class="img" src="@/static/img/icon12.png" mode="widthFix" />
       </view>
-      <u-notice-bar
-        bgColor="#fff"
-        color="#c0392b"
-        fontSize="38rpx"
-        text="温馨提示：每天做任务时间09:00"
-      ></u-notice-bar>
+      <marquee class="marquee">
+        <div v-html="homeNotice"></div>
+      </marquee>
       <view class="txt">了解</view>
     </view>
     <view class="task">任务大厅</view>
@@ -46,7 +43,7 @@
         class="item"
         v-for="(item, index) in list"
         :key="index"
-        @click="routechange2('/pages/task?tabs=2&infos=' + item)"
+        @click="routechange2('/pages/index?tabs=2&infos=' + item.name)"
       >
         <image :src="item.icon" class="icon" mode="widthFix" />
         <image src="@/static/img/icon07.png" class="bg" mode="widthFix" />
@@ -105,11 +102,16 @@ export default {
         { name: "天猫", content: "铂金会员专属通道", img: img10, icon: img05 },
         { name: "京东", content: "钻石会员专属通道", img: img11, icon: img06 },
       ],
+      items: {},
+      homeNotice: "",
+      bindStatus: false, //银行卡绑定状态
     };
   },
   methods: {
-    open(e) {
-      console.log(e);
+    async open(e) {
+      await this.$onLaunched;
+      this.homeNotice = uni.getStorageSync("config").homeNotice;
+      this.getInfo();
     },
     change(title) {
       uni.navigateTo({
@@ -124,6 +126,28 @@ export default {
     routechange(url) {
       uni.navigateTo({
         url,
+      });
+    },
+    goDeposit(url) {
+      if (this.bindStatus) {
+        uni.navigateTo({
+          url,
+        });
+      } else {
+        this.$base.show("请先绑定银行卡");
+      }
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.items = res.data.data;
+          if (this.items.bankNo === null || !this.items.bankNo) {
+            this.bindStatus = false;
+          } else {
+            this.bindStatus = true;
+          }
+        }
       });
     },
   },
@@ -268,14 +292,7 @@ export default {
 }
 .notice {
   position: relative;
-  /deep/.u-notice-bar {
-    border: 2rpx solid #eee;
-    border-left: 0;
-    border-right: 0;
-    font-weight: 600;
-    position: relative;
-    z-index: 1;
-  }
+  border: 2rpx solid #eee;
   .image {
     background-color: #fff;
     position: absolute;
@@ -313,5 +330,10 @@ export default {
       width: 2rpx;
     }
   }
+}
+.marquee {
+  display: flex;
+  align-items: center;
+  height: 84rpx;
 }
 </style>

@@ -37,7 +37,12 @@
       </view>
     </view>
     <view class="btn">
-      <u-button color="#2f3848" type="primary" text="充值升级"></u-button>
+      <u-button
+        color="#2f3848"
+        type="primary"
+        text="充值升级"
+        @click="addVip"
+      ></u-button>
       <u-button
         color="#ff6225"
         type="primary"
@@ -130,12 +135,12 @@ export default {
       },
     };
   },
-  mounted() {
-    console.log(this.$refs);
-  },
   methods: {
-    open(e) {
-      console.log(e);
+    open(e) {},
+    addVip() {
+      uni.navigateTo({
+        url: "/pages/vip",
+      });
     },
     startCallBack() {
       // 先开始旋转

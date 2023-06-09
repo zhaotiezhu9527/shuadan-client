@@ -78,10 +78,6 @@ export default {
       value: "",
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-  },
-  onShow() {},
   methods: {
     change() {
       let num = /^\+?[1-9]\d*$/;
@@ -92,8 +88,8 @@ export default {
       }
     },
     submit() {
-      uni.reLaunch({
-        url: "/pages/service?tabs=3",
+      uni.navigateTo({
+        url: "/pages/onlineService",
       });
     },
   },

@@ -10,6 +10,9 @@ const home = [
     path: "/pages/vip",
   },
   {
+    path: "/pages/onlineService",
+  },
+  {
     path: "/pages/login",
   },
   {
