@@ -134,6 +134,9 @@ export default {
     console.log(this.$refs);
   },
   methods: {
+    open(e) {
+      console.log(e);
+    },
     startCallBack() {
       // 先开始旋转
       this.$refs.myLucky.play();

@@ -46,7 +46,7 @@
         class="item"
         v-for="(item, index) in list"
         :key="index"
-        @click="routechange('/pages/task?infos=' + item)"
+        @click="routechange2('/pages/task?tabs=2&infos=' + item)"
       >
         <image :src="item.icon" class="icon" mode="widthFix" />
         <image src="@/static/img/icon07.png" class="bg" mode="widthFix" />
@@ -108,9 +108,17 @@ export default {
     };
   },
   methods: {
+    open(e) {
+      console.log(e);
+    },
     change(title) {
       uni.navigateTo({
         url: `/pages/richtext?title=${title}`,
+      });
+    },
+    routechange2(url) {
+      uni.reLaunch({
+        url,
       });
     },
     routechange(url) {

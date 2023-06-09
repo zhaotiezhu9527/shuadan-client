@@ -68,7 +68,7 @@ export default {
   onShow() {},
   methods: {
     change() {
-      uni.navigateTo({ url: "/pages/user" });
+      uni.reLaunch({ url: "/pages/index?tabs=4" });
     },
   },
 };

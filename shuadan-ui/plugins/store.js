@@ -1,1 +1,1 @@
-export const code = 86;
+export const tabs = 0;

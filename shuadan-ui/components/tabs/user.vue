@@ -138,10 +138,11 @@ export default {
       bindStatus: false, //银行卡绑定状态
     };
   },
-  onShow() {
-    this.getInfo();
-  },
   methods: {
+    open(e) {
+      console.log(e);
+      this.getInfo();
+    },
     loginOut() {
       this.$api.user_logout().then((res) => {
         if (res.data.code == 0) {

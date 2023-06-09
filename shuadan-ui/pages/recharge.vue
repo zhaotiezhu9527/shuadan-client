@@ -92,8 +92,8 @@ export default {
       }
     },
     submit() {
-      uni.navigateTo({
-        url: "/pages/service",
+      uni.reLaunch({
+        url: "/pages/service?tabs=3",
       });
     },
   },

@@ -87,6 +87,11 @@ export default {
       ],
     };
   },
+  methods: {
+    open(e) {
+      console.log(e);
+    },
+  },
   components: { success },
 };
 </script>

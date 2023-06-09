@@ -30,6 +30,11 @@ export default {
       ],
     };
   },
+  methods: {
+    open(e) {
+      console.log(e);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

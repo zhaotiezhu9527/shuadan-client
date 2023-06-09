@@ -132,7 +132,7 @@ export default {
       radio: "1",
       passicon1: true,
       passicon2: true,
-      nickName:"",//昵称
+      nickName: "", //昵称
       userName: "", //账号
       loginPwd: "", // 密码
       loading: false,
@@ -172,7 +172,7 @@ export default {
         loginPwd: this.loginPwd,
         nickName: this.nickName,
         payPwd: this.payPwd,
-        inviteCode: this.inviteCode
+        inviteCode: this.inviteCode,
       };
       this.loading = true;
       this.$api
@@ -183,7 +183,7 @@ export default {
               key: "token",
               data: res.data.token,
               success: function () {
-                uni.navigateTo({ url: "/pages/user" });
+                uni.reLaunch({ url: "/pages/index?tabs=4" });
               },
             });
           }

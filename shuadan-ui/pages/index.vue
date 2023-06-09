@@ -1,7 +1,6 @@
 <template>
   <view>
-    <!-- <component :is="list[active].route" /> -->
-    <task />
+    <component :is="list[active].route" ref="main" />
     <view class="tabs">
       <template v-for="(item, index) in list">
         <view
@@ -58,9 +57,27 @@ export default {
       ],
     };
   },
+  onLoad(e) {
+    if (e.tabs || Number(e.tabs) === 0) {
+      this.active = Number(e.tabs);
+      this.$store.tabs = Number(e.tabs);
+    } else {
+      this.active = this.$store.tabs;
+    }
+    this.$nextTick(() => {
+      this.$refs.main.open(e);
+    });
+  },
   methods: {
     change(index) {
       this.active = index;
+      this.$store.tabs = index;
+      // #ifdef H5
+      this.$router.push(`/pages/index?tabs=${index}`);
+      // #endif
+      this.$nextTick(() => {
+        this.$refs.main.open({ tabs: index });
+      });
     },
   },
   components: {
