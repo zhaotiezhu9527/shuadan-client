@@ -3,6 +3,8 @@ package com.juhai.commons.utils;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 
+import java.util.Date;
+
 public class RedisKeyUtil {
 
     /**
@@ -23,6 +25,11 @@ public class RedisKeyUtil {
     public static String UserOnlineKey(Object userId) {
         String template = "user:online:token:{}";
         return StrUtil.format(template, userId);
+    }
+
+    public static String UserOrderCount(Object userName) {
+        String template = "user:order:{}:{}";
+        return StrUtil.format(template, DateUtil.format(new Date(), "yyyyMMdd"), userName);
     }
 
     /**

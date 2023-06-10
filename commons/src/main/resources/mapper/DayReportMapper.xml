@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.DayReportMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.DayReport">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="today" column="today" jdbcType="DATE"/>
+            <result property="deposit" column="deposit" jdbcType="DECIMAL"/>
+            <result property="withdraw" column="withdraw" jdbcType="DECIMAL"/>
+            <result property="bet" column="bet" jdbcType="DECIMAL"/>
+            <result property="commission" column="commission" jdbcType="DECIMAL"/>
+            <result property="income" column="income" jdbcType="DECIMAL"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+            <result property="userAgentNode" column="user_agent_node" jdbcType="VARCHAR"/>
+            <result property="userAgentLevel" column="user_agent_level" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_name,today,
+        deposit,withdraw,bet,
+        commission,income,user_agent,
+        user_agent_node,user_agent_level,create_time,
+        update_time
+    </sql>
+
+    <insert id="batchInsertOrUpdate">
+        <foreach collection="list" index="index" item="report" separator=";">
+            insert into t_day_report
+            (user_name, today, deposit,withdraw,bet, commission, income,
+            user_agent, user_agent_node, user_agent_level, create_time, update_time)
+            VALUES (
+            #{report.userName},
+            #{report.today},
+            #{report.deposit},
+            #{report.withdraw},
+            #{report.bet},
+            #{report.commission},
+            #{report.income},
+            #{report.userAgent},
+            #{report.userAgentNode},
+            #{report.userAgentLevel},
+            #{report.createTime},
+            #{report.updateTime})
+            ON DUPLICATE KEY UPDATE
+            deposit = deposit + #{report.deposit},
+            withdraw = withdraw + #{report.withdraw},
+            bet = bet + #{report.bet},
+            commission = commission + #{report.commission},
+            income = income + #{report.income},
+            update_time = #{report.updateTime}
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdate">
+        insert into t_day_report
+        (user_name, today, deposit, withdraw, bet, commission, income,
+         user_agent, user_agent_node, user_agent_level, create_time, update_time)
+        VALUES (#{report.userName},
+                #{report.today},
+                #{report.deposit},
+                #{report.withdraw},
+                #{report.bet},
+                #{report.commission},
+                #{report.income},
+                #{report.userAgent},
+                #{report.userAgentNode},
+                #{report.userAgentLevel},
+                #{report.createTime},
+                #{report.updateTime}) ON DUPLICATE KEY
+        UPDATE
+            deposit = deposit + #{report.deposit},
+            withdraw = withdraw + #{report.withdraw},
+            bet = bet + #{report.bet},
+            commission = commission + #{report.commission},
+            income = income + #{report.income},
+            update_time = #{report.updateTime}
+    </insert>
+</mapper>

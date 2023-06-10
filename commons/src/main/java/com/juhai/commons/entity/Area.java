@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
@@ -32,6 +33,12 @@ public class Area implements Serializable {
      */
     @TableField(value = "area_icon")
     private String areaIcon;
+
+    /**
+     * 专区余额
+     */
+    @TableField(value = "area_balance")
+    private BigDecimal areaBalance;
 
     /**
      * 等级ID

@@ -1,10 +1,12 @@
 package com.juhai.commons.mapper;
 
+import com.juhai.commons.entity.DayReport;
 import com.juhai.commons.entity.User;
 import icu.mhb.mybatisplus.plugln.base.mapper.JoinBaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
 * @author Administrator
@@ -22,6 +24,8 @@ public interface UserMapper extends JoinBaseMapper<User> {
      */
     int updateUserBalance(@Param("userName") String userName, @Param("balance") BigDecimal balance);
 
+
+    int batchUpdateReport(List<User> list);
 }
 
 

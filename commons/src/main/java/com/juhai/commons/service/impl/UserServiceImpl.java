@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
 * @author Administrator
@@ -33,6 +34,14 @@ public class UserServiceImpl extends JoinServiceImpl<UserMapper, User>
         int updateUserBalance = userMapper.updateUserBalance(userName, balance);
         if (updateUserBalance <= 0) {
             throw new Exception("修改用户余额失败.");
+        }
+    }
+
+    @Override
+    public void batchUpdateReport(List<User> list) throws Exception {
+        int i = userMapper.batchUpdateReport(list);
+        if (i <= 0) {
+            throw new Exception("修改日报表失败");
         }
     }
 }

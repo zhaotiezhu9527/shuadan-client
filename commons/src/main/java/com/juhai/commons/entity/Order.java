@@ -101,10 +101,22 @@ public class Order implements Serializable {
     private Integer preId;
 
     /**
+     * 预派送详情ID
+     */
+    @TableField(value = "pre_detail_id")
+    private Integer preDetailId;
+
+    /**
      * 今日第几单
      */
     @TableField(value = "count_num")
     private Integer countNum;
+
+    /**
+     * 佣金倍数
+     */
+    @TableField(value = "commission_mul")
+    private Double commissionMul;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
