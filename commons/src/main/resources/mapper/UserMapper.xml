@@ -64,11 +64,23 @@
     <!-- 修改用户报表 -->
     <insert id="batchUpdateReport">
         <foreach collection="list" index="index" item="report" separator=";">
-            update t_user set balance = balance + #{report.balance},
-            deposit = deposit + #{report.deposit},
-            withdraw = withdraw + #{report.withdraw},
-            bet = bet + #{report.bet},
-            income = income + #{report.income}
+            update t_user set
+            <if test="report.balance != null and report.balance != 0">
+                balance = balance + #{report.balance},
+            </if>
+            <if test="report.deposit != null and report.deposit != 0">
+                deposit = deposit + #{report.deposit},
+            </if>
+            <if test="report.withdraw != null and report.withdraw != 0">
+                withdraw = withdraw + #{report.withdraw},
+            </if>
+            <if test="report.bet != null and report.bet != 0">
+                bet = bet + #{report.bet},
+            </if>
+            <if test="report.income != null and report.income != 0">
+                income = income + #{report.income},
+            </if>
+            update_time = now()
             where balance + #{report.balance} >= 0 and user_name = #{report.userName}
         </foreach>
     </insert>

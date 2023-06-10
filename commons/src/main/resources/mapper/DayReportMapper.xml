@@ -47,11 +47,21 @@
             #{report.createTime},
             #{report.updateTime})
             ON DUPLICATE KEY UPDATE
-            deposit = deposit + #{report.deposit},
-            withdraw = withdraw + #{report.withdraw},
-            bet = bet + #{report.bet},
-            commission = commission + #{report.commission},
-            income = income + #{report.income},
+            <if test="report.deposit != null and report.deposit != 0">
+                deposit = deposit + #{report.deposit},
+            </if>
+            <if test="report.withdraw != null and report.withdraw != 0">
+                withdraw = withdraw + #{report.withdraw},
+            </if>
+            <if test="report.bet != null and report.bet != 0">
+                bet = bet + #{report.bet},
+            </if>
+            <if test="report.commission != null and report.commission != 0">
+                commission = commission + #{report.commission},
+            </if>
+            <if test="report.income != null and report.income != 0">
+                income = income + #{report.income},
+            </if>
             update_time = #{report.updateTime}
         </foreach>
     </insert>
@@ -73,11 +83,21 @@
                 #{report.createTime},
                 #{report.updateTime}) ON DUPLICATE KEY
         UPDATE
-            deposit = deposit + #{report.deposit},
-            withdraw = withdraw + #{report.withdraw},
-            bet = bet + #{report.bet},
-            commission = commission + #{report.commission},
-            income = income + #{report.income},
+            <if test="report.deposit != null and report.deposit != 0">
+                deposit = deposit + #{report.deposit},
+            </if>
+            <if test="report.withdraw != null and report.withdraw != 0">
+                withdraw = withdraw + #{report.withdraw},
+            </if>
+            <if test="report.bet != null and report.bet != 0">
+                bet = bet + #{report.bet},
+            </if>
+            <if test="report.commission != null and report.commission != 0">
+                commission = commission + #{report.commission},
+            </if>
+            <if test="report.income != null and report.income != 0">
+                income = income + #{report.income},
+            </if>
             update_time = #{report.updateTime}
     </insert>
 </mapper>

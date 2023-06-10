@@ -113,7 +113,7 @@
                 <configuration>
                     <!--指定生成的镜像名-->
                     <!--                    <imageName>registry.cn-hangzhou.aliyuncs.com/zhaotiezhu/sengre-api</imageName>-->
-                    <imageName>registry-intl.ap-southeast-1.aliyuncs.com/juhai/shuadan-api</imageName>
+                    <imageName>registry-intl-vpc.ap-southeast-1.aliyuncs.com/juhai/shuadan-api</imageName>
                     <!--指定标签-->
                     <imageTags>
                         <imageTag>${project.version}</imageTag>

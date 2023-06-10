@@ -235,11 +235,11 @@ public class OrderController {
             DayReport dayReport = new DayReport();
             dayReport.setUserName(userName);
             dayReport.setToday(order.getOrderTime());
-            dayReport.setDeposit(new BigDecimal("0"));
-            dayReport.setWithdraw(new BigDecimal("0"));
+//            dayReport.setDeposit(new BigDecimal("0"));
+//            dayReport.setWithdraw(new BigDecimal("0"));
             dayReport.setBet(order.getOrderAmount());
-            dayReport.setCommission(new BigDecimal("0"));
-            dayReport.setIncome(new BigDecimal("0"));
+//            dayReport.setCommission(new BigDecimal("0"));
+//            dayReport.setIncome(new BigDecimal("0"));
             dayReport.setUserAgent(user.getUserAgent());
             dayReport.setUserAgentNode(user.getUserAgentNode());
             dayReport.setUserAgentLevel(user.getUserAgentLevel());
@@ -315,10 +315,10 @@ public class OrderController {
         User userReport = new User();
         userReport.setUserName(user.getUserName());
         userReport.setBalance(commission);
-        userReport.setDeposit(new BigDecimal("0"));
-        userReport.setWithdraw(new BigDecimal("0"));
+//        userReport.setDeposit(new BigDecimal("0"));
+//        userReport.setWithdraw(new BigDecimal("0"));
         userReport.setIncome(commission);
-        userReport.setBet(new BigDecimal("0"));
+//        userReport.setBet(new BigDecimal("0"));
         users.add(userReport);
 
         List<Account> accounts = new ArrayList<>();
@@ -343,9 +343,9 @@ public class OrderController {
         DayReport dayReport = new DayReport();
         dayReport.setUserName(user.getUserName());
         dayReport.setToday(order.getOrderTime());
-        dayReport.setDeposit(new BigDecimal("0"));
-        dayReport.setWithdraw(new BigDecimal("0"));
-        dayReport.setBet(new BigDecimal("0"));
+//        dayReport.setDeposit(new BigDecimal("0"));
+//        dayReport.setWithdraw(new BigDecimal("0"));
+//        dayReport.setBet(new BigDecimal("0"));
         dayReport.setCommission(commission);
         dayReport.setIncome(commission);
         dayReport.setUserAgent(user.getUserAgent());
@@ -373,10 +373,10 @@ public class OrderController {
                 User userReport1 = new User();
                 userReport1.setUserName(userAgent.getUserName());
                 userReport1.setBalance(agentCommission);
-                userReport1.setDeposit(new BigDecimal("0"));
-                userReport1.setWithdraw(new BigDecimal("0"));
+//                userReport1.setDeposit(new BigDecimal("0"));
+//                userReport1.setWithdraw(new BigDecimal("0"));
                 userReport1.setIncome(agentCommission);
-                userReport1.setBet(new BigDecimal("0"));
+//                userReport1.setBet(new BigDecimal("0"));
                 users.add(userReport1);
                 // 记录代理流水
                 Account agentAccount = new Account();
@@ -396,10 +396,10 @@ public class OrderController {
                 DayReport agentDayReport = new DayReport();
                 agentDayReport.setUserName(userAgent.getUserName());
                 agentDayReport.setToday(order.getOrderTime());
-                agentDayReport.setDeposit(new BigDecimal("0"));
-                agentDayReport.setWithdraw(new BigDecimal("0"));
-                agentDayReport.setBet(new BigDecimal("0"));
-                agentDayReport.setCommission(new BigDecimal("0"));
+//                agentDayReport.setDeposit(new BigDecimal("0"));
+//                agentDayReport.setWithdraw(new BigDecimal("0"));
+//                agentDayReport.setBet(new BigDecimal("0"));
+//                agentDayReport.setCommission(new BigDecimal("0"));
                 agentDayReport.setIncome(agentCommission);
                 agentDayReport.setUserAgent(userAgent.getUserAgent());
                 agentDayReport.setUserAgentNode(userAgent.getUserAgentNode());
