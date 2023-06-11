@@ -25,8 +25,8 @@ export const loading = (title) => {
 };
 const PATH_URL =
   process.env.NODE_ENV === "development"
-    // ? "http://8.222.224.10:9544/" //本地环境
-    ? "http://sd.qtapi.juhai.top/" //测试环境
+    ? // ? "http://8.222.224.10:9544/" //本地环境
+      "http://sd.qtapi.juhai.top/" //测试环境
     : "https://api.anke9988.com/"; //杨杨a1开发环境
 
 export const upload = (params) => {
@@ -77,15 +77,13 @@ export const request = (params) => {
       method: str,
       header: params.header,
       success: (res) => {
-        uni.hideLoading();
         if (res.data.code == -2) {
           uni.redirectTo({
             url: "/pages/login",
           });
           uni.removeStorageSync("token");
           show(res.data.msg);
-        }
-        else if (res.data.code != 0) {
+        } else if (res.data.code != 0) {
           uni.showToast({
             title: res?.data?.msg || "存在网络异常",
             duration: 2000,
@@ -94,8 +92,10 @@ export const request = (params) => {
         }
         resolve(res);
       },
-      fail: () => {
+      fail: (e) => {
         show("存在网络异常");
+      },
+      complete: () => {
         uni.hideLoading();
       },
     });

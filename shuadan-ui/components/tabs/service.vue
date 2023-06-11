@@ -11,14 +11,14 @@
           class="item"
           v-for="(item, index) in list"
           :key="index"
-          @click="route"
+          @click="route(item)"
         >
-          <view class="name">{{ item.name }}</view>
+          <view class="name">{{ item.serviceName }}</view>
           <image class="img" src="@/static/img/bg_03.png" mode="widthFix" />
-          <view class="txt">{{ item.text }}</view>
+          <view class="txt">{{ item.remark || "客服" }}</view>
           <view class="time">
             <image class="icon" src="@/static/img/kefu.png" mode="widthFix" />
-            <text>{{ item.time }}</text>
+            <text>{{ item.workTime }}</text>
           </view>
         </view>
       </view>
@@ -29,17 +29,22 @@
 export default {
   data() {
     return {
-      list: [
-        { name: "在线咨询客服", text: "客服", time: "09:00-22:00" },
-        { name: "充值专线客服", text: "客服", time: "09:00-22:00" },
-      ],
+      list: [],
     };
   },
   methods: {
-    open(e) {},
-    route() {
+    open(e) {
+      this.$api.system_customerService_list().then(({ data }) => {
+        if (data.code == 0) {
+          this.list = data.data;
+        } else {
+          this.$base.show(data.msg);
+        }
+      });
+    },
+    route(item) {
       uni.navigateTo({
-        url: "/pages/onlineService",
+        url: "/pages/onlineService?path=" + item.link,
       });
     },
   },
@@ -96,6 +101,7 @@ export default {
     padding: 0 30rpx;
     position: relative;
     z-index: 4;
+    flex-wrap: wrap;
     .item {
       background-color: #f6f7f7;
       border-radius: 20rpx;

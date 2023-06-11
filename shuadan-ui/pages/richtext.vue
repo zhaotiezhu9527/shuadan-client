@@ -29,15 +29,15 @@ import annunciate from "@/components/annunciate";
 export default {
   data() {
     return {
-      title: "平台简介",
+      title: "",
       content: "",
     };
   },
   onLoad(e) {
-    this.title = e.title;
-    this.$api.message(e.title).then(({ data }) => {
+    this.$api.message(e.en).then(({ data }) => {
       if (data.code == 0) {
-        this.content = data.data;
+        this.title = data.data.title;
+        this.content = data.data.content;
       } else {
         this.$base.show(data.msg);
       }

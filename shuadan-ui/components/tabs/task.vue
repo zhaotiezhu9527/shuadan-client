@@ -14,10 +14,10 @@
     </u-navbar>
     <view class="list">
       <view class="item">
-        <image :src="items.icon" class="icon" mode="widthFix" />
+        <image :src="vim.levelImg" class="icon" mode="widthFix" />
         <view class="content">
-          <view>{{ items.name }}</view>
-          <view>{{ items.content }}</view>
+          <view>{{ vim.areaName }}</view>
+          <view>{{ vim.remark }} 佣金{{ vim.commission }}%</view>
         </view>
         <view class="task_content">
           <view class="padding">
@@ -54,27 +54,41 @@
     <view class="report">
       <view class="item">
         <view class="txt gray">总资产</view>
-        <view class="moeny gray">+11.81</view>
+        <view class="moeny gray">
+          <template v-if="infos.totalIncome">+</template>{{ infos.totalIncome }}
+        </view>
       </view>
       <view class="item">
         <view class="txt gray">昨日收益</view>
-        <view class="moeny">+11.81</view>
+        <view class="moeny">
+          <template v-if="infos.yesterdayIncome">+</template>
+          {{ infos.yesterdayIncome }}
+        </view>
       </view>
       <view class="item">
         <view class="txt">今日已抢佣金</view>
-        <view class="moeny">+11.81</view>
+        <view class="moeny">
+          <template v-if="infos.todayIncome">+</template
+          >{{ infos.todayIncome }}</view
+        >
       </view>
       <view class="item">
         <view class="txt">账户冻结金额</view>
-        <view class="moeny">+11.81</view>
+        <view class="moeny">
+          <template v-if="infos.freezeBalance">+</template
+          >{{ infos.freezeBalance }}</view
+        >
       </view>
       <view class="item">
         <view class="txt">今天已抢单数</view>
-        <view class="moeny">7单</view>
+        <view class="moeny">{{ infos.todayOrderCount }}单</view>
       </view>
       <view class="item">
         <view class="txt">昨日团队佣金</view>
-        <view class="moeny">+11.81</view>
+        <view class="moeny">
+          <template v-if="infos.yesterdayTeamIncome">+</template
+          >{{ infos.yesterdayTeamIncome }}</view
+        >
       </view>
     </view>
     <view class="passStyle">
@@ -97,21 +111,14 @@
   </view>
 </template>
 <script>
-import img03 from "@/static/img/icon03.png";
-import img04 from "@/static/img/icon04.png";
-import img05 from "@/static/img/icon05.png";
-import img06 from "@/static/img/icon06.png";
 import wenhao from "@/static/img/wenhao.png";
 import SlotMachine from "@/components/@lucky-canvas/uni/slot-machine";
 export default {
   components: { SlotMachine },
   data() {
     return {
-      items: {
-        name: "拼多多",
-        content: "白银会员专属通道 佣金0.3%",
-        icon: img03,
-      },
+      items: {},
+      infos: {},
       slots: [
         { speed: 8, direction: 1 },
         { speed: 9, direction: -1 },
@@ -129,6 +136,7 @@ export default {
           ],
         },
       ],
+      vim: {},
       defaultConfig: {
         rowSpacing: "10px",
         colSpacing: "10px",
@@ -136,7 +144,9 @@ export default {
     };
   },
   methods: {
-    open(e) {},
+    open(e) {
+      this.getInfo(e);
+    },
     addVip() {
       uni.navigateTo({
         url: "/pages/vip",
@@ -146,13 +156,42 @@ export default {
       // 先开始旋转
       this.$refs.myLucky.play();
       setTimeout(() => {
-        // 假设后端返回的中奖索引是0
         const index = 0;
         this.$refs.myLucky.stop(index);
-      }, 3000);
+      }, 5000);
     },
     endCallBack(e) {
-      console.log(e);
+      this.$api.order_match(this.vim.areaId).then(({ data }) => {
+        this.$base.show(data.msg);
+        if (data.code == 1) {
+          this.getInfo(this.vim.areaId);
+        }
+      });
+    },
+    //用户列表数据,用户收益详情
+    getInfo(e) {
+      let index = e.level || 1;
+      Promise.all([
+        this.$api.user_info(),
+        this.$api.user_income_detail(),
+        this.$api.area_detail(index),
+      ]).then((res) => {
+        if (res[0].data.code == 0) {
+          this.items = res[0].data.data;
+        } else {
+          this.$base.show(res[0].data.msg);
+        }
+        if (res[1].data.code == 0) {
+          this.infos = res[1].data.data;
+        } else {
+          this.$base.show(res[1].data.msg);
+        }
+        if (res[2].data.code == 0) {
+          this.vim = res[2].data.data;
+        } else {
+          this.$base.show(res[2].data.msg);
+        }
+      });
     },
   },
 };

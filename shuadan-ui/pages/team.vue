@@ -14,30 +14,18 @@
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>
-    <u-list @scrolltolower="load" v-if="isArray" class="scroll">
+    <u-list @scrolltolower="load" class="scroll">
       <view class="head">
         <view class="pull-left">
-          <u-datetime-picker
-            :show="startShow"
-            v-model="startTime"
-            mode="date"
-            @confirm="changeStart"
-          ></u-datetime-picker>
-          <view class="date-input" @click="startShow = true">{{
-            startTimeText
-          }}</view>
+          <view class="date-input" @click="startShow = true">
+            {{ startTimeText }}
+          </view>
         </view>
         <view class="pull-left data-text">至</view>
         <view class="pull-left">
-          <u-datetime-picker
-            :show="startShow"
-            v-model="startTime"
-            mode="date"
-            @confirm="changeStart"
-          ></u-datetime-picker>
-          <view class="date-input" @click="startShow = true">{{
-            startTimeText
-          }}</view>
+          <view class="date-input" @click="startShow = true">
+            {{ endTimeText }}
+          </view>
         </view>
         <view class="pull-left">
           <u-button
@@ -53,23 +41,23 @@
       <view class="rows">
         <view class="item">
           <view class="txt">团队余额（元）</view>
-          <view class="moeny">￥0</view>
+          <view class="moeny">￥{{ items.teamBalance }}</view>
         </view>
         <view class="item right">
           <view class="txt">团队流水（元）</view>
-          <view class="moeny green">￥0</view>
+          <view class="moeny green">￥{{ items.teamwithdraw }}</view>
         </view>
         <view class="item">
           <view class="txt">团队总充值（元）</view>
-          <view class="moeny">￥0</view>
+          <view class="moeny">￥{{ items.teamBet }}</view>
         </view>
         <view class="item right">
           <view class="txt">团队总提现（元）</view>
-          <view class="moeny green">￥0</view>
+          <view class="moeny green">￥{{ items.teamDeposit }}</view>
         </view>
         <view class="item">
           <view class="txt">团队订单佣金（元）</view>
-          <view class="moeny">￥0</view>
+          <view class="moeny">￥{{ items.teamIncome }}</view>
         </view>
         <view class="item red">
           <view class="txt">直推人数</view>
@@ -77,96 +65,119 @@
         </view>
         <view class="item red">
           <view class="txt">团队人数</view>
-          <view class="moeny">2人</view>
+          <view class="moeny">{{ items.teamMemberCount }}人</view>
         </view>
         <view class="item red">
           <view class="txt">首充人数</view>
-          <view class="moeny">2人</view>
+          <view class="moeny">{{ items.depositCount }}人</view>
         </view>
         <view class="item red">
           <view class="txt">新增人数</view>
-          <view class="moeny">2人</view>
+          <view class="moeny">{{ items.newRegisterCount }}人</view>
         </view>
         <view class="item red">
           <view class="txt">活跃人数</view>
-          <view class="moeny">2人</view>
+          <view class="moeny">{{ items.activeCount }}人</view>
         </view>
       </view>
       <view class="title">
-        <view class="tab active">一级</view>
-        <view class="tab">二级</view>
-        <view class="tab">三级</view>
+        <view
+          class="tab"
+          :class="{ active: index === active }"
+          v-for="(item, index) in nav"
+          :key="index"
+          @click="navChange(index)"
+        >
+          {{ item.name }}
+        </view>
       </view>
-      <u-list-item
-        class="contentStyle"
-        v-for="(item, index) in list"
-        :key="index"
-      >
-        <view class="content">
-          <image class="image" src="@/static/img/head.png" mode="widthFix" />
-          <view class="text">
-            <view class="li">
-              <text>姓名:赵铁柱</text>
-              <text class="blur">电话:dun****n</text>
-            </view>
-            <view class="li">
-              <text clas="blur">充值:0</text>
-              <text class="green">推荐人数: 0</text>
-            </view>
-            <view class="li">
-              <text class="blur">提现:0</text>
-              <text>注册时间:2023年06月04日 12:06:14</text>
+      <template v-if="isArray">
+        <u-list-item
+          class="contentStyle"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <view class="content">
+            <image class="image" src="@/static/img/head.png" mode="widthFix" />
+            <view class="text">
+              <view class="li">
+                <text>姓名:赵铁柱</text>
+                <text class="blur">电话:dun****n</text>
+              </view>
+              <view class="li">
+                <text clas="blur">充值:0</text>
+                <text class="green">推荐人数: 0</text>
+              </view>
+              <view class="li">
+                <text class="blur">提现:0</text>
+                <text>注册时间:2023年06月04日 12:06:14</text>
+              </view>
             </view>
           </view>
-        </view>
-      </u-list-item>
-      <view class="loading" v-if="loading">加载中...</view>
-      <view class="nomore" v-if="finished">没有更多了</view>
+        </u-list-item>
+        <view class="loading" v-if="loading">加载中...</view>
+        <view class="nomore" v-if="finished">没有更多了</view>
+      </template>
+      <u-empty class="empty" text="暂无数据" v-else />
     </u-list>
-    <u-empty class="empty" text="暂无数据" v-else />
+    <u-datetime-picker
+      :show="startShow"
+      v-model="datetime"
+      mode="date"
+      itemHeight="100"
+      @confirm="changeStart"
+      @cancel="startShow = false"
+    ></u-datetime-picker>
   </view>
 </template>
 <script>
+import { dateFormat } from "../plugins/util";
 export default {
   data() {
     return {
-      list: [
-        {
-          amount: "10000",
-          orderNo: "213123213213123213",
-          status: "1",
-        },
-        {
-          amount: "10000",
-          orderNo: "213123213213123213",
-          status: "0",
-        },
-        {
-          amount: "10000",
-          orderNo: "213123213213123213",
-          status: "2",
-        },
-      ], //列表数据
+      list: [], //列表数据
       loading: false,
       finished: false,
       isArray: true,
       page: 0,
-      startShow: false, //开始日期显示
-      startTime: Number(new Date()),
-      startTimeText: "", //开始日期显示文字
+      active: 0,
+      startShow: false,
+      datetime: Number(new Date()),
+      startTimeText: "",
+      endTimeText: "",
+      items: {},
+      nav: [{ name: "一级" }, { name: "二级" }, { name: "三级" }],
     };
   },
+  onShow() {
+    // 获取团队信息
+    this.$api.user_teamReport().then(({ data }) => {
+      if (data.code == 0) {
+        this.items = data.data;
+      } else {
+        this.$base.show(data.msg);
+      }
+    });
+    this.navChange(this.active);
+  },
   methods: {
+    navChange(index) {
+      this.active = index;
+      this.$api.user_team(index + 1).then(({ data }) => {
+        if (data.code == 0) {
+          this.list = data.data;
+        } else {
+          this.$base.show(data.msg);
+        }
+      });
+    },
     load() {
       if (this.loading || this.finished) return false;
       this.page++;
-      // this.dataFn(this.page);
     },
-    changeStart() {
-      console.log(this.startTime);
-      console.log(new Date(this.startTime));
-      console.log(dateFormat("YYYY-mm-dd", new Date(this.startTime)));
-      this.startTimeText = dateFormat("YYYY-mm-dd", new Date(this.startTime));
+    changeStart(e) {
+      console.log(new Date(e.value));
+      console.log(dateFormat("YYYY-mm-dd", new Date(e.value)));
       this.startShow = false;
     },
   },

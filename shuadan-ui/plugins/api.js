@@ -248,9 +248,106 @@ export const message = (data) => {
   return new Promise((resolve, reject) => {
     base
       .request({
-        url: "message?code=" + data,
+        url: "message/" + data,
+        method: "get",
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+// 用户收益详情
+export const user_income_detail = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/income/detail",
         method: "get",
         data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+// 团队报表
+export const user_teamReport = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/teamReport",
+        method: "get",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+// 根据层级获取用户团队成员
+export const user_team = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/team/" + data,
+        method: "get",
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+// 获取客服列表
+export const system_customerService_list = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "system/customerService/list",
+        method: "get",
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+
+// 获取专区
+export const area_list = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "area/list",
+        method: "get",
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+// 获取专区详情
+export const area_detail = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "area/detail/" + data,
+        method: "get",
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+// 匹配
+export const order_match = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "order/match/" + data,
+        method: "get",
       })
       .then((res) => {
         resolve(res);

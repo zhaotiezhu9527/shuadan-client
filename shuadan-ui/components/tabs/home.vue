@@ -4,7 +4,7 @@
       <view class="price-box">
         <view class="title">我的总资产(元)</view>
         <view class="money">
-          <view class="txt">2520.55</view>
+          <view class="txt">{{ infos.balance }}</view>
           <view class="btn">
             <view @click="goDeposit('/pages/deposit')">提现</view>
             <view @click="goDeposit('/pages/recharge')">充值</view>
@@ -13,15 +13,15 @@
         <view class="ulStyle">
           <view class="ul">
             <view class="li">
-              <view class="name">3316.91</view>
+              <view class="name">{{ infos.yesterdayIncome }}</view>
               <view class="txt">昨日收益(元)</view>
             </view>
             <view class="li">
-              <view class="name">3316.91</view>
+              <view class="name">{{ infos.totalIncome }}</view>
               <view class="txt">累计收益(元)</view>
             </view>
             <view class="li">
-              <view class="name">3316.91</view>
+              <view class="name">{{ infos.todayIncome }}</view>
               <view class="txt">今日收益(元)</view>
             </view>
           </view>
@@ -43,20 +43,26 @@
         class="item"
         v-for="(item, index) in list"
         :key="index"
-        @click="routechange2('/pages/index?tabs=2&infos=' + item.name)"
+        @click="
+          routechange2(item.areaId, '/pages/index?tabs=2&level=' + item.areaId)
+        "
       >
-        <image :src="item.icon" class="icon" mode="widthFix" />
+        <image :src="item.levelImg" class="icon" mode="widthFix" />
         <image src="@/static/img/icon07.png" class="bg" mode="widthFix" />
         <view class="content">
-          <view>{{ item.name }}</view>
-          <view>{{ item.content }}</view>
+          <view>{{ item.areaName }}</view>
+          <view>{{ item.remark }}</view>
         </view>
-        <image :src="item.img" class="img" mode="widthFix" />
+        <image :src="item.areaImg" class="img" mode="widthFix" />
+        <view class="no" v-if="item.areaId > level">
+          <image class="img" src="@/static/img/suo.png" mode="widthFix" />
+          <view class="txt">待解锁</view>
+        </view>
       </view>
     </view>
     <view class="rich">
       <image
-        @click="change(item.name)"
+        @click="change(item.en)"
         mode="widthFix"
         v-for="(item, index) in nav"
         :key="index"
@@ -74,35 +80,19 @@ import img14 from "@/static/img/icon14.png";
 import img15 from "@/static/img/icon15.png";
 import img16 from "@/static/img/icon16.png";
 
-import img03 from "@/static/img/icon03.png";
-import img04 from "@/static/img/icon04.png";
-import img05 from "@/static/img/icon05.png";
-import img06 from "@/static/img/icon06.png";
-import img08 from "@/static/img/icon08.png";
-import img09 from "@/static/img/icon09.png";
-import img10 from "@/static/img/icon10.png";
-import img11 from "@/static/img/icon11.png";
 export default {
   data() {
     return {
       nav: [
-        { img: img13, name: "平台简介" },
-        { img: img14, name: "规则说明" },
-        { img: img15, name: "代理合作" },
-        { img: img16, name: "公司资质" },
+        { img: img13, name: "平台简介", en: "ptjj" },
+        { img: img14, name: "规则说明", en: "gzsm" },
+        { img: img15, name: "代理合作", en: "dlhz" },
+        { img: img16, name: "公司资质", en: "gszz" },
       ],
-      list: [
-        {
-          name: "拼多多",
-          content: "白银会员专属通道",
-          img: img08,
-          icon: img03,
-        },
-        { name: "淘宝", content: "黄金会员专属通道", img: img09, icon: img04 },
-        { name: "天猫", content: "铂金会员专属通道", img: img10, icon: img05 },
-        { name: "京东", content: "钻石会员专属通道", img: img11, icon: img06 },
-      ],
+      list: [],
       items: {},
+      infos: {},
+      level: 1,
       homeNotice: "",
       bindStatus: false, //银行卡绑定状态
     };
@@ -112,13 +102,21 @@ export default {
       await this.$onLaunched;
       this.homeNotice = uni.getStorageSync("config").homeNotice;
       this.getInfo();
-    },
-    change(title) {
-      uni.navigateTo({
-        url: `/pages/richtext?title=${title}`,
+      this.$api.area_list().then(({ data }) => {
+        if (data.code == 0) {
+          this.list = data.data;
+        } else {
+          this.$base.show(data.msg);
+        }
       });
     },
-    routechange2(url) {
+    change(en) {
+      uni.navigateTo({
+        url: `/pages/richtext?en=${en}`,
+      });
+    },
+    routechange2(index, url) {
+      if (index > this.level) return false;
       uni.reLaunch({
         url,
       });
@@ -142,11 +140,22 @@ export default {
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.items = res.data.data;
+          this.level =
+            this.list.find((item) => item.remark.includes(this.items.levelName))
+              ?.level || 1;
           if (this.items.bankNo === null || !this.items.bankNo) {
             this.bindStatus = false;
           } else {
             this.bindStatus = true;
           }
+        }
+      });
+      // 用户收益详情
+      this.$api.user_income_detail().then(({ data }) => {
+        if (data.code == 0) {
+          this.infos = data.data;
+        } else {
+          this.$base.show(data.msg);
         }
       });
     },
@@ -247,6 +256,28 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   gap: 40rpx;
+  .no {
+    position: absolute;
+    z-index: 10;
+    bottom: 30rpx;
+    left: 20rpx;
+    width: calc(100% - 40rpx);
+    height: 140rpx;
+    background-color: rgba(#000, 0.5);
+    border-radius: 10rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .img {
+      width: 40rpx;
+    }
+    .txt {
+      color: #fff;
+      font-size: 24rpx;
+      padding-top: 10rpx;
+    }
+  }
   .item {
     width: calc(50% - 22rpx);
     padding: 20rpx;
@@ -266,7 +297,7 @@ export default {
       position: absolute;
       left: 20rpx;
       top: -20rpx;
-      z-index: 2;
+      z-index: 10;
     }
   }
   .content {

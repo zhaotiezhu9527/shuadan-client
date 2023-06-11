@@ -4,7 +4,11 @@
       <!-- 头部 -->
       <view class="title">
         <view class="icon">
-          <image class="icon-img" src="@/static/img/notice.png" />
+          <image
+            class="icon-img"
+            src="@/static/img/notice.png"
+            @click="goPage({ label: '', url: list[6].url })"
+          />
           <image
             class="icon-img box-right"
             src="@/static/img/setting.png"

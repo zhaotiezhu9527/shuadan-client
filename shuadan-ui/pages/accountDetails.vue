@@ -17,24 +17,12 @@
     <view class="main">
       <view class="head">
         <view class="pull-left">
-          <u-datetime-picker
-            :show="startShow"
-            v-model="startTime"
-            mode="date"
-            @confirm="changeStart"
-          ></u-datetime-picker>
           <view class="date-input" @click="startShow = true">{{
             startTimeText
           }}</view>
         </view>
         <view class="pull-left data-text">至</view>
         <view class="pull-left">
-          <u-datetime-picker
-            :show="startShow"
-            v-model="startTime"
-            mode="date"
-            @confirm="changeStart"
-          ></u-datetime-picker>
           <view class="date-input" @click="startShow = true">{{
             startTimeText
           }}</view>
@@ -84,6 +72,14 @@
         <view class="nomore" v-if="finished">没有更多了</view>
       </u-list>
       <u-empty class="empty" text="暂无数据" v-else />
+      <u-datetime-picker
+        :show="startShow"
+        v-model="datetime"
+        mode="date"
+        itemHeight="100"
+        @confirm="changeStart"
+        @cancel="startShow = false"
+      ></u-datetime-picker>
     </view>
   </view>
 </template>
@@ -115,7 +111,7 @@ export default {
       isArray: true,
       page: 0,
       startShow: false, //开始日期显示
-      startTime: Number(new Date()),
+      datetime: Number(new Date()),
       startTimeText: "", //开始日期显示文字
     };
   },
@@ -150,11 +146,9 @@ export default {
       //     this.loading = false;
       //   });
     },
-    changeStart() {
-      console.log(this.startTime);
-      console.log(new Date(this.startTime));
-      console.log(dateFormat("YYYY-mm-dd", new Date(this.startTime)));
-      this.startTimeText = dateFormat("YYYY-mm-dd", new Date(this.startTime));
+    changeStart(e) {
+      console.log(dateFormat("YYYY-mm-dd", new Date(e.value)));
+      this.startTimeText = dateFormat("YYYY-mm-dd", new Date(e.value));
       this.startShow = false;
     },
   },
