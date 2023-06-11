@@ -635,7 +635,7 @@ public class UserController {
                 obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
                 obj.put("orderAmount", temp.getOrderAmount());
                 BigDecimal commissionRate = NumberUtil.div(temp.getCommissionRate(), 100);
-                BigDecimal commission = NumberUtil.mul(temp.getOrderAmount(), commissionRate);
+                BigDecimal commission = NumberUtil.mul(temp.getOrderAmount(), commissionRate, temp.getCommissionMul());
                 obj.put("commission", commission.stripTrailingZeros());
                 obj.put("returnAmount", NumberUtil.add(temp.getOrderAmount(), commission).stripTrailingZeros());
                 obj.put("goodsCount", temp.getGoodsCount());

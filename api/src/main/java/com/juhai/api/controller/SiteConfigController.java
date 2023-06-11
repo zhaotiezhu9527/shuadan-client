@@ -1,10 +1,11 @@
 package com.juhai.api.controller;
 
-import cn.hutool.core.collection.CollStreamUtil;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.juhai.commons.entity.CustomerService;
 import com.juhai.commons.entity.MessageText;
-import com.juhai.commons.entity.Paramter;
+import com.juhai.commons.service.CustomerServiceService;
 import com.juhai.commons.service.MessageTextService;
 import com.juhai.commons.service.ParamterService;
 import com.juhai.commons.utils.R;
@@ -32,6 +33,9 @@ public class SiteConfigController {
     @Autowired
     private MessageTextService messageTextService;
 
+    @Autowired
+    private CustomerServiceService customerServiceService;
+
     @ApiOperation(value = "获取系统配置")
     @GetMapping("/config")
     public R config(HttpServletRequest httpServletRequest) {
@@ -47,5 +51,27 @@ public class SiteConfigController {
         obj.put("homeNotice", allMessageMap.get("home_notice").getContent());
 
         return R.ok().put("data", obj);
+    }
+
+    @ApiOperation(value = "获取客服列表")
+    @GetMapping("/customerService/list")
+    public R customerService(HttpServletRequest httpServletRequest) {
+        List<CustomerService> list = customerServiceService.list(
+                new LambdaQueryWrapper<CustomerService>()
+                        .eq(CustomerService::getStatus, 0)
+                        .orderByDesc(CustomerService::getPxh)
+        );
+
+        JSONArray array = new JSONArray();
+        for (CustomerService temp : list) {
+            JSONObject obj = new JSONObject();
+            obj.put("serviceName", temp.getServiceName());
+            obj.put("link", temp.getServiceLink());
+            obj.put("workTime", temp.getWorkTime());
+            obj.put("remark", temp.getRemake());
+            array.add(obj);
+        }
+
+        return R.ok().put("data", array);
     }
 }
