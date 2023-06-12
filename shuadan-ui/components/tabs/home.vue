@@ -53,7 +53,7 @@
           <view>{{ item.areaName }}</view>
           <view>{{ item.remark }}</view>
         </view>
-        <image :src="item.areaImg" class="img" mode="widthFix" />
+        <image :src="item.areaImg" class="img" mode="heightFix" />
         <view class="no" v-if="item.areaId > level">
           <image class="img" src="@/static/img/suo.png" mode="widthFix" />
           <view class="txt">待解锁</view>
@@ -253,7 +253,6 @@ export default {
 .list {
   display: flex;
   padding: 0 30rpx;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 40rpx;
   .no {
@@ -318,6 +317,7 @@ export default {
   .img {
     width: 100%;
     z-index: 2;
+    max-height: 140rpx !important;
     position: relative;
   }
 }

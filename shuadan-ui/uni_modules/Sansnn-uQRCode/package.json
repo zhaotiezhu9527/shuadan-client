@@ -1,22 +1,19 @@
 {
   "id": "Sansnn-uQRCode",
-  "displayName": "uQRCode 二维码生成插件",
-  "version": "3.0.1",
-  "description": "uQRCode 是一款使用方式简单，易于扩展的二维码生成插件。",
+  "displayName": "uQRCode 全端二维码生成插件 支持nvue 支持nodejs服务端",
+  "version": "4.0.6",
+  "description": "uQRCode是一款基于Javascript环境开发的二维码生成插件，适用所有Javascript运行环境的前端应用和Node.js。",
   "keywords": [
-    "uQRCode",
     "二维码",
-    "qrcode"
+    "uQRCode",
+    "qrcode",
+    "qr"
 ],
   "repository": "https://github.com/Sansnn/uQRCode",
   "engines": {
     "HBuilderX": "^3.1.0"
   },
-  "dcloudext": {
-    "category": [
-      "JS SDK",
-      "通用 SDK"
-    ],
+"dcloudext": {
     "sale": {
       "regular": {
         "price": "0.00"
@@ -33,7 +30,8 @@
       "data": "无",
       "permissions": "无"
     },
-    "npmurl": ""
+    "npmurl": "https://www.npmjs.com/package/uqrcodejs",
+    "type": "sdk-js"
   },
   "uni_modules": {
     "dependencies": [],
@@ -74,7 +72,7 @@
         },
         "Vue": {
           "vue2": "y",
-          "vue3": "u"
+          "vue3": "y"
         }
       }
     }

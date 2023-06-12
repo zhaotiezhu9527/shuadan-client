@@ -15,69 +15,46 @@
     >
     </u-navbar>
     <u-list @scrolltolower="load" class="scroll">
-      <view class="head">
-        <view class="pull-left">
-          <view class="date-input" @click="startShow = true">
-            {{ startTimeText }}
-          </view>
-        </view>
-        <view class="pull-left data-text">至</view>
-        <view class="pull-left">
-          <view class="date-input" @click="startShow = true">
-            {{ endTimeText }}
-          </view>
-        </view>
-        <view class="pull-left">
-          <u-button
-            class="btn-style"
-            color="#ff7614"
-            shape="circle"
-            icon="search"
-            size="small"
-            text="搜索"
-          ></u-button>
-        </view>
-      </view>
       <view class="rows">
         <view class="item">
           <view class="txt">团队余额（元）</view>
-          <view class="moeny">￥{{ items.teamBalance }}</view>
+          <view class="moeny">￥{{ items.teamBalance || 0 }}</view>
         </view>
         <view class="item right">
           <view class="txt">团队流水（元）</view>
-          <view class="moeny green">￥{{ items.teamwithdraw }}</view>
+          <view class="moeny green">￥{{ items.teamwithdraw || 0 }}</view>
         </view>
         <view class="item">
           <view class="txt">团队总充值（元）</view>
-          <view class="moeny">￥{{ items.teamBet }}</view>
+          <view class="moeny">￥{{ items.teamBet || 0 }}</view>
         </view>
         <view class="item right">
           <view class="txt">团队总提现（元）</view>
-          <view class="moeny green">￥{{ items.teamDeposit }}</view>
+          <view class="moeny green">￥{{ items.teamDeposit || 0 }}</view>
         </view>
         <view class="item">
           <view class="txt">团队订单佣金（元）</view>
-          <view class="moeny">￥{{ items.teamIncome }}</view>
+          <view class="moeny">￥{{ items.teamIncome || 0 }}</view>
         </view>
         <view class="item red">
           <view class="txt">直推人数</view>
-          <view class="moeny">2人</view>
+          <view class="moeny">{{ items.inviteCount || 0 }}人</view>
         </view>
         <view class="item red">
           <view class="txt">团队人数</view>
-          <view class="moeny">{{ items.teamMemberCount }}人</view>
+          <view class="moeny">{{ items.teamMemberCount || 0 }}人</view>
         </view>
         <view class="item red">
           <view class="txt">首充人数</view>
-          <view class="moeny">{{ items.depositCount }}人</view>
+          <view class="moeny">{{ items.depositCount || 0 }}人</view>
         </view>
         <view class="item red">
           <view class="txt">新增人数</view>
-          <view class="moeny">{{ items.newRegisterCount }}人</view>
+          <view class="moeny">{{ items.newRegisterCount || 0 }}人</view>
         </view>
         <view class="item red">
           <view class="txt">活跃人数</view>
-          <view class="moeny">{{ items.activeCount }}人</view>
+          <view class="moeny">{{ items.activeCount || 0 }}人</view>
         </view>
       </view>
       <view class="title">
@@ -120,14 +97,6 @@
       </template>
       <u-empty class="empty" text="暂无数据" v-else />
     </u-list>
-    <u-datetime-picker
-      :show="startShow"
-      v-model="datetime"
-      mode="date"
-      itemHeight="100"
-      @confirm="changeStart"
-      @cancel="startShow = false"
-    ></u-datetime-picker>
   </view>
 </template>
 <script>
@@ -141,10 +110,7 @@ export default {
       isArray: true,
       page: 0,
       active: 0,
-      startShow: false,
       datetime: Number(new Date()),
-      startTimeText: "",
-      endTimeText: "",
       items: {},
       nav: [{ name: "一级" }, { name: "二级" }, { name: "三级" }],
     };
@@ -175,11 +141,6 @@ export default {
       if (this.loading || this.finished) return false;
       this.page++;
     },
-    changeStart(e) {
-      console.log(new Date(e.value));
-      console.log(dateFormat("YYYY-mm-dd", new Date(e.value)));
-      this.startShow = false;
-    },
   },
 };
 </script>
@@ -188,37 +149,6 @@ export default {
   height: calc(100% - 100rpx) !important;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
-}
-.head {
-  overflow: hidden;
-  padding: 20rpx 30rpx;
-  border-bottom: 1px solid #eee;
-  .data-text {
-    height: 60rpx;
-    line-height: 60rpx;
-    padding: 0 20rpx;
-  }
-  .date-input {
-    width: 240rpx;
-    height: 60rpx;
-    background-color: #f2f2f2;
-    border-radius: 30rpx;
-    line-height: 60rpx;
-    text-align: center;
-    font-size: 24rpx;
-  }
-  .btn-style {
-    color: #fff;
-    margin-left: 10rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    display: flex;
-    justify-content: center;
-    /deep/.uicon-search {
-      color: #fff !important;
-      font-size: 30rpx !important;
-    }
-  }
 }
 .title {
   width: 100%;

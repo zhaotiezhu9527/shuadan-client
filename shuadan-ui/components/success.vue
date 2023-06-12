@@ -13,26 +13,24 @@
         <view class="message_info_content">
           <view class="boxstyle">
             <view class="box">
-              <view class="time">抢单时间：2023年06月05日 19:48:35</view>
+              <view class="time">抢单时间：{{ items.orderTime }}</view>
               <view class="uid">
-                UB2306051948357664<text class="num">1</text
-                ><text class="txt">加急单</text>
+                {{ items.orderNo
+                }}<text class="num">{{ items.dayOrderCount }}</text
+                ><text class="txt" v-if="items.dayOrderCount === 1"
+                  >加急单</text
+                >
               </view>
               <view class="goodsstyle">
                 <view class="goods">
-                  <image
-                    class="img"
-                    src="@/static/img/goods.jpg"
-                    mode="widthFix"
-                  />
+                  <image class="img" :src="items.goodsImg" mode="widthFix" />
                   <view class="content">
                     <view class="name">
-                      汤河店
-                      户外冲锋裤男女可脱卸秋冬季加绒加厚保暖软壳防风防水登山滑雪裤
+                      {{ items.goodsName }}
                     </view>
                     <view class="text">
-                      <view>¥ 179.00</view>
-                      <view>x 11</view>
+                      <view>¥ {{ items.goodsPrice }}</view>
+                      <view>x {{ items.goodsCount }}</view>
                     </view>
                   </view>
                 </view>
@@ -41,7 +39,7 @@
               <view class="ul">
                 <view class="li">
                   <text>订单总额</text>
-                  <text>¥ 1969.00</text>
+                  <text>¥ {{ items.orderAmount }}</text>
                 </view>
                 <view class="li">
                   <text
@@ -49,11 +47,11 @@
                       >x2</text
                     ></text
                   >
-                  <text>¥ 1969.00</text>
+                  <text>¥ {{ items.commission }}</text>
                 </view>
                 <view class="li">
                   <text>预计返还</text>
-                  <text class="moeny">¥ 1969.00</text>
+                  <text class="moeny">¥ {{ items.returnAmount }}</text>
                 </view>
               </view>
               <image
@@ -68,9 +66,15 @@
               shape="circle"
               color="#2f3848"
               plain
+              @click="show = false"
               text="暂不提交"
             ></u-button>
-            <u-button shape="circle" color="#2f3848" text="立即提交"></u-button>
+            <u-button
+              shape="circle"
+              color="#2f3848"
+              text="立即提交"
+              @click="change"
+            ></u-button>
           </view>
         </view>
       </view>
@@ -90,10 +94,22 @@ export default {
   data() {
     return {
       show: false,
-      content: "测试内容",
+      items: {},
     };
   },
-  methods: {},
+  methods: {
+    open(e) {
+      this.items = e;
+      this.show = true;
+    },
+    change() {
+      this.$api.order_pay(this.items.orderNo).then(({ data }) => {
+        if (data.code == 0) {
+          this.$base.show(data.msg);
+        }
+      });
+    },
+  },
 };
 </script>
 

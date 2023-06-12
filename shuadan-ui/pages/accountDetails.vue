@@ -15,36 +15,12 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="head">
-        <view class="pull-left">
-          <view class="date-input" @click="startShow = true">{{
-            startTimeText
-          }}</view>
-        </view>
-        <view class="pull-left data-text">至</view>
-        <view class="pull-left">
-          <view class="date-input" @click="startShow = true">{{
-            startTimeText
-          }}</view>
-        </view>
-        <view class="pull-left">
-          <u-button
-            type="error"
-            class="btn-style"
-            shape="circle"
-            color="#ff7614"
-            icon="search"
-            size="small"
-            text="搜索"
-          ></u-button>
-        </view>
-      </view>
-      <view class="title">
-        <view class="tab active">所有类型</view>
-        <view class="tab">提现记录</view>
-        <view class="tab">充值记录</view>
-      </view>
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
+        <view class="title">
+          <view class="tab active">所有类型</view>
+          <view class="tab">提现记录</view>
+          <view class="tab">充值记录</view>
+        </view>
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
             <view class="table-money">
@@ -156,37 +132,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.head {
-  overflow: hidden;
-  padding: 20rpx 30rpx;
-  border-bottom: 1px solid #eee;
-  .data-text {
-    height: 60rpx;
-    line-height: 60rpx;
-    padding: 0 20rpx;
-  }
-  .date-input {
-    width: 240rpx;
-    height: 60rpx;
-    background-color: #f2f2f2;
-    border-radius: 30rpx;
-    line-height: 60rpx;
-    text-align: center;
-    font-size: 24rpx;
-  }
-  .btn-style {
-    color: #fff;
-    margin-left: 10rpx;
-    height: 60rpx;
-    line-height: 60rpx;
-    display: flex;
-    justify-content: center;
-    /deep/.uicon-search {
-      color: #fff !important;
-      font-size: 30rpx !important;
-    }
-  }
-}
 .title {
   width: 100%;
   height: 80rpx;
@@ -236,5 +181,10 @@ export default {
     padding: 2rpx 8rpx;
     margin-left: 100rpx;
   }
+}
+.scroll {
+  height: calc(100% - 100rpx) !important;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

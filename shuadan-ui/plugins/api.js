@@ -354,3 +354,29 @@ export const order_match = (data) => {
       });
   });
 };
+// 匹配
+export const user_order_list = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/order/list",
+        method: "get",
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+// 匹配
+export const order_pay = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "order/pay/" + data,
+        method: "get",
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

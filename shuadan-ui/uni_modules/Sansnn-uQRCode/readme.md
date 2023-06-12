@@ -1,210 +1,392 @@
-# uQRCode
+# 介绍
 
-uQRCode 生成方式简单，可扩展性高，如有复杂需求可通过自定义组件或修改源码完成需求。已测试H5、微信小程序、iPhoneXsMax真机、华为P20Pro真机。
+`uQRCode`是一款基于`Javascript`环境开发的二维码生成插件，适用所有`Javascript`运行环境的前端应用和`Node.js`应用。
 
-支持自定义二维码渲染规则，可通过 `getModules` 方法得到矩阵信息后，自行实现canvas或view+css渲染二维码，如随机颜色、圆点、方块、块与块之间的间距等。
+`uQRCode`可扩展性高，它支持自定义渲染二维码，可通过`uQRCode API`得到二维码绘制关键信息后，使用`canvas`、`svg`或`js`操作`dom`的方式绘制二维码图案。还可自定义二维码样式，如随机颜色、圆点、方块、块与块之间的间距等。
 
-### 二维码
-**什么是QR码**
+欢迎加入群聊【uQRCode交流群】：[695070434](https://jq.qq.com/?_wv=1027&k=JRjzDqiw)。
 
-QR码属于矩阵式二维码中的一个种类，由DENSO(日本电装)公司开发，由JIS和ISO将其标准化。
+# 设计器
 
-**QR码的特点**
+uQRCode发布了配套的可视化设计器，可根据自己喜好在设计器中设计二维码样式，一键生成配置代码复制到项目中，详情请在微信小程序搜索“柚子二维码”，或扫描下方小程序码体验。
 
-一是高速读取(QR就是取自“Quick Response”的首字母)，通过摄像头从拍摄到解码到显示内容也就三秒左右，对摄像的角度也没有什么要求；
+![uQRCode设计器](https://uqrcode.cn/mp_weixin_code.jpg)
 
-二是高容量、高密度，理论上内容经过压缩处理后可以存7089个数字，4296个字母和数字混合字符，2953个8位字节数据，1817个汉字；
+## 设计器模板示例
 
-三是支持纠错处理，按照QR码的标准文档说明，QR码的纠错分为4个级别，分别是：
-- level L : 最大 7% 的错误能够被纠正；
-- level M : 最大 15% 的错误能够被纠正；
-- level Q : 最大 25% 的错误能够被纠正；
-- level H : 最大 30% 的错误能够被纠正；
+![uQRCode设计器](https://uqrcode.cn/yz_1.png)
+![uQRCode设计器](https://uqrcode.cn/yz_2.png)
+![uQRCode设计器](https://uqrcode.cn/yz_3.png)
+![uQRCode设计器](https://uqrcode.cn/yz_4.png)
+![uQRCode设计器](https://uqrcode.cn/yz_5.png)
+![uQRCode设计器](https://uqrcode.cn/yz_6.png)
+![uQRCode设计器](https://uqrcode.cn/yz_7.png)
+![uQRCode设计器](https://uqrcode.cn/yz_8.png)
+![uQRCode设计器](https://uqrcode.cn/yz_9.png)
 
-四是结构化，看似无规则的图形，其实对区域有严格的定义。
+# 快速上手
 
-更多二维码介绍及原理：[https://blog.csdn.net/jason_ldh/article/details/11801355](https://blog.csdn.net/jason_ldh/article/details/11801355)
+> 在`uni-app`中，我们更推荐使用组件方式来生成二维码，组件方式大大提高了页面的可读性以及避开了一些平台容易出问题的地方，当组件无法满足需求的时候，再考虑切换成原生方式。
 
-### 简单使用
+官方文档：[https://uqrcode.cn/doc](https://uqrcode.cn/doc)。
 
-在 `template` 中创建 `<uqrcode/>`，并指定生成内容 `text`
+github地址：[https://github.com/Sansnn/uQRCode](https://github.com/Sansnn/uQRCode)。
 
-```html
-<uqrcode ref="uQRCode" text="uQRCode 3.0" />
+npm地址：[https://www.npmjs.com/package/uqrcodejs](https://www.npmjs.com/package/uqrcodejs)。
+
+uni-app插件市场地址：[https://ext.dcloud.net.cn/plugin?id=1287](https://ext.dcloud.net.cn/plugin?id=1287)。
+
+## 原生方式
+
+原生方式仅需要获取`uqrcode.js`文件便可使用。详细配置请移步到：文档 > [原生](https://uqrcode.cn/doc/document/native.html)。
+
+### 安装
+
+1. 通过`npm`安装，成功后即可使用`import`或`require`进行引用。
+``` bash
+# npm安装
+npm install uqrcodejs
+# 或者
+npm install @uqrcode/js
 ```
 
-### 属性说明
+2. 通过项目开源地址获取`uqrcode.js`，下载`uqrcode.js`后，将其复制到您项目指定目录，在页面中引入`uqrcode.js`文件即可开始使用。
 
-|属性名						|类型					|可选值						|默认值		|是否必填	|说明														|
-|---							|---					|---							|---			|---			|:---														|
-|id								|String				|-								|随机生成	|否				|组件标识/canvasId							|
-|mode							|String				|canvas/view			|canvas		|否				|生成模式												|
-|text							|String				|-								|-				|是				|二维码内容											|
-|size							|Number				|-								|256			|否				|二维码大小，单位px							|
-|margin						|Number				|-								|0				|否				|填充边距，单位px								|
-|backgroundColor	|String				|-								|#FFFFFF	|否				|背景色													|
-|foregroundColor	|String				|-								|#000000	|否				|前景色													|
-|errorCorrectLevel|String/Number|L/M/Q/H/1/0/3/2	|H				|否				|纠错等级L/M/Q/H分别对应1/0/3/2	|
-|typeNumber				|Number				|-								|-1				|否				|版本														|
-|fileType					|String				|png/jpg					|png			|否				|导出的文件类型									|
+### 引入
 
-### 方法说明
-
-|方法名|说明|
-|---|:---|
-|[toTempFilePath](#totempfilepathobject)|导出临时文件路径|
-|[save](#saveobject)|保存二维码|
-
-### toTempFilePath(OBJECT)
-
-导出临时文件路径
-
-**OBJECT参数说明**
-
-|参数			|类型			|必填	|默认值	|说明																							|
-|---			|---			|---	|---		|:---																							|
-|success	|Function	|否		|-			|方法调用成功的回调函数														|
-|fail			|Function	|否		|-			|方法调用失败的回调函数														|
-|complete	|Function	|否		|-			|方法调用结束的回调函数（调用成功、失败都会执行）	|
-
-#### 示例
-
-```html
-<template>
-  <view>
-    <uqrcode ref="uQRCode" text="uQRCode 3.0" />
-    <button @click="toTempFilePath">导出临时文件路径</button>
-  </view>
-</template>
+- 通过`import`引入。
+``` javascript
+// npm安装
+import UQRCode from 'uqrcodejs'; // npm install uqrcodejs
+// 或者
+import UQRCode from '@uqrcode/js'; // npm install @uqrcode/js
 ```
 
-```javascript
-export default {
-  methods: {
-    toTempFilePath() {
-      this.$refs.uQRCode.toTempFilePath({
-        success: res => {
-          console.log(res)
-        }
-      })
-    }
-  }
-}
+- `Node.js`通过`require`引入。
+``` javascript
+// npm安装
+const UQRCode = require('uqrcodejs'); // npm install uqrcodejs
+// 或者
+const UQRCode = require('@uqrcode/js'); // npm install @uqrcode/js
 ```
 
-### save(OBJECT)
-
-保存二维码
-
-**OBJECT参数说明**
-
-|参数			|类型			|必填	|默认值	|说明																							|
-|---			|---			|---	|---		|:---																							|
-|success	|Function	|否		|-			|方法调用成功的回调函数														|
-|fail			|Function	|否		|-			|方法调用失败的回调函数														|
-|complete	|Function	|否		|-			|方法调用结束的回调函数（调用成功、失败都会执行）	|
-
-#### 示例
-
-```html
-<template>
-  <view>
-    <uqrcode ref="uQRCode" text="uQRCode 3.0" />
-    <button @click="save">保存二维码</button>
-  </view>
-</template>
+- 原生浏览器环境，在js脚本加载时添加到`window`。
+``` html
+<script type="text/javascript" src="uqrcode.js"></script>
+<script>
+    var UQRCode = window.UQRCode;
+</script>
 ```
 
-```javascript
-export default {
-  methods: {
-    save() {
-      this.$refs.uQRCode.save({
-        success: res => {
-          console.log(res)
-        }
-      })
-    }
-  }
-}
-```
+### 简单用法
 
-### 高级使用
+`uQRCode`基于`Canvas API`封装了一套方法，建议开发者使用`canvas`生成，一键调用，非常方便。以下是示例：
 
-在 `template` 中创建 `<canvas/>` 并设置 `id`，画布宽高
+- HTML示例
+  - DOM部分
+  ``` html
+  <canvas id="qrcode" width="200" height="200"></canvas>
+  ```
 
-```html
-<canvas id="qrcode" canvas-id="qrcode" :style="{'width': `${size}px`, 'height': `${size}px`}" />
-```
+  - JS部分
+  ``` javascript
+  // 获取uQRCode实例
+  var qr = new UQRCode();
+  // 设置二维码内容
+  qr.data = "https://uqrcode.cn/doc";
+  // 设置二维码大小，必须与canvas设置的宽高一致
+  qr.size = 200;
+  // 调用制作二维码方法
+  qr.make();
+  // 获取canvas元素
+  var canvas = document.getElementById("qrcode");
+  // 获取canvas上下文
+  var canvasContext = canvas.getContext("2d");
+  // 设置uQRCode实例的canvas上下文
+  qr.canvasContext = canvasContext;
+  // 调用绘制方法将二维码图案绘制到canvas上
+  qr.drawCanvas();
+  ```
 
-在 `script` 中引用js文件并调用方法生成矩阵
-
-```javascript
-import uQRCode from '@/uni_modules/Sansnn-uQRCode/components/uqrcode/common/uqrcode.js'
-
-export default {
-  data() {
-    return {
-      size: 256,
-      margin: 10,
-      backgroundColor: '#FFFFFF',
-      foregroundColor: '#000000'
-    }
-  },
+- uni-app示例
+  - Template部分
+  ``` html
+  <canvas id="qrcode" canvas-id="qrcode" style="width: 200px;height: 200px;"></canvas>
+  ```
+  
+  - JS部分
+  ``` javascript
   onReady() {
-    let modules = uQRCode.getModules({
-      text: 'uQRCode 3.0',
-      errorCorrectLevel: uQRCode.errorCorrectLevel.H
-    })
-    let tileSize = (this.size - this.margin * 2) / modules.length
-    // 获取绘图所需的上下文
-    let ctx = uni.createCanvasContext('qrcode', this)
-    // 开始绘制
-    ctx.setFillStyle(this.backgroundColor)
-    ctx.fillRect(0, 0, this.size, this.size)
-    for (var row = 0; row < modules.length; row++) {
-      for (var col = 0; col < modules.length; col++) {
-        // 计算每一个小块的位置
-        var x = col * tileSize + this.margin
-        var y = row * tileSize + this.margin
-        var w = tileSize
-        var h = tileSize
-    
-        var style = modules[row][col] ? this.foregroundColor : this.backgroundColor
-        ctx.setFillStyle(style)
-        ctx.fillRect(x, y, w, h)
-      }
-    }
-    ctx.draw()
+    // 获取uQRCode实例
+    var qr = new UQRCode();
+    // 设置二维码内容
+    qr.data = "https://uqrcode.cn/doc";
+    // 设置二维码大小，必须与canvas设置的宽高一致
+    qr.size = 200;
+    // 调用制作二维码方法
+    qr.make();
+    // 获取canvas上下文
+    var canvasContext = uni.createCanvasContext('qrcode', this); // 如果是组件，this必须传入
+    // 设置uQRCode实例的canvas上下文
+    qr.canvasContext = canvasContext;
+    // 调用绘制方法将二维码图案绘制到canvas上
+    qr.drawCanvas();
   }
-}
+  ```
+  
+- 微信小程序，推荐使用Canvas 2D，关于Canvas 2D的使用请参考微信开放文档。
+
+### 高级用法
+
+考虑到部分平台可能不支持`canvas`，所以`uQRCode`并没有强制要求和`canvas`一起使用，您还可以选择其他方式来生成二维码，例如使用`js`操作`dom`进行绘制或是使用`svg`绘制等。以下是示例：
+
+- uni-app v-for+view
+
+```html
+<template>
+  <view>
+    <view class="qrcode">
+      <view v-for="(row, rowI) in modules" :key="rowI" style="display: flex;flex-direction: row;">
+        <view v-for="(col, colI) in row" :key="colI">
+          <view v-if="col.isBlack" style="width: 10px;height: 10px;background-color: black;">
+            <!-- 黑色码点 -->
+          </view>
+          <view v-else style="width: 10px;height: 10px;background-color: white;">
+            <!-- 白色码点 -->
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import UQRCode from '../../uni_modules/Sansnn-uQRCode/js_sdk/uqrcode/uqrcode.js';
+
+  export default {
+    data() {
+      return {
+        modules: []
+      }
+    },
+    onLoad() {
+      const qr = new UQRCode();
+      qr.data = 'uQRCode';
+      qr.make();
+      this.modules = qr.modules;
+    },
+    methods: {
+
+    }
+  }
+</script>
 ```
 
-### uqrcode.js 方法说明
+- js操作dom
 
-|方法名|说明|
-|---|:---|
-|[getModules](#getmodulesoptions)|可以得到二维码矩阵信息，可根据返回的矩阵信息自行实现二维码生成|
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>uQRCode二维码生成</title>
+</head>
+<body>
+    <div id="qrcode" style="position: relative;"></div>
+    <script type="text/javascript" src="uqrcode.js"></script>
+    <script>
+    // 引入uQRCode
+    var UQRCode = window.UQRCode;
+    // 获取uQRCode实例
+    var qr = new UQRCode();
+    // 设置二维码内容
+    qr.data = "https://uqrcode.cn/doc";
+    // 设置二维码大小，必须与canvas设置的宽高一致
+    qr.size = 200;
+    // 设置二维码前景图，可以是路径
+    qr.foregroundImageSrc =
+        'data:image/png;base64,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';
+    // 调用制作二维码方法
+    qr.make();
 
-### getModules(options)
+    var drawModules = qr.getDrawModules();
+    // 遍历drawModules创建dom元素
+    var qrHtml = '';
+    for (var i = 0; i < drawModules.length; i++) {
+        var drawModule = drawModules[i];
+        switch (drawModule.type) {
+        case 'tile':
+            /* 绘制小块 */
+            qrHtml += `<div style="position: absolute;left: ${drawModule.x}px;top: ${drawModule.y}px;width: ${drawModule.width}px;height: ${drawModule.height}px;background: ${drawModule.color};"></div>`;
+            break;
+        case 'image':
+            /* 绘制图像 */
+            qrHtml += `<img style="position: absolute;left: ${drawModule.x}px;top: ${drawModule.y}px;width: ${drawModule.width}px;height: ${drawModule.height}px;" src="${drawModule.imageSrc}" />`;
+            break;
+        }
+    }
+    document.getElementById('qrcode').innerHTML = qrHtml;
+    </script>
+</body>
+</html>
+```
 
-根据内容得到二维码矩阵信息
+- svg
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>uQRCode二维码生成</title>
+</head>
+<body>
+    <svg id="qrcode" width="200" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
+    <script type="text/javascript" src="uqrcode.js"></script>
+    <script>
+    // 引入uQRCode
+    var UQRCode = window.UQRCode;
+    // 获取uQRCode实例
+    var qr = new UQRCode();
+    // 设置二维码内容
+    qr.data = "https://uqrcode.cn/doc";
+    // 设置二维码大小，必须与canvas设置的宽高一致
+    qr.size = 200;
+    // 设置二维码前景图，可以是路径
+    qr.foregroundImageSrc =
+        'data:image/png;base64,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';
+    // 调用制作二维码方法
+    qr.make();
 
-|参数							|类型		|必填	|默认值	|说明															|
-|---							|---		|---	|---		|:---															|
-|text							|String	|是		|-			|二维码内容												|
-|errorCorrectLevel|Number	|否		|2			|纠错等级，1/0/3/2分别对应L/M/Q/H	|
-|typeNumber				|Number	|否		|-1			|版本															|
+    var drawModules = qr.getDrawModules();
+    // 遍历drawModules创建svg元素
+    var qrHtml = '';
+    for (var i = 0; i < drawModules.length; i++) {
+        var drawModule = drawModules[i];
+        switch (drawModule.type) {
+        case 'tile':
+            /* 绘制小块 */
+            qrHtml += `<rect x="${drawModule.x}" y="${drawModule.y}" width="${drawModule.width}" height="${drawModule.height}" style="fill: ${drawModule.color};" />`;
+            break;
+        case 'image':
+            /* 绘制图像 */
+            qrHtml += `<image href="${drawModule.imageSrc}" x="${drawModule.x}" y="${drawModule.y}" width="${drawModule.width}" height="${drawModule.height}" />`;
+            break;
+        }
+    }
+    document.getElementById('qrcode').innerHTML = qrHtml;
+    </script>
+</body>
+</html>
+```
 
-### 常见问题
-**关于高级使用二维码生成不完整**
+> 更多用法大家自行探索咯，期待分享哟~
 
-size的单位是px，请尽量避免使用rpx，如果canvas的单位是rpx，那么不同设备屏幕分辨率不一样，rpx转换成px后的画布尺寸不足以放下全部内容，实际绘制图案超出，就会出现不完整或者没有填充完整画布的情况。
+### 导出临时文件路径
 
-**如何扫码跳转指定网页**
+原生方式基于`Canvas`的，请自行参阅各平台`Canvas`的导出方式。以下是部分示例：
 
-text参数直接放入完整的网页地址即可，例如：`https://ext.dcloud.net.cn/plugin?id=1287`。微信客户端不能是ip地址。
+- uni-app
+```javascript
+// 通过uni.createCanvasContext方式创建绘制上下文的，对应导出API为uni.canvasToTempFilePath
+// 调用完ctx.draw()方法后不能第一时间导出，否则会异常，需要有一定的延时
+setTimeout(() => {
+    uni.canvasToTempFilePath(
+        {
+            canvasId: this.canvasId,
+            fileType: this.fileType,
+            width: this.canvasWidth,
+            height: this.canvasHeight,
+            success: res => {
+                console.log(res);
+            },
+            fail: err => {
+                console.log(err);
+            }
+        }, 
+        // this // 组件内使用必传当前实例
+    );
+}, 300);
+```
 
-**H5长按识别**
+- Canvas2D
+```javascript
+// 得到base64
+console.log(canvas.toDataURL());
+// 得到buffer
+console.log(canvas.toBuffer());
+```
 
-canvas无法长按识别，长按识别需要是图片才行，所以需要先调用`toTempFilePath`方法得到临时路径，再用image组件显示即可。
+### 保存二维码到本地相册
+
+必须在导出临时文件路径成功后再执行保存。uni-app通用保存方式（H5除外）：
+```javascript
+uni.saveImageToPhotosAlbum({
+    filePath: tempFilePath,
+    success: res => {
+        console.log(res);
+    },
+    fail: err => {
+        console.log(err);
+    }
+});
+```
+
+H5可以通过设置`<a>`标签`href`属性的方式进行保存：
+```javascript
+const aEle = document.createElement('a');
+aEle.download = 'uQRCode'; // 设置下载的文件名，默认是'下载'
+aEle.href = tempFilePath;
+document.body.appendChild(aEle);
+aEle.click();
+aEle.remove(); // 下载之后把创建的元素删除
+```
+经过测试，PC端浏览器可以下载，部分安卓自带或第三方浏览器可以下载，安卓微信浏览器不适用，移动端iOS所有浏览器均不适用，差异较大，还是推荐各位导出文件给图片组件显示，然后提示用户通过长按图片进行保存这种方式。
+
+## uni-app组件方式
+
+### 安装
+
+通过uni-app插件市场地址安装：[https://ext.dcloud.net.cn/plugin?id=1287](https://ext.dcloud.net.cn/plugin?id=1287)。详细配置请移步到：文档 > [uni-app组件](https://uqrcode.cn/doc/document/uni-app.html)。
+
+### 引入
+
+uni-app默认为easycom模式，可直接键入`<uqrcode>`标签。
+
+### 简单用法
+
+安装`uqrcode`组件后，在`template`中键入`<uqrcode/>`。设置`ref`属性可使用组件内部方法，`canvas-id`属性为组件内部的canvas组件标识，`value`属性为二维码生成对应内容，`options`为配置选项，可配置二维码样式，绘制Logo等，详见：[options](https://uqrcode.cn/doc/document/uni-app.html#options) 。
+
+``` html
+<uqrcode ref="uqrcode" canvas-id="qrcode" value="https://uqrcode.cn/doc" :options="{ margin: 10 }"></uqrcode>
+```
+
+### 导出临时文件路径
+
+为了保证方法调用成功，请在 [complete](https://uqrcode.cn/doc/document/uni-app.html#complete) 事件返回`success=true`后调用。
+
+```javascript
+// uqrcode为组件的ref名称
+this.$refs.uqrcode.toTempFilePath({
+  success: res => {
+    console.log(res);
+  }
+});
+```
+
+### 保存二维码到本地相册
+
+为了保证方法调用成功，请在 [complete](https://uqrcode.cn/doc/document/uni-app.html#complete) 事件返回`success=true`后调用。
+
+```javascript
+// uqrcode为组件的ref名称
+this.$refs.uqrcode.save({
+  success: () => {
+    uni.showToast({
+      icon: 'success',
+      title: '保存成功'
+    });
+  }
+});
+```
+
+## 更多使用说明请前往官方文档查看：[https://uqrcode.cn/doc](https://uqrcode.cn/doc)。

@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     change(index) {
+      if (this.active === index) return false;
       this.active = index;
       this.$store.tabs = index;
       // #ifdef H5

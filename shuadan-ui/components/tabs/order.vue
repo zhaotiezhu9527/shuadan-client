@@ -3,7 +3,7 @@
     <u-list class="container">
       <view class="title">
         <view>任务记录</view>
-        <view>2532.36</view>
+        <view>{{ userData.balance }}</view>
       </view>
       <view class="sub_title">
         <view>本数据由全民任务官方提供</view>
@@ -11,7 +11,7 @@
       </view>
       <view class="tabs">
         <u-tabs
-          :list="list"
+          :list="nav"
           lineColor="#ff9a2c"
           lineWidth="60rpx"
           lineHeight="6rpx"
@@ -21,25 +21,23 @@
         ></u-tabs>
       </view>
       <view class="list">
-        <view class="boxstyle" v-for="(item, index) in 10" :key="index">
+        <view class="boxstyle" v-for="(item, index) in list" :key="index">
           <view class="box">
-            <view class="time">抢单时间：2023年06月05日 19:48:35</view>
-            <view class="uid">抢单编号：UB2306051948357664<text>1</text></view>
+            <view class="time">抢单时间：{{ item.orderTime }}</view>
+            <view class="uid"
+              >抢单编号：{{ item.orderNo
+              }}<text>{{ item.dayOrderCount }}</text></view
+            >
             <view class="goodsstyle">
               <view class="goods">
-                <image
-                  class="img"
-                  src="@/static/img/goods.jpg"
-                  mode="widthFix"
-                />
+                <image class="img" :src="item.goodsImg" mode="widthFix" />
                 <view class="content">
                   <view class="name">
-                    汤河店
-                    户外冲锋裤男女可脱卸秋冬季加绒加厚保暖软壳防风防水登山滑雪裤
+                    {{ item.goodsName }}
                   </view>
                   <view class="text">
-                    <view>¥ 179.00</view>
-                    <view>x 11</view>
+                    <view>¥ {{ item.goodsPrice }}</view>
+                    <view>x {{ item.goodsCount }}</view>
                   </view>
                 </view>
               </view>
@@ -47,21 +45,34 @@
             <view class="ul">
               <view class="li">
                 <text>订单总额</text>
-                <text>¥ 1969.00</text>
+                <text>¥ {{ item.orderAmount }}</text>
               </view>
               <view class="li">
                 <text>佣金</text>
-                <text>¥ 1969.00</text>
+                <text>¥ {{ item.commission }}</text>
               </view>
               <view class="li">
                 <text>预计返还</text>
-                <text class="moeny">¥ 1969.00</text>
+                <text class="moeny">¥ {{ item.returnAmount }}</text>
               </view>
-              <view class="li">
-                <view class="submit">提交订单</view>
+              <view class="li" v-if="item.status === 0">
+                <view class="submit" @click="change(item)">提交订单</view>
               </view>
             </view>
             <image
+              v-if="item.status === 0"
+              class="static"
+              src="@/static/img/dai.png"
+              mode="widthFix"
+            />
+            <image
+              v-else-if="item.status === 1"
+              class="static"
+              src="@/static/img/succ.png"
+              mode="widthFix"
+            />
+            <image
+              v-else-if="item.status === 2"
               class="static"
               src="@/static/img/dongjie.png"
               mode="widthFix"
@@ -70,7 +81,7 @@
         </view>
       </view>
     </u-list>
-    <success />
+    <success ref="sucRef" />
   </view>
 </template>
 <script>
@@ -79,17 +90,42 @@ export default {
   data() {
     return {
       current: 0,
-      list: [
-        { name: "全部" },
-        { name: "待处理" },
-        { name: "已完成" },
-        { name: "冻结中" },
+      nav: [
+        { name: "全部", status: undefined },
+        { name: "待处理", status: 0 },
+        { name: "已完成", status: 1 },
+        { name: "冻结中", status: 2 },
       ],
+      list: [],
+      userData: {},
     };
   },
   methods: {
     open(e) {
-      console.log(e);
+      this.getInfo();
+      this.dataFn();
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+        }
+      });
+    },
+    dataFn() {
+      this.$api
+        .user_order_list({
+          page: 1,
+          limit: 20,
+          status: this.nav[this.current].status,
+        })
+        .then(({ data }) => {
+          this.list = data.page.list;
+        });
+    },
+    change(item) {
+      this.$refs.sucRef.open(item);
     },
   },
   components: { success },
@@ -127,6 +163,7 @@ export default {
       display: flex;
       justify-content: space-between;
       position: relative;
+      align-items: center;
       z-index: 2;
       padding: 40rpx 30rpx;
       view {

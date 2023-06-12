@@ -47,8 +47,8 @@
         :loading="loading"
       ></u-button>
       <view class="other">
-        <view @click="nopass">忘记密码</view>
-        <view @click="route">免费注册</view>
+        <view @click="nopass('/pages/onlineService')">忘记密码</view>
+        <view @click="nopass('/pages/register')">免费注册</view>
       </view>
     </view>
     <service />
@@ -97,14 +97,9 @@ export default {
           this.loading = false;
         });
     },
-    nopass() {
+    nopass(url) {
       uni.navigateTo({
-        url: "/pages/onlineService",
-      });
-    },
-    route() {
-      uni.navigateTo({
-        url: "/pages/register",
+        url,
       });
     },
   },
