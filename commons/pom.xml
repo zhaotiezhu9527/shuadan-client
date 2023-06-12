@@ -86,6 +86,12 @@
             <artifactId>fastjson2</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <version>3.5.3.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>
