@@ -551,7 +551,7 @@ public class UserController {
         User user = userService.getUserByName(userName);
 
         JSONObject obj = new JSONObject();
-
+        obj.put("inviteCount", user.getInviteCount());
         // 团队人数
         List<User> teams = userService.list(
                 new LambdaQueryWrapper<User>()
