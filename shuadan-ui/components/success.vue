@@ -106,6 +106,8 @@ export default {
       this.$api.order_pay(this.items.orderNo).then(({ data }) => {
         if (data.code == 0) {
           this.$base.show(data.msg);
+          this.show = false;
+          this.$emit("ok");
         }
       });
     },

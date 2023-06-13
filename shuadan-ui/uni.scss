@@ -77,9 +77,7 @@ $uni-font-size-paragraph: 15px;
 
 view,
 text {
-  // font-size: 28rpx;
   box-sizing: border-box;
-  // color: #333;
 }
 
 .empty {
@@ -88,6 +86,11 @@ text {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.nempty {
+  background-color: #fff !important;
+  padding: 50rpx 0;
 }
 .nomore,
 .loading {
@@ -96,9 +99,9 @@ text {
   font-size: 28rpx;
   padding: 20rpx 0;
 }
-.box-right{
+.box-right {
   margin-left: auto;
 }
-.pull-left{
+.pull-left {
   float: left;
 }

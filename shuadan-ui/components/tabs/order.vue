@@ -1,6 +1,6 @@
 <template>
   <view class="main">
-    <u-list class="container">
+    <u-list class="container" @scrolltolower="load">
       <view class="title">
         <view>任务记录</view>
         <view>{{ userData.balance }}</view>
@@ -18,9 +18,10 @@
           :scrollable="false"
           :current="current"
           activeStyle="color:#ff9a2c;font-weight:600"
+          @change="navChange"
         ></u-tabs>
       </view>
-      <view class="list">
+      <view class="list" v-if="isArray">
         <view class="boxstyle" v-for="(item, index) in list" :key="index">
           <view class="box">
             <view class="time">抢单时间：{{ item.orderTime }}</view>
@@ -80,8 +81,9 @@
           </view>
         </view>
       </view>
+      <u-empty class="empty" text="暂无数据" v-else />
     </u-list>
-    <success ref="sucRef" />
+    <success ref="sucRef" @ok="ok" />
   </view>
 </template>
 <script>
@@ -98,12 +100,24 @@ export default {
       ],
       list: [],
       userData: {},
+      loading: false,
+      finished: false,
+      isArray: true,
+      page: 0,
     };
   },
   methods: {
     open(e) {
       this.getInfo();
+      this.list = [];
+      uni.showLoading();
+      this.page = 1;
       this.dataFn();
+    },
+    load() {
+      if (this.loading || this.finished) return false;
+      this.page++;
+      this.dataFn(this.page);
     },
     //用户列表数据
     getInfo() {
@@ -113,19 +127,42 @@ export default {
         }
       });
     },
-    dataFn() {
+    dataFn(page = 1, type = 1) {
+      this.loading = true;
       this.$api
         .user_order_list({
-          page: 1,
-          limit: 20,
+          page,
           status: this.nav[this.current].status,
         })
         .then(({ data }) => {
-          this.list = data.page.list;
+          if (data.code == 0) {
+            const vim = data.page;
+            if (type === 1) {
+              this.list = this.list.concat(vim.list);
+            } else {
+              this.list = vim.list;
+            }
+            this.isArray = vim.totalCount ? true : false;
+            if (this.page >= vim.totalPage) {
+              this.finished = true;
+            }
+          }
+        })
+        .finally(() => {
+          this.loading = false;
         });
+    },
+    ok() {
+      this.dataFn(1, 0);
+      this.page = 1;
+      this.finished = false;
     },
     change(item) {
       this.$refs.sucRef.open(item);
+    },
+    navChange(e) {
+      this.current = e.index;
+      this.ok();
     },
   },
   components: { success },

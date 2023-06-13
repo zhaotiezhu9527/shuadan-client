@@ -15,24 +15,26 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">
+      <!-- <view class="title">
         <view class="tab active">线下充值</view>
         <view class="tab">线上充值</view>
-      </view>
+      </view> -->
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
-            <view class="table-money">
-              充值金额（¥）{{ item.amount }}
-            </view>
-            <view class="table-title">
-              订单号：{{ item.orderNo }}
-            </view>
+            <view class="table-money"> 充值金额（¥）{{ item.amount }} </view>
+            <view class="table-title"> 订单号：{{ item.orderNo }} </view>
             <view>
               充值状态：
-              <label v-if="item.status == 0" class="yellow-text">{{ item.statusStr }}</label>
-              <label v-else-if="item.status == 1" class="blue-text">{{ item.statusStr }}</label>
-              <label v-else-if="item.status == 2" class="red-text">{{ item.statusStr }}</label>
+              <label v-if="item.status == 0" class="yellow-text">{{
+                item.statusStr
+              }}</label>
+              <label v-else-if="item.status == 1" class="blue-text">{{
+                item.statusStr
+              }}</label>
+              <label v-else-if="item.status == 2" class="red-text">{{
+                item.statusStr
+              }}</label>
             </view>
           </view>
         </u-list-item>
@@ -48,23 +50,7 @@
 export default {
   data() {
     return {
-      list: [
-        { 
-          amount: '10000',
-          orderNo: '213123213213123213',
-          status: '1'
-        },
-        { 
-          amount: '10000',
-          orderNo: '213123213213123213',
-          status: '0'
-        },
-        { 
-          amount: '10000',
-          orderNo: '213123213213123213',
-          status: '2'
-        },
-      ], //列表数据
+      list: [], //列表数据
       loading: false,
       finished: false,
       isArray: true,
@@ -107,10 +93,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.title{
+.scroll {
+  height: calc(100vh - var(--status-bar-height) - 100rpx) !important;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.title {
   width: 100%;
   height: 80rpx;
-  .tab{
+  .tab {
     float: left;
     width: 50%;
     color: #333;
@@ -120,28 +111,28 @@ export default {
     text-align: center;
     border-radius: 4rpx;
     box-shadow: 0 0 1rpx #b8bbbf;
-    &.active{
+    &.active {
       color: #be1204;
       border-bottom: 4rpx solid #be1204;
     }
   }
 }
-.content{
+.content {
   padding: 20rpx;
   font-size: 24rpx;
   line-height: 40rpx;
   border-bottom: 1px solid #ccc;
-  .table-money{
+  .table-money {
     font-size: 28rpx;
   }
-  .yellow-text{
-    color:#f0ad4e;
+  .yellow-text {
+    color: #f0ad4e;
   }
-  .blue-text{
-    color:#007aff;
+  .blue-text {
+    color: #007aff;
   }
-  .red-text{
-    color:#dd524d;
+  .red-text {
+    color: #dd524d;
   }
 }
 </style>

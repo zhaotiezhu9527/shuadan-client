@@ -64,6 +64,9 @@ export default {
     background-size: 100% 100%;
     overflow: hidden;
   }
+  .notice {
+    padding-bottom: 10rpx;
+  }
   .content {
     position: relative;
     background-color: #f8f4f4;

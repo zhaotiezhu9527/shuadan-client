@@ -21,16 +21,28 @@
         </view>
         <view class="task_content">
           <view class="padding">
-            <SlotMachine
-              ref="myLucky"
-              width="610rpx"
-              height="220rpx"
-              :prizes="prizes"
-              :defaultConfig="defaultConfig"
-              :slots="slots"
-              @start="startCallBack"
-              @end="endCallBack"
-            />
+            <view class="container">
+              <view
+                class="scroll-container"
+                v-for="(item, index) in animation"
+                :key="index"
+              >
+                <view
+                  class="transform-container"
+                  :animation="item.animationData"
+                  :class="{ type: !item.type }"
+                >
+                  <view v-for="(vim, ix) in 20" class="item-text">
+                    <image
+                      :key="ix"
+                      class="wenhao"
+                      src="@/static/img/wenhao.png"
+                      mode="heightFix"
+                    />
+                  </view>
+                </view>
+              </view>
+            </view>
           </view>
         </view>
         <view class="txt">全力抢单中，抢单结果将在下方发放。</view>
@@ -111,36 +123,29 @@
   </view>
 </template>
 <script>
-import wenhao from "@/static/img/wenhao.png";
-import SlotMachine from "@/components/@lucky-canvas/uni/slot-machine";
 export default {
-  components: { SlotMachine },
   data() {
     return {
       items: {},
       infos: {},
-      slots: [
-        { speed: 8, direction: 1 },
-        { speed: 9, direction: -1 },
-        { speed: 10, direction: 1 },
-      ],
-      prizes: [
+      animation: [
         {
-          borderRadius: "10px",
-          imgs: [
-            {
-              width: "100%",
-              top: "0%",
-              src: wenhao,
-            },
-          ],
+          type: 0,
+          animationData: null,
+          time: 0,
+        },
+        {
+          type: 1,
+          animationData: null,
+          time: 100,
+        },
+        {
+          type: 0,
+          animationData: null,
+          time: 200,
         },
       ],
       vim: {},
-      defaultConfig: {
-        rowSpacing: "10px",
-        colSpacing: "10px",
-      },
     };
   },
   methods: {
@@ -150,22 +155,6 @@ export default {
     addVip() {
       uni.navigateTo({
         url: "/pages/vip",
-      });
-    },
-    startCallBack() {
-      // 先开始旋转
-      this.$refs.myLucky.play();
-      setTimeout(() => {
-        const index = 0;
-        this.$refs.myLucky.stop(index);
-      }, 5000);
-    },
-    endCallBack(e) {
-      this.$api.order_match(this.vim.areaId).then(({ data }) => {
-        this.$base.show(data.msg);
-        if (data.code == 1) {
-          this.getInfo(this.vim.areaId);
-        }
       });
     },
     //用户列表数据,用户收益详情
@@ -191,6 +180,37 @@ export default {
         } else {
           this.$base.show(res[2].data.msg);
         }
+      });
+    },
+    // 开始滚动
+    startCallBack() {
+      let height = 19 * 220;
+      this.animation.forEach((item) => {
+        let animation = uni.createAnimation({
+          duration: 6500,
+          timingFunction: "ease",
+          delay: item.time,
+        });
+        animation.translateY(-height + "rpx").step();
+        item.animationData = animation.export();
+      });
+      setTimeout(() => {
+        this.endCallBack();
+      }, 6500);
+    },
+    // 重置
+    endCallBack() {
+      this.$api.order_match(this.vim.areaId).then(({ data }) => {
+        this.$base.show(data.msg);
+        if (data.code == 1) {
+          this.getInfo(this.vim.areaId);
+        }
+      });
+      let animation = uni.createAnimation({
+        duration: 0,
+      });
+      this.animation.forEach((item) => {
+        item.animationData = animation.translateY(0).step().export();
       });
     },
   },
@@ -358,6 +378,24 @@ export default {
   background-size: 100% 100%;
   .padding {
     padding: 250rpx 20rpx 0;
+  }
+}
+.container {
+  width: 100%;
+  display: flex;
+}
+.scroll-container {
+  width: calc(100% / 3);
+  height: 220rpx;
+  text-align: center;
+  overflow: hidden;
+  .wenhao {
+    height: 220rpx;
+    max-height: 220rpx;
+  }
+  .item-text {
+    line-height: 220rpx;
+    max-height: 220rpx;
   }
 }
 </style>

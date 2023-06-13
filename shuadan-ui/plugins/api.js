@@ -354,12 +354,26 @@ export const order_match = (data) => {
       });
   });
 };
-// 匹配
+// 订单列表
 export const user_order_list = (data) => {
   return new Promise((resolve, reject) => {
     base
       .request({
         url: "user/order/list",
+        method: "get",
+        data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
+// 订单支付
+export const order_pay = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "order/pay/" + data,
         method: "get",
       })
       .then((res) => {
@@ -367,13 +381,14 @@ export const user_order_list = (data) => {
       });
   });
 };
-// 匹配
-export const order_pay = (data) => {
+// 用户资金流动列表
+export const user_account_list = (data) => {
   return new Promise((resolve, reject) => {
     base
       .request({
-        url: "order/pay/" + data,
+        url: "user/account/list",
         method: "get",
+        data,
       })
       .then((res) => {
         resolve(res);

@@ -95,19 +95,18 @@
         <view class="loading" v-if="loading">加载中...</view>
         <view class="nomore" v-if="finished">没有更多了</view>
       </template>
-      <u-empty class="empty" text="暂无数据" v-else />
+      <u-empty class="nempty" text="暂无数据" v-else />
     </u-list>
   </view>
 </template>
 <script>
-import { dateFormat } from "../plugins/util";
 export default {
   data() {
     return {
       list: [], //列表数据
       loading: false,
       finished: false,
-      isArray: true,
+      isArray: false,
       page: 0,
       active: 0,
       datetime: Number(new Date()),
@@ -146,7 +145,7 @@ export default {
 </script>
 <style lang="scss">
 .scroll {
-  height: calc(100% - 100rpx) !important;
+  height: calc(100vh - var(--status-bar-height) - 100rpx) !important;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
