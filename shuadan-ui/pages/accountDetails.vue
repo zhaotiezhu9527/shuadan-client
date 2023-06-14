@@ -38,6 +38,7 @@
                   :class="{
                     'red-text': item.optType === 4,
                     'blue-text': item.optType === 3,
+                    'yellow-text': item.optType === 5,
                   }"
                 >
                   {{ item.optTypeStr }}

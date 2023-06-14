@@ -147,7 +147,7 @@ export default {
     };
   },
   methods: {
-    open(e) {
+    open() {
       this.getInfo();
     },
     loginOut() {

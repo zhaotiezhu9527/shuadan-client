@@ -33,7 +33,7 @@ export default {
     };
   },
   methods: {
-    open(e) {
+    open() {
       this.$api.system_customerService_list().then(({ data }) => {
         if (data.code == 0) {
           this.list = data.data;

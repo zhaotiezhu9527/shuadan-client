@@ -107,7 +107,7 @@ export default {
     };
   },
   methods: {
-    open(e) {
+    open() {
       this.getInfo();
       this.list = [];
       uni.showLoading();

@@ -26,15 +26,15 @@
             <view class="table-title"> 订单号：{{ item.orderNo }} </view>
             <view>
               充值状态：
-              <label v-if="item.status == 0" class="yellow-text">{{
-                item.statusStr
-              }}</label>
-              <label v-else-if="item.status == 1" class="blue-text">{{
-                item.statusStr
-              }}</label>
-              <label v-else-if="item.status == 2" class="red-text">{{
-                item.statusStr
-              }}</label>
+              <label v-if="item.status == 0" class="yellow-text">
+                {{ item.statusStr }}
+              </label>
+              <label v-else-if="item.status == 1" class="blue-text">
+                {{ item.statusStr }}
+              </label>
+              <label v-else-if="item.status == 2" class="red-text">
+                {{ item.statusStr }}
+              </label>
             </view>
           </view>
         </u-list-item>

@@ -14,7 +14,7 @@
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>
-    <u-list @scrolltolower="load" class="scroll">
+    <view class="scroll">
       <view class="rows">
         <view class="item">
           <view class="txt">团队余额（元）</view>
@@ -68,35 +68,29 @@
           {{ item.name }}
         </view>
       </view>
-      <template v-if="isArray">
-        <u-list-item
-          class="contentStyle"
-          v-for="(item, index) in list"
-          :key="index"
-        >
+      <template v-if="list.length">
+        <view class="contentStyle" v-for="(item, index) in list" :key="index">
           <view class="content">
             <image class="image" src="@/static/img/head.png" mode="widthFix" />
             <view class="text">
               <view class="li">
-                <text>姓名:赵铁柱</text>
-                <text class="blur">电话:dun****n</text>
+                <text>姓名:{{ item.nickName }}</text>
+                <text class="blur">电话:{{ item.phone }}</text>
               </view>
               <view class="li">
-                <text clas="blur">充值:0</text>
-                <text class="green">推荐人数: 0</text>
+                <text clas="blur">充值:{{ item.deposit }}</text>
+                <text class="green">推荐人数: {{ item.inviteCount }}</text>
               </view>
               <view class="li">
                 <text class="blur">提现:0</text>
-                <text>注册时间:2023年06月04日 12:06:14</text>
+                <text>注册时间:{{ item.registerTime }}</text>
               </view>
             </view>
           </view>
-        </u-list-item>
-        <view class="loading" v-if="loading">加载中...</view>
-        <view class="nomore" v-if="finished">没有更多了</view>
+        </view>
       </template>
       <u-empty class="nempty" text="暂无数据" v-else />
-    </u-list>
+    </view>
   </view>
 </template>
 <script>
@@ -105,9 +99,6 @@ export default {
     return {
       list: [], //列表数据
       loading: false,
-      finished: false,
-      isArray: false,
-      page: 0,
       active: 0,
       datetime: Number(new Date()),
       items: {},
@@ -136,10 +127,6 @@ export default {
         }
       });
     },
-    load() {
-      if (this.loading || this.finished) return false;
-      this.page++;
-    },
   },
 };
 </script>
@@ -163,9 +150,11 @@ export default {
     border-radius: 4rpx;
     box-shadow: 0 0 1rpx #b8bbbf;
     font-size: 28rpx;
+    transition: all 0.5s;
     &.active {
       color: #be1204;
       border-color: #be1204;
+      transition: all 0.5s;
     }
   }
 }

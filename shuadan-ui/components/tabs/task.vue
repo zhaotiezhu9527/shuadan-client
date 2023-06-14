@@ -145,6 +145,7 @@ export default {
           time: 200,
         },
       ],
+      loading: false,
       vim: {},
     };
   },
@@ -184,6 +185,8 @@ export default {
     },
     // 开始滚动
     startCallBack() {
+      if (this.loading) return false;
+      this.loading = true;
       let height = 19 * 220;
       this.animation.forEach((item) => {
         let animation = uni.createAnimation({
@@ -202,6 +205,7 @@ export default {
     endCallBack() {
       this.$api.order_match(this.vim.areaId).then(({ data }) => {
         this.$base.show(data.msg);
+        this.loading = false;
         if (data.code == 1) {
           this.getInfo(this.vim.areaId);
         }

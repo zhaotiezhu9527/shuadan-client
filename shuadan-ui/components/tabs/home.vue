@@ -98,7 +98,7 @@ export default {
     };
   },
   methods: {
-    async open(e) {
+    async open() {
       await this.$onLaunched;
       this.homeNotice = uni.getStorageSync("config").homeNotice;
       this.getInfo();

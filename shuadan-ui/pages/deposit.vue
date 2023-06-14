@@ -28,7 +28,7 @@
               v-model="amount"
               type="number"
               placeholder="请输入提现金额"
-              @input="update"
+              @blur="update"
             />
           </view>
           <view class="text">
@@ -60,27 +60,27 @@
             <input
               class="title-input"
               v-model="pwd"
-              type="text"
+              type="number"
               placeholder="请输入支付密码"
             />
           </view>
         </view>
       </view>
       <view class="foot-text">
-        *<br>
-        请仔细核对收款信息<br>
+        *<br />
+        请仔细核对收款信息<br />
         本次提现扣除手续费 {{ withdrawFee }}%
       </view>
       <view class="btn">
         <u-button
-              class="custom-style"
-              color="#4350af"
-              block
-              @click="submit"
-              :loading="loading"
-            >
-              立即提现
-            </u-button>
+          class="custom-style"
+          color="#4350af"
+          block
+          @click="submit"
+          :loading="loading"
+        >
+          立即提现
+        </u-button>
       </view>
     </view>
   </view>
@@ -90,90 +90,90 @@
 export default {
   data() {
     return {
-      amount:"",
+      amount: "",
       loading: false,
-      phone: "",//手机号
-      bankNo: "",//银行卡号
-      bankName: "",//银行名称
-      realName: "",//真实姓名
-      pwd: "",//支付密码
-      balance: 0,//余额
-      withdrawFee: 0,//提款手续费
+      phone: "", //手机号
+      bankNo: "", //银行卡号
+      bankName: "", //银行名称
+      realName: "", //真实姓名
+      pwd: "", //支付密码
+      balance: 0, //余额
+      withdrawFee: 0, //提款手续费
     };
   },
   onShow() {
-    this.getInfo()
+    this.getInfo();
   },
   methods: {
-    submit(){
+    submit() {
+      console.log(this.amount);
       if (!this.amount) {
         return this.$base.show("请输入提现金额~");
-      }else if (!this.pwd) {
+      } else if (!this.pwd) {
         return this.$base.show("请输入资金密码~");
-      }else if (this.amount > this.balance) {
+      } else if (this.amount > this.balance) {
         return this.$base.show("提现金额不能超过" + this.balance);
       }
-      this.loading = true
+      this.loading = true;
       const DATA_OBJ = {
-        amount: this.amount,//新密码
-        pwd: this.pwd,//旧密码
+        amount: this.amount, //提现金额
+        pwd: this.pwd, //密码
       };
       this.$api
         .user_withdraw(DATA_OBJ)
         .then((res) => {
           if (res.data.code == 0) {
-            this.$base.show(res.data.msg)
-            this.loading = false
+            this.$base.show(res.data.msg);
+            this.loading = false;
           }
         })
         .finally(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
     //用户列表数据
     getInfo() {
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
-          this.phone = res.data.data.phone
-          this.bankNo = res.data.data.bankNo
-          this.bankName = res.data.data.bankName
-          this.realName = res.data.data.realName
-          this.balance = res.data.data.balance
-          this.withdrawFee = res.data.data.withdrawFee
+          this.phone = res.data.data.phone;
+          this.bankNo = res.data.data.bankNo;
+          this.bankName = res.data.data.bankName;
+          this.realName = res.data.data.realName;
+          this.balance = res.data.data.balance;
+          this.withdrawFee = res.data.data.withdrawFee;
         }
       });
     },
     // 金额文本框点击事件
     update() {
-      if (!this.amount) return false;
       if (this.amount > this.balance) {
         this.amount = this.balance;
       } else if (this.amount <= 0) {
         this.amount = 0;
       }
-      // return
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.main{
+.main {
   background-color: #f2f2f2;
   height: calc(100vh - 52px + var(--status-bar-height));
   overflow: hidden;
-  .title ,.content{
+  .title,
+  .content {
     width: 92%;
     background-color: #fff;
     margin: 20rpx auto;
     border-radius: 20rpx;
     padding: 20rpx 0;
-    .title-text{
+    .title-text {
       padding: 0 20rpx;
-      span{
+      span {
         font-size: 32rpx;
       }
-      label{
+      label {
         border: 1px solid #fbbd08;
         font-size: 24rpx;
         padding: 2rpx 12rpx;
@@ -206,10 +206,10 @@ export default {
         font-size: 24rpx;
         font-weight: 500;
         margin-top: 50rpx;
-        span{
+        span {
           color: #999;
         }
-        label{
+        label {
           margin-left: 40rpx;
           color: #333;
           font-weight: 400;
@@ -217,7 +217,7 @@ export default {
       }
     }
   }
-  .detail{
+  .detail {
     display: flex;
     height: 100rpx;
     margin: 0 30rpx;
@@ -234,20 +234,20 @@ export default {
       height: 100rpx;
       line-height: 100rpx;
     }
-    span{
+    span {
       flex: 1;
       text-align: right;
       font-size: 30rpx;
     }
   }
-  .foot-text{
+  .foot-text {
     width: 92%;
     background-color: #fff;
     margin: 20rpx auto;
     border-radius: 20rpx;
     padding: 20rpx 20rpx;
   }
-  .btn{
+  .btn {
     width: 90%;
     margin: 40rpx auto;
   }

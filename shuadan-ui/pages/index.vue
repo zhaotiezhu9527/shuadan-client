@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       active: 0,
+      route: {},
       list: [
         { image1: home1, image2: home2, route: home },
         { image1: jilv1, image2: jilv2, route: order },
@@ -64,8 +65,11 @@ export default {
     } else {
       this.active = this.$store.tabs;
     }
+    this.route = e;
+  },
+  onShow() {
     this.$nextTick(() => {
-      this.$refs.main.open(e);
+      this.$refs.main.open(this.route);
     });
   },
   methods: {

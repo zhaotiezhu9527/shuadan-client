@@ -19,7 +19,7 @@
       <view class="from-input">
         <label>旧密码</label>
         <input
-          type="text"
+          type="number"
           v-model="oldPwd"
           class="input-text"
           placeholder="请输入旧密码"
@@ -28,7 +28,7 @@
       <view class="from-input">
         <label>新密码</label>
         <input
-          type="text"
+          type="number"
           v-model="newPwd"
           class="input-text"
           placeholder="请输入新密码"
@@ -37,7 +37,7 @@
       <view class="from-input">
         <label>确认密码</label>
         <input
-          type="text"
+          type="number"
           v-model="password"
           class="input-text"
           placeholder="请再次输入密码"
@@ -71,9 +71,10 @@ export default {
   },
   methods: {
     submit() {
-      if (!this.oldPwd) {
-        return this.$base.show("旧密码不能为空~");
-      } else if (!this.newPwd) {
+      let pay = /^(?:0|(?:-?[1-9]\d*))$/;
+      if (!pay.test(this.oldPwd) || this.oldPwd.length !== 6) {
+        return this.$base.show("请输入6位数字旧密码~");
+      } else if (!pay.test(this.newPwd) || this.newPwd.length !== 6) {
         return this.$base.show("请填写新密码~");
       } else if (this.newPwd != this.password) {
         return this.$base.show("两次输入的密码不一致~");
