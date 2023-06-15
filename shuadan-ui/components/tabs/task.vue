@@ -67,7 +67,7 @@
       <view class="item">
         <view class="txt gray">总资产</view>
         <view class="moeny gray">
-          <template v-if="infos.totalIncome">+</template>{{ infos.totalIncome }}
+          <template v-if="infos.balance">+</template>{{ infos.balance }}
         </view>
       </view>
       <view class="item">

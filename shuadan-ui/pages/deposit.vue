@@ -106,7 +106,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.amount);
       if (!this.amount) {
         return this.$base.show("请输入提现金额~");
       } else if (!this.pwd) {

@@ -49,7 +49,13 @@
                 <text>¥ {{ item.orderAmount }}</text>
               </view>
               <view class="li">
-                <text>佣金</text>
+                <text
+                  >佣金<text
+                    v-if="item.orderType == 1"
+                    class="tip-bubble tip-bubble-left"
+                    >x{{ item.commissionMul }}</text
+                  ></text
+                >
                 <text>¥ {{ item.commission }}</text>
               </view>
               <view class="li">
@@ -287,6 +293,7 @@ export default {
     align-items: center;
     .img {
       width: 180rpx;
+      max-height: 180rpx;
     }
     .content {
       padding: 20rpx;
@@ -338,5 +345,30 @@ export default {
 .list {
   padding-bottom: calc(constant(safe-area-inset-bottom) + 160rpx);
   padding-bottom: calc(env(safe-area-inset-bottom) + 160rpx);
+}
+.tip-bubble {
+  position: relative;
+  background-color: red;
+  width: 88rpx;
+  height: 40rpx;
+  color: #fff;
+  text-align: center;
+  border-radius: 0 8rpx 8rpx 0;
+  display: inline-block;
+  margin-left: 50rpx;
+  font-weight: bold;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 20rpx solid;
+  }
+  &.tip-bubble-left::after {
+    border-right-color: red;
+    top: 0;
+    right: 100%;
+  }
 }
 </style>

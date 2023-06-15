@@ -64,6 +64,7 @@ export default {
       loginPwd: "",
       userName: "",
       loading: false,
+      config: {},
     };
   },
   methods: {

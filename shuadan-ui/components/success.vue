@@ -16,7 +16,7 @@
               <view class="time">抢单时间：{{ items.orderTime }}</view>
               <view class="uid">
                 {{ items.orderNo }}<text class="num">{{ items.countNum }}</text
-                ><text class="txt" v-if="items.orderType === 1"> 加急单 </text>
+                ><text class="txt" v-if="items.orderType == 1"> 加急单 </text>
               </view>
               <view class="goodsstyle">
                 <view class="goods">
@@ -40,9 +40,11 @@
                   <text>订单总额</text>
                   <text>¥ {{ items.orderAmount }}</text>
                 </view>
-                <view class="li" v-if="items.commissionMul >= 2">
+                <view class="li">
                   <text
-                    >佣金<text class="tip-bubble tip-bubble-left"
+                    >佣金<text
+                      v-if="items.orderType == 1"
+                      class="tip-bubble tip-bubble-left"
                       >x{{ items.commissionMul }}</text
                     ></text
                   >

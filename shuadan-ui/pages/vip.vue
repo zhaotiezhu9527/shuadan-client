@@ -19,7 +19,7 @@
         <image class="user" src="@/static/img/head.png" mode="widthFix" />
         <view class="txt">
           <view>会员等级：{{ items.currLevelName }}</view>
-          <view>每天可接单：{{ items.currDayWithdrawCount }}单</view>
+          <view>每天可接单：{{ items.dayOrderCount }}单</view>
         </view>
         <view class="link" @click="change">会员详情</view>
       </view>

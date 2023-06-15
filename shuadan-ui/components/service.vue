@@ -1,9 +1,22 @@
 <template>
-  <view class="sevice">
+  <view class="sevice" @click="submit">
     <view class="bg"></view>
   </view>
 </template>
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    submit() {
+      uni.navigateTo({
+        url: "/pages/onlineService",
+      });
+    },
+  },
+};
+</script>
 <style lang="scss" scoped>
 .sevice {
   position: fixed;
