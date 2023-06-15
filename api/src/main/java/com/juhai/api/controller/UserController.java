@@ -313,7 +313,7 @@ public class UserController {
 
         JSONObject temp = new JSONObject();
         temp.put("currLevelName", user.getLevel().getLevelName());
-        temp.put("currDayWithdrawCount", user.getLevel().getDayOrderCount());
+        temp.put("dayOrderCount", user.getLevel().getDayOrderCount());
 
         List<Level> levels = levelService.list(new LambdaQueryWrapper<Level>().orderByAsc(Level::getLevelValue));
         JSONArray levelArr = new JSONArray();
