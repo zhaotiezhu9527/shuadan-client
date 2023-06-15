@@ -340,6 +340,7 @@ public class OrderController {
             orderService.update(
                     new UpdateWrapper<Order>().lambda()
                             .eq(Order::getPreBatch, order.getPreBatch())
+                            .eq(Order::getStatus, 2)
                             .set(Order::getStatus, 1)
             );
 
