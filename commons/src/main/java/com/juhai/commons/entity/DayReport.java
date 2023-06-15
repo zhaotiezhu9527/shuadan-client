@@ -32,7 +32,7 @@ public class DayReport implements Serializable {
      * 日期
      */
     @TableField(value = "today")
-    private Date today;
+    private String today;
 
     /**
      * 充值量

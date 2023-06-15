@@ -7,7 +7,7 @@
     <resultMap id="BaseResultMap" type="com.juhai.commons.entity.DayReport">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="userName" column="user_name" jdbcType="VARCHAR"/>
-            <result property="today" column="today" jdbcType="DATE"/>
+            <result property="today" column="today" jdbcType="VARCHAR"/>
             <result property="deposit" column="deposit" jdbcType="DECIMAL"/>
             <result property="withdraw" column="withdraw" jdbcType="DECIMAL"/>
             <result property="bet" column="bet" jdbcType="DECIMAL"/>

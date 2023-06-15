@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.OrderCountMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.OrderCount">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="today" column="today" jdbcType="VARCHAR"/>
+            <result property="orderCount" column="order_count" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_name,today,
+        order_count,create_time,update_time
+    </sql>
+
+
+    <insert id="insertOrUpdate">
+        insert into t_order_count
+        (user_name, today, order_count, create_time, update_time)
+        VALUES (#{report.userName},
+        #{report.today},
+        #{report.orderCount},
+        #{report.createTime},
+        #{report.updateTime}
+        ) ON DUPLICATE KEY
+        UPDATE order_count = order_count + #{report.orderCount},
+        update_time = #{report.updateTime}
+    </insert>
+</mapper>

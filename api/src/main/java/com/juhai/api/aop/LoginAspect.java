@@ -87,7 +87,7 @@ public class LoginAspect {
         // token续期
         redisTemplate.expireAt(tokenKey, DateUtil.offsetMinute(new Date(), expire));
         // 在线用户续期
-        redisTemplate.expireAt(RedisKeyUtil.UserOnlineKey(jwtUserPhone), DateUtil.offsetDay(new Date(), RedisKeyUtil.USER_TOKEN_EXPIRE));
+        redisTemplate.opsForValue().set(RedisKeyUtil.UserOnlineKey(jwtUserPhone), token, RedisKeyUtil.USER_TOKEN_EXPIRE, TimeUnit.MINUTES);
         return joinPoint.proceed();
     }
 

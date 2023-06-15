@@ -68,6 +68,9 @@
             <if test="report.balance != null and report.balance != 0">
                 balance = balance + #{report.balance},
             </if>
+            <if test="report.freezeBalance != null and report.freezeBalance != 0">
+                freeze_balance = freeze_balance + #{report.freezeBalance},
+            </if>
             <if test="report.deposit != null and report.deposit != 0">
                 deposit = deposit + #{report.deposit},
             </if>

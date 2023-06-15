@@ -28,7 +28,7 @@ public class NoticeController {
 
     @ApiOperation(value = "获取信息公告列表")
     @GetMapping("/list")
-    public R config(HttpServletRequest httpServletRequest) {
+    public R list(HttpServletRequest httpServletRequest) {
         List<Notice> list = noticeService.list(new LambdaQueryWrapper<Notice>().eq(Notice::getStatus, 0).orderByDesc(Notice::getCreateTime));
 
         JSONArray array = new JSONArray();

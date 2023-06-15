@@ -8,6 +8,9 @@
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="userName" column="user_name" jdbcType="VARCHAR"/>
             <result property="triggerNum" column="trigger_num" jdbcType="INTEGER"/>
+            <result property="goodsId" column="goods_id" jdbcType="INTEGER"/>
+            <result property="goodsCount" column="goods_count" jdbcType="INTEGER"/>
+            <result property="preBatch" column="pre_batch" jdbcType="VARCHAR"/>
             <result property="promptText" column="prompt_text" jdbcType="VARCHAR"/>
             <result property="commissionMul" column="commission_mul" jdbcType="DOUBLE"/>
             <result property="orderAmount" column="order_amount" jdbcType="DECIMAL"/>
@@ -21,6 +24,7 @@
 
     <sql id="Base_Column_List">
         id,user_name,trigger_num,
+        goods_id,goods_count,pre_batch,
         prompt_text,commission_mul,order_amount,
         status,create_time,create_by,
         update_time,update_by,remark

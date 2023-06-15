@@ -35,6 +35,24 @@ public class Prepare implements Serializable {
     private Integer triggerNum;
 
     /**
+     * 商品id
+     */
+    @TableField(value = "goods_id")
+    private Integer goodsId;
+
+    /**
+     * 商品数量
+     */
+    @TableField(value = "goods_count")
+    private Integer goodsCount;
+
+    /**
+     * 批次
+     */
+    @TableField(value = "pre_batch")
+    private String preBatch;
+
+    /**
      * 提示文本
      */
     @TableField(value = "prompt_text")

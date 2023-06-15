@@ -41,6 +41,12 @@ public class Order implements Serializable {
     private String nickName;
 
     /**
+     * 预派送批次
+     */
+    @TableField(value = "pre_batch")
+    private String preBatch;
+
+    /**
      * 商品ID
      */
     @TableField(value = "goods_id")
@@ -111,6 +117,12 @@ public class Order implements Serializable {
      */
     @TableField(value = "count_num")
     private Integer countNum;
+
+    /**
+     * 订单类型(0:加急单 1:普通单)
+     */
+    @TableField(value = "order_type")
+    private Integer orderType;
 
     /**
      * 佣金倍数

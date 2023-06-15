@@ -10,6 +10,7 @@
             <result property="userName" column="user_name" jdbcType="VARCHAR"/>
             <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
             <result property="goodsId" column="goods_id" jdbcType="INTEGER"/>
+            <result property="preBatch" column="pre_batch" jdbcType="VARCHAR"/>
             <result property="goodsPrice" column="goods_price" jdbcType="DECIMAL"/>
             <result property="goodsCount" column="goods_count" jdbcType="INTEGER"/>
             <result property="orderAmount" column="order_amount" jdbcType="DECIMAL"/>
@@ -26,7 +27,7 @@
         id,order_no,user_name,
         nick_name,goods_id,goods_price,
         goods_count,order_amount,commission,commission_rate,
-        status,order_time,pay_time,
+        status,order_time,pay_time,pre_batch,
         pre_id,count_num
     </sql>
 </mapper>
