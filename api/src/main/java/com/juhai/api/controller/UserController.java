@@ -686,6 +686,7 @@ public class UserController {
                 obj.put("goodsName", goods == null ? "" : goods.getGoodsName());
                 obj.put("goodsImg", goods == null ? "" : resourceDomain + goods.getGoodsImg());
                 obj.put("orderType", temp.getOrderType());
+                obj.put("commissionMul", temp.getCommissionMul());
                 arr.add(obj);
             }
             page.setList(arr);
