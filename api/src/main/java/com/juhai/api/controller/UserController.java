@@ -9,6 +9,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.nacos.shaded.org.checkerframework.checker.units.qual.A;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.controller.request.*;
@@ -76,6 +77,12 @@ public class UserController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private OrderCountService orderCountService;
+
+    @Autowired
+    private DayReportService dayReportService;
 
     @ApiOperation(value = "注册")
     @PostMapping("/register")
@@ -333,14 +340,44 @@ public class UserController {
         User user = userService.getUserByName(userName);
 
         JSONObject temp = new JSONObject();
+        // 用户余额
         temp.put("balance", user.getBalance());
-        temp.put("yesterdayIncome", 0);
-        temp.put("todayIncome", 0);
+        // 冻结金额
         temp.put("freezeBalance", user.getFreezeBalance());
-        temp.put("todayOrderCount", 0);
-        temp.put("yesterdayTeamIncome", 0);
-        temp.put("totalIncome", 0);
-
+        temp.put("totalIncome", user.getIncome());
+        // 今日收益
+        DayReport todayReport = dayReportService.getOne(
+                new LambdaQueryWrapper<DayReport>()
+                        .eq(DayReport::getUserName, user.getUserName())
+                        .eq(DayReport::getToday, DateUtil.formatDate(new Date()))
+        );
+        temp.put("todayIncome", todayReport == null || todayReport.getIncome() == null ? 0 : todayReport.getIncome());
+        // 昨日收益
+        DayReport yesterdayReport = dayReportService.getOne(
+                new LambdaQueryWrapper<DayReport>()
+                        .eq(DayReport::getUserName, user.getUserName())
+                        .eq(DayReport::getToday, DateUtil.formatDate(DateUtil.offsetDay(new Date(), -1)))
+        );
+        temp.put("yesterdayIncome", (yesterdayReport == null || yesterdayReport.getIncome() == null) ? 0 : yesterdayReport.getIncome());
+        // 今日订单量
+        OrderCount orderCount = orderCountService.getOne(
+                new LambdaQueryWrapper<OrderCount>()
+                        .eq(OrderCount::getUserName, userName)
+                        .eq(OrderCount::getToday, DateUtil.formatDate(new Date()))
+        );
+        temp.put("todayOrderCount", orderCount == null ? 0 : orderCount.getOrderCount());
+        // 团队报表
+        List<DayReport> teamReports = dayReportService.list(
+                new LambdaQueryWrapper<DayReport>()
+                        .eq(DayReport::getToday, DateUtil.formatDate(DateUtil.offsetDay(new Date(), -1)))
+                        .like(DayReport::getUserAgentNode, "|" + userName + "|")
+                        .in(DayReport::getUserAgentLevel, Arrays.asList(user.getUserAgentLevel() + 1, user.getUserAgentLevel() + 2, user.getUserAgentLevel() + 3))
+        );
+        BigDecimal yesterdayTeamIncome = new BigDecimal(0);
+        for (DayReport teamReport : teamReports) {
+            yesterdayTeamIncome = NumberUtil.add(yesterdayTeamIncome, teamReport.getIncome());
+        }
+        temp.put("yesterdayTeamIncome", yesterdayTeamIncome);
         return R.ok().put("data", temp);
     }
 
@@ -442,6 +479,7 @@ public class UserController {
             typeMap.put(3, "用户接单");
             typeMap.put(4, "接单返佣");
             typeMap.put(5, "下级返佣");
+            typeMap.put(6, "系统扣款");
             JSONArray arr = new JSONArray();
             for (Account temp : list) {
                 JSONObject obj = new JSONObject();
