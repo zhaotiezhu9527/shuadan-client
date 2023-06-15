@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       show: true,
-      content: "测试内容",
+      content: "",
     };
   },
   async mounted() {

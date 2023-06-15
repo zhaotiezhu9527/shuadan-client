@@ -158,7 +158,7 @@ export default {
       this.finished = false;
     },
     change(item) {
-      this.$refs.sucRef.open(item);
+      this.$refs.sucRef.open(item.orderNo);
     },
     navChange(e) {
       this.current = e.index;

@@ -15,11 +15,8 @@
             <view class="box">
               <view class="time">抢单时间：{{ items.orderTime }}</view>
               <view class="uid">
-                {{ items.orderNo
-                }}<text class="num">{{ items.dayOrderCount }}</text
-                ><text class="txt" v-if="items.dayOrderCount === 1"
-                  >加急单</text
-                >
+                {{ items.orderNo }}<text class="num">{{ items.countNum }}</text
+                ><text class="txt" v-if="items.orderType === 1"> 加急单 </text>
               </view>
               <view class="goodsstyle">
                 <view class="goods">
@@ -35,23 +32,25 @@
                   </view>
                 </view>
               </view>
-              <view class="redb">可用余额不足，还需充值7929.03</view>
+              <view class="redb" v-if="items.balanceSub <= 0">
+                可用余额不足，还需充值{{ items.balanceSub }}
+              </view>
               <view class="ul">
                 <view class="li">
                   <text>订单总额</text>
                   <text>¥ {{ items.orderAmount }}</text>
                 </view>
-                <view class="li">
+                <view class="li" v-if="items.commissionMul >= 2">
                   <text
                     >佣金<text class="tip-bubble tip-bubble-left"
-                      >x2</text
+                      >x{{ items.commissionMul }}</text
                     ></text
                   >
                   <text>¥ {{ items.commission }}</text>
                 </view>
                 <view class="li">
                   <text>预计返还</text>
-                  <text class="moeny">¥ {{ items.returnAmount }}</text>
+                  <text class="moeny">¥ {{ items.forecastReturn }}</text>
                 </view>
               </view>
               <image
@@ -99,15 +98,28 @@ export default {
   },
   methods: {
     open(e) {
-      this.items = e;
       this.show = true;
+      this.dataFn(e);
+    },
+    dataFn(e) {
+      this.$api.order_detail(e).then(({ data }) => {
+        if (data.code == 0) {
+          this.items = data.data;
+        } else {
+          this.$base.show(data.msg);
+        }
+      });
     },
     change() {
       this.$api.order_pay(this.items.orderNo).then(({ data }) => {
         if (data.code == 0) {
           this.$base.show(data.msg);
-          this.show = false;
-          this.$emit("ok");
+          if (data.data.orderNo) {
+            this.dataFn(data.data.orderNo);
+            this.$emit("ok");
+          } else {
+            this.show = false;
+          }
         }
       });
     },

@@ -120,10 +120,13 @@
         抢到任务订单后请及时提交订单，避免长时间未提交导致卡单卡顿异常降低信用分
       </view>
     </view>
+    <success ref="sucRef" />
   </view>
 </template>
 <script>
+import success from "@/components/success.vue";
 export default {
+  components: { success },
   data() {
     return {
       items: {},
@@ -204,10 +207,10 @@ export default {
     // 重置
     endCallBack() {
       this.$api.order_match(this.vim.areaId).then(({ data }) => {
-        this.$base.show(data.msg);
         this.loading = false;
-        if (data.code == 1) {
+        if (data.code == 0) {
           this.getInfo(this.vim.areaId);
+          this.$refs.sucRef.open(data.data.orderNo);
         }
       });
       let animation = uni.createAnimation({

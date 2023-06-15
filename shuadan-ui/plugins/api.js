@@ -395,3 +395,17 @@ export const user_account_list = (data) => {
       });
   });
 };
+// 用户资金流动列表
+export const order_detail = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "order/detail/" + data,
+        method: "get",
+        data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};
