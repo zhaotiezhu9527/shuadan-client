@@ -12,12 +12,14 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.utils.JwtUtils;
 import com.juhai.commons.entity.*;
 import com.juhai.commons.service.*;
+import com.juhai.commons.utils.MsgUtil;
 import com.juhai.commons.utils.R;
 import icu.mhb.mybatisplus.plugln.core.JoinLambdaWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,7 +79,18 @@ public class OrderController {
         Date now = new Date();
         String userName = JwtUtils.getUserName(httpServletRequest);
         // 防止频繁提交
-
+        Map<String, String> paramsMap = paramterService.getAllParamByMap();
+        // 验证时间段
+        String orderTimeStr = paramsMap.get("order_time");
+        if (StringUtils.isNotBlank(orderTimeStr)) {
+            String today = DateUtil.formatDate(now);
+            String[] timeArr = orderTimeStr.split("-");
+            Date beginTime = DateUtil.parse(today + " " + timeArr[0]);
+            Date endTime = DateUtil.parse(today + " " + timeArr[1]);
+            if (!DateUtil.isIn(now, beginTime, endTime)) {
+                return R.error("交易时间为每日[" + orderTimeStr + "]");
+            }
+        }
         // 获取用户信息
         JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
         wrapper.eq(User::getUserName, userName);
@@ -125,8 +138,6 @@ public class OrderController {
             return R.error("今日任务已完成");
         }
 
-//        Map<String, String> paramsMap = paramterService.getAllParamByMap();
-
         // 预派送业务
         Prepare prePare = prepareService.getOne(
                 new LambdaQueryWrapper<Prepare>()
@@ -171,8 +182,9 @@ public class OrderController {
             // 计算用户余额可以买多少个商品
             int goodsCount = 1;
             // 取得订单价格区间
-            BigDecimal minBalance = NumberUtil.mul(user.getBalance(), NumberUtil.div(20, 100));
-            BigDecimal maxBalance = NumberUtil.mul(user.getBalance(), NumberUtil.div(85, 100));
+            String[] matchRangeArr = paramsMap.get("match_range").split("-");
+            BigDecimal minBalance = NumberUtil.mul(user.getBalance(), NumberUtil.div(NumberUtils.toDouble(matchRangeArr[0]), 100));
+            BigDecimal maxBalance = NumberUtil.mul(user.getBalance(), NumberUtil.div(NumberUtils.toDouble(matchRangeArr[1]), 100));
             // 在区间内随机获得一个订单价格
             BigDecimal randomGoodsPrice = RandomUtil.randomBigDecimal(minBalance, maxBalance);
             // 订单价格可以购买多少个商品
@@ -235,13 +247,24 @@ public class OrderController {
     public R pay(HttpServletRequest httpServletRequest, @PathVariable(value = "orderNo") String orderNo) throws Exception {
         Date now = new Date();
 
+        Map<String, String> paramsMap = paramterService.getAllParamByMap();
+        // 验证时间段
+        String orderTimeStr = paramsMap.get("order_time");
+        if (StringUtils.isNotBlank(orderTimeStr)) {
+            String today = DateUtil.formatDate(now);
+            String[] timeArr = orderTimeStr.split("-");
+            Date beginTime = DateUtil.parse(today + " " + timeArr[0]);
+            Date endTime = DateUtil.parse(today + " " + timeArr[1]);
+            if (!DateUtil.isIn(now, beginTime, endTime)) {
+                return R.error("交易时间为每日[" + orderTimeStr + "]");
+            }
+        }
+
         String userName = JwtUtils.getUserName(httpServletRequest);
-//        User user = userService.getUserByName(userName);
         JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
         wrapper.eq(User::getUserName, userName);
         wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
         User user = userService.joinGetOne(wrapper, User.class);
-//        Level level = user.getLevel();
 
         // 查询订单
         Order order = orderService.getOne(
@@ -259,10 +282,10 @@ public class OrderController {
 
         if (order.getOrderType().intValue() == 1 ) {
             // 普通订单 增加用户金额
-            return payOrder1(user, order, now);
+            return payOrder1(user, order, now, paramsMap);
         } else {
             // 加急订单  冻结金额
-            return payOrder2(user, order, now);
+            return payOrder2(user, order, now, paramsMap);
         }
     }
 
@@ -317,7 +340,7 @@ public class OrderController {
      * @return
      * @throws Exception
      */
-    private R payOrder2(User user, Order order, Date now) throws Exception {
+    private R payOrder2(User user, Order order, Date now, Map<String, String> paramsMap) throws Exception {
         if (order.getOrderAmount().doubleValue() > user.getBalance().doubleValue()) {
             return R.error("您的余额不足");
         }
@@ -400,9 +423,9 @@ public class OrderController {
             if (user.getUserAgentLevel().intValue() > 0) {
                 // 层级返点比例
                 Map<Integer, BigDecimal> rateMap = new HashMap<>();
-                rateMap.put(1, NumberUtil.div(new BigDecimal("0.8"), 100));
-                rateMap.put(2, NumberUtil.div(new BigDecimal("0.5"), 100));
-                rateMap.put(3, NumberUtil.div(new BigDecimal("0.3"), 100));
+                rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
+                rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
+                rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
                 // 获取当前用户的前三级
                 List<User> userAgents = getUserAgents(user.getUserAgentNode());
                 for (int i = 0; i < userAgents.size(); i++) {
@@ -504,9 +527,9 @@ public class OrderController {
             if (user.getUserAgentLevel().intValue() > 0) {
                 // 层级返点比例
                 Map<Integer, BigDecimal> rateMap = new HashMap<>();
-                rateMap.put(1, NumberUtil.div(new BigDecimal("0.8"), 100));
-                rateMap.put(2, NumberUtil.div(new BigDecimal("0.5"), 100));
-                rateMap.put(3, NumberUtil.div(new BigDecimal("0.3"), 100));
+                rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
+                rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
+                rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
                 // 获取当前用户的前三级
                 List<User> userAgents = getUserAgents(user.getUserAgentNode());
                 for (int i = 0; i < userAgents.size(); i++) {
@@ -591,7 +614,7 @@ public class OrderController {
      * @param order
      * @return
      */
-    private R payOrder1(User user, Order order, Date now) throws Exception {
+    private R payOrder1(User user, Order order, Date now, Map<String, String> paramsMap) throws Exception {
         if (order.getOrderAmount().doubleValue() > user.getBalance().doubleValue()) {
             return R.error("您的余额不足");
         }
@@ -650,9 +673,9 @@ public class OrderController {
         if (user.getUserAgentLevel().intValue() > 0) {
             // 层级返点比例
             Map<Integer, BigDecimal> rateMap = new HashMap<>();
-            rateMap.put(1, NumberUtil.div(new BigDecimal("0.8"), 100));
-            rateMap.put(2, NumberUtil.div(new BigDecimal("0.5"), 100));
-            rateMap.put(3, NumberUtil.div(new BigDecimal("0.3"), 100));
+            rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
+            rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
+            rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
             // 获取当前用户的前三级
             List<User> userAgents = getUserAgents(user.getUserAgentNode());
             for (int i = 0; i < userAgents.size(); i++) {
