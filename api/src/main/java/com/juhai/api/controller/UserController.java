@@ -757,7 +757,15 @@ public class UserController {
         }
 
         // 校验今日订单量是否满足
-        // TODO: 2023/6/6 校验今日订单量是否满足
+        OrderCount orderCount = orderCountService.getOne(
+                new LambdaQueryWrapper<OrderCount>()
+                        .eq(OrderCount::getUserName, userName)
+                        .eq(OrderCount::getToday, DateUtil.formatDate(now))
+        );
+        int countNum = orderCount == null ? 0 : orderCount.getOrderCount();
+        if (user.getLevel().getWithdrawOrderCount() > countNum) {
+            return R.error("您还需要完成" + (user.getLevel().getWithdrawOrderCount() - countNum) + "次订单后才能提现");
+        }
 
         // 校验今日提现次数
         long finish = withdrawService.count(
