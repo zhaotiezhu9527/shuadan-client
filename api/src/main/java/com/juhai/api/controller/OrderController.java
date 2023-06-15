@@ -1,5 +1,6 @@
 package com.juhai.api.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.NumberUtil;
@@ -112,18 +113,19 @@ public class OrderController {
         }
 
         // 获取今日订单数
-        OrderCount orderCount = orderCountService.getOne(
+        List<OrderCount> orderCounts = orderCountService.list(
                 new LambdaQueryWrapper<OrderCount>()
                         .eq(OrderCount::getUserName, userName)
-                        .eq(OrderCount::getToday, DateUtil.formatDate(now))
+                        .eq(user.getUpdateOrder().intValue() == 1, OrderCount::getToday, DateUtil.formatDate(now))
+                        .orderByDesc(OrderCount::getCreateTime)
         );
-        int countNum = orderCount == null ? 0 : orderCount.getOrderCount();
+        int countNum = CollUtil.isEmpty(orderCounts) ? 0 : orderCounts.get(0).getOrderCount();
 
         if (countNum > level.getDayOrderCount()) {
             return R.error("今日任务已完成");
         }
 
-        Map<String, String> paramsMap = paramterService.getAllParamByMap();
+//        Map<String, String> paramsMap = paramterService.getAllParamByMap();
 
         // 预派送业务
         Prepare prePare = prepareService.getOne(
