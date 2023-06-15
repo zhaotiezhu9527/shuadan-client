@@ -58,12 +58,6 @@ const home = [
     path: "/pages/accountDetails",
   },
   {
-    path: "/pages/invite",
-  },
-  {
-    path: "/pages/invite",
-  },
-  {
     path: "/pages/promotion",
   },
 ];

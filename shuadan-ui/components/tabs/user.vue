@@ -119,7 +119,7 @@ export default {
         {
           label: "邀请好友",
           icon: "friend.png",
-          url: "/pages/invite",
+          url: "/pages/promotion",
         },
         {
           label: "信息公告",

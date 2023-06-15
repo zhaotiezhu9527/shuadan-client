@@ -65,9 +65,6 @@
     },
     {
       "path": "pages/login"
-    },
-    {
-      "path": "pages/invite"
     }
   ],
   "globalStyle": {

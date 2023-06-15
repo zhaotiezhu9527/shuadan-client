@@ -16,11 +16,18 @@
     </u-navbar>
     <view class="boxStyle">
       <view class="box">
-        <view class="rwm"></view>
-        <view class="txt">ID:12312312</view>
-        <view style="padding-top: 20rpx">
-          <u-button color="#89bfdb" text="立即使用" @click="submit"></u-button>
+        <view class="rwm">
+          <uqrcode
+            ref="uqrcode"
+            canvas-id="qrcode"
+            :value="`${api}/#/pages/register?code=${infos.inviteCode}`"
+            size="150"
+          ></uqrcode>
         </view>
+        <view class="txt">ID:{{ infos.inviteCode }}</view>
+      </view>
+      <view style="padding-top: 40rpx">
+        <u-button color="#89bfdb" text="立即使用" @click="change"></u-button>
       </view>
     </view>
   </view>
@@ -29,16 +36,34 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      ewm: "",
+      infos: {},
+      api: "",
+    };
+  },
+  async onLoad() {
+    await this.$onLaunched;
+    this.api = uni.getStorageSync("config").webDomain;
+  },
+  onShow() {
+    this.getInfo();
   },
   methods: {
-    submit() {
+    //用户列表数据
+    getInfo() {
+      uni.showLoading({
+        title: "加载中",
+      });
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.infos = res.data.data;
+        }
+      });
+    },
+    change() {
       uni.setClipboardData({
-        data: "123",
-        success() {
-          console.log("123");
-        },
-        fail() {},
+        data: `${this.api}/#/pages/register?code=${this.infos.inviteCode}`,
       });
     },
   },
@@ -47,9 +72,9 @@ export default {
 <style lang="scss" scoped>
 .main {
   height: 100vh;
-  background: linear-gradient(1turn, #89bfdb, #a4e0d8);
+  background: linear-gradient(1turn, #d5dde8, #c9d1dd);
   .boxStyle {
-    padding: 30rpx;
+    padding: 100rpx 30rpx 0;
   }
   .box {
     padding: 100rpx 20rpx;
@@ -65,7 +90,7 @@ export default {
     .txt {
       text-align: center;
       font-size: 26rpx;
-      padding: 20rpx 0;
+      padding-top: 40rpx;
     }
   }
 }
