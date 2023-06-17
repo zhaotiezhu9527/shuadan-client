@@ -373,4 +373,8 @@ export default {
     right: 100%;
   }
 }
+/deep/.uni-scroll-view {
+  position: relative;
+  z-index: 5;
+}
 </style>

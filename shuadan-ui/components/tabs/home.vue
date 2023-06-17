@@ -44,7 +44,7 @@
         v-for="(item, index) in list"
         :key="index"
         @click="
-          routechange2(item.areaId, '/pages/index?tabs=2&level=' + item.areaId)
+          routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)
         "
       >
         <image :src="item.levelImg" class="icon" mode="widthFix" />
@@ -54,7 +54,7 @@
           <view>{{ item.remark }}</view>
         </view>
         <image :src="item.areaImg" class="img" mode="heightFix" />
-        <view class="no" v-if="item.areaId > level">
+        <view class="no" v-if="!item.unlock">
           <image class="img" src="@/static/img/suo.png" mode="widthFix" />
           <view class="txt">待解锁</view>
         </view>
@@ -115,8 +115,8 @@ export default {
         url: `/pages/richtext?en=${en}`,
       });
     },
-    routechange2(index, url) {
-      if (index > this.level) return false;
+    routechange2(unlock, url) {
+      if (!unlock) return false;
       uni.reLaunch({
         url,
       });

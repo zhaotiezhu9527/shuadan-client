@@ -67,29 +67,25 @@
       <view class="item">
         <view class="txt gray">总资产</view>
         <view class="moeny gray">
-          <template v-if="infos.balance">+</template>{{ infos.balance }}
+          {{ moenyFn(infos.balance) }}
         </view>
       </view>
       <view class="item">
         <view class="txt gray">昨日收益</view>
         <view class="moeny">
-          <template v-if="infos.yesterdayIncome">+</template>
-          {{ infos.yesterdayIncome }}
+          {{ moenyFn(infos.yesterdayIncome) }}
         </view>
       </view>
       <view class="item">
         <view class="txt">今日已抢佣金</view>
-        <view class="moeny">
-          <template v-if="infos.todayIncome">+</template
-          >{{ infos.todayIncome }}</view
-        >
+        <view class="moeny"> {{ moenyFn(infos.todayIncome) }}</view>
       </view>
       <view class="item">
         <view class="txt">账户冻结金额</view>
         <view class="moeny">
-          <template v-if="infos.freezeBalance">+</template
-          >{{ infos.freezeBalance }}</view
-        >
+          <template v-if="infos.freezeBalance">+</template>
+          {{ infos.freezeBalance }}
+        </view>
       </view>
       <view class="item">
         <view class="txt">今天已抢单数</view>
@@ -97,10 +93,7 @@
       </view>
       <view class="item">
         <view class="txt">昨日团队佣金</view>
-        <view class="moeny">
-          <template v-if="infos.yesterdayTeamIncome">+</template
-          >{{ infos.yesterdayTeamIncome }}</view
-        >
+        <view class="moeny"> {{ moenyFn(infos.yesterdayTeamIncome) }}</view>
       </view>
     </view>
     <view class="passStyle">
@@ -219,6 +212,15 @@ export default {
       this.animation.forEach((item) => {
         item.animationData = animation.translateY(0).step().export();
       });
+    },
+    moenyFn(val) {
+      if (!val) {
+        return 0;
+      } else if (val >= 100000) {
+        return parseInt(val / 100000) + "万+";
+      } else {
+        return "+" + val;
+      }
     },
   },
 };
