@@ -134,7 +134,7 @@ public class OrderController {
         );
         int countNum = CollUtil.isEmpty(orderCounts) ? 0 : orderCounts.get(0).getOrderCount();
 
-        if (countNum > level.getDayOrderCount()) {
+        if (countNum >= level.getDayOrderCount()) {
             return R.error("今日任务已完成");
         }
 
