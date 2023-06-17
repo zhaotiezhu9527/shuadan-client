@@ -207,7 +207,7 @@ export default {
       justify-content: space-between;
       position: relative;
       align-items: center;
-      z-index: 2;
+      z-index: 3;
       padding: 40rpx 30rpx;
       view {
         color: #2f3848;
@@ -221,7 +221,7 @@ export default {
       display: flex;
       justify-content: space-between;
       position: relative;
-      z-index: 2;
+      z-index: 3;
       padding: 20rpx 30rpx 0;
       view {
         color: #7a7d82;
@@ -345,6 +345,8 @@ export default {
 .list {
   padding-bottom: calc(constant(safe-area-inset-bottom) + 160rpx);
   padding-bottom: calc(env(safe-area-inset-bottom) + 160rpx);
+  position: relative;
+  z-index: 3;
 }
 .tip-bubble {
   position: relative;

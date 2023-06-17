@@ -123,7 +123,7 @@ export default {
         .then((res) => {
           if (res.data.code == 0) {
             this.$base.show(res.data.msg);
-            this.loading = false;
+            this.getInfo();
           }
         })
         .finally(() => {
