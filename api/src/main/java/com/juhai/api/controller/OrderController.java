@@ -116,7 +116,7 @@ public class OrderController {
 
         // 校验用户余额是否大于专区余额
         if (area.getAreaBalance().doubleValue() > user.getBalance().doubleValue()) {
-            return R.error("余额低于" + area.getAreaBalance().stripTrailingZeros() + "元,无法进行交易");
+            return R.error("余额低于" + area.getAreaBalance() + "元,无法进行交易");
         }
 
         // 验证是否还有订单未完成
@@ -134,7 +134,7 @@ public class OrderController {
         );
         int countNum = CollUtil.isEmpty(orderCounts) ? 0 : orderCounts.get(0).getOrderCount();
 
-        if (countNum > level.getDayOrderCount()) {
+        if (countNum >= level.getDayOrderCount()) {
             return R.error("今日任务已完成");
         }
 

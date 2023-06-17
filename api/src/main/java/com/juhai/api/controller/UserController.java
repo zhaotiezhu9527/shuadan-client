@@ -309,11 +309,18 @@ public class UserController {
         JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
         wrapper.eq(User::getUserName, userName);
         wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
+        wrapper.leftJoin(Avatar.class, Avatar::getId, User::getAvatarId).oneToOneSelect(User::getAvatar, Avatar.class).end();
         User user = userService.joinGetOne(wrapper, User.class);
 
         JSONObject temp = new JSONObject();
         temp.put("currLevelName", user.getLevel().getLevelName());
         temp.put("dayOrderCount", user.getLevel().getDayOrderCount());
+
+        // 头像
+        Map<String, String> params = paramterService.getAllParamByMap();
+        String resourceDomain = params.get("resource_domain");
+        Avatar avatar = user.getAvatar();
+        temp.put("avatarUrl", avatar == null ? "" : resourceDomain + avatar.getImgUrl());
 
         List<Level> levels = levelService.list(new LambdaQueryWrapper<Level>().orderByAsc(Level::getLevelValue));
         JSONArray levelArr = new JSONArray();

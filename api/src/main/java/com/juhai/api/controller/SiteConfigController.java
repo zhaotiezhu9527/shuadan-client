@@ -50,6 +50,8 @@ public class SiteConfigController {
         // 首页轮播
         obj.put("homeNotice", allMessageMap.get("home_notice").getContent());
 
+        obj.put("webDomain", allParamByMap.get("web_domain"));
+
         return R.ok().put("data", obj);
     }
 
