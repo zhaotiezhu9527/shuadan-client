@@ -12,7 +12,6 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.utils.JwtUtils;
 import com.juhai.commons.entity.*;
 import com.juhai.commons.service.*;
-import com.juhai.commons.utils.MsgUtil;
 import com.juhai.commons.utils.R;
 import icu.mhb.mybatisplus.plugln.core.JoinLambdaWrapper;
 import io.swagger.annotations.Api;
@@ -30,8 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.sql.Struct;
 import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Slf4j
 @Api(value = "订单相关", tags = "订单相关")
@@ -71,6 +70,9 @@ public class OrderController {
 
     @Autowired
     private OrderCountService orderCountService;
+
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
 
     @Transactional
     @ApiOperation(value = "匹配订单")
