@@ -676,7 +676,7 @@ public class UserController {
         }, threadPoolExecutor);
 
         // 合并线程
-        CompletableFuture[] args={ teamFuture, registerFuture, activeCountFuture};
+        CompletableFuture[] args={ teamFuture, registerFuture, activeCountFuture };
         CompletableFuture.allOf(args).join();
 
         return R.ok().put("data", obj);
@@ -703,7 +703,7 @@ public class UserController {
             statusMap.put(0, "待处理");
             statusMap.put(1, "已完成");
             statusMap.put(2, "冻结中");
-
+            statusMap.put(3, "已取消");
             JSONArray arr = new JSONArray();
             for (Order temp : list) {
                 JSONObject obj = new JSONObject();

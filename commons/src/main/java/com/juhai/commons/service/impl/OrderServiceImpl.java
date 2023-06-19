@@ -1,16 +1,11 @@
 package com.juhai.commons.service.impl;
 
 import cn.hutool.core.map.MapUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.juhai.commons.entity.Goods;
-import com.juhai.commons.entity.Level;
 import com.juhai.commons.entity.Order;
-import com.juhai.commons.entity.User;
-import com.juhai.commons.service.OrderService;
 import com.juhai.commons.mapper.OrderMapper;
+import com.juhai.commons.service.OrderService;
 import com.juhai.commons.utils.PageUtils;
 import com.juhai.commons.utils.Query;
 import icu.mhb.mybatisplus.plugln.base.service.impl.JoinServiceImpl;
@@ -18,6 +13,7 @@ import icu.mhb.mybatisplus.plugln.core.JoinLambdaWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -37,7 +33,11 @@ public class OrderServiceImpl extends JoinServiceImpl<OrderMapper, Order>
         wrapper.eq(StringUtils.isNotBlank(userName), Order::getUserName, userName);
 
         String status = MapUtil.getStr(params, "status");
-        wrapper.eq(StringUtils.isNotBlank(status), Order::getStatus, status);
+        if (StringUtils.isBlank(status)) {
+            wrapper.in(Order::getStatus, Arrays.asList(0, 1, 2));
+        } else {
+            wrapper.eq(Order::getStatus, status);
+        }
 
         wrapper.leftJoin(Goods.class,Goods::getId,Order::getGoodsId).oneToOneSelect(Order::getGoods, Goods.class).end();
 
