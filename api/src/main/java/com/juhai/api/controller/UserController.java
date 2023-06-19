@@ -1,5 +1,4 @@
 package com.juhai.api.controller;
-import java.util.Date;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
@@ -9,7 +8,6 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.nacos.shaded.org.checkerframework.checker.units.qual.A;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.controller.request.*;
@@ -37,6 +35,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -83,6 +83,9 @@ public class UserController {
 
     @Autowired
     private DayReportService dayReportService;
+
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
 
     @ApiOperation(value = "注册")
     @PostMapping("/register")
@@ -353,38 +356,52 @@ public class UserController {
         temp.put("freezeBalance", user.getFreezeBalance());
         temp.put("totalIncome", user.getIncome());
         // 今日收益
-        DayReport todayReport = dayReportService.getOne(
-                new LambdaQueryWrapper<DayReport>()
-                        .eq(DayReport::getUserName, user.getUserName())
-                        .eq(DayReport::getToday, DateUtil.formatDate(new Date()))
-        );
-        temp.put("todayIncome", todayReport == null || todayReport.getIncome() == null ? 0 : todayReport.getIncome());
+        CompletableFuture<Void> todayIncomeFuture = CompletableFuture.runAsync(() -> {
+            DayReport todayReport = dayReportService.getOne(
+                    new LambdaQueryWrapper<DayReport>()
+                            .eq(DayReport::getUserName, user.getUserName())
+                            .eq(DayReport::getToday, DateUtil.formatDate(new Date()))
+            );
+            temp.put("todayIncome", todayReport == null || todayReport.getIncome() == null ? 0 : todayReport.getIncome());
+        }, threadPoolExecutor);
         // 昨日收益
-        DayReport yesterdayReport = dayReportService.getOne(
-                new LambdaQueryWrapper<DayReport>()
-                        .eq(DayReport::getUserName, user.getUserName())
-                        .eq(DayReport::getToday, DateUtil.formatDate(DateUtil.offsetDay(new Date(), -1)))
-        );
-        temp.put("yesterdayIncome", (yesterdayReport == null || yesterdayReport.getIncome() == null) ? 0 : yesterdayReport.getIncome());
+        CompletableFuture<Void> yesterdayIncomeFuture = CompletableFuture.runAsync(() -> {
+            DayReport yesterdayReport = dayReportService.getOne(
+                    new LambdaQueryWrapper<DayReport>()
+                            .eq(DayReport::getUserName, user.getUserName())
+                            .eq(DayReport::getToday, DateUtil.formatDate(DateUtil.offsetDay(new Date(), -1)))
+            );
+            temp.put("yesterdayIncome", (yesterdayReport == null || yesterdayReport.getIncome() == null) ? 0 : yesterdayReport.getIncome());
+        }, threadPoolExecutor);
+
         // 今日订单量
-        OrderCount orderCount = orderCountService.getOne(
-                new LambdaQueryWrapper<OrderCount>()
-                        .eq(OrderCount::getUserName, userName)
-                        .eq(OrderCount::getToday, DateUtil.formatDate(new Date()))
-        );
-        temp.put("todayOrderCount", orderCount == null ? 0 : orderCount.getOrderCount());
+        CompletableFuture<Void> orderCountFuture = CompletableFuture.runAsync(() -> {
+            OrderCount orderCount = orderCountService.getOne(
+                    new LambdaQueryWrapper<OrderCount>()
+                            .eq(OrderCount::getUserName, userName)
+                            .eq(OrderCount::getToday, DateUtil.formatDate(new Date()))
+            );
+            temp.put("todayOrderCount", orderCount == null ? 0 : orderCount.getOrderCount());
+        }, threadPoolExecutor);
         // 团队报表
-        List<DayReport> teamReports = dayReportService.list(
-                new LambdaQueryWrapper<DayReport>()
-                        .eq(DayReport::getToday, DateUtil.formatDate(DateUtil.offsetDay(new Date(), -1)))
-                        .like(DayReport::getUserAgentNode, "|" + userName + "|")
-                        .in(DayReport::getUserAgentLevel, Arrays.asList(user.getUserAgentLevel() + 1, user.getUserAgentLevel() + 2, user.getUserAgentLevel() + 3))
-        );
-        BigDecimal yesterdayTeamIncome = new BigDecimal(0);
-        for (DayReport teamReport : teamReports) {
-            yesterdayTeamIncome = NumberUtil.add(yesterdayTeamIncome, teamReport.getIncome());
-        }
-        temp.put("yesterdayTeamIncome", yesterdayTeamIncome);
+        CompletableFuture<Void> yesterdayTeamIncomeFuture = CompletableFuture.runAsync(() -> {
+            List<DayReport> teamReports = dayReportService.list(
+                    new LambdaQueryWrapper<DayReport>()
+                            .eq(DayReport::getToday, DateUtil.formatDate(DateUtil.offsetDay(new Date(), -1)))
+                            .like(DayReport::getUserAgentNode, "|" + userName + "|")
+                            .in(DayReport::getUserAgentLevel, Arrays.asList(user.getUserAgentLevel() + 1, user.getUserAgentLevel() + 2, user.getUserAgentLevel() + 3))
+            );
+            BigDecimal yesterdayTeamIncome = new BigDecimal(0);
+            for (DayReport teamReport : teamReports) {
+                yesterdayTeamIncome = NumberUtil.add(yesterdayTeamIncome, teamReport.getIncome());
+            }
+            temp.put("yesterdayTeamIncome", yesterdayTeamIncome);
+        }, threadPoolExecutor);
+
+        // 合并线程
+        CompletableFuture[] args={ todayIncomeFuture, yesterdayIncomeFuture, orderCountFuture, yesterdayTeamIncomeFuture};
+        CompletableFuture.allOf(args).join();
+
         return R.ok().put("data", temp);
     }
 
@@ -601,54 +618,67 @@ public class UserController {
 
         JSONObject obj = new JSONObject();
         obj.put("inviteCount", user.getInviteCount());
-        // 团队人数
-        List<User> teams = userService.list(
-                new LambdaQueryWrapper<User>()
-                        .select(User::getUserName, User::getBalance, User::getDeposit, User::getWithdraw)
-                        .like(User::getUserAgentNode, "|" + userName + "|")
-                        .gt(User::getUserAgentLevel, user.getUserAgentLevel())
-        );
-        // 团队余额
-        BigDecimal teamBalance = new BigDecimal(0);
-        BigDecimal teamDeposit = new BigDecimal(0);
-        BigDecimal teamWithdraw = new BigDecimal(0);
-        BigDecimal teamBet = new BigDecimal(0);
-        BigDecimal teamIncome = new BigDecimal(0);
-        Set<String> depositUserSets = new HashSet<>();
-        for (User temp : teams) {
-            teamBalance = NumberUtil.add(teamBalance, temp.getBalance());
-            teamDeposit = NumberUtil.add(teamDeposit, temp.getDeposit());
-            teamWithdraw = NumberUtil.add(teamWithdraw, temp.getWithdraw());
-            teamBet = NumberUtil.add(teamBet, temp.getBet());
-            teamIncome = NumberUtil.add(teamIncome, temp.getIncome());
-            if (temp.getDeposit().doubleValue() > 0) {
-                depositUserSets.add(temp.getUserName());
+        CompletableFuture<Void> teamFuture = CompletableFuture.runAsync(()-> {
+            // 团队人数
+            List<User> teams = userService.list(
+                    new LambdaQueryWrapper<User>()
+                            .select(User::getUserName, User::getBalance, User::getDeposit, User::getWithdraw)
+                            .like(User::getUserAgentNode, "|" + userName + "|")
+                            .gt(User::getUserAgentLevel, user.getUserAgentLevel())
+            );
+            // 团队余额
+            BigDecimal teamBalance = new BigDecimal(0);
+            BigDecimal teamDeposit = new BigDecimal(0);
+            BigDecimal teamWithdraw = new BigDecimal(0);
+            BigDecimal teamBet = new BigDecimal(0);
+            BigDecimal teamIncome = new BigDecimal(0);
+            Set<String> depositUserSets = new HashSet<>();
+            for (User temp : teams) {
+                teamBalance = NumberUtil.add(teamBalance, temp.getBalance());
+                teamDeposit = NumberUtil.add(teamDeposit, temp.getDeposit());
+                teamWithdraw = NumberUtil.add(teamWithdraw, temp.getWithdraw());
+                teamBet = NumberUtil.add(teamBet, temp.getBet());
+                teamIncome = NumberUtil.add(teamIncome, temp.getIncome());
+                if (temp.getDeposit().doubleValue() > 0) {
+                    depositUserSets.add(temp.getUserName());
+                }
             }
-        }
-        obj.put("teamBet", teamBet);
-        obj.put("teamIncome", teamIncome);
-        obj.put("teamMemberCount", teams.size());
-        obj.put("teamBalance", teamBalance);
-        obj.put("teamDeposit", teamDeposit);
-        obj.put("teamWithdraw", teamWithdraw);
-        obj.put("depositCount", depositUserSets.size());
-        // 今日注册
+            obj.put("teamBet", teamBet);
+            obj.put("teamIncome", teamIncome);
+            obj.put("teamMemberCount", teams.size());
+            obj.put("teamBalance", teamBalance);
+            obj.put("teamDeposit", teamDeposit);
+            obj.put("teamWithdraw", teamWithdraw);
+            obj.put("depositCount", depositUserSets.size());
+        }, threadPoolExecutor);
+
         Date now = new Date();
-        long newRegisterCount = userService.count(
-                new LambdaQueryWrapper<User>()
-                        .between(User::getRegisterTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
-                        .like(User::getUserAgentNode, "|" + userName + "|")
-                        .gt(User::getUserAgentLevel, user.getUserAgentLevel())
-        );
-        obj.put("newRegisterCount", newRegisterCount);
+        // 今日注册
+        CompletableFuture<Void> registerFuture = CompletableFuture.runAsync(() -> {
+            long newRegisterCount = userService.count(
+                    new LambdaQueryWrapper<User>()
+                            .between(User::getRegisterTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
+                            .like(User::getUserAgentNode, "|" + userName + "|")
+                            .gt(User::getUserAgentLevel, user.getUserAgentLevel())
+            );
+            obj.put("newRegisterCount", newRegisterCount);
+        }, threadPoolExecutor);
+
         // 活动人数(今日登陆)
-        long activeCount = userService.count(
-                new LambdaQueryWrapper<User>()
-                        .between(User::getLastTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
-                        .like(User::getUserAgentNode, "|" + userName + "|")
-                        .gt(User::getUserAgentLevel, user.getUserAgentLevel())
-        );
-        obj.put("activeCount", activeCount);
+        CompletableFuture<Void> activeCountFuture = CompletableFuture.runAsync(() -> {
+            long activeCount = userService.count(
+                    new LambdaQueryWrapper<User>()
+                            .between(User::getLastTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
+                            .like(User::getUserAgentNode, "|" + userName + "|")
+                            .gt(User::getUserAgentLevel, user.getUserAgentLevel())
+            );
+            obj.put("activeCount", activeCount);
+        }, threadPoolExecutor);
+
+        // 合并线程
+        CompletableFuture[] args={ teamFuture, registerFuture, activeCountFuture};
+        CompletableFuture.allOf(args).join();
+
         return R.ok().put("data", obj);
     }
 
