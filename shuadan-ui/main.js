@@ -28,7 +28,14 @@ const app = new Vue({
 
 // 设置全局标题
 Vue.mixin({
-  onShow() {},
+  onShow() {
+    uni.setNavigationBarTitle({
+      title: "全民任务",
+    });
+    // #ifdef H5
+    document.title = "全民任务";
+    // #endif
+  },
 });
 
 // #ifdef H5
