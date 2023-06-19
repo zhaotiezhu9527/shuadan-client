@@ -45,7 +45,7 @@
             border="surround"
             placeholderClass="placeholder"
             v-model="loginPwd"
-            v-if="passicon1"
+            v-show="passicon1"
             password
           >
             <view slot="suffix" @click="pwdChange">
@@ -58,7 +58,7 @@
             border="surround"
             placeholderClass="placeholder"
             v-model="loginPwd"
-            v-else
+            v-show="!passicon1"
           >
             <view slot="suffix" @click="pwdChange">
               <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
@@ -74,7 +74,7 @@
             placeholderClass="placeholder"
             v-model="payPwd"
             password
-            v-if="passicon2"
+            v-show="passicon2"
           >
             <view slot="suffix" @click="payPwdChange">
               <u-icon name="eye" color="#666" size="46rpx"></u-icon>
@@ -86,7 +86,7 @@
             border="surround"
             placeholderClass="placeholder"
             v-model="payPwd"
-            v-else
+            v-show="!passicon2"
           >
             <view slot="suffix" @click="payPwdChange">
               <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>

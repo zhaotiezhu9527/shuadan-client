@@ -23,7 +23,7 @@
           placeholder="请输入密码"
           placeholderClass="placeholder"
           password
-          v-if="passicon1"
+          v-show="passicon1"
           v-model="loginPwd"
         >
           <view class="icon" slot="prefix">
@@ -38,7 +38,7 @@
           placeholder="请输入密码"
           placeholderClass="placeholder"
           v-model="loginPwd"
-          v-else
+          v-show="!passicon1"
         >
           <view class="icon" slot="prefix">
             <image mode="widthFix" src="@/static/img/icon02.png" />
@@ -147,6 +147,7 @@ export default {
       }
       image {
         width: 42rpx;
+        max-height: 48rpx;
       }
     }
     .placeholder {
