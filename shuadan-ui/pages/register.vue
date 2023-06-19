@@ -45,16 +45,23 @@
             border="surround"
             placeholderClass="placeholder"
             v-model="loginPwd"
-            :password="passicon1"
+            v-if="passicon1"
+            password
           >
             <view slot="suffix" @click="pwdChange">
-              <u-icon
-                v-if="passicon1"
-                name="eye"
-                color="#666"
-                size="46rpx"
-              ></u-icon>
-              <u-icon v-else name="eye-off" color="#666" size="46rpx"></u-icon>
+              <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+            </view>
+          </u-input>
+          <u-input
+            shape="circle"
+            placeholder="请输入密码"
+            border="surround"
+            placeholderClass="placeholder"
+            v-model="loginPwd"
+            v-else
+          >
+            <view slot="suffix" @click="pwdChange">
+              <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
             </view>
           </u-input>
         </view>
@@ -66,16 +73,23 @@
             border="surround"
             placeholderClass="placeholder"
             v-model="payPwd"
-            :password="passicon2"
+            password
+            v-if="passicon2"
           >
             <view slot="suffix" @click="payPwdChange">
-              <u-icon
-                v-if="passicon2"
-                name="eye"
-                color="#666"
-                size="46rpx"
-              ></u-icon>
-              <u-icon v-else name="eye-off" color="#666" size="46rpx"></u-icon>
+              <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+            </view>
+          </u-input>
+          <u-input
+            shape="circle"
+            placeholder="请输入交易密码"
+            border="surround"
+            placeholderClass="placeholder"
+            v-model="payPwd"
+            v-else
+          >
+            <view slot="suffix" @click="payPwdChange">
+              <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
             </view>
           </u-input>
         </view>

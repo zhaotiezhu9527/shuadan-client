@@ -1,93 +1,102 @@
 <template>
-  <u-modal
-    :show="show"
-    width="95vw"
-    :showConfirmButton="false"
-    :showCancelButton="false"
-  >
-    <view class="flex">
-      <view class="message_block">
-        <view class="message_info">
-          <image mode="widthFix" class="center" src="@/static/img/qd.png" />
-        </view>
-        <view class="message_info_content">
-          <view class="boxstyle">
-            <view class="box">
-              <view class="time">抢单时间：{{ items.orderTime }}</view>
-              <view class="uid">
-                {{ items.orderNo }}<text class="num">{{ items.countNum }}</text
-                ><text class="txt" v-if="items.orderType == 1"> 加急单 </text>
-              </view>
-              <view class="goodsstyle">
-                <view class="goods">
-                  <image class="img" :src="items.goodsImg" mode="widthFix" />
-                  <view class="content">
-                    <view class="name">
-                      {{ items.goodsName }}
-                    </view>
-                    <view class="text">
-                      <view>¥ {{ items.goodsPrice }}</view>
-                      <view>x {{ items.goodsCount }}</view>
+  <view>
+    <u-modal
+      :show="show"
+      width="95vw"
+      :showConfirmButton="false"
+      :showCancelButton="false"
+    >
+      <view class="flex">
+        <view class="message_block">
+          <view class="message_info">
+            <image mode="widthFix" class="center" src="@/static/img/qd.png" />
+          </view>
+          <view class="message_info_content">
+            <view class="boxstyle">
+              <view class="box">
+                <view class="time">抢单时间：{{ items.orderTime }}</view>
+                <view class="uid">
+                  {{ items.orderNo
+                  }}<text class="num">{{ items.countNum }}</text
+                  ><text class="txt" v-if="items.orderType == 1"> 加急单 </text>
+                </view>
+                <view class="goodsstyle">
+                  <view class="goods">
+                    <image class="img" :src="items.goodsImg" mode="widthFix" />
+                    <view class="content">
+                      <view class="name">
+                        {{ items.goodsName }}
+                      </view>
+                      <view class="text">
+                        <view>¥ {{ items.goodsPrice }}</view>
+                        <view>x {{ items.goodsCount }}</view>
+                      </view>
                     </view>
                   </view>
                 </view>
-              </view>
-              <view class="redb" v-if="items.balanceSub <= 0">
-                可用余额不足，还需充值{{ items.balanceSub }}
-              </view>
-              <view class="ul">
-                <view class="li">
-                  <text>订单总额</text>
-                  <text>¥ {{ items.orderAmount }}</text>
+                <view class="redb" v-if="items.balanceSub <= 0">
+                  可用余额不足，还需充值{{ items.balanceSub }}
                 </view>
-                <view class="li">
-                  <text
-                    >佣金<text
-                      v-if="items.orderType == 1"
-                      class="tip-bubble tip-bubble-left"
-                      >x{{ items.commissionMul }}</text
-                    ></text
-                  >
-                  <text>¥ {{ items.commission }}</text>
+                <view class="ul">
+                  <view class="li">
+                    <text>订单总额</text>
+                    <text>¥ {{ items.orderAmount }}</text>
+                  </view>
+                  <view class="li">
+                    <text
+                      >佣金<text
+                        v-if="items.orderType == 1"
+                        class="tip-bubble tip-bubble-left"
+                        >x{{ items.commissionMul }}</text
+                      ></text
+                    >
+                    <text>¥ {{ items.commission }}</text>
+                  </view>
+                  <view class="li">
+                    <text>预计返还</text>
+                    <text class="moeny">¥ {{ items.forecastReturn }}</text>
+                  </view>
                 </view>
-                <view class="li">
-                  <text>预计返还</text>
-                  <text class="moeny">¥ {{ items.forecastReturn }}</text>
-                </view>
+                <image
+                  class="static"
+                  src="@/static/img/succ.png"
+                  mode="widthFix"
+                />
               </view>
-              <image
-                class="static"
-                src="@/static/img/succ.png"
-                mode="widthFix"
-              />
+            </view>
+            <view class="btn">
+              <u-button
+                shape="circle"
+                color="#2f3848"
+                plain
+                @click="show = false"
+                text="暂不提交"
+              ></u-button>
+              <u-button
+                shape="circle"
+                color="#2f3848"
+                text="立即提交"
+                @click="change"
+              ></u-button>
             </view>
           </view>
-          <view class="btn">
-            <u-button
-              shape="circle"
-              color="#2f3848"
-              plain
-              @click="show = false"
-              text="暂不提交"
-            ></u-button>
-            <u-button
-              shape="circle"
-              color="#2f3848"
-              text="立即提交"
-              @click="change"
-            ></u-button>
-          </view>
         </view>
+        <u-icon
+          @click="show = false"
+          class="close"
+          size="70rpx"
+          color="#fff"
+          name="close-circle"
+        ></u-icon>
       </view>
-      <u-icon
-        @click="show = false"
-        class="close"
-        size="70rpx"
-        color="#fff"
-        name="close-circle"
-      ></u-icon>
+    </u-modal>
+    <view class="maskLoading" v-if="loading">
+      <view class="content">
+        <image class="img" src="@/static/img/10001.gif" mode="widthFix" />
+        <p class="txt">远程主机正在分配</p>
+      </view>
     </view>
-  </u-modal>
+  </view>
 </template>
 
 <script>
@@ -95,6 +104,7 @@ export default {
   data() {
     return {
       show: false,
+      loading: false,
       items: {},
     };
   },
@@ -115,13 +125,17 @@ export default {
     change() {
       this.$api.order_pay(this.items.orderNo).then(({ data }) => {
         if (data.code == 0) {
-          this.$base.show(data.msg);
-          if (data.data.orderNo) {
-            this.dataFn(data.data.orderNo);
-            this.$emit("ok");
-          } else {
-            this.show = false;
-          }
+          this.loading = true;
+          setTimeout(() => {
+            if (data.data.orderNo) {
+              this.dataFn(data.data.orderNo);
+              this.loading = false;
+              this.$emit("ok");
+            } else {
+              this.loading = false;
+              this.show = false;
+            }
+          }, 4000);
         }
       });
     },
@@ -130,6 +144,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.maskLoading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+  .content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .img {
+    width: 150rpx;
+    height: 150rpx;
+  }
+  .txt {
+    color: #999;
+    font-size: 24rpx;
+  }
+}
 /deep/ .u-popup__content {
   background: transparent;
 }

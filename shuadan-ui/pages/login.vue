@@ -22,20 +22,29 @@
           border="bottom"
           placeholder="请输入密码"
           placeholderClass="placeholder"
-          :password="passicon1"
+          password
+          v-if="passicon1"
           v-model="loginPwd"
         >
           <view class="icon" slot="prefix">
             <image mode="widthFix" src="@/static/img/icon02.png" />
           </view>
           <view slot="suffix" @click="pwdChange">
-            <u-icon
-              v-if="passicon1"
-              name="eye"
-              color="#666"
-              size="46rpx"
-            ></u-icon>
-            <u-icon v-else name="eye-off" color="#666" size="46rpx"></u-icon>
+            <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+          </view>
+        </u-input>
+        <u-input
+          border="bottom"
+          placeholder="请输入密码"
+          placeholderClass="placeholder"
+          v-model="loginPwd"
+          v-else
+        >
+          <view class="icon" slot="prefix">
+            <image mode="widthFix" src="@/static/img/icon02.png" />
+          </view>
+          <view slot="suffix" @click="pwdChange">
+            <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
           </view>
         </u-input>
       </view>
