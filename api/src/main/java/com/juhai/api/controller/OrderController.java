@@ -96,7 +96,7 @@ public class OrderController {
         wrapper.eq(User::getUserName, userName);
         wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
         User user = userService.joinGetOne(wrapper, User.class);
-        Level level = user.getLevel();
+        Level userLevel = user.getLevel();
 
         if (StringUtils.isEmpty(user.getBankNo())) {
             return R.error("请先绑定银行卡");
@@ -109,8 +109,9 @@ public class OrderController {
         areaWrapper.leftJoin(Level.class,Level::getId,Area::getLevelId).oneToOneSelect(Area::getLevel, Level.class).end();
         areaWrapper.orderByDesc(Area::getPxh);
         Area area = areaService.joinGetOne(areaWrapper, Area.class);
+        Level areaLevel = area.getLevel();
         // 校验当前用户是否解锁该区域
-        if (area.getLevel().getLevelValue().intValue() > level.getLevelValue().intValue()) {
+        if (areaLevel.getLevelValue().intValue() > userLevel.getLevelValue().intValue()) {
             return R.error("未解锁该专区");
         }
 
@@ -134,7 +135,7 @@ public class OrderController {
         );
         int countNum = CollUtil.isEmpty(orderCounts) ? 0 : orderCounts.get(0).getOrderCount();
 
-        if (countNum >= level.getDayOrderCount()) {
+        if (countNum >= userLevel.getDayOrderCount()) {
             return R.error("今日任务已完成");
         }
 
@@ -159,7 +160,7 @@ public class OrderController {
             order.setGoodsPrice(prePare.getOrderAmount());
             order.setGoodsCount(prePare.getGoodsCount());
             order.setOrderAmount(NumberUtil.mul(goods.getGoodsPrice(), order.getGoodsCount()));
-            order.setCommissionRate(user.getLevel().getCommissionRate());
+            order.setCommissionRate(areaLevel.getCommissionRate());
             order.setCommissionMul(prePare.getCommissionMul());
             order.setCommission(NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100)));
             order.setStatus(0);
@@ -170,11 +171,13 @@ public class OrderController {
             order.setCountNum(countNum + 1);
             order.setOrderType(0);
             order.setPreBatch(prePare.getPreBatch());
+            order.setAreaId(area.getId());
         } else {
             // 取得商品(金额范围) 预派送业务 预派送订单用户金额不足 直接扣负数
             List<Goods> goodsList = goodsService.list(
                     new LambdaQueryWrapper<Goods>()
                             .eq(Goods::getStatus, 0)
+                            .eq(Goods::getAreaId, area.getId())
             );
             // 随机取得一个商品
             Collections.shuffle(goodsList);
@@ -217,6 +220,7 @@ public class OrderController {
             order.setPreDetailId(0);
             order.setCountNum(countNum + 1);
             order.setOrderType(1);
+            order.setAreaId(area.getId());
         }
 
         orderService.save(order);
@@ -600,6 +604,7 @@ public class OrderController {
             newOrder.setCountNum(prePare.getTriggerNum());
             newOrder.setOrderType(0);
             newOrder.setPreBatch(prePare.getPreBatch());
+            newOrder.setAreaId(order.getAreaId());
             orderService.save(newOrder);
 
             JSONObject object = new JSONObject();

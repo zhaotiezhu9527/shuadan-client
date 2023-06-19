@@ -130,6 +130,12 @@ public class Order implements Serializable {
     @TableField(value = "commission_mul")
     private Double commissionMul;
 
+    /**
+     * 专区ID
+     */
+    @TableField(value = "area_id")
+    private Integer areaId;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
