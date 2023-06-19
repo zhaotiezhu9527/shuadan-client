@@ -24,10 +24,10 @@
             size="150"
           ></uqrcode>
         </view>
-        <view class="txt">ID:{{ infos.inviteCode }}</view>
+        <view class="txt">邀请码:{{ infos.inviteCode }}</view>
       </view>
       <view style="padding-top: 40rpx">
-        <u-button color="#89bfdb" text="立即使用" @click="change"></u-button>
+        <u-button color="#89bfdb" text="邀请好友" @click="change"></u-button>
       </view>
     </view>
   </view>
