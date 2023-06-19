@@ -5,9 +5,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://rm-gs50u685c46ptsf7k3o.mysql.singapore.rds.aliyuncs.com:3306/shuadan?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&allowMultiQueries=true
-      username: juhai
-      password: zfGM0XAUHms6B5tY
+      url: jdbc:mysql://rm-gs5o2g3papr65togk9o.mysql.singapore.rds.aliyuncs.com:3306/shuadan?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&allowMultiQueries=true
+      username: local
+      password: a0gC9&2EGoOY^MJZ
   redis:
     host: r-gs5nsu05rwrseovmrmpd.redis.singapore.rds.aliyuncs.com
     port: 6379
