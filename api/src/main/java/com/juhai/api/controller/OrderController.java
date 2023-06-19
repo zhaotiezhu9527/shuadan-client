@@ -212,7 +212,7 @@ public class OrderController {
             order.setGoodsPrice(goods.getGoodsPrice());
             order.setGoodsCount(goodsCount);
             order.setOrderAmount(NumberUtil.mul(order.getGoodsPrice(), order.getGoodsCount()));
-            order.setCommissionRate(user.getLevel().getCommissionRate());
+            order.setCommissionRate(areaLevel.getCommissionRate());
             order.setCommissionMul(1.0);
             order.setCommission(NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100)));
             order.setStatus(0);
