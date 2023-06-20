@@ -48,6 +48,9 @@ public class LoginAspect {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @Value("${server.servlet.context-path}")
+    private String contentPath;
+
     @Pointcut("execution(public * com.juhai.api.controller.*.*(..))")
     public void loginAsp(){}
 
@@ -59,6 +62,7 @@ public class LoginAspect {
         log.info("请求方式:" + request.getMethod());
         log.info("请求参数:" + JSONUtil.toJsonStr(request.getParameterMap()));
         for (String pattern : urls) {
+            pattern = contentPath + pattern;
             boolean match = matcher.match(pattern, request.getRequestURI());
             if (match) {
                 return joinPoint.proceed();
