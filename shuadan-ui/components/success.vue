@@ -18,7 +18,9 @@
                 <view class="uid">
                   {{ items.orderNo
                   }}<text class="num">{{ items.countNum }}</text
-                  ><text class="txt" v-if="items.orderType == 1"> 加急单 </text>
+                  ><text class="txt" v-if="items.orderType == 0">
+                    {{ items.promptText }}
+                  </text>
                 </view>
                 <view class="goodsstyle">
                   <view class="goods">
@@ -45,7 +47,7 @@
                   <view class="li">
                     <text
                       >佣金<text
-                        v-if="items.orderType == 1"
+                        v-if="items.commissionMul >= 2"
                         class="tip-bubble tip-bubble-left"
                         >x{{ items.commissionMul }}</text
                       ></text
@@ -76,6 +78,7 @@
                 shape="circle"
                 color="#2f3848"
                 text="立即提交"
+                :loading="loading"
                 @click="change"
               ></u-button>
             </view>
@@ -123,21 +126,21 @@ export default {
       });
     },
     change() {
-      this.$api.order_pay(this.items.orderNo).then(({ data }) => {
-        if (data.code == 0) {
-          this.loading = true;
-          setTimeout(() => {
+      this.loading = true;
+      setTimeout(() => {
+        this.$api.order_pay(this.items.orderNo).then(({ data }) => {
+          if (data.code == 0) {
+            this.$emit("ok");
+            this.$base.show(data.msg);
+            this.loading = false;
             if (data.data.orderNo) {
               this.dataFn(data.data.orderNo);
-              this.loading = false;
-              this.$emit("ok");
             } else {
-              this.loading = false;
               this.show = false;
             }
-          }, 4000);
-        }
-      });
+          }
+        });
+      }, 4000);
     },
   },
 };
