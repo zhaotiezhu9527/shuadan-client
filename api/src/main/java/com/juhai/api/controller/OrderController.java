@@ -123,7 +123,11 @@ public class OrderController {
         }
 
         // 验证是否还有订单未完成
-        long noFinishCount = orderService.count(new LambdaQueryWrapper<Order>().eq(Order::getStatus, 0));
+        long noFinishCount = orderService.count(
+                new LambdaQueryWrapper<Order>()
+                        .eq(Order::getStatus, 0)
+                        .eq(Order::getUserName, userName)
+        );
         if (noFinishCount >= 1) {
             return R.error("您还有订单未完成");
         }
