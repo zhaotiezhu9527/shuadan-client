@@ -262,6 +262,7 @@ public class UserController {
     public R logout(HttpServletRequest httpServletRequest) {
         String userName = JwtUtils.getUserName(httpServletRequest);
         redisTemplate.delete(RedisKeyUtil.UserTokenKey(userName));
+        redisTemplate.delete(RedisKeyUtil.UserOnlineKey(userName));
         return R.ok();
     }
 
