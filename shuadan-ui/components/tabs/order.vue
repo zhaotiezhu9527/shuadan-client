@@ -159,6 +159,7 @@ export default {
         });
     },
     ok() {
+      this.getInfo();
       this.dataFn(1, 0);
       this.page = 1;
       this.finished = false;

@@ -138,6 +138,8 @@ export default {
             } else {
               this.show = false;
             }
+          } else {
+            this.loading = false;
           }
         });
       }, 4000);
