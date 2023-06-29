@@ -113,7 +113,7 @@
         抢到任务订单后请及时提交订单，避免长时间未提交导致卡单卡顿异常降低信用分
       </view>
     </view>
-    <success ref="sucRef" />
+    <success ref="sucRef" @ok="getInfo(that)" />
   </view>
 </template>
 <script>
@@ -143,10 +143,12 @@ export default {
       ],
       loading: false,
       vim: {},
+      that: {},
     };
   },
   methods: {
     open(e) {
+      this.that = e;
       this.getInfo(e);
     },
     addVip() {
@@ -154,6 +156,7 @@ export default {
         url: "/pages/vip",
       });
     },
+
     //用户列表数据,用户收益详情
     getInfo(e) {
       let index = e.level || 1;

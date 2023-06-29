@@ -68,9 +68,11 @@ export default {
     this.route = e;
   },
   onShow() {
+    // #ifdef H5
     this.$nextTick(() => {
       this.$refs.main.open(this.route);
     });
+    // #endif
   },
   methods: {
     change(index) {
@@ -80,9 +82,12 @@ export default {
       // #ifdef H5
       this.$router.push(`/pages/index?tabs=${index}`);
       // #endif
+
+      // #ifdef APP-PLUS
       this.$nextTick(() => {
         this.$refs.main.open({ tabs: index });
       });
+      // #endif
     },
   },
   components: {

@@ -1,5 +1,7 @@
 server:
   port: 9544
+  servlet:
+    context-path: /
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -17,10 +19,10 @@ spring:
 login:
   auth:
     urls:
-      - /user/register
-      - /user/login
-      - /user/info
-      - /system/config
+      - user/register
+      - user/login
+      - user/info
+      - system/config
 #token失效时间
 token:
   expire: 15000

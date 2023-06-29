@@ -84,7 +84,8 @@
                 income = income + #{report.income},
             </if>
             update_time = now()
-            where balance + #{report.balance} >= 0 and user_name = #{report.userName}
+            where
+              user_name = #{report.userName}
         </foreach>
     </insert>
 </mapper>

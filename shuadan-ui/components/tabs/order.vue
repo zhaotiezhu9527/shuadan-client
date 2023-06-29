@@ -51,7 +51,7 @@
               <view class="li">
                 <text
                   >佣金<text
-                    v-if="item.orderType == 1"
+                    v-if="item.commissionMul >= 2"
                     class="tip-bubble tip-bubble-left"
                     >x{{ item.commissionMul }}</text
                   ></text

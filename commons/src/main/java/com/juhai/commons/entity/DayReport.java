@@ -38,31 +38,31 @@ public class DayReport implements Serializable {
      * 充值量
      */
     @TableField(value = "deposit")
-    private BigDecimal deposit;
+    private BigDecimal deposit = new BigDecimal(0);
 
     /**
      * 提现量
      */
     @TableField(value = "withdraw")
-    private BigDecimal withdraw;
+    private BigDecimal withdraw = new BigDecimal(0);
 
     /**
      * 投注量
      */
     @TableField(value = "bet")
-    private BigDecimal bet;
+    private BigDecimal bet = new BigDecimal(0);
 
     /**
      * 返佣量
      */
     @TableField(value = "commission")
-    private BigDecimal commission;
+    private BigDecimal commission = new BigDecimal(0);
 
     /**
      * 收入量
      */
     @TableField(value = "income")
-    private BigDecimal income;
+    private BigDecimal income = new BigDecimal(0);
 
     /**
      * 上级代理
