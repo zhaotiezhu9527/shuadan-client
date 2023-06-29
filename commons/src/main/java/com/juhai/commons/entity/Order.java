@@ -141,4 +141,10 @@ public class Order implements Serializable {
 
     @TableField(exist = false)
     private Goods goods;
+
+    /**
+     * 加急单
+     */
+    @TableField(value = "prompt_text")
+    private String promptText;
 }

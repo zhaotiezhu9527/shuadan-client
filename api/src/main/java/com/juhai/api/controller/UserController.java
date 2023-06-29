@@ -705,12 +705,14 @@ public class UserController {
             statusMap.put(1, "已完成");
             statusMap.put(2, "冻结中");
             statusMap.put(3, "已取消");
+            statusMap.put(4, "待处理");
             JSONArray arr = new JSONArray();
             for (Order temp : list) {
                 JSONObject obj = new JSONObject();
                 obj.put("orderTime", temp.getOrderTime());
                 obj.put("orderNo", temp.getOrderNo());
                 obj.put("dayOrderCount", temp.getCountNum());
+                temp.setStatus(temp.getStatus().intValue() == 4 ? 0 : temp.getStatus());
                 obj.put("status", temp.getStatus());
                 obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
                 obj.put("orderAmount", temp.getOrderAmount());
@@ -725,6 +727,7 @@ public class UserController {
                 obj.put("goodsImg", goods == null ? "" : resourceDomain + goods.getGoodsImg());
                 obj.put("orderType", temp.getOrderType());
                 obj.put("commissionMul", temp.getCommissionMul());
+                obj.put("promptText", temp.getPromptText());
                 arr.add(obj);
             }
             page.setList(arr);

@@ -34,7 +34,9 @@ public class OrderServiceImpl extends JoinServiceImpl<OrderMapper, Order>
 
         String status = MapUtil.getStr(params, "status");
         if (StringUtils.isBlank(status)) {
-            wrapper.in(Order::getStatus, Arrays.asList(0, 1, 2));
+            wrapper.in(Order::getStatus, Arrays.asList(0, 1, 2, 4));
+        } else if (StringUtils.equals(status, "0")) {
+            wrapper.in(Order::getStatus, Arrays.asList(0, 4));
         } else {
             wrapper.eq(Order::getStatus, status);
         }

@@ -125,7 +125,7 @@ public class OrderController {
         // 验证是否还有订单未完成
         long noFinishCount = orderService.count(
                 new LambdaQueryWrapper<Order>()
-                        .eq(Order::getStatus, 0)
+                        .in(Order::getStatus, Arrays.asList(0, 4))
                         .eq(Order::getUserName, userName)
         );
         if (noFinishCount >= 1) {
@@ -178,6 +178,16 @@ public class OrderController {
             order.setOrderType(0);
             order.setPreBatch(prePare.getPreBatch());
             order.setAreaId(area.getId());
+            order.setPromptText(prePare.getPromptText());
+            if (user.getBalance().doubleValue() < order.getOrderAmount().doubleValue()) {
+                order.setStatus(4);
+                // 扣钱
+                String sql = StrUtil.format("balance = balance - {},freeze_balance = freeze_balance + {}", order.getOrderAmount(), NumberUtil.add(order.getOrderAmount(), order.getCommission()));
+                userService.update(new UpdateWrapper<User>()
+                        .setSql(sql)
+                        .eq("user_name", order.getUserName())
+                );
+            }
         } else {
             // 取得商品(金额范围) 预派送业务 预派送订单用户金额不足 直接扣负数
             List<Goods> goodsList = goodsService.list(
@@ -284,11 +294,10 @@ public class OrderController {
                         .eq(Order::getOrderNo, orderNo)
                         .eq(Order::getUserName, userName)
         );
-        if (order == null || order.getStatus().intValue() != 0) {
+        if (order == null) {
             return R.error("无效订单");
         }
-
-        if (order.getStatus().intValue() != 0) {
+        if (order.getStatus().intValue() == 1 || order.getStatus().intValue() == 2 || order.getStatus().intValue() == 3) {
             return R.error("该订单已完成");
         }
 
@@ -301,49 +310,6 @@ public class OrderController {
         }
     }
 
-    @ApiOperation(value = "订单详情")
-    @GetMapping("/detail/{orderNo}")
-    public R info(HttpServletRequest httpServletRequest,@PathVariable(value = "orderNo") String orderNo) {
-        String userName = JwtUtils.getUserName(httpServletRequest);
-
-        Order order = orderService.getOne(
-                new LambdaQueryWrapper<Order>()
-                        .eq(Order::getOrderNo, orderNo)
-                        .eq(Order::getUserName, userName)
-        );
-        if (order == null) {
-            return R.error("无效订单号");
-        }
-
-        User user = userService.getUserByName(userName);
-
-        Map<String, String> paramsMap = paramterService.getAllParamByMap();
-
-        JSONObject object = new JSONObject();
-        object.put("orderNo", order.getOrderNo());
-        object.put("orderTime", order.getOrderTime());
-        object.put("orderType", order.getOrderType());
-        object.put("orderAmount", order.getOrderAmount().stripTrailingZeros());
-        object.put("countNum", order.getCountNum());
-        object.put("promptText", order.getOrderType().intValue() == 0 ? "加急单" : "");
-        object.put("commission", order.getCommission().stripTrailingZeros());
-        object.put("commissionMul", order.getCommissionMul());
-
-        Goods goods = goodsService.getById(order.getGoodsId());
-
-        String resourceDomain = paramsMap.get("resource_domain");
-        object.put("goodsName", goods == null ? "" : goods.getGoodsName());
-        object.put("goodsImg", goods == null ? "" : resourceDomain + goods.getGoodsImg());
-        object.put("goodsPrice", order.getGoodsPrice());
-        object.put("goodsCount", order.getGoodsCount());
-        object.put("forecastReturn", NumberUtil.add(order.getOrderAmount(), order.getCommission()).stripTrailingZeros());
-        object.put("orderStatus", order.getStatus());
-
-        // 余额
-        object.put("balanceSub", NumberUtil.sub(user.getBalance(), order.getOrderAmount()).stripTrailingZeros());
-        return R.ok().put("data", object);
-    }
-
     /**
      * 支付加急订单
      * @param user
@@ -353,274 +319,600 @@ public class OrderController {
      * @throws Exception
      */
     private R payOrder2(User user, Order order, Date now, Map<String, String> paramsMap) throws Exception {
-        if (order.getOrderAmount().doubleValue() > user.getBalance().doubleValue()) {
-            return R.error("您的余额不足");
-        }
-        // 查询当前批次是否还有预派送订单  有则冻结这一单的钱
-        Prepare prePare = prepareService.getOne(
-                new LambdaQueryWrapper<Prepare>()
-                        .eq(Prepare::getStatus, 0)
-                        .eq(Prepare::getUserName, order.getUserName())
-                        .eq(Prepare::getTriggerNum, order.getCountNum() + 1)
-                        .eq(Prepare::getPreBatch, order.getPreBatch())
-        );
-        if (prePare == null) {
-            // 没有预派送订单  返还金额  解冻金额  修改所有冻结订单状态
-            // 修改订单状态为已完成
-            orderService.update(
-                    new UpdateWrapper<Order>().lambda()
-                            .eq(Order::getId, order.getId())
-                            .set(Order::getStatus, 1)
-                            .set(Order::getPayTime, now)
-            );
-            // 修改当前批次所有已冻结的订单为已完成
-            orderService.update(
-                    new UpdateWrapper<Order>().lambda()
-                            .eq(Order::getPreBatch, order.getPreBatch())
-                            .eq(Order::getStatus, 2)
-                            .set(Order::getStatus, 1)
-            );
+        /**
+         * 如果订单是待处理0 校验金额是否充足 不充足就扣成负数 累计冻结金额 把订单改成未完全支付状态
+         * 如果订单是未完全支付状态4 判断余额是否大于0
+         */
+        if (order.getStatus().intValue() == 4) {
+            if (user.getBalance().doubleValue() < 0) {
+                // 未完成支付,余额小于等于0
+                return R.error("尊敬的会员,恭喜您获得系统随机派送的高额加急单,您的余额不足,请您联系客服充值后尽快完成任务!!");
+            } else {
+                // 余额充足,可以完成支付
+                // 查询当前批次是否还有预派送订单  有则冻结这一单的钱
+                Prepare prePare = prepareService.getOne(
+                        new LambdaQueryWrapper<Prepare>()
+                                .eq(Prepare::getStatus, 0)
+                                .eq(Prepare::getUserName, order.getUserName())
+                                .eq(Prepare::getTriggerNum, order.getCountNum() + 1)
+                                .eq(Prepare::getPreBatch, order.getPreBatch())
+                );
+                if (prePare == null) {
+                    // 没有预派送订单  返还金额  解冻金额  修改所有冻结订单状态
+                    // 修改订单状态为已完成
+                    orderService.update(
+                            new UpdateWrapper<Order>().lambda()
+                                    .eq(Order::getId, order.getId())
+                                    .set(Order::getStatus, 1)
+                                    .set(Order::getPayTime, now)
+                    );
+                    // 修改当前批次所有已冻结的订单为已完成
+                    orderService.update(
+                            new UpdateWrapper<Order>().lambda()
+                                    .eq(Order::getPreBatch, order.getPreBatch())
+                                    .eq(Order::getStatus, 2)
+                                    .set(Order::getStatus, 1)
+                    );
 
-            // 计算佣金
-            BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
-            // 修改解冻金额为0,将冻结金额累积到用户金额,累计佣金
-            String sql = StrUtil.format("balance = balance + freeze_balance + {},freeze_balance = 0,bet = bet + {},income = income + {}", commission, order.getOrderAmount(), commission);
-            userService.update(new UpdateWrapper<User>()
-                    .setSql(sql)
-                    .eq("user_name", order.getUserName())
-            );
+                    // 计算佣金
+                    BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
+                    // 修改解冻金额为0,将冻结金额累积到用户金额,累计佣金
+                    String sql = StrUtil.format("balance = balance + freeze_balance,freeze_balance = 0,bet = bet + {},income = income + {}", order.getOrderAmount(), commission);
+                    userService.update(new UpdateWrapper<User>()
+                            .setSql(sql)
+                            .eq("user_name", order.getUserName())
+                    );
 
-            // 修改预派送订单状态
-            prepareService.update(
-                    new UpdateWrapper<Prepare>().lambda()
-                            .eq(Prepare::getId, order.getPreId())
-                            .set(Prepare::getStatus, 1)
-                            .set(Prepare::getUpdateTime, now)
-            );
+                    // 修改预派送订单状态
+                    prepareService.update(
+                            new UpdateWrapper<Prepare>().lambda()
+                                    .eq(Prepare::getId, order.getPreId())
+                                    .set(Prepare::getStatus, 1)
+                                    .set(Prepare::getUpdateTime, now)
+                    );
 
-            List<Account> accounts = new ArrayList<>();
-            // 佣金流水
-            String accountNo1 = IdUtil.getSnowflakeNextIdStr();
-            Account account1 = new Account();
-            account1.setAccountNo(accountNo1);
-            account1.setUserName(user.getUserName());
-            account1.setOptAmount(commission);
-            account1.setType(1);
-            account1.setOptType(4);
-            account1.setUserAgent(user.getUserAgent());
-            account1.setUserAgentNode(user.getUserAgentNode());
-            account1.setUserAgentLevel(user.getUserAgentLevel());
-            account1.setRefNo(order.getOrderNo());
-            account1.setOptTime(now);
-            account1.setRemark("订单佣金:[" + order.getOrderNo() +"]");
-            accounts.add(account1);
+                    List<Account> accounts = new ArrayList<>();
+                    // 佣金流水
+                    String accountNo1 = IdUtil.getSnowflakeNextIdStr();
+                    Account account1 = new Account();
+                    account1.setAccountNo(accountNo1);
+                    account1.setUserName(user.getUserName());
+                    account1.setOptAmount(commission);
+                    account1.setType(1);
+                    account1.setOptType(4);
+                    account1.setUserAgent(user.getUserAgent());
+                    account1.setUserAgentNode(user.getUserAgentNode());
+                    account1.setUserAgentLevel(user.getUserAgentLevel());
+                    account1.setRefNo(order.getOrderNo());
+                    account1.setOptTime(now);
+                    account1.setRemark("订单佣金:[" + order.getOrderNo() +"]");
+                    accounts.add(account1);
 
-            // 计算报表
-            List<DayReport> dayReports = new ArrayList<>();
-            DayReport dayReport = new DayReport();
-            dayReport.setUserName(user.getUserName());
-            dayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
-            dayReport.setBet(order.getOrderAmount());
-            dayReport.setCommission(commission);
-            dayReport.setIncome(commission);
-            dayReport.setUserAgent(user.getUserAgent());
-            dayReport.setUserAgentNode(user.getUserAgentNode());
-            dayReport.setUserAgentLevel(user.getUserAgentLevel());
-            dayReport.setCreateTime(now);
-            dayReport.setUpdateTime(now);
-            dayReports.add(dayReport);
+                    // 计算报表
+                    List<DayReport> dayReports = new ArrayList<>();
+                    DayReport dayReport = new DayReport();
+                    dayReport.setUserName(user.getUserName());
+                    dayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                    dayReport.setBet(order.getOrderAmount());
+                    dayReport.setCommission(commission);
+                    dayReport.setIncome(commission);
+                    dayReport.setUserAgent(user.getUserAgent());
+                    dayReport.setUserAgentNode(user.getUserAgentNode());
+                    dayReport.setUserAgentLevel(user.getUserAgentLevel());
+                    dayReport.setCreateTime(now);
+                    dayReport.setUpdateTime(now);
+                    dayReports.add(dayReport);
 
-            List<User> users = new ArrayList<>();
-            // 计算上级返佣以及报表
-            if (user.getUserAgentLevel().intValue() > 0) {
-                // 层级返点比例
-                Map<Integer, BigDecimal> rateMap = new HashMap<>();
-                rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
-                rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
-                rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
-                // 获取当前用户的前三级
-                List<User> userAgents = getUserAgents(user.getUserAgentNode());
-                for (int i = 0; i < userAgents.size(); i++) {
-                    User userAgent = userAgents.get(i);
-                    // 获取返点比例
-                    BigDecimal rate = rateMap.get(i + 1);
-                    // 计算返点
-                    BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
-                    // 上级代理加钱
-                    User userReport1 = new User();
-                    userReport1.setUserName(userAgent.getUserName());
-                    userReport1.setBalance(agentCommission);
-                    userReport1.setIncome(agentCommission);
-                    users.add(userReport1);
-                    // 记录代理流水
-                    Account agentAccount = new Account();
-                    agentAccount.setAccountNo(IdUtil.getSnowflakeNextIdStr());
-                    agentAccount.setUserName(userAgent.getUserName());
-                    agentAccount.setOptAmount(agentCommission);
-                    agentAccount.setType(1);
-                    agentAccount.setOptType(5);
-                    agentAccount.setUserAgent(userAgent.getUserAgent());
-                    agentAccount.setUserAgentNode(userAgent.getUserAgentNode());
-                    agentAccount.setUserAgentLevel(userAgent.getUserAgentLevel());
-                    agentAccount.setRefNo(order.getOrderNo());
-                    agentAccount.setOptTime(now);
-                    agentAccount.setRemark("下级返点");
-                    accounts.add(agentAccount);
-                    // 记录代理报表
-                    DayReport agentDayReport = new DayReport();
-                    agentDayReport.setUserName(userAgent.getUserName());
-                    agentDayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
-                    agentDayReport.setIncome(agentCommission);
-                    agentDayReport.setUserAgent(userAgent.getUserAgent());
-                    agentDayReport.setUserAgentNode(userAgent.getUserAgentNode());
-                    agentDayReport.setUserAgentLevel(userAgent.getUserAgentLevel());
-                    agentDayReport.setCreateTime(now);
-                    agentDayReport.setUpdateTime(now);
-                    dayReports.add(agentDayReport);
+                    List<User> users = new ArrayList<>();
+                    // 计算上级返佣以及报表
+                    if (user.getUserAgentLevel().intValue() > 0) {
+                        // 层级返点比例
+                        Map<Integer, BigDecimal> rateMap = new HashMap<>();
+                        rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
+                        rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
+                        rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
+                        // 获取当前用户的前三级
+                        List<User> userAgents = getUserAgents(user.getUserAgentNode());
+                        for (int i = 0; i < userAgents.size(); i++) {
+                            User userAgent = userAgents.get(i);
+                            // 获取返点比例
+                            BigDecimal rate = rateMap.get(i + 1);
+                            // 计算返点
+                            BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            // 上级代理加钱
+                            User userReport1 = new User();
+                            userReport1.setUserName(userAgent.getUserName());
+                            userReport1.setBalance(agentCommission);
+                            userReport1.setIncome(agentCommission);
+                            users.add(userReport1);
+                            // 记录代理流水
+                            Account agentAccount = new Account();
+                            agentAccount.setAccountNo(IdUtil.getSnowflakeNextIdStr());
+                            agentAccount.setUserName(userAgent.getUserName());
+                            agentAccount.setOptAmount(agentCommission);
+                            agentAccount.setType(1);
+                            agentAccount.setOptType(5);
+                            agentAccount.setUserAgent(userAgent.getUserAgent());
+                            agentAccount.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentAccount.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentAccount.setRefNo(order.getOrderNo());
+                            agentAccount.setOptTime(now);
+                            agentAccount.setRemark("下级返点");
+                            accounts.add(agentAccount);
+                            // 记录代理报表
+                            DayReport agentDayReport = new DayReport();
+                            agentDayReport.setUserName(userAgent.getUserName());
+                            agentDayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                            agentDayReport.setIncome(agentCommission);
+                            agentDayReport.setUserAgent(userAgent.getUserAgent());
+                            agentDayReport.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentDayReport.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentDayReport.setCreateTime(now);
+                            agentDayReport.setUpdateTime(now);
+                            dayReports.add(agentDayReport);
+                        }
+                    }
+                    userService.batchUpdateReport(users);
+                    accountService.saveBatch(accounts);
+                    dayReportService.batchInsertOrUpdate(dayReports);
+
+                    JSONObject object = new JSONObject();
+                    object.put("orderNo", "");
+                    return R.ok("加急单完成,可以继续抢单").put("data", object);
+                } else {
+                    // 还有预派送订单 扣除用户余额 累计冻结金额 修改订单状态为冻结
+
+                    // 计算佣金
+                    BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
+                    // 累计冻结余额
+                    BigDecimal freezeBalance = NumberUtil.add(order.getOrderAmount(), commission);
+                    List<User> users = new ArrayList<>();
+                    User userReport = new User();
+                    userReport.setUserName(user.getUserName());
+//                    userReport.setBalance(order.getOrderAmount().negate());
+//                    userReport.setFreezeBalance(freezeBalance);
+                    userReport.setBet(order.getOrderAmount());
+                    userReport.setIncome(commission);
+                    users.add(userReport);
+
+                    // 修改订单状态为冻结状态
+                    orderService.update(
+                            new UpdateWrapper<Order>().lambda()
+                                    .eq(Order::getId, order.getId())
+                                    .set(Order::getStatus, 2)
+                                    .set(Order::getPayTime, now)
+                    );
+                    // 修改预派送订单状态
+                    prepareService.update(
+                            new UpdateWrapper<Prepare>().lambda()
+                                    .eq(Prepare::getId, order.getPreId())
+                                    .set(Prepare::getStatus, 1)
+                                    .set(Prepare::getUpdateTime, now)
+                    );
+
+                    // 计算报表
+                    List<DayReport> dayReports = new ArrayList<>();
+                    DayReport dayReport = new DayReport();
+                    dayReport.setUserName(user.getUserName());
+                    dayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                    dayReport.setBet(order.getOrderAmount());
+                    dayReport.setCommission(commission);
+                    dayReport.setIncome(commission);
+                    dayReport.setUserAgent(user.getUserAgent());
+                    dayReport.setUserAgentNode(user.getUserAgentNode());
+                    dayReport.setUserAgentLevel(user.getUserAgentLevel());
+                    dayReport.setCreateTime(now);
+                    dayReport.setUpdateTime(now);
+                    dayReports.add(dayReport);
+
+                    List<Account> accounts = new ArrayList<>();
+                    // 佣金流水
+                    String accountNo1 = IdUtil.getSnowflakeNextIdStr();
+                    Account account1 = new Account();
+                    account1.setAccountNo(accountNo1);
+                    account1.setUserName(user.getUserName());
+                    account1.setOptAmount(commission);
+                    account1.setType(1);
+                    account1.setOptType(4);
+                    account1.setUserAgent(user.getUserAgent());
+                    account1.setUserAgentNode(user.getUserAgentNode());
+                    account1.setUserAgentLevel(user.getUserAgentLevel());
+                    account1.setRefNo(order.getOrderNo());
+                    account1.setOptTime(now);
+                    account1.setRemark("订单佣金:[" + order.getOrderNo() +"]");
+                    accounts.add(account1);
+                    // 计算上级返佣以及报表
+                    if (user.getUserAgentLevel().intValue() > 0) {
+                        // 层级返点比例
+                        Map<Integer, BigDecimal> rateMap = new HashMap<>();
+                        rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
+                        rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
+                        rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
+                        // 获取当前用户的前三级
+                        List<User> userAgents = getUserAgents(user.getUserAgentNode());
+                        for (int i = 0; i < userAgents.size(); i++) {
+                            User userAgent = userAgents.get(i);
+                            // 获取返点比例
+                            BigDecimal rate = rateMap.get(i + 1);
+                            // 计算返点
+                            BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            // 上级代理加钱
+                            User userReport1 = new User();
+                            userReport1.setUserName(userAgent.getUserName());
+                            userReport1.setBalance(agentCommission);
+                            userReport1.setIncome(agentCommission);
+                            users.add(userReport1);
+                            // 记录代理流水
+                            Account agentAccount = new Account();
+                            agentAccount.setAccountNo(IdUtil.getSnowflakeNextIdStr());
+                            agentAccount.setUserName(userAgent.getUserName());
+                            agentAccount.setOptAmount(agentCommission);
+                            agentAccount.setType(1);
+                            agentAccount.setOptType(5);
+                            agentAccount.setUserAgent(userAgent.getUserAgent());
+                            agentAccount.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentAccount.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentAccount.setRefNo(order.getOrderNo());
+                            agentAccount.setOptTime(now);
+                            agentAccount.setRemark("下级返点");
+                            accounts.add(agentAccount);
+                            // 记录代理报表
+                            DayReport agentDayReport = new DayReport();
+                            agentDayReport.setUserName(userAgent.getUserName());
+                            agentDayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                            agentDayReport.setIncome(agentCommission);
+                            agentDayReport.setUserAgent(userAgent.getUserAgent());
+                            agentDayReport.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentDayReport.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentDayReport.setCreateTime(now);
+                            agentDayReport.setUpdateTime(now);
+                            dayReports.add(agentDayReport);
+                        }
+                    }
+                    userService.batchUpdateReport(users);
+                    accountService.saveBatch(accounts);
+                    dayReportService.batchInsertOrUpdate(dayReports);
+                    // 累计今日订单
+                    // incOrderCount(user.getUserName(), now);
+
+                    // 添加一个新的预派送订单
+                    // Goods goods = goodsService.getById(prePare.getGoodsId());
+                    String orderNo = IdUtil.getSnowflakeNextIdStr();
+                    Order newOrder = new Order();
+                    // 预派送订单
+                    Goods goods = goodsService.getById(prePare.getGoodsId());
+                    newOrder.setOrderNo(orderNo);
+                    newOrder.setUserName(user.getUserName());
+                    newOrder.setNickName(user.getNickName());
+                    newOrder.setGoodsId(prePare.getGoodsId());
+                    newOrder.setGoodsPrice(goods.getGoodsPrice());
+                    newOrder.setGoodsCount(prePare.getGoodsCount());
+                    newOrder.setOrderAmount(NumberUtil.mul(newOrder.getGoodsPrice(), newOrder.getGoodsCount()));
+                    newOrder.setCommissionRate(user.getLevel().getCommissionRate());
+                    newOrder.setCommissionMul(prePare.getCommissionMul());
+                    newOrder.setCommission(NumberUtil.mul(newOrder.getCommissionMul(), newOrder.getOrderAmount(), NumberUtil.div(newOrder.getCommissionRate(), 100)));
+                    newOrder.setStatus(0);
+                    newOrder.setOrderTime(now);
+                    newOrder.setPayTime(null);
+                    newOrder.setPreId(prePare.getId());
+                    newOrder.setPreDetailId(0);
+                    newOrder.setCountNum(prePare.getTriggerNum());
+                    newOrder.setOrderType(0);
+                    newOrder.setPreBatch(prePare.getPreBatch());
+                    newOrder.setAreaId(order.getAreaId());
+                    newOrder.setPromptText(prePare.getPromptText());
+                    orderService.save(newOrder);
+
+                    // 累计今日订单
+                    incOrderCount(user.getUserName(), now);
+                    JSONObject object = new JSONObject();
+                    object.put("orderNo", newOrder.getOrderNo());
+                    return R.ok("订单提交成功,下一单继续提交").put("data", object);
                 }
             }
-            userService.batchUpdateReport(users);
-            accountService.saveBatch(accounts);
-            dayReportService.batchInsertOrUpdate(dayReports);
-            // 累计今日订单
-//            incOrderCount(user.getUserName(), now);
+        } else if (order.getStatus().intValue() == 0) {
+            if (user.getBalance().doubleValue() >= order.getOrderAmount().doubleValue()) {
+                // 余额充足,可以完成支付
+                // 查询当前批次是否还有预派送订单  有则冻结这一单的钱
+                Prepare prePare = prepareService.getOne(
+                        new LambdaQueryWrapper<Prepare>()
+                                .eq(Prepare::getStatus, 0)
+                                .eq(Prepare::getUserName, order.getUserName())
+                                .eq(Prepare::getTriggerNum, order.getCountNum() + 1)
+                                .eq(Prepare::getPreBatch, order.getPreBatch())
+                );
+                if (prePare == null) {
+                    // 没有预派送订单  返还金额  解冻金额  修改所有冻结订单状态
+                    // 修改订单状态为已完成
+                    orderService.update(
+                            new UpdateWrapper<Order>().lambda()
+                                    .eq(Order::getId, order.getId())
+                                    .set(Order::getStatus, 1)
+                                    .set(Order::getPayTime, now)
+                    );
+                    // 修改当前批次所有已冻结的订单为已完成
+                    orderService.update(
+                            new UpdateWrapper<Order>().lambda()
+                                    .eq(Order::getPreBatch, order.getPreBatch())
+                                    .eq(Order::getStatus, 2)
+                                    .set(Order::getStatus, 1)
+                    );
 
-            JSONObject object = new JSONObject();
-            object.put("orderNo", "");
-            return R.ok("加急单完成,可以继续抢单").put("data", object);
-        } else {
-            // 还有预派送订单 扣除用户余额 累计冻结金额 修改订单状态为冻结
+                    // 计算佣金
+                    BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
+                    // 修改解冻金额为0,将冻结金额累积到用户金额,累计佣金
+                    String sql = StrUtil.format("balance = balance + freeze_balance + {},freeze_balance = 0,bet = bet + {},income = income + {}", commission, order.getOrderAmount(), commission);
+                    userService.update(new UpdateWrapper<User>()
+                            .setSql(sql)
+                            .eq("user_name", order.getUserName())
+                    );
 
-            // 计算佣金
-            BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
-            // 累计冻结余额
-            BigDecimal freezeBalance = NumberUtil.add(order.getOrderAmount(), commission);
-            List<User> users = new ArrayList<>();
-            User userReport = new User();
-            userReport.setUserName(user.getUserName());
-            userReport.setBalance(order.getOrderAmount().negate());
-            userReport.setFreezeBalance(freezeBalance);
-            userReport.setBet(order.getOrderAmount());
-            userReport.setIncome(commission);
-            users.add(userReport);
+                    // 修改预派送订单状态
+                    prepareService.update(
+                            new UpdateWrapper<Prepare>().lambda()
+                                    .eq(Prepare::getId, order.getPreId())
+                                    .set(Prepare::getStatus, 1)
+                                    .set(Prepare::getUpdateTime, now)
+                    );
 
-            // 修改订单状态为冻结状态
-            orderService.update(
-                    new UpdateWrapper<Order>().lambda()
-                            .eq(Order::getId, order.getId())
-                            .set(Order::getStatus, 2)
-                            .set(Order::getPayTime, now)
-            );
-            // 修改预派送订单状态
-            prepareService.update(
-                    new UpdateWrapper<Prepare>().lambda()
-                            .eq(Prepare::getId, order.getPreId())
-                            .set(Prepare::getStatus, 1)
-                            .set(Prepare::getUpdateTime, now)
-            );
+                    List<Account> accounts = new ArrayList<>();
+                    // 佣金流水
+                    String accountNo1 = IdUtil.getSnowflakeNextIdStr();
+                    Account account1 = new Account();
+                    account1.setAccountNo(accountNo1);
+                    account1.setUserName(user.getUserName());
+                    account1.setOptAmount(commission);
+                    account1.setType(1);
+                    account1.setOptType(4);
+                    account1.setUserAgent(user.getUserAgent());
+                    account1.setUserAgentNode(user.getUserAgentNode());
+                    account1.setUserAgentLevel(user.getUserAgentLevel());
+                    account1.setRefNo(order.getOrderNo());
+                    account1.setOptTime(now);
+                    account1.setRemark("订单佣金:[" + order.getOrderNo() +"]");
+                    accounts.add(account1);
 
-            // 计算报表
-            List<DayReport> dayReports = new ArrayList<>();
-            DayReport dayReport = new DayReport();
-            dayReport.setUserName(user.getUserName());
-            dayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
-            dayReport.setBet(order.getOrderAmount());
-            dayReport.setCommission(commission);
-            dayReport.setIncome(commission);
-            dayReport.setUserAgent(user.getUserAgent());
-            dayReport.setUserAgentNode(user.getUserAgentNode());
-            dayReport.setUserAgentLevel(user.getUserAgentLevel());
-            dayReport.setCreateTime(now);
-            dayReport.setUpdateTime(now);
-            dayReports.add(dayReport);
+                    // 计算报表
+                    List<DayReport> dayReports = new ArrayList<>();
+                    DayReport dayReport = new DayReport();
+                    dayReport.setUserName(user.getUserName());
+                    dayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                    dayReport.setBet(order.getOrderAmount());
+                    dayReport.setCommission(commission);
+                    dayReport.setIncome(commission);
+                    dayReport.setUserAgent(user.getUserAgent());
+                    dayReport.setUserAgentNode(user.getUserAgentNode());
+                    dayReport.setUserAgentLevel(user.getUserAgentLevel());
+                    dayReport.setCreateTime(now);
+                    dayReport.setUpdateTime(now);
+                    dayReports.add(dayReport);
 
-            List<Account> accounts = new ArrayList<>();
-            // 计算上级返佣以及报表
-            if (user.getUserAgentLevel().intValue() > 0) {
-                // 层级返点比例
-                Map<Integer, BigDecimal> rateMap = new HashMap<>();
-                rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
-                rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
-                rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
-                // 获取当前用户的前三级
-                List<User> userAgents = getUserAgents(user.getUserAgentNode());
-                for (int i = 0; i < userAgents.size(); i++) {
-                    User userAgent = userAgents.get(i);
-                    // 获取返点比例
-                    BigDecimal rate = rateMap.get(i + 1);
-                    // 计算返点
-                    BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
-                    // 上级代理加钱
-                    User userReport1 = new User();
-                    userReport1.setUserName(userAgent.getUserName());
-                    userReport1.setBalance(agentCommission);
-                    userReport1.setIncome(agentCommission);
-                    users.add(userReport1);
-                    // 记录代理流水
-                    Account agentAccount = new Account();
-                    agentAccount.setAccountNo(IdUtil.getSnowflakeNextIdStr());
-                    agentAccount.setUserName(userAgent.getUserName());
-                    agentAccount.setOptAmount(agentCommission);
-                    agentAccount.setType(1);
-                    agentAccount.setOptType(5);
-                    agentAccount.setUserAgent(userAgent.getUserAgent());
-                    agentAccount.setUserAgentNode(userAgent.getUserAgentNode());
-                    agentAccount.setUserAgentLevel(userAgent.getUserAgentLevel());
-                    agentAccount.setRefNo(order.getOrderNo());
-                    agentAccount.setOptTime(now);
-                    agentAccount.setRemark("下级返点");
-                    accounts.add(agentAccount);
-                    // 记录代理报表
-                    DayReport agentDayReport = new DayReport();
-                    agentDayReport.setUserName(userAgent.getUserName());
-                    agentDayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
-                    agentDayReport.setIncome(agentCommission);
-                    agentDayReport.setUserAgent(userAgent.getUserAgent());
-                    agentDayReport.setUserAgentNode(userAgent.getUserAgentNode());
-                    agentDayReport.setUserAgentLevel(userAgent.getUserAgentLevel());
-                    agentDayReport.setCreateTime(now);
-                    agentDayReport.setUpdateTime(now);
-                    dayReports.add(agentDayReport);
+                    List<User> users = new ArrayList<>();
+                    // 计算上级返佣以及报表
+                    if (user.getUserAgentLevel().intValue() > 0) {
+                        // 层级返点比例
+                        Map<Integer, BigDecimal> rateMap = new HashMap<>();
+                        rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
+                        rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
+                        rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
+                        // 获取当前用户的前三级
+                        List<User> userAgents = getUserAgents(user.getUserAgentNode());
+                        for (int i = 0; i < userAgents.size(); i++) {
+                            User userAgent = userAgents.get(i);
+                            // 获取返点比例
+                            BigDecimal rate = rateMap.get(i + 1);
+                            // 计算返点
+                            BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            // 上级代理加钱
+                            User userReport1 = new User();
+                            userReport1.setUserName(userAgent.getUserName());
+                            userReport1.setBalance(agentCommission);
+                            userReport1.setIncome(agentCommission);
+                            users.add(userReport1);
+                            // 记录代理流水
+                            Account agentAccount = new Account();
+                            agentAccount.setAccountNo(IdUtil.getSnowflakeNextIdStr());
+                            agentAccount.setUserName(userAgent.getUserName());
+                            agentAccount.setOptAmount(agentCommission);
+                            agentAccount.setType(1);
+                            agentAccount.setOptType(5);
+                            agentAccount.setUserAgent(userAgent.getUserAgent());
+                            agentAccount.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentAccount.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentAccount.setRefNo(order.getOrderNo());
+                            agentAccount.setOptTime(now);
+                            agentAccount.setRemark("下级返点");
+                            accounts.add(agentAccount);
+                            // 记录代理报表
+                            DayReport agentDayReport = new DayReport();
+                            agentDayReport.setUserName(userAgent.getUserName());
+                            agentDayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                            agentDayReport.setIncome(agentCommission);
+                            agentDayReport.setUserAgent(userAgent.getUserAgent());
+                            agentDayReport.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentDayReport.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentDayReport.setCreateTime(now);
+                            agentDayReport.setUpdateTime(now);
+                            dayReports.add(agentDayReport);
+                        }
+                    }
+                    userService.batchUpdateReport(users);
+                    accountService.saveBatch(accounts);
+                    dayReportService.batchInsertOrUpdate(dayReports);
+
+                    JSONObject object = new JSONObject();
+                    object.put("orderNo", "");
+                    return R.ok("加急单完成,可以继续抢单").put("data", object);
+                } else {
+                    // 还有预派送订单 扣除用户余额 累计冻结金额 修改订单状态为冻结
+
+                    // 计算佣金
+                    BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
+                    // 累计冻结余额
+                    BigDecimal freezeBalance = NumberUtil.add(order.getOrderAmount(), commission);
+                    List<User> users = new ArrayList<>();
+                    User userReport = new User();
+                    userReport.setUserName(user.getUserName());
+                    userReport.setBalance(order.getOrderAmount().negate());
+                    userReport.setFreezeBalance(freezeBalance);
+                    userReport.setBet(order.getOrderAmount());
+                    userReport.setIncome(commission);
+                    users.add(userReport);
+
+                    // 修改订单状态为冻结状态
+                    orderService.update(
+                            new UpdateWrapper<Order>().lambda()
+                                    .eq(Order::getId, order.getId())
+                                    .set(Order::getStatus, 2)
+                                    .set(Order::getPayTime, now)
+                    );
+                    // 修改预派送订单状态
+                    prepareService.update(
+                            new UpdateWrapper<Prepare>().lambda()
+                                    .eq(Prepare::getId, order.getPreId())
+                                    .set(Prepare::getStatus, 1)
+                                    .set(Prepare::getUpdateTime, now)
+                    );
+
+                    // 计算报表
+                    List<DayReport> dayReports = new ArrayList<>();
+                    DayReport dayReport = new DayReport();
+                    dayReport.setUserName(user.getUserName());
+                    dayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                    dayReport.setBet(order.getOrderAmount());
+                    dayReport.setCommission(commission);
+                    dayReport.setIncome(commission);
+                    dayReport.setUserAgent(user.getUserAgent());
+                    dayReport.setUserAgentNode(user.getUserAgentNode());
+                    dayReport.setUserAgentLevel(user.getUserAgentLevel());
+                    dayReport.setCreateTime(now);
+                    dayReport.setUpdateTime(now);
+                    dayReports.add(dayReport);
+
+                    List<Account> accounts = new ArrayList<>();
+                    // 佣金流水
+                    String accountNo1 = IdUtil.getSnowflakeNextIdStr();
+                    Account account1 = new Account();
+                    account1.setAccountNo(accountNo1);
+                    account1.setUserName(user.getUserName());
+                    account1.setOptAmount(commission);
+                    account1.setType(1);
+                    account1.setOptType(4);
+                    account1.setUserAgent(user.getUserAgent());
+                    account1.setUserAgentNode(user.getUserAgentNode());
+                    account1.setUserAgentLevel(user.getUserAgentLevel());
+                    account1.setRefNo(order.getOrderNo());
+                    account1.setOptTime(now);
+                    account1.setRemark("订单佣金:[" + order.getOrderNo() +"]");
+                    accounts.add(account1);
+                    // 计算上级返佣以及报表
+                    if (user.getUserAgentLevel().intValue() > 0) {
+                        // 层级返点比例
+                        Map<Integer, BigDecimal> rateMap = new HashMap<>();
+                        rateMap.put(1, NumberUtil.div(new BigDecimal(paramsMap.get("agent_1_rate")), 100));
+                        rateMap.put(2, NumberUtil.div(new BigDecimal(paramsMap.get("agent_2_rate")), 100));
+                        rateMap.put(3, NumberUtil.div(new BigDecimal(paramsMap.get("agent_3_rate")), 100));
+                        // 获取当前用户的前三级
+                        List<User> userAgents = getUserAgents(user.getUserAgentNode());
+                        for (int i = 0; i < userAgents.size(); i++) {
+                            User userAgent = userAgents.get(i);
+                            // 获取返点比例
+                            BigDecimal rate = rateMap.get(i + 1);
+                            // 计算返点
+                            BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            // 上级代理加钱
+                            User userReport1 = new User();
+                            userReport1.setUserName(userAgent.getUserName());
+                            userReport1.setBalance(agentCommission);
+                            userReport1.setIncome(agentCommission);
+                            users.add(userReport1);
+                            // 记录代理流水
+                            Account agentAccount = new Account();
+                            agentAccount.setAccountNo(IdUtil.getSnowflakeNextIdStr());
+                            agentAccount.setUserName(userAgent.getUserName());
+                            agentAccount.setOptAmount(agentCommission);
+                            agentAccount.setType(1);
+                            agentAccount.setOptType(5);
+                            agentAccount.setUserAgent(userAgent.getUserAgent());
+                            agentAccount.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentAccount.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentAccount.setRefNo(order.getOrderNo());
+                            agentAccount.setOptTime(now);
+                            agentAccount.setRemark("下级返点");
+                            accounts.add(agentAccount);
+                            // 记录代理报表
+                            DayReport agentDayReport = new DayReport();
+                            agentDayReport.setUserName(userAgent.getUserName());
+                            agentDayReport.setToday(DateUtil.formatDate(order.getOrderTime()));
+                            agentDayReport.setIncome(agentCommission);
+                            agentDayReport.setUserAgent(userAgent.getUserAgent());
+                            agentDayReport.setUserAgentNode(userAgent.getUserAgentNode());
+                            agentDayReport.setUserAgentLevel(userAgent.getUserAgentLevel());
+                            agentDayReport.setCreateTime(now);
+                            agentDayReport.setUpdateTime(now);
+                            dayReports.add(agentDayReport);
+                        }
+                    }
+                    userService.batchUpdateReport(users);
+                    accountService.saveBatch(accounts);
+                    dayReportService.batchInsertOrUpdate(dayReports);
+                    // 累计今日订单
+                    // incOrderCount(user.getUserName(), now);
+
+                    // 添加一个新的预派送订单
+                    // Goods goods = goodsService.getById(prePare.getGoodsId());
+                    String orderNo = IdUtil.getSnowflakeNextIdStr();
+                    Order newOrder = new Order();
+                    // 预派送订单
+                    Goods goods = goodsService.getById(prePare.getGoodsId());
+                    newOrder.setOrderNo(orderNo);
+                    newOrder.setUserName(user.getUserName());
+                    newOrder.setNickName(user.getNickName());
+                    newOrder.setGoodsId(prePare.getGoodsId());
+                    newOrder.setGoodsPrice(goods.getGoodsPrice());
+                    newOrder.setGoodsCount(prePare.getGoodsCount());
+                    newOrder.setOrderAmount(NumberUtil.mul(newOrder.getGoodsPrice(), newOrder.getGoodsCount()));
+                    newOrder.setCommissionRate(user.getLevel().getCommissionRate());
+                    newOrder.setCommissionMul(prePare.getCommissionMul());
+                    newOrder.setCommission(NumberUtil.mul(newOrder.getCommissionMul(), newOrder.getOrderAmount(), NumberUtil.div(newOrder.getCommissionRate(), 100)));
+                    newOrder.setStatus(0);
+                    newOrder.setOrderTime(now);
+                    newOrder.setPayTime(null);
+                    newOrder.setPreId(prePare.getId());
+                    newOrder.setPreDetailId(0);
+                    newOrder.setCountNum(prePare.getTriggerNum());
+                    newOrder.setOrderType(0);
+                    newOrder.setPreBatch(prePare.getPreBatch());
+                    newOrder.setAreaId(order.getAreaId());
+                    newOrder.setPromptText(prePare.getPromptText());
+                    orderService.save(newOrder);
+
+                    // 累计今日订单
+                    incOrderCount(user.getUserName(), now);
+                    JSONObject object = new JSONObject();
+                    object.put("orderNo", newOrder.getOrderNo());
+                    return R.ok("订单提交成功,下一单继续提交").put("data", object);
                 }
+            } else {
+                // 余额不足
+                BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
+                // 修改解冻金额为0,将冻结金额累积到用户金额,累计佣金
+                String sql = StrUtil.format("balance = balance - {},freeze_balance = freeze_balance + {}", order.getOrderAmount(), NumberUtil.add(order.getOrderAmount(), commission));
+                userService.update(new UpdateWrapper<User>()
+                        .setSql(sql)
+                        .eq("user_name", order.getUserName())
+                );
+                // 修改订单为未完成支付状态
+                orderService.update(
+                        new UpdateWrapper<Order>().lambda()
+                                .eq(Order::getPreBatch, order.getPreBatch())
+                                .eq(Order::getStatus, 0)
+                                .set(Order::getStatus, 4)
+                );
+                return R.error("尊敬的会员,恭喜您获得系统随机派送的高额加急单,您的余额不足,请您联系客服充值后尽快完成任务!!");
             }
-            userService.batchUpdateReport(users);
-            accountService.saveBatch(accounts);
-            dayReportService.batchInsertOrUpdate(dayReports);
-            // 累计今日订单
-//            incOrderCount(user.getUserName(), now);
-
-            // 添加一个新的预派送订单
-            // Goods goods = goodsService.getById(prePare.getGoodsId());
-            String orderNo = IdUtil.getSnowflakeNextIdStr();
-            Order newOrder = new Order();
-            // 预派送订单
-            newOrder.setOrderNo(orderNo);
-            newOrder.setUserName(user.getUserName());
-            newOrder.setNickName(user.getNickName());
-            newOrder.setGoodsId(prePare.getGoodsId());
-            newOrder.setGoodsPrice(prePare.getOrderAmount());
-            newOrder.setGoodsCount(prePare.getGoodsCount());
-            newOrder.setOrderAmount(NumberUtil.mul(newOrder.getGoodsPrice(), newOrder.getGoodsCount()));
-            newOrder.setCommissionRate(user.getLevel().getCommissionRate());
-            newOrder.setCommissionMul(prePare.getCommissionMul());
-            newOrder.setCommission(NumberUtil.mul(newOrder.getCommissionMul(), newOrder.getOrderAmount(), NumberUtil.div(newOrder.getCommissionRate(), 100)));
-            newOrder.setStatus(0);
-            newOrder.setOrderTime(now);
-            newOrder.setPayTime(null);
-            newOrder.setPreId(prePare.getId());
-            newOrder.setPreDetailId(0);
-            newOrder.setCountNum(prePare.getTriggerNum());
-            newOrder.setOrderType(0);
-            newOrder.setPreBatch(prePare.getPreBatch());
-            newOrder.setAreaId(order.getAreaId());
-            orderService.save(newOrder);
-
-            // 累计今日订单
-            incOrderCount(user.getUserName(), now);
-            JSONObject object = new JSONObject();
-            object.put("orderNo", newOrder.getOrderNo());
-            return R.ok("订单提交成功,下一单继续提交").put("data", object);
         }
+        return R.error("订单已完成");
     }
 
     /**
@@ -741,6 +1033,64 @@ public class OrderController {
         JSONObject object = new JSONObject();
         object.put("orderNo", "");
         return R.ok("订单提交成功").put("data", object);
+    }
+
+    @ApiOperation(value = "订单详情")
+    @GetMapping("/detail/{orderNo}")
+    public R detail(HttpServletRequest httpServletRequest,@PathVariable(value = "orderNo") String orderNo) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        Order order = orderService.getOne(
+                new LambdaQueryWrapper<Order>()
+                        .eq(Order::getOrderNo, orderNo)
+                        .eq(Order::getUserName, userName)
+        );
+        if (order == null) {
+            return R.error("无效订单号");
+        }
+
+        User user = userService.getUserByName(userName);
+
+        Map<String, String> paramsMap = paramterService.getAllParamByMap();
+
+        JSONObject object = new JSONObject();
+        object.put("orderNo", order.getOrderNo());
+        object.put("orderTime", order.getOrderTime());
+        object.put("orderType", order.getOrderType());
+        object.put("orderAmount", order.getOrderAmount().stripTrailingZeros());
+        object.put("countNum", order.getCountNum());
+        object.put("promptText", order.getPromptText());
+        object.put("commission", order.getCommission().stripTrailingZeros());
+        object.put("commissionMul", order.getCommissionMul());
+
+        Goods goods = goodsService.getById(order.getGoodsId());
+
+        String resourceDomain = paramsMap.get("resource_domain");
+        object.put("goodsName", goods == null ? "" : goods.getGoodsName());
+        object.put("goodsImg", goods == null ? "" : resourceDomain + goods.getGoodsImg());
+        object.put("goodsPrice", order.getGoodsPrice());
+        object.put("goodsCount", order.getGoodsCount());
+        object.put("forecastReturn", NumberUtil.add(order.getOrderAmount(), order.getCommission()).stripTrailingZeros());
+        object.put("orderStatus", order.getStatus());
+        if (order.getStatus().intValue() == 4) {
+            object.put("orderStatus", 0);
+        }
+        // 余额
+        BigDecimal balanceSub = new BigDecimal(0);
+        if (order.getOrderType().intValue() == 1) {
+            // 普通订单
+            if (user.getBalance().doubleValue() < order.getOrderAmount().doubleValue()) {
+                balanceSub = NumberUtil.sub(user.getBalance(), order.getOrderAmount()).stripTrailingZeros();
+            }
+        } else {
+            if (order.getStatus().intValue() == 4) {
+                if (user.getBalance().doubleValue() < 0) {
+                    balanceSub = user.getBalance();
+                }
+            }
+        }
+        object.put("balanceSub", balanceSub);
+        return R.ok().put("data", object);
     }
 
     /**
