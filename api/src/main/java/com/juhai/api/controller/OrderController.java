@@ -230,6 +230,8 @@ public class OrderController {
         }
 
         orderService.save(order);
+        // 累计今日订单
+        incOrderCount(user.getUserName(), now);
 
         object.put("orderNo", order.getOrderNo());
         return R.ok("抢单成功!").put("data", object);
@@ -481,7 +483,7 @@ public class OrderController {
             accountService.saveBatch(accounts);
             dayReportService.batchInsertOrUpdate(dayReports);
             // 累计今日订单
-            incOrderCount(user.getUserName(), now);
+//            incOrderCount(user.getUserName(), now);
 
             JSONObject object = new JSONObject();
             object.put("orderNo", "");
@@ -585,7 +587,7 @@ public class OrderController {
             accountService.saveBatch(accounts);
             dayReportService.batchInsertOrUpdate(dayReports);
             // 累计今日订单
-            incOrderCount(user.getUserName(), now);
+//            incOrderCount(user.getUserName(), now);
 
             // 添加一个新的预派送订单
             // Goods goods = goodsService.getById(prePare.getGoodsId());
@@ -613,6 +615,8 @@ public class OrderController {
             newOrder.setAreaId(order.getAreaId());
             orderService.save(newOrder);
 
+            // 累计今日订单
+            incOrderCount(user.getUserName(), now);
             JSONObject object = new JSONObject();
             object.put("orderNo", newOrder.getOrderNo());
             return R.ok("订单提交成功,下一单继续提交").put("data", object);
@@ -732,7 +736,7 @@ public class OrderController {
         accountService.saveBatch(accounts);
         dayReportService.batchInsertOrUpdate(dayReports);
         // 累计今日订单
-        incOrderCount(user.getUserName(), now);
+//        incOrderCount(user.getUserName(), now);
 
         JSONObject object = new JSONObject();
         object.put("orderNo", "");
