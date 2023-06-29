@@ -27,13 +27,8 @@ const PATH_URL =
   process.env.NODE_ENV === "development"
     ? // ? "http://8.222.224.10:9544/" //本地环境
       "http://sdqt.juhai.xyz/sd-qtapi-test/" //测试环境
-<<<<<<< HEAD
-    // : "http://sdqtapi.juhai.xyz/"; //杨杨a1开发环境
-    : "/sd-qtapi-test/"; //杨杨a1开发环境
-=======
     : // : "http://sdqtapi.juhai.xyz/"; //杨杨a1开发环境
       "/sd-qtapi-test/"; //杨杨a1开发环境
->>>>>>> 8aaa0bcb78cb73525a4c535467dc0cd93c4eab22
 
 export const upload = (params) => {
   let header = {
