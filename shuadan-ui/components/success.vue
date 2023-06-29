@@ -34,7 +34,7 @@
                     </view>
                   </view>
                 </view>
-                <view class="redb" v-if="items.balanceSub <= 0">
+                <view class="redb" v-if="items.balanceSub < 0">
                   可用余额不足，还需充值{{ items.balanceSub }}
                 </view>
                 <view class="ul">

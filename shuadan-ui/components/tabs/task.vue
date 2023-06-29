@@ -83,7 +83,7 @@
       <view class="item">
         <view class="txt">账户冻结金额</view>
         <view class="moeny">
-          <template v-if="infos.freezeBalance">+</template>
+          <template v-if="infos.freezeBalance"></template>
           {{ infos.freezeBalance }}
         </view>
       </view>
@@ -219,7 +219,7 @@ export default {
       } else if (val >= 100000) {
         return parseInt(val / 100000) + "万+";
       } else {
-        return "+" + val;
+        return "" + val;
       }
     },
   },
