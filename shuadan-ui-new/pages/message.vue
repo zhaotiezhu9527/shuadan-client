@@ -6,11 +6,11 @@
       autoBack
       title="信息公告"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
+      bgColor="#F2F2F2"
+      height="100rpx"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>
@@ -58,6 +58,8 @@ export default {
 
 <style scoped lang="scss">
 .main {
+  min-height: calc(100vh - 100rpx);
+  background-color: #f0f0f0;
   .head {
     width: 100%;
     height: 372rpx;
@@ -70,7 +72,6 @@ export default {
   }
   .content {
     position: relative;
-    background-color: #f8f4f4;
     padding: 56rpx 30rpx;
     margin: -40rpx auto 0 auto;
 
@@ -86,7 +87,7 @@ export default {
       box-shadow: 0 3rpx 5rpx rgba(0, 0, 0, 0.1);
       margin-bottom: 18rpx;
       .icon-img {
-        width: 40rpx;
+        width: 4rpx;
         height: 40rpx;
         margin-right: 20rpx;
       }
@@ -121,7 +122,7 @@ export default {
       .details {
         font-size: 24rpx;
       }
-      .time{
+      .time {
         text-align: right;
         color: #999;
       }

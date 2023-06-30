@@ -1,23 +1,27 @@
 <template>
   <view class="main">
+    <image class="login" src="@/static/img/login.png" />
     <view class="title">
       <view class="sub">全民任务</view>
-      <view class="name">用户登录</view>
+      <view class="name">账号密码登录</view>
     </view>
     <view class="form">
+      <view class="tabs">
+        <view class="active">密码登录</view>
+        <view @click="nopass('/pages/register')">账户注册</view>
+      </view>
       <view class="input">
+        <view class="label">账号</view>
         <u-input
           border="bottom"
           placeholder="请输入账户"
           placeholderClass="placeholder"
           v-model="userName"
         >
-          <view class="icon" slot="prefix">
-            <image mode="widthFix" src="@/static/img/icon01.png" />
-          </view>
         </u-input>
       </view>
       <view class="input">
+        <view class="label">密码</view>
         <u-input
           border="bottom"
           placeholder="请输入密码"
@@ -26,9 +30,6 @@
           v-show="passicon1"
           v-model="loginPwd"
         >
-          <view class="icon" slot="prefix">
-            <image mode="widthFix" src="@/static/img/icon02.png" />
-          </view>
           <view slot="suffix" @click="pwdChange">
             <u-icon name="eye" color="#666" size="46rpx"></u-icon>
           </view>
@@ -40,24 +41,20 @@
           v-model="loginPwd"
           v-show="!passicon1"
         >
-          <view class="icon" slot="prefix">
-            <image mode="widthFix" src="@/static/img/icon02.png" />
-          </view>
           <view slot="suffix" @click="pwdChange">
             <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
           </view>
         </u-input>
       </view>
-      <u-button
-        class="button"
-        @click="login"
-        text="登录"
-        color="#2f3848"
-        :loading="loading"
-      ></u-button>
-      <view class="other">
-        <view @click="nopass('/pages/onlineService')">忘记密码</view>
-        <view @click="nopass('/pages/register')">免费注册</view>
+      <view class="btn">
+        <u-button
+          class="button"
+          @click="login"
+          text="立即登录"
+          color="linear-gradient(180deg, #FFAD49 0%, #FFC861 99%)"
+          :loading="loading"
+          shape="circle"
+        ></u-button>
       </view>
     </view>
     <service />
@@ -120,49 +117,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-repeat: no-repeat;
-  background: url("@/static/img/login-bg1.png");
-  background-size: 100% auto;
-  padding-top: var(--status-bar-height);
-  .title {
-    padding: 154rpx 80rpx 140rpx;
-    .sub {
-      font-size: 34rpx;
-    }
-    .name {
-      font-size: 50rpx;
-    }
-  }
-  .form {
-    padding: 0 80rpx;
-    .input {
-      padding-bottom: 60rpx;
-      .icon {
-        padding-right: 20rpx;
-        border-right: 2rpx solid #ccc;
-      }
-      image {
-        width: 42rpx;
-        max-height: 48rpx;
-      }
-    }
-    .placeholder {
-      color: #666 !important;
-      font-size: 30rpx;
-    }
-    .other {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 20rpx;
-    }
-  }
-  /deep/.button .u-button__text {
-    color: #f2d8be;
-  }
-}
+@import "@/static/login.scss";
 </style>

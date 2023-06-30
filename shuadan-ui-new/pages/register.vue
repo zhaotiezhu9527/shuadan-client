@@ -1,138 +1,127 @@
 <template>
-  <view>
-    <u-navbar
-      placeholder
-      :border="false"
-      autoBack
-      title="注册"
-      fixed
-      safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
-      titleStyle="color:#000;font-weight:500;font-size:32rpx;"
-    >
-      <template #left>
-        <u-icon name="close" size="40rpx"></u-icon>
-      </template>
-    </u-navbar>
-    <view class="mainstyle">
-      <view class="main">
-        <view class="input">
-          <text>昵称</text>
-          <u-input
-            shape="circle"
-            placeholder="请输入您的中文昵称"
-            border="surround"
-            placeholderClass="placeholder"
-            v-model="nickName"
-          ></u-input>
-        </view>
-        <view class="input">
-          <text>账号</text>
-          <u-input
-            shape="circle"
-            placeholder="请输入字母加数字"
-            border="surround"
-            placeholderClass="placeholder"
-            v-model="userName"
-          ></u-input>
-        </view>
-        <view class="input">
-          <text>密码</text>
-          <u-input
-            shape="circle"
-            placeholder="请输入密码"
-            border="surround"
-            placeholderClass="placeholder"
-            v-model="loginPwd"
-            v-show="passicon1"
-            password
-          >
-            <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+  <view class="main">
+    <image class="login" src="@/static/img/login.png" />
+    <view class="title">
+      <view class="sub">全民任务</view>
+      <view class="name">账号密码登录</view>
+    </view>
+    <view class="form">
+      <view class="tabs">
+        <view @click="roeute">密码登录</view>
+        <view class="active">账户注册</view>
+      </view>
+      <view class="input">
+        <view class="label">昵称</view>
+        <u-input
+          shape="circle"
+          placeholder="请输入您的中文昵称"
+          border="none"
+          placeholderClass="placeholder"
+          v-model="nickName"
+        ></u-input>
+      </view>
+      <view class="input">
+        <view class="label">账号</view>
+        <u-input
+          shape="circle"
+          placeholder="请输入字母加数字"
+          border="none"
+          placeholderClass="placeholder"
+          v-model="userName"
+        ></u-input>
+      </view>
+      <view class="input">
+        <view class="label">密码</view>
+
+        <u-input
+          shape="circle"
+          placeholder="请输入密码"
+          border="none"
+          placeholderClass="placeholder"
+          v-model="loginPwd"
+          v-show="passicon1"
+          password
+        >
+          <view slot="suffix" @click="pwdChange">
+            <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+          </view>
+        </u-input>
+        <u-input
+          shape="circle"
+          placeholder="请输入密码"
+          border="none"
+          placeholderClass="placeholder"
+          v-model="loginPwd"
+          v-show="!passicon1"
+        >
+          <view slot="suffix" @click="pwdChange">
+            <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
+          </view>
+        </u-input>
+      </view>
+      <view class="input">
+        <view class="label">交易密码</view>
+        <u-input
+          shape="circle"
+          placeholder="请输入交易密码"
+          border="none"
+          placeholderClass="placeholder"
+          v-model="payPwd"
+          password
+          v-show="passicon2"
+        >
+          <view slot="suffix" @click="payPwdChange">
+            <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+          </view>
+        </u-input>
+        <u-input
+          shape="circle"
+          placeholder="请输入交易密码"
+          border="none"
+          placeholderClass="placeholder"
+          v-model="payPwd"
+          v-show="!passicon2"
+        >
+          <view slot="suffix" @click="payPwdChange">
+            <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
+          </view>
+        </u-input>
+      </view>
+      <view class="input">
+        <view class="label">推荐码</view>
+        <u-input
+          shape="circle"
+          placeholder="请输入推荐码"
+          border="none"
+          placeholderClass="placeholder"
+          v-model="inviteCode"
+        ></u-input>
+      </view>
+      <view class="other">
+        <u-radio-group v-model="radio">
+          <u-radio name="1" activeColor="#FFAD49" size="30rpx">
+            <view class="agr">
+              我已知晓并同意
+              <text>“开户协议”</text>
+              各项条约
             </view>
-          </u-input>
-          <u-input
-            shape="circle"
-            placeholder="请输入密码"
-            border="surround"
-            placeholderClass="placeholder"
-            v-model="loginPwd"
-            v-show="!passicon1"
-          >
-            <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
-            </view>
-          </u-input>
-        </view>
-        <view class="input">
-          <text>交易密码</text>
-          <u-input
-            shape="circle"
-            placeholder="请输入交易密码"
-            border="surround"
-            placeholderClass="placeholder"
-            v-model="payPwd"
-            password
-            v-show="passicon2"
-          >
-            <view slot="suffix" @click="payPwdChange">
-              <u-icon name="eye" color="#666" size="46rpx"></u-icon>
-            </view>
-          </u-input>
-          <u-input
-            shape="circle"
-            placeholder="请输入交易密码"
-            border="surround"
-            placeholderClass="placeholder"
-            v-model="payPwd"
-            v-show="!passicon2"
-          >
-            <view slot="suffix" @click="payPwdChange">
-              <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
-            </view>
-          </u-input>
-        </view>
-        <view class="input">
-          <text>推荐码</text>
-          <u-input
-            shape="circle"
-            placeholder="请输入推荐码"
-            border="surround"
-            placeholderClass="placeholder"
-            v-model="inviteCode"
-          ></u-input>
-        </view>
-        <view class="other">
-          <u-radio-group v-model="radio">
-            <u-radio name="1" activeColor="red" size="30rpx">
-              <view>
-                我已知晓并同意
-                <text>“开户协议”</text>
-                各项条约
-              </view>
-            </u-radio>
-          </u-radio-group>
-        </view>
-        <view class="btn">
-          <u-button
-            shape="circle"
-            type="primary"
-            color="#ec0022"
-            text="注册"
-            hairline
-            :loading="loading"
-            @click="login"
-          ></u-button>
-          <u-button
-            @click="roeute"
-            hairline
-            shape="circle"
-            type="primary"
-            color="#ffffff"
-            text="已有帐号，马上下载"
-            plain
-          ></u-button>
+          </u-radio>
+        </u-radio-group>
+      </view>
+      <view class="btn">
+        <u-button
+          class="button"
+          @click="login"
+          text="注册"
+          color="linear-gradient(180deg, #FFAD49 0%, #FFC861 99%)"
+          :loading="loading"
+          shape="circle"
+        ></u-button>
+      </view>
+      <view class="registerStyle">
+        <view class="register" @click="roeute">
+          已有账号，马上下载
+          <image class="img" src="@/static/img/loginRjiantou.png" />
         </view>
       </view>
     </view>
@@ -216,55 +205,45 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.mainstyle {
-  padding-top: 40rpx;
-  .main {
-    width: 90%;
-    margin: 0 auto;
-    box-shadow: 0 0 20rpx 10rpx #dfdfdf;
-    border-radius: 20rpx;
-    padding: 30rpx;
-  }
-  .input {
-    padding-bottom: 30rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text {
-      width: 140rpx;
-      text-align: center;
-    }
-    .placeholder {
-      color: #666 !important;
-      font-size: 28rpx;
-    }
-    .u-input {
-      padding-left: 30rpx !important;
-      border-color: #eee !important;
-    }
-  }
-  .other {
-    display: flex;
-    align-items: center;
-    text,
-    view {
-      font-size: 24rpx;
-    }
-    text {
-      color: red;
-    }
+@import "@/static/login.scss";
+.input {
+  display: flex;
+  align-items: center;
+  .label {
+    font-size: 32rpx !important;
+    font-weight: 500;
+    color: #333333;
+    width: 144rpx;
+    text-align: justify;
+    text-align-last: justify;
+    padding-bottom: 0 !important;
   }
 }
-.u-button {
-  margin-top: 40rpx;
-  &:nth-child(1) /deep/.u-button__text {
-    color: #fff;
+.main .form .u-input {
+  background-color: #f2f2f2;
+  padding: 20rpx 40rpx !important;
+  margin-left: 20rpx;
+}
+.other {
+  margin-bottom: 40rpx;
+  .agr {
+    color: #999;
   }
-  &:nth-child(2) {
-    border-color: #ec0022 !important;
-    /deep/.u-button__text {
-      color: #ec0022;
-    }
+}
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffa23f;
+  font-size: 36rpx;
+  .img {
+    width: 48rpx;
+    height: 48rpx;
   }
+}
+.registerStyle {
+  padding: 30rpx 0;
+  padding-bottom: calc(constant(safe-area-inset-bottom) + 30rpx);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 30rpx);
 }
 </style>

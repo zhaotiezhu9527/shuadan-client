@@ -6,10 +6,12 @@
       autoBack
       title="充值记录"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
-      height="50px"
+      class="linear"
+      bgColor="transparent"
+      height="100rpx"
       titleStyle="color:#464646;font-weight:500;font-size:32rpx;"
       :background="background"
     >
@@ -20,19 +22,23 @@
         <view class="tab">线上充值</view>
       </view> -->
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
-        <u-list-item v-for="(item, index) in list" :key="index" class="content-item">
+        <u-list-item
+          v-for="(item, index) in list"
+          :key="index"
+          class="content-item"
+        >
           <view class="content">
             <text class="color666">{{ item.time }}</text>
             <view class="item-list">
-              <image
-                class="list-img"
-                src="@/static/img/congzhiList.png"
-              />
+              <image class="list-img" src="@/static/img/congzhiList.png" />
               <view>
-                <view class="table-money"> 充值金额
+                <view class="table-money">
+                  充值金额
                   <text class="money-right">{{ item.amount }}</text>
                 </view>
-                <view class="table-title color666"> 订单号：{{ item.orderNo }} </view>
+                <view class="table-title color666">
+                  订单号：{{ item.orderNo }}
+                </view>
               </view>
             </view>
             <text class="status">
@@ -67,15 +73,15 @@ export default {
       page: 0,
       background: {
         // backgroundColor: '#001f3f',
-        
+
         // 导航栏背景图
         // background: 'url(https://cdn.uviewui.com/uview/swiper/1.jpg) no-repeat',
         // 还可以设置背景图size属性
         // backgroundSize: 'cover',
-        
+
         // 渐变色
-        backgroundImage: 'linear-gradient(47deg, #F8A057 0%, #FFC860 100%);'
-      }
+        backgroundImage: "linear-gradient(47deg, #F8A057 0%, #FFC860 100%);",
+      },
     };
   },
   onLoad() {
@@ -114,7 +120,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main{
+.main {
   width: 92%;
   margin: auto;
 }
@@ -142,27 +148,27 @@ export default {
     }
   }
 }
-.content-item{
+.content-item {
   border-radius: 10px;
   opacity: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 14px 20px;
   position: relative;
   margin: 20rpx 0;
 }
 .content {
   font-size: 28rpx;
-  .status{
+  .status {
     position: absolute;
     right: 10%;
     top: 10%;
     font-size: 36rpx;
     font-weight: 500;
   }
-  .item-list{
+  .item-list {
     display: flex;
     padding-top: 40rpx;
-    .list-img{
+    .list-img {
       width: 90rpx;
       height: 90rpx;
       margin-right: 20rpx;
@@ -180,13 +186,13 @@ export default {
   .red-text {
     color: #dd524d;
   }
-  .money-right{
+  .money-right {
     position: absolute;
     right: 10%;
     top: 43%;
     font-size: 36rpx;
     font-weight: 500;
-    color: #DE2511;
+    color: #de2511;
   }
 }
 </style>

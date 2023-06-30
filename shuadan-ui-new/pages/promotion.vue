@@ -6,11 +6,12 @@
       autoBack
       title="我要分享"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
+      class="linear"
+      bgColor="transparent"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
+      height="100rpx"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>
@@ -27,7 +28,11 @@
         <view class="txt">邀请码:{{ infos.inviteCode }}</view>
       </view>
       <view style="padding-top: 40rpx">
-        <u-button color="#89bfdb" text="邀请好友" @click="change"></u-button>
+        <u-button
+          color="linear-gradient(180deg, #FFAD49 0%, #FFC861 99%)"
+          text="邀请好友"
+          @click="change"
+        ></u-button>
       </view>
     </view>
   </view>
@@ -72,7 +77,12 @@ export default {
 <style lang="scss" scoped>
 .main {
   height: 100vh;
-  background: linear-gradient(1turn, #d5dde8, #c9d1dd);
+  background: linear-gradient(
+    180deg,
+    rgba(254, 233, 218, 0.3) -4%,
+    rgba(254, 233, 218, 0.3) 52%,
+    rgba(255, 255, 255, 0) 130%
+  );
   .boxStyle {
     padding: 100rpx 30rpx 0;
   }

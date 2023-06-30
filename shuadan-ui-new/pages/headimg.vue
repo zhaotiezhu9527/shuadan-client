@@ -6,22 +6,28 @@
       autoBack
       title="头像设置"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
+      class="linear2"
+      bgColor="transparent"
+      height="100rpx"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
       <view class="head">
-        <image class="head-img" :src="avatarUrl"/>
+        <image class="head-img" :src="avatarUrl" />
         <view class="btn" @click="postHead">保存</view>
       </view>
       <view class="content">
-        <view class="item" v-for="(item,index) in list" :key="index" @click="changeAvatar(item)">
-          <image class="item-img" :src="item.url"/>
+        <view
+          class="item"
+          v-for="(item, index) in list"
+          :key="index"
+          @click="changeAvatar(item)"
+        >
+          <image class="item-img" :src="item.url" />
         </view>
       </view>
     </view>
@@ -32,14 +38,14 @@
 export default {
   data() {
     return {
-      avatarUrl: "",//用户头像
-      avatarId:'',//头像id
-      list: [],//系统头像列表
+      avatarUrl: "", //用户头像
+      avatarId: "", //头像id
+      list: [], //系统头像列表
     };
   },
   onShow() {
-    this.getInfo()
-    this.getAvatarList()
+    this.getInfo();
+    this.getAvatarList();
   },
   methods: {
     //用户列表数据
@@ -60,8 +66,8 @@ export default {
     },
     //选取头像
     changeAvatar(data) {
-      this.avatarUrl = data.url
-      this.avatarId = data.id
+      this.avatarUrl = data.url;
+      this.avatarId = data.id;
     },
     //设置头像
     postHead() {
@@ -72,50 +78,53 @@ export default {
         .avatar_set(DATA_OBJ)
         .then((res) => {
           if (res.data.code == 0) {
-            this.$base.show(res.data.msg)
+            this.$base.show(res.data.msg);
           }
         })
-        .finally(() => {
-        });
+        .finally(() => {});
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.head{
+.head {
   width: 100%;
   height: 252rpx;
-  background: linear-gradient(180deg, rgba(254,233,218,0.30) -4%, rgba(254,233,218,0.30) 52%,
-  rgba(255,255,255,0.00) 130%);
+  background: linear-gradient(
+    180deg,
+    rgba(254, 233, 218, 0.3) -4%,
+    rgba(254, 233, 218, 0.3) 52%,
+    rgba(255, 255, 255, 0) 130%
+  );
   overflow: hidden;
   border-bottom: 20rpx solid #eee;
-  .head-img{
+  .head-img {
     display: block;
     width: 120rpx;
     height: 120rpx;
     margin: 30rpx auto 20rpx auto;
   }
-  .btn{
+  .btn {
     font-size: 30rpx;
     color: #fff;
-    background: #FFB550;
+    background: #ffb550;
     border-radius: 90rpx;
     width: 160rpx;
     text-align: center;
     margin: auto;
   }
 }
-.content{
+.content {
   width: 100%;
   background-color: #fff;
   overflow: hidden;
-  .item{
+  .item {
     width: 20%;
     padding: 18rpx;
     float: left;
   }
-  .item-img{
+  .item-img {
     display: block;
     width: 120rpx;
     height: 120rpx;

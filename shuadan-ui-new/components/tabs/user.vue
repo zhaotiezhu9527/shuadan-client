@@ -1,10 +1,7 @@
 <template>
   <view>
     <view class="main">
-      <image
-            class="top-bg"
-            src="@/static/img/topMask.png"
-          />
+      <image class="top-bg" src="@/static/img/topMask.png" />
       <!-- 头部 -->
       <view class="title">
         <view class="user">
@@ -14,11 +11,15 @@
           <view class="information">
             <view class="level">
               <view class="name">{{ userData.nickName }}</view>
-              <view class="code"> 邀请码: {{ userData.inviteCode }}  <label class="copy-text" @click="copy(userData.inviteCode)">复制</label></view>
+              <view class="code">
+                邀请码: {{ userData.inviteCode }}
+                <label class="copy-text" @click="copy(userData.inviteCode)"
+                  >复制</label
+                ></view
+              >
               <image class="level-img" :src="userData.levelIcon" />
               <label class="credit">信用分:{{ userData.creditValue }}</label>
             </view>
-            
           </view>
         </view>
         <view class="money">
@@ -34,10 +35,7 @@
           <view class="recharge" @click="goDeposit('/pages/recharge')"
             >充值</view
           >
-          <image
-            class="money-img"
-            src="@/static/img/Vector.png"
-          />
+          <image class="money-img" src="@/static/img/Vector.png" />
         </view>
       </view>
       <!-- 其他功能文字 -->
@@ -55,12 +53,8 @@
         </view>
       </view>
       <!-- 退出登陆 -->
-      <view class="logout" @click="loginoutShow = true">
-        退出登陆
-      </view>
-      <view class="bottom-bg">
-
-      </view>
+      <view class="logout" @click="loginoutShow = true"> 退出登陆 </view>
+      <view class="bottom-bg"> </view>
       <u-modal
         :show="loginoutShow"
         title="退出登陆"
@@ -84,11 +78,6 @@ export default {
       loading: false, //加载状态
       list: [
         {
-          label: "个人信息",
-          icon: "user.png",
-          url: "/pages/set",
-        },
-        {
           label: "抢单记录",
           icon: "rob.png",
           url: "/pages/index?tabs=1",
@@ -107,6 +96,11 @@ export default {
           label: "提现记录",
           icon: "withdrawal.png",
           url: "/pages/withdrawalRecords",
+        },
+        {
+          label: "个人信息",
+          icon: "user.png",
+          url: "/pages/set",
         },
         {
           label: "邀请好友",
@@ -188,16 +182,18 @@ export default {
       });
     },
     // 复制功能
-    copy(value){
+    copy(value) {
       uni.setClipboardData({
-        data:value,//要被复制的内容
-        success:()=>{//复制成功的回调函数
-          uni.showToast({//提示
-            title:'复制成功'
-          })
-        }
+        data: value, //要被复制的内容
+        success: () => {
+          //复制成功的回调函数
+          uni.showToast({
+            //提示
+            title: "复制成功",
+          });
+        },
       });
-    }
+    },
   },
 };
 </script>
@@ -279,9 +275,9 @@ export default {
         margin-top: 14rpx;
         font-size: 26rpx;
         color: #434343;
-        .copy-text{
+        .copy-text {
           font-size: 24rpx;
-          color: #FFB24E;
+          color: #ffb24e;
           padding-left: 8px;
         }
       }
@@ -290,7 +286,7 @@ export default {
   .money {
     width: 680rpx;
     height: 200rpx;
-    background: linear-gradient(255deg, #FFD86F 1%, #FFA23F 97%);
+    background: linear-gradient(255deg, #ffd86f 1%, #ffa23f 97%);
     border-radius: 20rpx;
     position: relative;
     margin: 54rpx auto auto;
@@ -316,11 +312,11 @@ export default {
       height: 66rpx;
       text-align: center;
       line-height: 66rpx;
-      background: #FFFFFF;
+      background: #ffffff;
       box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.16);
       font-size: 36rpx;
       font-weight: 500;
-      color: #F78944;
+      color: #f78944;
       border-radius: 33rpx;
       margin: 20rpx 0 0 32rpx;
     }
@@ -330,21 +326,21 @@ export default {
       height: 66rpx;
       text-align: center;
       line-height: 66rpx;
-      background: #FFFFFF;
+      background: #ffffff;
       box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.16);
       font-size: 36rpx;
       font-weight: 500;
-      color: #F78944;
+      color: #f78944;
       border-radius: 33rpx;
       margin: 20rpx 0 0 32rpx;
     }
-    .money-img{
+    .money-img {
       width: 180rpx;
       height: 180rpx;
       position: absolute;
       right: 0;
       bottom: -46%;
-      opacity: .3;
+      opacity: 0.3;
     }
   }
 }
@@ -377,15 +373,15 @@ export default {
   height: 66rpx;
   border-radius: 45rpx;
   opacity: 1;
-  background: #FFB550;
+  background: #ffb550;
   line-height: 66rpx;
   text-align: center;
   font-size: 36rpx;
   font-weight: 500;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 120rpx auto 0 auto;
 }
-.top-bg{
+.top-bg {
   position: fixed;
   left: -20%;
   top: -12%;
@@ -394,12 +390,12 @@ export default {
   opacity: 1;
   z-index: -1;
 }
-.other-text{
+.other-text {
   width: 680rpx;
   margin: auto;
   font-size: 32rpx;
 }
-.bottom-bg{
+.bottom-bg {
   position: fixed;
   border-radius: 100%;
   left: -40%;
@@ -409,7 +405,11 @@ export default {
   transform: rotate(151.42deg);
   opacity: 1;
   z-index: -1;
-  background: linear-gradient(222deg, #FEDFC9 8%, rgba(254, 224, 202, 0.21) 69%,
-   rgba(254, 224, 202, 0.21) 75%);
+  background: linear-gradient(
+    222deg,
+    #fedfc9 8%,
+    rgba(254, 224, 202, 0.21) 69%,
+    rgba(254, 224, 202, 0.21) 75%
+  );
 }
 </style>

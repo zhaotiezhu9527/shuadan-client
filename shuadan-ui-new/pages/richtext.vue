@@ -7,9 +7,10 @@
       :title="title"
       fixed
       safe-area-inset-top
-      bgColor="#fff"
-      leftIconColor="#666"
-      height="50px"
+      leftIconColor="#000"
+      class="linear"
+      bgColor="transparent"
+      height="100rpx"
       leftIconSize="32"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >

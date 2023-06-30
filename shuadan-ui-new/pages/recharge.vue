@@ -6,11 +6,12 @@
       autoBack
       title="充值"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
+      class="linear"
+      bgColor="transparent"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
+      height="100rpx"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>

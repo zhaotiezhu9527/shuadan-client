@@ -6,18 +6,19 @@
       autoBack
       title="交易密码管理"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
+      class="linear"
+      bgColor="transparent"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
+      height="100rpx"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
       <view class="title">请输入您的新密码</view>
       <view class="from-input">
-        <label>旧密码</label>
+        <label>旧密码：</label>
         <input
           type="number"
           v-model="oldPwd"
@@ -26,7 +27,7 @@
         />
       </view>
       <view class="from-input">
-        <label>新密码</label>
+        <label>新密码：</label>
         <input
           type="number"
           v-model="newPwd"
@@ -35,7 +36,7 @@
         />
       </view>
       <view class="from-input">
-        <label>确认密码</label>
+        <label>确认密码：</label>
         <input
           type="number"
           v-model="password"
@@ -44,9 +45,7 @@
         />
       </view>
       <view class="pour">请牢记密码,如忘记密码,请联系客服。</view>
-      <view class="btn" @click="submit">
-        确认修改
-      </view>
+      <view class="btn" @click="submit"> 确认修改 </view>
     </view>
   </view>
 </template>
@@ -93,22 +92,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.main {
+  background-color: #f2f2f2;
+  min-height: calc(100vh - 100rpx);
+}
 .title {
-  padding: 0 12rpx;
+  padding: 0 40rpx;
   background-color: #eee;
-  font-size: 27rpx;
+  font-size: 24rpx;
   line-height: 75rpx;
-  color: #333;
+  color: #666;
 }
 .from-input {
-  margin: 0 40rpx;
+  padding: 0 40rpx;
   display: flex;
+  background-color: #fff;
   height: 90rpx;
   line-height: 90rpx;
   label {
-    width: 200rpx;
+    width: 160rpx;
     margin-right: 20rpx;
-    color: #999;
+    color: #666;
+    text-align: right;
   }
   .input-text {
     flex: 1;
@@ -116,21 +121,22 @@ export default {
     line-height: 90rpx;
   }
 }
-.btn{
+.btn {
   width: 388rpx;
   height: 66rpx;
   border-radius: 45rpx;
   opacity: 1;
-  background: #FFB550;
+  background: #ffb550;
   line-height: 66rpx;
   text-align: center;
   font-size: 36rpx;
   font-weight: 500;
-  color: #FFFFFF;
-  margin: 40rpx auto 0 auto; 
+  color: #ffffff;
+  margin: 40rpx auto 0 auto;
 }
 .pour {
-  margin: 50rpx 50rpx;
-  color: #F78944;
+  margin: 30rpx 50rpx 60rpx;
+  color: #f78944;
+  font-size: 24rpx;
 }
 </style>

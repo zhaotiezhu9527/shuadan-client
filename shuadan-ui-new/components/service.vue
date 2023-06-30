@@ -20,8 +20,8 @@ export default {
 <style lang="scss" scoped>
 .sevice {
   position: fixed;
-  bottom: 10rpx;
-  left: 10rpx;
+  bottom: 40rpx;
+  left: 0rpx;
   border-radius: 50%;
   width: 120rpx;
   height: 120rpx;

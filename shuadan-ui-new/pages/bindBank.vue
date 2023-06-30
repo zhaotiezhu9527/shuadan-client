@@ -6,11 +6,12 @@
       autoBack
       title="绑定银行卡"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
+      class="linear"
+      bgColor="transparent"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
+      height="100rpx"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>
@@ -68,12 +69,16 @@
         />
       </view>
       <view class="btn">
-        <u-button v-if="bindStatus" class="custom-style" color="#9d9d9c" block>
+        <u-button
+          v-if="bindStatus"
+          shape="circle"
+          class="custom-style"
+          color="#9d9d9c"
+          block
+        >
           修改信息联系客服
         </u-button>
-        <view v-else-if="!bindStatus" @click="submit">
-          设置信息
-        </view>
+        <view v-else-if="!bindStatus" @click="submit"> 设置信息 </view>
       </view>
     </view>
   </view>
@@ -156,19 +161,22 @@ export default {
 
 <style scoped lang="scss">
 .main {
+  background-color: #f2f2f2;
+  min-height: calc(100vh - 100rpx);
   .title {
-    padding: 0 12rpx;
+    padding: 0 40rpx;
     background-color: #eee;
     font-size: 27rpx;
     line-height: 75rpx;
     color: #333;
   }
   .from-input {
-    margin: 0 40rpx;
+    padding: 0 40rpx;
     display: flex;
-    height: 90rpx;
-    line-height: 90rpx;
-    font-size: 28rpx;
+    height: 112rpx;
+    line-height: 112rpx;
+    font-size: 36rpx;
+    background-color: #fff;
     label {
       width: 200rpx;
       margin-right: 20rpx;
@@ -176,23 +184,24 @@ export default {
     }
     .input-text {
       flex: 1;
-      height: 90rpx;
-      line-height: 90rpx;
-      font-size: 28rpx;
+      height: 112rpx;
+      line-height: 112rpx;
+      font-size: 36rpx;
+      text-align: right;
     }
   }
-  .btn{
+  .btn {
     width: 388rpx;
     height: 66rpx;
     border-radius: 45rpx;
     opacity: 1;
-    background: #FFB550;
+    background: #ffb550;
     line-height: 66rpx;
     text-align: center;
     font-size: 36rpx;
     font-weight: 500;
-    color: #FFFFFF;
-    margin: 40rpx auto 0 auto; 
+    color: #ffffff;
+    margin: 140rpx auto 0 auto;
   }
 }
 </style>

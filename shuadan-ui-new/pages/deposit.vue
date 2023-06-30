@@ -6,11 +6,12 @@
       autoBack
       title="提现"
       fixed
-      leftIconColor="#666"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
+      class="linear"
+      bgColor="transparent"
+      height="100rpx"
       titleStyle="color:#000;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>

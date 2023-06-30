@@ -1,0 +1,99 @@
+.main {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  padding-top: var(--status-bar-height);
+  .login {
+    width: 360rpx;
+    height: 360rpx;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .title {
+    padding: 180rpx 40rpx 60rpx;
+    background: linear-gradient(
+      180deg,
+      rgba(254, 233, 218, 0.3) -4%,
+      rgba(254, 233, 218, 0.3) 52%,
+      rgba(255, 255, 255, 0) 130%
+    );
+    .sub {
+      font-size: 48rpx;
+      font-weight: 600;
+    }
+    .name {
+      padding-top: 40rpx;
+      font-weight: 600;
+      font-size: 72rpx;
+      padding-bottom: 40rpx;
+    }
+  }
+  .form {
+    padding: 0 80rpx;
+    background: #fff;
+    border-radius: 20px 20px 0px 0px;
+    padding-top: 26px;
+    box-sizing: border-box;
+    margin-top: -40rpx;
+
+    box-shadow: 0 -10rpx 20rpx 1rpx #eee;
+    /deep/.u-input {
+      padding-bottom: 30rpx !important;
+    }
+    .input {
+      padding-bottom: 40rpx;
+      .icon {
+        padding-right: 20rpx;
+        border-right: 2rpx solid #ccc;
+      }
+      image {
+        width: 42rpx;
+        max-height: 48rpx;
+      }
+      .label {
+        color: #333;
+        font-size: 36rpx;
+        padding-bottom: 26rpx;
+      }
+    }
+    .placeholder {
+      color: #666 !important;
+      font-size: 28rpx;
+    }
+  }
+  /deep/.button .u-button__text {
+    color: #f2d8be;
+  }
+}
+.btn {
+  width: 90%;
+  margin: 0 auto;
+  /deep/.u-button__text {
+    font-size: 48rpx !important;
+    font-weight: bold;
+    letter-spacing: 10rpx;
+    color: #ffffff !important;
+  }
+}
+.tabs {
+  display: flex;
+  align-items: center;
+  background: #f7f0ee;
+  margin: auto;
+  border-radius: 100rpx;
+  height: 96rpx;
+  justify-content: space-evenly;
+  margin-bottom: 64rpx;
+  .active {
+    width: 240rpx;
+    height: 84rpx;
+    border-radius: 100rpx;
+    opacity: 1;
+    background: #ffffff;
+    line-height: 84rpx;
+    text-align: center;
+  }
+}

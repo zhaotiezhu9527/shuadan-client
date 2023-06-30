@@ -10,7 +10,7 @@
       bgColor="#ec6b00"
       leftIconColor="#fff"
       leftIconSize="32"
-      height="50px"
+      height="100rpx"
       titleStyle="color:#fff;font-weight:500;font-size:32rpx;"
     >
     </u-navbar>

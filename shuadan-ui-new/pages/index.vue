@@ -10,17 +10,15 @@
           @click="change(index)"
         >
           <image
-            :class="'img0' + index"
+            class="img"
             v-if="active === index"
             :src="item.image1"
             mode="widthFix"
           />
-          <image
-            :class="'img' + index"
-            v-else
-            :src="item.image2"
-            mode="widthFix"
-          />
+          <image class="img" v-else :src="item.image2" mode="widthFix" />
+          <view class="name" :class="{ active: active === index }">{{
+            item.name
+          }}</view>
         </view>
         <view class="item other" v-else @click="change(index)">
           <image class="img2" :src="item.image1" mode="widthFix" />
@@ -50,11 +48,11 @@ export default {
       active: 0,
       route: {},
       list: [
-        { image1: home1, image2: home2, route: home },
-        { image1: jilv1, image2: jilv2, route: order },
+        { image1: home1, image2: home2, route: home, name: "首页" },
+        { image1: jilv1, image2: jilv2, route: order, name: "记录" },
         { image1: rw1, route: "task", route: task },
-        { image1: kefu1, image2: kefu2, route: service },
-        { image1: user1, image2: user2, route: user },
+        { image1: kefu1, image2: kefu2, route: service, name: "客服" },
+        { image1: user1, image2: user2, route: user, name: "我的" },
       ],
     };
   },
@@ -123,35 +121,30 @@ export default {
     flex-direction: column;
     width: calc(100% / 5);
     padding-top: 30rpx;
+    .name {
+      padding-top: 6rpx;
+      font-size: 24rpx;
+      color: #333;
+      &.active {
+        color: #ffad49;
+      }
+    }
   }
   .other {
     padding-top: 0;
-    margin-top: -60rpx;
+    margin-top: -80rpx;
+    width: 120rpx;
+    height: 120rpx;
+    display: flex;
+    background: linear-gradient(180deg, #ffad49 0%, #ffc861 100%);
+    border-radius: 50%;
   }
-  .img0 {
-    width: 40rpx;
-  }
-  .img00 {
-    width: 44rpx;
-  }
-  .img1 {
-    width: 40rpx;
-  }
-  .img01 {
+  .img {
     width: 48rpx;
   }
   .img2 {
-    width: 120rpx;
-  }
-  .img3 {
-    width: 40rpx;
-  }
-  .img03 {
-    width: 52rpx;
-  }
-  .img4,
-  .img04 {
-    width: 70rpx;
+    width: 60rpx;
+    height: 60rpx;
   }
 }
 </style>

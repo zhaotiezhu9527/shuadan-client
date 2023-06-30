@@ -81,7 +81,7 @@ text {
 }
 
 .empty {
-  background-color: #fff !important;
+  background-color: transparent !important;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -89,7 +89,7 @@ text {
   z-index: 10;
 }
 .nempty {
-  background-color: #fff !important;
+  background-color: transparent !important;
   padding: 50rpx 0;
 }
 .nomore,
@@ -105,13 +105,13 @@ text {
 .pull-left {
   float: left;
 }
-.wapper{
+.wapper {
   background-color: #f2f2f2;
   height: 100vh;
 }
-.margin20{
+.margin20 {
   margin: 40rpx 0;
 }
-.color666{
+.color666 {
   color: #666;
 }
