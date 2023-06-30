@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="wapper">
     <u-navbar
       placeholder
       :border="false"
@@ -20,12 +20,22 @@
         <view class="tab">线上充值</view>
       </view> -->
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
-        <u-list-item v-for="(item, index) in list" :key="index">
+        <u-list-item v-for="(item, index) in list" :key="index" class="content-item">
           <view class="content">
-            <view class="table-money"> 充值金额（¥）{{ item.amount }} </view>
-            <view class="table-title"> 订单号：{{ item.orderNo }} </view>
-            <view>
-              充值状态：
+            <text class="color666">{{ item.time }}</text>
+            <view class="item-list">
+              <image
+                class="list-img"
+                src="@/static/img/congzhiList.png"
+              />
+              <view>
+                <view class="table-money"> 充值金额
+                  <text class="money-right">{{ item.amount }}</text>
+                </view>
+                <view class="table-title color666"> 订单号：{{ item.orderNo }} </view>
+              </view>
+            </view>
+            <text class="status">
               <label v-if="item.status == 0" class="yellow-text">
                 {{ item.statusStr }}
               </label>
@@ -35,7 +45,7 @@
               <label v-else-if="item.status == 2" class="red-text">
                 {{ item.statusStr }}
               </label>
-            </view>
+            </text>
           </view>
         </u-list-item>
         <view class="loading" v-if="loading">加载中...</view>
@@ -93,6 +103,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.main{
+  width: 92%;
+  margin: auto;
+}
 .scroll {
   height: calc(100vh - var(--status-bar-height) - 100rpx) !important;
   padding-bottom: constant(safe-area-inset-bottom);
@@ -117,11 +131,32 @@ export default {
     }
   }
 }
+.content-item{
+  border-radius: 10px;
+  opacity: 1;
+  background: #FFFFFF;
+  padding: 14px 20px;
+  position: relative;
+  margin: 20rpx 0;
+}
 .content {
-  padding: 20rpx;
-  font-size: 24rpx;
-  line-height: 40rpx;
-  border-bottom: 1px solid #ccc;
+  font-size: 28rpx;
+  .status{
+    position: absolute;
+    right: 10%;
+    top: 10%;
+    font-size: 36rpx;
+    font-weight: 500;
+  }
+  .item-list{
+    display: flex;
+    padding-top: 40rpx;
+    .list-img{
+      width: 90rpx;
+      height: 90rpx;
+      margin-right: 20rpx;
+    }
+  }
   .table-money {
     font-size: 28rpx;
   }
@@ -133,6 +168,14 @@ export default {
   }
   .red-text {
     color: #dd524d;
+  }
+  .money-right{
+    position: absolute;
+    right: 10%;
+    top: 43%;
+    font-size: 36rpx;
+    font-weight: 500;
+    color: #DE2511;
   }
 }
 </style>
