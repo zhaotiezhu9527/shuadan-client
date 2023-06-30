@@ -71,16 +71,9 @@
         <u-button v-if="bindStatus" class="custom-style" color="#9d9d9c" block>
           修改信息联系客服
         </u-button>
-        <u-button
-          v-else-if="!bindStatus"
-          class="custom-style"
-          color="#2f3848"
-          block
-          @click="submit"
-          :loading="loading"
-        >
+        <view v-else-if="!bindStatus" @click="submit">
           设置信息
-        </u-button>
+        </view>
       </view>
     </view>
   </view>
