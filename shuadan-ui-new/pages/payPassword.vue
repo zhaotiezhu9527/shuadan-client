@@ -44,16 +44,8 @@
         />
       </view>
       <view class="pour">请牢记密码,如忘记密码,请联系客服。</view>
-      <view class="btn">
-        <u-button
-          class="custom-style"
-          color="#2f3848"
-          block
-          @click="submit"
-          :loading="loading"
-        >
-          确认修改
-        </u-button>
+      <view class="btn" @click="submit">
+        确认修改
       </view>
     </view>
   </view>
@@ -124,12 +116,21 @@ export default {
     line-height: 90rpx;
   }
 }
-.btn {
-  width: 90%;
-  margin: 40rpx auto;
+.btn{
+  width: 388rpx;
+  height: 66rpx;
+  border-radius: 45rpx;
+  opacity: 1;
+  background: #FFB550;
+  line-height: 66rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 40rpx auto 0 auto; 
 }
 .pour {
   margin: 50rpx 50rpx;
-  color: #e83323;
+  color: #F78944;
 }
 </style>

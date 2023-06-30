@@ -188,9 +188,18 @@ export default {
       font-size: 28rpx;
     }
   }
-  .btn {
-    width: 90%;
-    margin: 40rpx auto;
+  .btn{
+    width: 388rpx;
+    height: 66rpx;
+    border-radius: 45rpx;
+    opacity: 1;
+    background: #FFB550;
+    line-height: 66rpx;
+    text-align: center;
+    font-size: 36rpx;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin: 40rpx auto 0 auto; 
   }
 }
 </style>

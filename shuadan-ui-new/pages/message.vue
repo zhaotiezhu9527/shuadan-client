@@ -26,6 +26,7 @@
           <view class="notice">{{ item.title }}</view>
           <view class="prompt">温馨提示：</view>
           <view class="details" v-html="item.content"> </view>
+          <view class="time">{{ item.pushTime }}</view>
         </view>
       </view>
     </view>
@@ -70,8 +71,6 @@ export default {
   .content {
     position: relative;
     background-color: #f8f4f4;
-    width: 90%;
-    border-radius: 20rpx;
     padding: 56rpx 30rpx;
     margin: -40rpx auto 0 auto;
 
@@ -118,8 +117,13 @@ export default {
       background-color: #fff;
       padding: 24rpx;
       border-radius: 8rpx;
+      margin-top: 20rpx;
       .details {
         font-size: 24rpx;
+      }
+      .time{
+        text-align: right;
+        color: #999;
       }
     }
   }
