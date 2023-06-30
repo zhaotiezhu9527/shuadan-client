@@ -9,9 +9,9 @@
       leftIconColor="#666"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#fff"
       height="50px"
       titleStyle="color:#464646;font-weight:500;font-size:32rpx;"
+      :background="background"
     >
     </u-navbar>
     <view class="main">
@@ -65,6 +65,17 @@ export default {
       finished: false,
       isArray: true,
       page: 0,
+      background: {
+        // backgroundColor: '#001f3f',
+        
+        // 导航栏背景图
+        // background: 'url(https://cdn.uviewui.com/uview/swiper/1.jpg) no-repeat',
+        // 还可以设置背景图size属性
+        // backgroundSize: 'cover',
+        
+        // 渐变色
+        backgroundImage: 'linear-gradient(47deg, #F8A057 0%, #FFC860 100%);'
+      }
     };
   },
   onLoad() {
