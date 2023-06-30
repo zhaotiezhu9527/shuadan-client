@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="wapper">
     <u-navbar
       placeholder
       :border="false"
@@ -17,7 +17,7 @@
     <view class="main">
       <view class="head">
         <image class="head-img" :src="avatarUrl"/>
-        <view class="btn" @click="postHead">立即设置</view>
+        <view class="btn" @click="postHead">保存</view>
       </view>
       <view class="content">
         <view class="item" v-for="(item,index) in list" :key="index" @click="changeAvatar(item)">
@@ -86,9 +86,10 @@ export default {
 .head{
   width: 100%;
   height: 252rpx;
-  background: url(../static/img/head_title.png) no-repeat;
-  background-size: 100% 100%;
+  background: linear-gradient(180deg, rgba(254,233,218,0.30) -4%, rgba(254,233,218,0.30) 52%,
+  rgba(255,255,255,0.00) 130%);
   overflow: hidden;
+  border-bottom: 20rpx solid #eee;
   .head-img{
     display: block;
     width: 120rpx;
@@ -98,8 +99,8 @@ export default {
   .btn{
     font-size: 30rpx;
     color: #fff;
-    border: 1px solid #fff;
-    border-radius: 10rpx;
+    background: #FFB550;
+    border-radius: 90rpx;
     width: 160rpx;
     text-align: center;
     margin: auto;
@@ -107,6 +108,8 @@ export default {
 }
 .content{
   width: 100%;
+  background-color: #fff;
+  overflow: hidden;
   .item{
     width: 20%;
     padding: 18rpx;

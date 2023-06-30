@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="wapper">
     <u-navbar
       placeholder
       :border="false"
@@ -15,9 +15,9 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">请修改您的名称</view>
+      
       <view class="from-input">
-        <label>姓名</label>
+        <label>名字：</label>
         <input
           type="text"
           v-model="nickName"
@@ -25,16 +25,18 @@
           placeholder="请输入您的名称"
         />
       </view>
+      <view class="title">请修改您的名称</view>
       <view class="btn">
-        <u-button
+        <!-- <u-button
               class="custom-style"
               color="#2f3848"
               block
               @click="submit"
               :loading="loading"
             >
-              确认修改
-            </u-button>
+              
+            </u-button> -->
+            确认修改
       </view>
     </view>
   </view>
@@ -83,7 +85,7 @@ export default {
 
 <style scoped lang="scss">
 .title{
-  padding: 0 12rpx;
+  padding: 0 80rpx;
   background-color: #eee;
   font-size: 27rpx;
   line-height: 75rpx;
@@ -93,17 +95,31 @@ export default {
     margin: 40rpx;
     display: flex;
     height: 90rpx;
+    background-color: #fff;
+    line-height: 90rpx;
+    border-radius: 20rpx;
     label {
-      width: 200rpx;
+      width: 100rpx;
       margin-right: 20rpx;
       color: #999;
+      margin-left: 40rpx;
     }
     .input-text {
       flex: 1;
+      height: 90rpx;
     }
   }
   .btn{
-    width: 90%;
-    margin: auto;
+    width: 388rpx;
+    height: 66rpx;
+    border-radius: 45rpx;
+    opacity: 1;
+    background: #FFB550;
+    line-height: 66rpx;
+    text-align: center;
+    font-size: 36rpx;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin: 40rpx auto 0 auto; 
   }
 </style>
