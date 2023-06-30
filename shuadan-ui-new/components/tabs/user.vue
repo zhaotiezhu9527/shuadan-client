@@ -1,32 +1,24 @@
 <template>
   <view>
     <view class="main">
+      <image
+            class="top-bg"
+            src="@/static/img/topMask.png"
+          />
       <!-- 头部 -->
       <view class="title">
-        <view class="icon">
-          <image
-            class="icon-img"
-            src="@/static/img/notice.png"
-            @click="goPage({ label: '', url: list[6].url })"
-          />
-          <image
-            class="icon-img box-right"
-            src="@/static/img/setting.png"
-            @click="goPage({ label: '', url: list[0].url })"
-          />
-        </view>
         <view class="user">
           <view class="head">
             <image class="head-img" :src="userData.avatarUrl" />
           </view>
           <view class="information">
             <view class="level">
-              <label class="name">{{ userData.nickName }}</label>
-              <!-- <label class="grade">{{ userData.levelName }}</label> -->
+              <view class="name">{{ userData.nickName }}</view>
+              <view class="code"> 邀请码: {{ userData.inviteCode }}  <label class="copy-text" @click="copy(userData.inviteCode)">复制</label></view>
               <image class="level-img" :src="userData.levelIcon" />
               <label class="credit">信用分:{{ userData.creditValue }}</label>
             </view>
-            <view class="code"> 邀请码: {{ userData.inviteCode }} </view>
+            
           </view>
         </view>
         <view class="money">
@@ -42,9 +34,14 @@
           <view class="recharge" @click="goDeposit('/pages/recharge')"
             >充值</view
           >
+          <image
+            class="money-img"
+            src="@/static/img/Vector.png"
+          />
         </view>
-        <view class="money-bottom"></view>
       </view>
+      <!-- 其他功能文字 -->
+      <view class="other-text">其他功能</view>
       <!-- 导航 -->
       <view class="content">
         <view
@@ -58,16 +55,11 @@
         </view>
       </view>
       <!-- 退出登陆 -->
-      <view class="logout">
-        <u-button
-          class="custom-style"
-          color="#2f3848"
-          block
-          @click="loginoutShow = true"
-          :loading="loading"
-        >
-          退出登陆
-        </u-button>
+      <view class="logout" @click="loginoutShow = true">
+        退出登陆
+      </view>
+      <view class="bottom-bg">
+
       </view>
       <u-modal
         :show="loginoutShow"
@@ -195,6 +187,17 @@ export default {
         }
       });
     },
+    // 复制功能
+    copy(value){
+      uni.setClipboardData({
+        data:value,//要被复制的内容
+        success:()=>{//复制成功的回调函数
+          uni.showToast({//提示
+            title:'复制成功'
+          })
+        }
+      });
+    }
   },
 };
 </script>
@@ -202,9 +205,7 @@ export default {
 <style scoped lang="scss">
 .title {
   width: 100%;
-  height: calc(440rpx + var(--status-bar-height));
-  background: url(@/static/img/title.png) no-repeat;
-  background-size: 100% 100%;
+  height: calc(500rpx + var(--status-bar-height));
   overflow: hidden;
   padding-top: var(--status-bar-height);
   position: relative;
@@ -225,8 +226,8 @@ export default {
     .head {
       float: left;
       .head-img {
-        width: 100rpx;
-        height: 100rpx;
+        width: 168rpx;
+        height: 168rpx;
         display: block;
         border-radius: 50%;
         border: 2rpx solid #fff;
@@ -235,14 +236,13 @@ export default {
     }
     .information {
       float: left;
-      margin-left: 24rpx;
+      margin-left: 34rpx;
       .level {
         overflow: hidden;
         .name {
-          font-size: 36rpx;
-          color: #171717;
+          font-size: 52rpx;
+          color: #333;
           font-weight: bold;
-          float: left;
         }
         // .grade{
         //   float: left;
@@ -260,7 +260,6 @@ export default {
           color: #fff;
           height: 36rpx;
           width: 96rpx;
-          margin-left: 12rpx;
           margin-top: 8rpx;
         }
         .credit {
@@ -280,25 +279,30 @@ export default {
         margin-top: 14rpx;
         font-size: 26rpx;
         color: #434343;
+        .copy-text{
+          font-size: 24rpx;
+          color: #FFB24E;
+          padding-left: 8px;
+        }
       }
     }
   }
   .money {
-    width: 660rpx;
-    height: 160rpx;
-    background: url("@/static/img/money.png") no-repeat;
-    background-size: 100% 100%;
+    width: 680rpx;
+    height: 200rpx;
+    background: linear-gradient(255deg, #FFD86F 1%, #FFA23F 97%);
+    border-radius: 20rpx;
+    position: relative;
     margin: 54rpx auto auto;
     padding: 0 32rpx;
+    color: #fff;
     .balance {
-      color: hsla(0, 0%, 100%, 0.6);
       margin-top: 24rpx;
       display: block;
       float: left;
       .money-color {
-        color: #f2d8be;
         font-size: 24rpx;
-        margin-top: 15rpx;
+        margin-top: 40rpx;
         .money-number {
           font-weight: 700;
           font-size: 44rpx;
@@ -308,50 +312,55 @@ export default {
     }
     .recharge {
       float: right;
-      width: 116rpx;
-      height: 56rpx;
+      width: 152rpx;
+      height: 66rpx;
       text-align: center;
-      line-height: 56rpx;
-      background: hsla(0, 0%, 100%, 0.2);
-      color: #fff;
-      border-radius: 28rpx;
-      margin: 54rpx 0 0 32rpx;
-      font-size: 28rpx;
+      line-height: 66rpx;
+      background: #FFFFFF;
+      box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.16);
+      font-size: 36rpx;
+      font-weight: 500;
+      color: #F78944;
+      border-radius: 33rpx;
+      margin: 20rpx 0 0 32rpx;
     }
     .withdrawal {
       float: right;
-      width: 116rpx;
-      height: 56rpx;
+      width: 152rpx;
+      height: 66rpx;
       text-align: center;
-      line-height: 56rpx;
-      background: hsla(0, 0%, 100%, 0.2);
-      color: #fff;
-      border-radius: 28rpx;
-      margin: 54rpx 0 0 32rpx;
-      font-size: 28rpx;
+      line-height: 66rpx;
+      background: #FFFFFF;
+      box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.16);
+      font-size: 36rpx;
+      font-weight: 500;
+      color: #F78944;
+      border-radius: 33rpx;
+      margin: 20rpx 0 0 32rpx;
     }
-  }
-  .money-bottom {
-    width: 100%;
-    height: 69rpx;
-    background: url("@/static/img/money_bottom.png") no-repeat;
-    background-size: 100%;
-    position: absolute;
-    bottom: 0;
+    .money-img{
+      width: 180rpx;
+      height: 180rpx;
+      position: absolute;
+      right: 0;
+      bottom: -46%;
+      opacity: .3;
+    }
   }
 }
 .content {
-  border-top: 2rpx solid #f2f2f2;
   background: #fff;
   overflow: hidden;
+  width: 92%;
+  margin: auto;
+  border-radius: 20rpx;
+  padding: 20rpx 0;
   .item {
     float: left;
-    width: 33.33%;
+    width: 25%;
     box-sizing: border-box;
-    border-right: 2rpx solid #eee;
-    border-bottom: 2rpx solid #eee;
     text-align: center;
-    padding: 42rpx 0 50rpx;
+    padding: 10rpx;
     .item-img {
       width: 78rpx;
       height: 78rpx;
@@ -364,15 +373,43 @@ export default {
   }
 }
 .logout {
-  padding: 0 26rpx;
-  padding-bottom: calc(160rpx + constant(safe-area-inset-bottom));
-  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
-  .custom-style {
-    border-radius: 10rpx;
-    margin-bottom: 20rpx;
-    font-size: 32rpx;
-    height: 88rpx;
-    margin-top: 40rpx;
-  }
+  width: 388rpx;
+  height: 66rpx;
+  border-radius: 45rpx;
+  opacity: 1;
+  background: #FFB550;
+  line-height: 66rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 120rpx auto 0 auto;
+}
+.top-bg{
+  position: fixed;
+  left: -20%;
+  top: -12%;
+  width: 150%;
+  height: 320px;
+  opacity: 1;
+  z-index: -1;
+}
+.other-text{
+  width: 680rpx;
+  margin: auto;
+  font-size: 32rpx;
+}
+.bottom-bg{
+  position: fixed;
+  border-radius: 100%;
+  left: -40%;
+  top: 50%;
+  width: 1440rpx;
+  height: 1440rpx;
+  transform: rotate(151.42deg);
+  opacity: 1;
+  z-index: -1;
+  background: linear-gradient(222deg, #FEDFC9 8%, rgba(254, 224, 202, 0.21) 69%,
+   rgba(254, 224, 202, 0.21) 75%);
 }
 </style>
