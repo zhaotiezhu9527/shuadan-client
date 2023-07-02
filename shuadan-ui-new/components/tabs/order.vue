@@ -344,8 +344,8 @@ export default {
   }
 }
 .list {
-  padding-bottom: calc(constant(safe-area-inset-bottom) + 160rpx);
-  padding-bottom: calc(env(safe-area-inset-bottom) + 160rpx);
+  padding-bottom: calc(constant(safe-area-inset-bottom) + 180rpx);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 180rpx);
   position: relative;
   z-index: 3;
 }

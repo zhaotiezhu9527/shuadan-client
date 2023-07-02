@@ -234,8 +234,8 @@ export default {
   min-height: 100vh;
   padding: 0 30rpx;
   padding-top: var(--status-bar-height);
-  padding-bottom: calc(160rpx + constant(safe-area-inset-bottom));
-  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
+  padding-bottom: calc(180rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
 }
 .list {
   display: flex;
