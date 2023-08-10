@@ -1,0 +1,221 @@
+/*
+  功能性样式class
+  一般是颗粒度极小的样式块，参考tailwind.css
+  https://tailwindcss.com/docs/installation
+*/
+/*****************字体系列*******************/
+.text-comment {
+  font-size: 12px;
+  color: $text-c-2;
+  font-weight: normal;
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.weight-600 {
+  font-weight: 600;
+}
+.weight-500 {
+  font-weight: 500;
+}
+.weight-400 {
+  font-weight: 400;
+}
+// 定义字体(rpx)单位
+$fontSize: 12 14 16 18 20 22 24;
+@each $i in $fontSize {
+  .text-#{$i} {
+    font-size: #{$i * 2rpx};
+  }
+}
+
+// 行高
+$leading: 18 20 22 24 26 28;
+@each $i in $fontSize {
+  .leading-#{$i} {
+    line-height: ($i * 2rpx);
+  }
+}
+// 排版
+.whitespace-pre {
+  white-space: pre;
+}
+/*******************颜色系列*********************/
+.main-c {
+  color: $main-c;
+}
+.blue-c {
+  color: $blue;
+}
+.orange-c {
+  color: $orange;
+}
+.red-c {
+  color: $red;
+}
+.green-c {
+  color: $green-yes;
+}
+.text-c-0 {
+  color: $text-c-0;
+}
+.text-c-1 {
+  color: $text-c-1;
+}
+.text-c-2 {
+  color: $text-c-2;
+}
+.text-c-3 {
+  color: $text-c-3;
+}
+.text-c-5 {
+  color: $text-c-5;
+}
+.text-white {
+  color: $white;
+}
+.bg-white {
+  background: $white;
+}
+/****************盒模型系列***************/
+// 宽度
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+// 边框
+.border-normal {
+  border: 2rpx solid $line-c-0;
+}
+// 间距系列
+.ml-auto {
+  margin-left: auto;
+}
+$space: 4 6 8 10 12 14 16 18 20 22 24 26 28 30 40;
+@each $i in $space {
+  .m-#{$i} {
+    margin: ($i * 2rpx);
+  }
+  .p-#{$i} {
+    padding: ($i * 2rpx);
+  }
+  .mx-#{$i} {
+    margin: 0 ($i * 2rpx);
+  }
+  .my-#{$i} {
+    margin: ($i * 2rpx) 0;
+  }
+  .px-#{$i} {
+    padding: 0 ($i * 2rpx);
+  }
+  .py-#{$i} {
+    padding: ($i * 2rpx) 0;
+  }
+  .mt-#{$i} {
+    margin-top: ($i * 2rpx);
+  }
+  .mr-#{$i} {
+    margin-right: ($i * 2rpx);
+  }
+  .mb-#{$i} {
+    margin-bottom: ($i * 2rpx);
+  }
+  .ml-#{$i} {
+    margin-left: ($i * 2rpx);
+  }
+  .pt-#{$i} {
+    padding-top: ($i * 2rpx);
+  }
+  .pr-#{$i} {
+    padding-right: ($i * 2rpx);
+  }
+  .pb-#{$i} {
+    padding-bottom: ($i * 2rpx);
+  }
+  .pl-#{$i} {
+    padding-left: ($i * 2rpx);
+  }
+}
+
+/****************transform系列***************/
+.rotate-90 {
+  transform: rotate(90deg);
+}
+.rotate-270 {
+  transform: rotate(-90deg);
+}
+
+/*****************弹性布局系列********************/
+.flex {
+  display: flex;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.items-center {
+  align-items: center;
+}
+.items-start {
+  align-items: start;
+}
+.items-end {
+  align-items: end;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-initial {
+  flex: 1 1 auto;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+/*****************交互系列********************/
+.pointer {
+  cursor: pointer;
+}
+.hover-main:hover {
+  color: $main-c;
+}
+.path-hover-main:hover {
+  path {
+    fill: $main-c;
+  }
+}
+.path-main {
+  path {
+    fill: $main-c;
+  }
+}
