@@ -33,7 +33,7 @@ export const user_register = (data) => {
   });
 };
 
-//退出登陆
+//退出登录
 export const user_logout = (data) => {
   return new Promise((resolve, reject) => {
     base

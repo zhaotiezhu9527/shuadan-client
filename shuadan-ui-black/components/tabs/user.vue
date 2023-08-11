@@ -52,12 +52,12 @@
           <view class="text">{{ item.label }}</view>
         </view>
       </view>
-      <!-- 退出登陆 -->
-      <view class="logout" @click="loginoutShow = true"> 退出登陆 </view>
+      <!-- 退出登录 -->
+      <view class="logout" @click="loginoutShow = true"> 退出登录 </view>
       <view class="bottom-bg"> </view>
       <u-modal
         :show="loginoutShow"
-        title="退出登陆"
+        title="退出登录"
         @confirm="loginOut"
         @cancel="loginoutShow = false"
         ref="uModal"

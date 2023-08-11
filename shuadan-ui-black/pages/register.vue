@@ -120,7 +120,7 @@
       </view>
       <view class="registerStyle">
         <view class="register" @click="roeute">
-          已有账号，马上下载
+          已有账号，马上登录
           <image class="img" src="@/static/img/loginRjiantou.png" />
         </view>
       </view>
