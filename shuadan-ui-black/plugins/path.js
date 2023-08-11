@@ -16,9 +16,6 @@ const home = [
     path: "/pages/login",
   },
   {
-    path: "/pages/register",
-  },
-  {
     path: "/pages/richtext",
   },
   {

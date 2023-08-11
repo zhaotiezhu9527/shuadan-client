@@ -20,7 +20,7 @@
           <uqrcode
             ref="uqrcode"
             canvas-id="qrcode"
-            :value="`${api}/#/pages/register?code=${infos.inviteCode}`"
+            :value="`${api}/#/pages/login?code=${infos.inviteCode}`"
             size="150"
           ></uqrcode>
         </view>
@@ -67,7 +67,7 @@ export default {
     },
     change() {
       uni.setClipboardData({
-        data: `${this.api}/#/pages/register?code=${this.infos.inviteCode}`,
+        data: `${this.api}/#/pages/login?code=${this.infos.inviteCode}`,
       });
     },
   },

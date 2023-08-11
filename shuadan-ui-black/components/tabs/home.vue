@@ -1,6 +1,19 @@
 <template>
   <view class="main">
-    <view class="header">云任务</view>
+    <u-navbar
+      placeholder
+      :border="false"
+      autoBack
+      title="首页"
+      fixed
+      leftIconColor="#ffffff"
+      bgColor="#000000"
+      leftIconSize="32"
+      safe-area-inset-top
+      height="100rpx"
+      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+    >
+    </u-navbar>
     <view class="price">
       <view class="price-box">
         <view class="flex">
@@ -19,15 +32,15 @@
           <view class="ul">
             <view class="li">
               <view class="name">{{ infos.todayIncome }}</view>
-              <view class="txt">今日收益（元）</view>
+              <view class="txt">今日收益(元)</view>
             </view>
             <view class="li">
               <view class="name">{{ infos.yesterdayIncome }}</view>
-              <view class="txt">昨日收益（元）</view>
+              <view class="txt">昨日收益(元)</view>
             </view>
             <view class="li">
               <view class="name">{{ infos.totalIncome }}</view>
-              <view class="txt">累计收益（元）</view>
+              <view class="txt">累计收益(元)</view>
             </view>
           </view>
         </view>
@@ -36,11 +49,12 @@
     <view class="notice">
       <view class="tips">
         <view class="image">
-          <image class="img" src="@/static/img/tips.png" mode="widthFix" />
+          <image class="img" src="@/static/img/icon12.png" mode="widthFix" />
         </view>
         <marquee class="marquee">
           <div v-html="homeNotice"></div>
         </marquee>
+        <view class="btn" @click="goDeposit('/pages/message')">了解</view>
       </view>
     </view>
     <view class="header py">任务大厅</view>
@@ -54,8 +68,8 @@
         "
       >
         <view class="content">
-          <image :src="item.levelImg" class="icon" mode="widthFix" />
-          <!-- <view>{{ item.areaName }}</view> -->
+          <!-- <image :src="item.levelImg" class="icon" mode="widthFix" /> -->
+          <view>{{ item.areaName }}</view>
           <view>{{ item.remark }}</view>
         </view>
         <image :src="item.areaImg" class="img" mode="heightFix" />
@@ -75,7 +89,7 @@
       /> -->
       <!-- <image src=""/> -->
       <view
-        class="item"
+        class="item flex items-center justify-between"
         @click="change(item.en)"
         v-for="(item, index) in nav"
         :key="index"
@@ -84,6 +98,12 @@
           <view class="name">{{ item.name }}</view>
           <view class="txt">{{ item.txt }}</view>
         </view>
+        <u-icon
+          size="20"
+          color="#fff"
+          name="arrow-right"
+          class="arrow-right"
+        ></u-icon>
       </view>
     </view>
     <annunciate />
@@ -184,31 +204,56 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main {
-  padding-top: calc(var(--status-bar-height) + 10rpx);
-  background: linear-gradient(
-    180deg,
-    rgba(254, 233, 218, 0.3) -4%,
-    rgba(254, 233, 218, 0.3) 52%,
-    rgba(255, 255, 255, 0) 130%
+.back {
+  background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
+    conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(245, 211, 172, 0) 0deg,
+      rgba(245, 211, 172, 0.38) 45deg,
+      rgba(245, 211, 172, 0) 84.38deg,
+      rgba(245, 211, 172, 0) 133.12deg,
+      rgba(245, 211, 172, 0.37) 187.5deg,
+      rgba(245, 211, 172, 0) 230.62deg,
+      rgba(245, 211, 172, 0) 360deg
+    );
+  border: 1rpx solid;
+  border-image-source: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(245, 211, 172, 0) 0deg,
+    rgba(245, 211, 172, 0.38) 45deg,
+    rgba(245, 211, 172, 0) 84.38deg,
+    rgba(245, 211, 172, 0) 133.12deg,
+    rgba(245, 211, 172, 0.37) 187.5deg,
+    rgba(245, 211, 172, 0) 230.62deg,
+    rgba(245, 211, 172, 0) 360deg
   );
+}
+.main {
+  padding-top: 32rpx;
   .header {
-    text-align: center;
-    font-size: 52rpx;
+    width: 90%;
     font-weight: bold;
-    color: #333333;
-    margin-bottom: 10rpx;
-    &.py {
-      padding: 30rpx 0 20rpx;
+    margin: 0 auto 10rpx auto;
+    font-size: 36rpx;
+    color: $white;
+    position: relative;
+    padding: 30rpx 0 20rpx 40rpx;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      border-radius: 8rpx;
+      top: 30rpx;
+      background: linear-gradient(130.74deg, #6c38ed 17.26%, #9167f2 91.1%);
+      height: 48rpx;
+      width: 16rpx;
     }
   }
   .price {
-    background: linear-gradient(242deg, #ffd86f 1%, #ffa23f 100%);
+    @extend .back;
     width: 90%;
     margin: 0 auto;
     border-radius: 20rpx;
-    position: relative;
-    overflow: hidden;
   }
 }
 .price-box {
@@ -219,36 +264,26 @@ export default {
     align-items: center;
     .btn {
       display: flex;
-      width: 280rpx;
-      height: 86rpx;
-      border-radius: 200rpx;
-      background: #ffffff;
-      color: #f78944;
-      font-size: 36rpx;
-      font-weight: 500;
-      display: flex;
       align-items: center;
+      gap: 8rpx;
       justify-content: space-between;
-      box-sizing: border-box;
-      overflow: hidden;
       view {
-        width: 50%;
-        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 200rpx;
-      }
-      .active {
-        background: #ffd86f;
-        color: #8a4e0d;
+        width: 104rpx;
+        height: 64rpx;
+        padding: 0 24rpx;
+        border-radius: 16rpx;
+        background: rgba($white, 0.12);
+        color: $white;
       }
     }
   }
   .money {
     .title {
-      font-size: 36rpx;
-      font-weight: normal;
+      font-size: 24rpx;
+      font-weight: 500;
       color: #ffffff;
     }
     .txt {
@@ -260,7 +295,9 @@ export default {
     }
   }
   .ulStyle {
-    padding-top: 40rpx;
+    margin-top: 48rpx;
+    padding-top: 16rpx;
+    border-top: 1rpx solid rgba($white, 0.12);
   }
 }
 .ul {
@@ -269,46 +306,69 @@ export default {
   text-align: center;
   .li {
     width: calc(100% / 3);
-    border-right: 1rpx solid rgba(#ff8080, 1);
-    &:nth-child(3) {
-      border: 0;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      height: 60rpx;
+      background: rgba($white, 0.12);
+      width: 1rpx;
+    }
+    &:nth-child(1) {
+      &::after {
+        display: none;
+      }
     }
   }
   .name {
-    color: #fff;
+    color: $white;
+    text-align: center;
+    font-size: 36rpx;
     font-weight: 600;
-    font-size: 48rpx;
+    letter-spacing: 0.54px;
   }
   .txt {
-    color: #fff;
+    color: rgba($white, 0.45);
     text-align: center;
-    font-size: 28rpx;
-    padding-top: 4rpx;
+    font-size: 20rpx;
+    font-weight: 500;
+    padding-top: 8rpx;
   }
 }
 .rich {
-  padding: 40rpx 30rp0x;
+  padding: 48rpx 0;
   width: 90%;
   gap: 8rpx;
-  margin: 0 auto;
+  margin: 48rpx auto 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding-bottom: calc(180rpx + constant(safe-area-inset-bottom));
   padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid rgba($white, 0.12);
   .item {
-    background-color: #fff;
-    border-radius: 10rpx;
-    width: calc(50% - 8rpx);
-    padding: 20rpx;
+    background-color: $white;
+    border-radius: 40rpx;
+    width: calc(25% - 8rpx);
+    padding: 20rpx 5rpx;
+    @extend .back;
+  }
+  .arrow-right {
+    transform: translateX(-10rpx);
   }
   .con {
+    transform: scale(0.8);
     .name {
       padding-bottom: 10rpx;
+      color: rgba($white, 0.85);
+      font-size: 16rpx;
     }
     .txt {
-      color: #999;
-      font-size: 24rpx;
+      color: rgba($white, 0.65);
+      font-size: 16rpx;
     }
   }
 }
@@ -326,7 +386,7 @@ export default {
   .no {
     position: absolute;
     z-index: 10;
-    bottom: 30rpx;
+    bottom: 28rpx;
     left: 20rpx;
     width: calc(100% - 40rpx);
     height: 140rpx;
@@ -336,20 +396,20 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
     .img {
       width: 40rpx;
     }
     .txt {
-      color: #fff;
+      color: $white;
       font-size: 24rpx;
       padding-top: 10rpx;
     }
   }
   .item {
-    width: calc(50% - 22rpx);
+    @extend .back;
     padding: 20rpx;
-    border-radius: 10rpx;
-    background: #fff;
+    border-radius: 20rpx;
     position: relative;
     .icon {
       width: 44rpx;
@@ -358,15 +418,17 @@ export default {
   .content {
     z-index: 2;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding-bottom: 10rpx;
     view {
-      color: #434343;
+      color: #cac8d9;
       font-weight: 600;
       font-size: 28rpx;
       margin-left: 6rpx;
+    }
+    .txt {
+      font-size: 20rpx;
+      font-weight: 400;
+      color: rgba($white, 0.65);
     }
   }
   .img {
@@ -379,24 +441,35 @@ export default {
 .notice {
   width: 90%;
   margin: 4rpx auto 0;
-  background: linear-gradient(
-    180deg,
-    rgba(231, 56, 56, 0.34) 0%,
-    rgba(255, 162, 63, 0) 100%
-  );
   padding-top: 28rpx;
   position: relative;
   .tips {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 179, 37, 0.49);
     border-radius: 20rpx;
   }
   .image {
     padding: 0 20rpx;
     .img {
-      width: 40rpx;
+      width: 58rpx;
+    }
+  }
+  .btn {
+    color: $main-c;
+    padding-left: 20rpx;
+    width: 120rpx;
+    margin-left: 20rpx;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      height: 30rpx;
+      background: rgba($white, 0.12);
+      width: 1rpx;
     }
   }
 }
@@ -407,7 +480,6 @@ export default {
   font-size: 28rpx;
   font-weight: normal;
   line-height: 40rpx;
-  color: #c58e49;
-  opacity: 0.8;
+  color: $white;
 }
 </style>

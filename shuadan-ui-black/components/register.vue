@@ -1,7 +1,17 @@
 <template>
-  <u-popup :show="show" @close="close" @open="open">
+  <u-popup :show="show" @close="close">
     <view class="main">
-      <view class="form">
+      <view class="form form2">
+        <view class="flex items-center justify-center title">
+          <u-icon
+            @click="close"
+            color="#ffffff"
+            size="30"
+            class="close"
+            name="close"
+          ></u-icon>
+          <text class="name">注册</text>
+        </view>
         <view class="input">
           <u-input
             shape="circle"
@@ -88,8 +98,6 @@ export default {
     return {
       show: false,
       radio: "1",
-      passicon1: true,
-      passicon2: true,
       nickName: "", //昵称
       userName: "", //账号
       loginPwd: "", // 密码
@@ -98,23 +106,15 @@ export default {
       inviteCode: "", //推荐码id
     };
   },
-  onLoad(e) {
-    if (e.code) {
-      this.inviteCode = e.code;
-    }
-  },
   methods: {
-    open() {
+    open(e) {
       this.show = true;
+      this.$nextTick(() => {
+        this.inviteCode = e;
+      });
     },
     close() {
       this.show = false;
-    },
-    pwdChange() {
-      this.passicon1 = !this.passicon1;
-    },
-    payPwdChange() {
-      this.passicon2 = !this.passicon2;
     },
     login() {
       let pay = /^(?:0|(?:-?[1-9]\d*))$/;
@@ -168,6 +168,35 @@ export default {
 
 <style scoped lang="scss">
 @import "@/static/login.scss";
+.form2 {
+  width: 90% !important;
+}
+.title {
+  background: #161617;
+  box-shadow: 8rpx 8rpx 8rpx 0 rgba(20, 20, 22, 1);
+  box-shadow: -8rpx -8rpx 8rpx 0 rgba(50, 51, 54, 0.3);
+  box-shadow: -8rpx -8rpx 8rpx 0 rgba(32, 32, 34, 0.6) inset;
+  box-shadow: 8rpx 8rpx 8rpx 0 rgba(18, 18, 20, 1) inset;
+  margin-bottom: 64rpx;
+  border-radius: 100rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  position: relative;
+  .name {
+    font-size: 36rpx;
+    color: $white;
+    font-weight: 600;
+  }
+  .close {
+    position: absolute;
+    left: 20rpx;
+    top: 50%;
+    transform: translateY(-50%);
+    /deep/.u-icon__icon {
+      font-weight: 600 !important;
+    }
+  }
+}
 /deep/ .u-popup__content {
   background-color: #111 !important;
   background: linear-gradient(180deg, #242527 0%, #000000 100%),

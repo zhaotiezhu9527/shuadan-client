@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import annunciate from "@/components/annunciate";
 export default {
   data() {
     return {
@@ -50,16 +49,25 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  background-color: #f2f2f2;
-  height: calc(100vh - 100rpx);
   width: 100%;
   .helpstyle {
     padding: 30rpx 20rpx;
   }
   .helps {
-    background: #fff;
+    background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
+      conic-gradient(
+        from 180deg at 50% 50%,
+        rgba(245, 211, 172, 0) 0deg,
+        rgba(245, 211, 172, 0.38) 45deg,
+        rgba(245, 211, 172, 0) 84.38deg,
+        rgba(245, 211, 172, 0) 133.12deg,
+        rgba(245, 211, 172, 0.37) 187.5deg,
+        rgba(245, 211, 172, 0) 230.62deg,
+        rgba(245, 211, 172, 0) 360deg
+      );
+    color: $white !important;
     border-radius: 20rpx;
-    padding: 40rpx 20rpx;
+    padding: 40rpx 30rpx;
   }
 }
 </style>

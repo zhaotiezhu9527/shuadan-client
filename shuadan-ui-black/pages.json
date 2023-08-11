@@ -61,9 +61,6 @@
       "path": "pages/richtext"
     },
     {
-      "path": "pages/register"
-    },
-    {
       "path": "pages/login"
     }
   ],

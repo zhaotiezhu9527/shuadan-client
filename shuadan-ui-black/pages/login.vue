@@ -37,7 +37,9 @@
     <image class="back" src="/static/img/bg-001.png" mode="widthFix" />
     <view class="flex items-center ul justify-center">
       <view class="li" @click="nopass('/pages/onlineService')">忘记密码</view>
-      <view class="li" @click="$refs.registerRef.open()">免费注册</view>
+      <view class="li" @click="$refs.registerRef.open(inviteCode)">
+        免费注册
+      </view>
       <view class="li" @click="nopass('/pages/onlineService')">在线客服</view>
     </view>
     <register ref="registerRef" />
@@ -52,17 +54,22 @@ export default {
   },
   data() {
     return {
-      passicon1: true,
       loginPwd: "",
       userName: "",
       loading: false,
       config: {},
+      inviteCode: "",
     };
   },
+  onLoad(e) {
+    if (e.code) {
+      this.$nextTick(() => {
+        this.inviteCode = e.code;
+        this.$refs.registerRef.open(e.code);
+      });
+    }
+  },
   methods: {
-    pwdChange() {
-      this.passicon1 = !this.passicon1;
-    },
     login() {
       if (!this.userName) {
         return this.$base.show("请输入登录账号~");
