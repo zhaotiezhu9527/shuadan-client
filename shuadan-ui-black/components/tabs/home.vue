@@ -72,10 +72,12 @@
           <view>{{ item.areaName }}</view>
           <view>{{ item.remark }}</view>
         </view>
-        <image :src="item.areaImg" class="img" mode="heightFix" />
-        <view class="no" v-if="!item.unlock">
-          <image class="img" src="@/static/img/suo.png" mode="widthFix" />
-          <view class="txt">待解锁</view>
+        <view class="reactive">
+          <image :src="item.areaImg" class="img" mode="widthFix" />
+          <view class="no" v-if="!item.unlock">
+            <image class="img" src="@/static/img/suo.png" mode="widthFix" />
+            <view class="txt">待解锁</view>
+          </view>
         </view>
       </view>
     </view>
@@ -382,14 +384,17 @@ export default {
   display: flex;
   padding: 0 30rpx;
   flex-wrap: wrap;
-  gap: 40rpx;
+  gap: 16rpx;
+  .reactive {
+    position: relative;
+  }
   .no {
     position: absolute;
     z-index: 10;
-    bottom: 28rpx;
-    left: 20rpx;
-    width: calc(100% - 40rpx);
-    height: 140rpx;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(#000, 0.5);
     border-radius: 10rpx;
     display: flex;
@@ -409,6 +414,7 @@ export default {
   .item {
     @extend .back;
     padding: 20rpx;
+    width: calc(50% - 8rpx);
     border-radius: 20rpx;
     position: relative;
     .icon {
@@ -423,9 +429,8 @@ export default {
       color: #cac8d9;
       font-weight: 600;
       font-size: 28rpx;
-      margin-left: 6rpx;
     }
-    .txt {
+    view:nth-child(2) {
       font-size: 20rpx;
       font-weight: 400;
       color: rgba($white, 0.65);
@@ -434,7 +439,6 @@ export default {
   .img {
     width: 100%;
     z-index: 2;
-    max-height: 140rpx !important;
     position: relative;
   }
 }

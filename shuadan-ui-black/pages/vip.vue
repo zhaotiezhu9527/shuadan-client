@@ -7,11 +7,11 @@
       title="会员升级"
       fixed
       safe-area-inset-top
-      bgColor="#ec6b00"
+      bgColor="#1e1e1e"
       leftIconColor="#fff"
       leftIconSize="32"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:500;font-size:32rpx;"
+      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="carstyle">
@@ -26,32 +26,47 @@
     </view>
     <view class="list">
       <view class="item">
-        <image class="img" src="@/static/img/v1.png" mode="widthFix" />
+        <image class="img" src="@/static/img/bg-009.png" mode="widthFix" />
         <view class="txt">佣金加成</view>
       </view>
       <view class="item">
-        <image class="img" src="@/static/img/v2.png" mode="widthFix" />
+        <image class="img" src="@/static/img/bg-010.png" mode="widthFix" />
         <view class="txt">任务增多</view>
       </view>
       <view class="item">
-        <image class="img" src="@/static/img/v3.png" mode="widthFix" />
+        <image class="img" src="@/static/img/bg-011.png" mode="widthFix" />
         <view class="txt">专属客服</view>
       </view>
     </view>
-    <view class="more">左右滑动查看更多</view>
-    <u-scroll-list>
-      <view class="row">
-        <view class="item" v-for="(item, index) in items.levels" :key="index">
-          <view class="title">{{ item.levelName }}</view>
+    <view class="row">
+      <view class="item" v-for="(item, index) in items.levels" :key="index">
+        <view class="header">
+          <view class="title"
+            >{{ item.levelName }}
+            <text class="tips">永久</text>
+          </view>
           <view class="money">{{ item.levelPrice }}元</view>
-          <view class="txt">提现次数:{{ item.dayWithdrawCount }}/天</view>
-          <view class="txt">提现额度:{{ item.maxWithdrawAmount }}</view>
-          <view class="txt">接单数量:{{ item.dayOrderCount }}/天</view>
-          <view class="txt">佣金比例:{{ item.commissionRate }}</view>
-          <view class="txt">会员永久有效</view>
+        </view>
+        <view class="view">
+          <view class="txt">
+            <text>提现次数:</text>
+            <text>{{ item.dayWithdrawCount }}/天</text>
+          </view>
+          <view class="txt">
+            <text>提现额度:</text>
+            <text>{{ item.maxWithdrawAmount }}/天</text>
+          </view>
+          <view class="txt">
+            <text>接单数量:</text>
+            <text>{{ item.dayOrderCount }}/天</text>
+          </view>
+          <view class="txt">
+            <text>佣金比例:</text>
+            <text>{{ item.commissionRate }}/天</text>
+          </view>
         </view>
       </view>
-    </u-scroll-list>
+    </view>
   </view>
 </template>
 
@@ -84,8 +99,10 @@ export default {
   width: 100%;
   height: 240rpx;
   padding: 30rpx 30rpx 0;
-  background: -webkit-linear-gradient(left, #f58020, #f99c4f);
   overflow: hidden;
+  background: url("/static/img/bg-008.png") no-repeat;
+  background-size: 100% 100%;
+  background-position: 0px 100rpx;
   .car {
     background: url(/static/img/vip_bg.png) no-repeat;
     background-size: 100% 100%;
@@ -96,37 +113,37 @@ export default {
     align-items: center;
     position: relative;
     .user {
-      width: 120rpx;
-      height: 120rpx;
+      width: 80rpx;
+      height: 80rpx;
       margin-left: 30rpx;
     }
     .txt {
       margin-left: 20rpx;
       view {
-        color: #fff;
+        color: $white;
       }
       view:nth-child(1) {
-        font-size: 36rpx;
+        font-size: 32rpx;
         font-weight: bold;
         padding-bottom: 20rpx;
       }
       view:nth-child(2) {
-        font-size: 28rpx;
+        font-size: 24rpx;
       }
     }
     .link {
-      background: #cfa55d;
-      height: 60rpx;
+      height: 48rpx;
+      background: #252525;
       display: inline-block;
-      width: 176rpx;
-      border-radius: 30rpx 0 0 30rpx;
-      color: #997030;
+      width: 144rpx;
+      border-radius: 8rpx;
+      color: $white;
       font-size: 22rpx;
       display: flex;
       justify-content: center;
       align-items: center;
       position: absolute;
-      right: 0;
+      right: 30rpx;
       top: 50%;
       transform: translateY(-50%);
     }
@@ -134,61 +151,108 @@ export default {
 }
 .list {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 80rpx;
-  padding-top: 40rpx;
+  padding: 40rpx 0;
+  background-color: #1e1e1e;
+  margin-bottom: 32rpx;
   .item {
     text-align: center;
-    &:nth-child(1) .txt {
-      color: #febb35;
-    }
-    &:nth-child(2) .txt {
-      color: #e65a69;
-    }
-    &:nth-child(3) .txt {
-      color: #33cdf8;
-    }
   }
 
   .img {
-    width: 120rpx;
+    width: 40rpx;
   }
   .txt {
+    padding-top: 12rpx;
     font-size: 24rpx;
+    color: $white;
   }
 }
-.more {
-  text-align: center;
-  color: #d4d2d2;
-  font-size: 24rpx;
-  padding-top: 60rpx;
-}
 .row {
-  display: flex;
-  flex-wrap: nowrap;
   gap: 20rpx;
   padding: 10rpx 30rpx;
   .item {
-    border: 2rpx #f5f5f5 solid;
-    border-radius: 10rpx;
-    width: 240rpx;
+    border-radius: 32rpx;
     text-align: center;
-    padding: 20rpx 0;
+    width: 100%;
+    margin-bottom: 16rpx;
+    padding: 32rpx 24rpx;
+    border: 1px solid;
+
+    border-image-source: conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(245, 211, 172, 0) 0deg,
+      rgba(245, 211, 172, 0.38) 45deg,
+      rgba(245, 211, 172, 0) 84.38deg,
+      rgba(245, 211, 172, 0) 133.12deg,
+      rgba(245, 211, 172, 0.37) 187.5deg,
+      rgba(245, 211, 172, 0) 230.62deg,
+      rgba(245, 211, 172, 0) 360deg
+    );
+
+    background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
+      conic-gradient(
+        from 180deg at 50% 50%,
+        rgba(245, 211, 172, 0) 0deg,
+        rgba(245, 211, 172, 0.38) 45deg,
+        rgba(245, 211, 172, 0) 84.38deg,
+        rgba(245, 211, 172, 0) 133.12deg,
+        rgba(245, 211, 172, 0.37) 187.5deg,
+        rgba(245, 211, 172, 0) 230.62deg,
+        rgba(245, 211, 172, 0) 360deg
+      );
   }
-  view {
-    line-height: 1.4;
+  .view {
+    border-top: 1rpx solid #ffffff1f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
-  .title {
-    color: #a29d9d;
-    font-size: 32rpx;
-  }
-  .money {
-    color: #228aff;
-    font-size: 24rpx;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32rpx 0;
+    .title {
+      color: #e3e6f3;
+      font-size: 28rpx;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    .money {
+      font-weight: 600;
+      color: $white;
+      font-size: 28rpx;
+    }
+    .tips {
+      padding: 0 8rpx;
+      border-radius: 8rpx;
+      color: #121212;
+      display: flex;
+      align-items: center;
+      font-weight: 400;
+      justify-content: center;
+      margin-left: 10rpx;
+      font-size: 20rpx;
+      background: linear-gradient(134.61deg, #d8b88e 0.81%, #c49a68 97.27%);
+    }
   }
   .txt {
-    font-size: 24rpx;
+    color: #ffffffa6;
+    padding-top: 32rpx;
+    width: calc(50% - 16rpx);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text {
+      font-size: 24rpx;
+      &:nth-child(2) {
+        color: #ffffffd9;
+      }
+    }
   }
 }
 /deep/.u-scroll-list__indicator {

@@ -14,13 +14,20 @@
     </u-navbar>
     <view class="list">
       <view class="item">
-        <image :src="vim.levelImg" class="icon" mode="widthFix" />
-        <view class="content">
-          <view>{{ vim.areaName }}</view>
-          <view>{{ vim.remark }} 佣金{{ vim.commission }}%</view>
+        <view class="flex items-center justify-between">
+          <view class="content">
+            <view>{{ vim.areaName }}</view>
+            <view>{{ vim.remark }} 佣金{{ vim.commission }}%</view>
+          </view>
+          <image :src="vim.levelImg" class="icon" mode="widthFix" />
         </view>
         <view class="task_content">
           <view class="padding">
+            <image
+              class="bg012"
+              src="/static/img/bg-012.png"
+              mode="heightFix"
+            />
             <view class="container">
               <view
                 class="scroll-container"
@@ -47,53 +54,53 @@
         </view>
         <view class="txt">全力抢单中，抢单结果将在下方发放。</view>
       </view>
-    </view>
-    <view class="btn">
-      <u-button
-        color="#2f3848"
-        type="primary"
-        text="充值升级"
-        @click="addVip"
-      ></u-button>
-      <u-button
-        color="#ff6225"
-        type="primary"
-        @click="startCallBack"
-        text="自动匹配"
-      ></u-button>
+      <view class="btn">
+        <u-button
+          type="primary"
+          text="充值升级"
+          @click="addVip"
+          class="button-golden"
+        ></u-button>
+        <u-button
+          type="primary"
+          @click="startCallBack"
+          text="自动匹配"
+          class="button"
+        ></u-button>
+      </view>
     </view>
     <view class="task">今日战果</view>
     <view class="report">
       <view class="item">
-        <view class="txt gray">总资产</view>
         <view class="moeny gray">
           {{ moenyFn(infos.balance) }}
         </view>
+        <view class="txt">总资产</view>
       </view>
       <view class="item">
-        <view class="txt gray">昨日收益</view>
         <view class="moeny">
           {{ moenyFn(infos.yesterdayIncome) }}
         </view>
+        <view class="txt">昨日收益</view>
       </view>
       <view class="item">
-        <view class="txt">今日已抢佣金</view>
         <view class="moeny"> {{ moenyFn(infos.todayIncome) }}</view>
+        <view class="txt">今日已抢佣金</view>
       </view>
       <view class="item">
-        <view class="txt">账户冻结金额</view>
         <view class="moeny">
           <template v-if="infos.freezeBalance"></template>
           {{ infos.freezeBalance }}
         </view>
+        <view class="txt">账户冻结金额</view>
       </view>
       <view class="item">
+        <view class="moeny">{{ infos.todayOrderCount }} 单</view>
         <view class="txt">今天已抢单数</view>
-        <view class="moeny">{{ infos.todayOrderCount }}单</view>
       </view>
       <view class="item">
-        <view class="txt">昨日团队佣金</view>
         <view class="moeny"> {{ moenyFn(infos.yesterdayTeamIncome) }}</view>
+        <view class="txt">昨日团队佣金</view>
       </view>
     </view>
     <view class="passStyle">
@@ -102,7 +109,7 @@
         <view>下一等级专属通道获得更高佣金</view>
       </view>
     </view>
-    <view class="order">订单说明</view>
+    <view class="task">订单说明</view>
     <view class="info">
       <view>尊敬的用户你好</view>
       <view>
@@ -186,7 +193,7 @@ export default {
     startCallBack() {
       if (this.loading) return false;
       this.loading = true;
-      let height = 19 * 220;
+      let height = 19 * 120;
       this.animation.forEach((item) => {
         let animation = uni.createAnimation({
           duration: 6500,
@@ -229,8 +236,33 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.back {
+  background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
+    conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(245, 211, 172, 0) 0deg,
+      rgba(245, 211, 172, 0.38) 45deg,
+      rgba(245, 211, 172, 0) 84.38deg,
+      rgba(245, 211, 172, 0) 133.12deg,
+      rgba(245, 211, 172, 0.37) 187.5deg,
+      rgba(245, 211, 172, 0) 230.62deg,
+      rgba(245, 211, 172, 0) 360deg
+    );
+  border: 1rpx solid;
+  border-image-source: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(245, 211, 172, 0) 0deg,
+    rgba(245, 211, 172, 0.38) 45deg,
+    rgba(245, 211, 172, 0) 84.38deg,
+    rgba(245, 211, 172, 0) 133.12deg,
+    rgba(245, 211, 172, 0.37) 187.5deg,
+    rgba(245, 211, 172, 0) 230.62deg,
+    rgba(245, 211, 172, 0) 360deg
+  );
+}
+
 .main {
-  background-color: #f8f8f8;
+  background-color: #111111;
   min-height: 100vh;
   padding: 0 30rpx;
   padding-top: var(--status-bar-height);
@@ -239,14 +271,15 @@ export default {
 }
 .list {
   display: flex;
-  padding: 60rpx 0 20rpx;
+  margin-top: 24rpx;
+  padding: 0 0 20rpx;
   justify-content: center;
+  @extend .back;
   flex-wrap: wrap;
+  border-radius: 32rpx;
   .item {
     width: 100%;
     padding: 20rpx;
-    border-radius: 10rpx;
-    background: #fff;
     position: relative;
     .bg {
       position: absolute;
@@ -257,29 +290,31 @@ export default {
     }
     .icon {
       width: 148rpx;
-      position: absolute;
-      left: 20rpx;
-      top: -20rpx;
       z-index: 2;
     }
     .txt {
-      padding: 20rpx 0;
+      padding: 16rpx 0;
+      width: 80%;
+      text-align: center;
+      margin: 0 auto;
       font-size: 24rpx;
-      color: #434343;
+      color: #ffffffa6;
+      background: #ffffff1f;
+      border-radius: 16px;
     }
   }
   .content {
     z-index: 2;
     position: relative;
     view:nth-child(1) {
-      color: #434343;
       font-weight: 600;
-      font-size: 46rpx;
+      font-size: 32rpx;
       padding-top: 40rpx;
+      color: $white;
     }
     view:nth-child(2) {
-      color: #969696;
-      font-size: 24rpx;
+      color: #ffffffa6;
+      font-size: 20rpx;
       padding: 16rpx 0;
     }
   }
@@ -290,106 +325,128 @@ export default {
   }
 }
 .task {
-  font-weight: 600;
-  color: #434343;
-  font-size: 46rpx;
-  padding: 30rpx 0 10rpx;
+  font-weight: bold;
+  margin: 0 auto 10rpx auto;
+  font-size: 36rpx;
+  color: $white;
+  position: relative;
+  padding: 30rpx 0 20rpx 40rpx;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    border-radius: 8rpx;
+    top: 30rpx;
+    background: linear-gradient(130.74deg, #6c38ed 17.26%, #9167f2 91.1%);
+    height: 48rpx;
+    width: 16rpx;
+  }
 }
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 30rpx 0;
+  width: 90%;
   gap: 30rpx;
+  /deep/.u-button {
+    border-radius: 100rpx;
+  }
   /deep/.u-button:nth-child(1) .u-button__text {
-    color: #f2d8be;
-    font-size: 30rpx !important;
+    color: $white;
+    font-size: 32rpx !important;
   }
   /deep/.u-button:nth-child(2) .u-button__text {
-    color: #ffffff;
-    font-size: 30rpx !important;
+    color: $white;
+    font-size: 32rpx !important;
   }
 }
 .passStyle {
   padding: 30rpx 0;
   .pass {
+    @extend .back;
     display: flex;
     align-items: center;
-    background-color: #fff;
     border-radius: 10rpx;
     padding: 25rpx 20rpx;
     view {
       font-size: 28rpx;
       padding-left: 16rpx;
+      color: $white;
     }
     text {
-      background: #2f3848;
-      border-radius: 4rpx;
-      color: #f2d8be;
-      font-size: 24rpx;
-      padding: 6rpx 10rpx;
+      padding: 4rpx 8rpx;
+      border-radius: 8rpx;
+      color: #121212;
+      display: flex;
+      align-items: center;
+      font-weight: 400;
+      justify-content: center;
+      margin-left: 10rpx;
+      font-size: 20rpx;
+      background: linear-gradient(134.61deg, #d8b88e 0.81%, #c49a68 97.27%);
     }
   }
 }
-.order {
-  background: linear-gradient(209deg, #ffcc2c, #ff9a2c);
-  width: 190rpx;
-  border-radius: 10rpx;
-  color: #fff;
-  text-align: center;
-  padding: 10rpx 0;
-  font-size: 24rpx;
-}
 .info {
-  padding: 60rpx 0 20rpx;
+  @extend .back;
+  padding: 32rpx 24rpx;
+  border-radius: 16rpx;
   view {
-    font-size: 28rpx;
+    font-size: 20rpx;
     line-height: 1.5;
-    color: #9c9c9c;
-    padding-top: 6rpx;
+    color: #ffffffd9;
+    padding-top: 10rpx;
   }
 }
 .report {
-  background-color: #fff;
   border-radius: 20rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  gap: 16rpx;
   padding: 30rpx 0;
   .item {
-    width: calc(100% / 3);
+    @extend .back;
+    border-radius: 16rpx;
+    width: calc(100% / 3 - 16rpx);
     padding: 20rpx;
-    border-right: 1rpx solid #f1f1f1;
     &:nth-child(-n + 3) {
       padding-bottom: 30rpx;
     }
-    &:nth-child(3) {
-      border-right: 0;
-    }
   }
   .txt {
-    font-size: 24rpx;
-    padding-bottom: 10rpx;
-    &.gray {
-      color: #9c9c9c;
-    }
+    text-align: center;
+    color: #ffffffa6;
+    font-size: 20rpx;
   }
   .moeny {
-    font-size: 40rpx;
-    color: red;
-    &.gray {
-      color: #000;
-    }
+    font-weight: 600;
+    font-size: 32rpx;
+    padding-bottom: 10rpx;
+    color: #ffffffd9;
+    text-align: center;
   }
 }
 .task_content {
   width: 100%;
-  height: 490rpx;
+  height: 652rpx;
   background: url("@/static/img/task.png") no-repeat;
   background-size: 100% 100%;
   .padding {
-    padding: 250rpx 20rpx 0;
+    padding: 280rpx 20rpx 0;
+    width: 65%;
+    transform: translateX(-20rpx);
+    margin: 0 auto;
+    position: relative;
+  }
+  .bg012 {
+    height: 64rpx;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 .container {
@@ -398,16 +455,18 @@ export default {
 }
 .scroll-container {
   width: calc(100% / 3);
-  height: 220rpx;
+  height: 120rpx;
   text-align: center;
   overflow: hidden;
   .wenhao {
-    height: 220rpx;
-    max-height: 220rpx;
+    height: 60rpx;
   }
   .item-text {
-    line-height: 220rpx;
-    max-height: 220rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 120rpx;
+    min-height: 120rpx;
   }
 }
 </style>

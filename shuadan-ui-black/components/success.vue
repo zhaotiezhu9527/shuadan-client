@@ -6,22 +6,30 @@
       :showConfirmButton="false"
       :showCancelButton="false"
     >
-      <view class="flex">
+      <view class="flex2">
         <view class="message_block">
-          <view class="message_info">
-            <image mode="widthFix" class="center" src="@/static/img/qd.png" />
-          </view>
           <view class="message_info_content">
             <view class="boxstyle">
               <view class="box">
-                <view class="time">抢单时间：{{ items.orderTime }}</view>
-                <view class="uid">
-                  {{ items.orderNo
-                  }}<text class="num">{{ items.countNum }}</text
-                  ><text class="txt" v-if="items.orderType == 0">
-                    {{ items.promptText }}
-                  </text>
+                <view class="header">
+                  <image
+                    style="width: 96rpx"
+                    src="/static/img/bg-006.png"
+                    mode="widthFix"
+                  />
+                  <view class="text">恭喜抢单成功</view>
                 </view>
+                <view class="flex items-center justify-between">
+                  <view class="uid flex items-center mb-16">
+                    抢单编号：{{ items.orderNo }}
+                    <text class="num mx-8">{{ items.countNum }}</text
+                    ><text class="txt" v-if="items.orderType == 0">
+                      {{ items.promptText }}
+                    </text>
+                  </view>
+                </view>
+                <view class="time mb-24">抢单时间：{{ items.orderTime }}</view>
+
                 <view class="goodsstyle">
                   <view class="goods">
                     <image class="img" :src="items.goodsImg" mode="widthFix" />
@@ -59,26 +67,22 @@
                     <text class="moeny">¥ {{ items.forecastReturn }}</text>
                   </view>
                 </view>
-                <image
-                  class="static"
-                  src="@/static/img/succ.png"
-                  mode="widthFix"
-                />
               </view>
             </view>
             <view class="btn">
               <u-button
                 shape="circle"
-                color="#2f3848"
+                color="#fff"
                 plain
                 @click="show = false"
                 text="暂不提交"
               ></u-button>
               <u-button
                 shape="circle"
-                color="#2f3848"
+                color="#ffffff"
                 text="立即提交"
                 :loading="loading"
+                style="color: #000"
                 @click="change"
               ></u-button>
             </view>
@@ -185,19 +189,20 @@ export default {
 .message_block {
   border-radius: 20rpx;
   width: 100%;
-  background: linear-gradient(1turn, #fff, #ffcc2c);
+  background-color: #1e1e1e;
   position: relative;
-  &::after {
-    content: "";
-    top: 0;
-    left: 0;
-    background: url("@/static/img/bg_05.png") 0rpx no-repeat;
-    background-size: 100%;
-    position: absolute;
-    height: 70%;
-    width: 100%;
-    z-index: 1;
-  }
+  border: 1px solid;
+  border-image-source: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(245, 211, 172, 0) 0deg,
+    rgba(245, 211, 172, 0.38) 45deg,
+    rgba(245, 211, 172, 0) 84.38deg,
+    rgba(245, 211, 172, 0) 133.12deg,
+    rgba(245, 211, 172, 0.37) 187.5deg,
+    rgba(245, 211, 172, 0) 230.62deg,
+    rgba(245, 211, 172, 0) 360deg
+  );
+
   .message_info {
     position: relative;
     z-index: 2;
@@ -224,7 +229,7 @@ export default {
     overflow-y: auto;
   }
 }
-.flex {
+.flex2 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -239,24 +244,24 @@ export default {
   z-index: 3;
   .box {
     padding: 30rpx;
-    background-image: url("@/static/img/bg_04.png");
-    background-size: 100% 100%;
+    background-color: #1e1e1e;
+    border-radius: 16rpx;
     position: relative;
     .uid,
     .time {
-      color: #9e9e9e;
+      color: $white;
       font-size: 24rpx;
       padding-bottom: 10rpx;
       .num {
         padding: 1px;
         border-radius: 50%;
-        background-color: red;
-        width: 40rpx;
-        height: 40rpx;
-        line-height: 40rpx;
-        color: #fff;
-        font-size: 28rpx;
-        display: inline-block;
+        background: #f56c6c;
+        border: 1rpx solid $white;
+        width: 34rpx;
+        height: 34rpx;
+        line-height: 30rpx;
+        color: $white;
+        font-size: 20rpx;
         text-align: center;
       }
       .txt {
@@ -270,10 +275,27 @@ export default {
     }
   }
   .static {
-    position: absolute;
-    right: 20rpx;
-    top: 20rpx;
-    width: 130rpx;
+    background: rgba($white, 0.3);
+    border-radius: 4rpx;
+    border: 1rpx solid rgba($white, 0.6);
+    color: $white;
+    font-size: 20rpx;
+    padding: 4rpx 8rpx;
+    &.success {
+      background: rgba($green, 0.3);
+      color: $green;
+      border: 1rpx solid rgba($green, 0.6);
+    }
+    &.loading {
+      background: rgba($orange, 0.3);
+      color: $orange;
+      border: 1rpx solid rgba($orange, 0.6);
+    }
+    &.dongjie {
+      background: rgba($red, 0.3);
+      color: $red;
+      border: 1rpx solid rgba($red, 0.6);
+    }
   }
   .redb {
     background: #ff575c;
@@ -288,39 +310,57 @@ export default {
     margin: 20rpx 0;
   }
   .goods {
-    background: #f2f2f2;
-    border-radius: 20rpx;
     margin: 20rpx 0;
     display: flex;
     overflow: hidden;
     justify-content: space-between;
     align-items: center;
     .img {
-      width: 180rpx;
+      width: 128rpx;
+      max-height: 128rpx;
+      border-radius: 8rpx;
+      padding: 8rpx;
+      background-color: $white;
     }
     .content {
-      padding: 20rpx;
+      padding-left: 20rpx;
       display: flex;
-      flex: 1;
+      align-items: center;
       justify-content: space-between;
-      flex-direction: column;
-      font-size: 26rpx;
-      line-height: 1.5;
+      width: calc(100% - 158rpx);
+      color: $white;
+    }
+    .name {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      font-size: 24rpx;
+      line-height: 2;
+      margin-right: 20rpx;
+      width: calc(100% - 100rpx);
     }
     .text {
-      display: flex;
-      padding-top: 20rpx;
-      font-size: 26rpx;
-      justify-content: space-between;
-      align-items: center;
+      font-size: 20rpx;
+      width: 100rpx;
+      text-align: right;
+      view:nth-child(2) {
+        color: #ffffffa6;
+      }
     }
   }
   .ul {
+    background: #303030;
+    padding: 24rpx;
+    border-radius: 8rpx;
     .li {
+      color: #ffffffa6;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 30rpx;
+      font-size: 24rpx;
+      align-items: center;
+      padding-bottom: 24rpx;
       &:nth-child(3) {
         padding-bottom: 10rpx;
       }
@@ -328,20 +368,13 @@ export default {
         padding-bottom: 10rpx;
       }
     }
-    .submit {
-      background: #ff575c;
-      color: #fff;
-      font-size: 20rpx;
-      text-align: center;
-      padding: 6rpx 20rpx;
-      border-radius: 10rpx;
-    }
     text {
       font-size: 28rpx;
     }
     .moeny {
-      color: #ff9a2c;
-      font-size: 45rpx;
+      color: #f56c6c;
+      font-size: 28rpx;
+      font-weight: 600;
     }
   }
 }
@@ -361,7 +394,7 @@ export default {
   background-color: red;
   width: 88rpx;
   height: 40rpx;
-  color: #fff;
+  color: #303030;
   text-align: center;
   border-radius: 0 8rpx 8rpx 0;
   display: inline-block;
@@ -379,6 +412,16 @@ export default {
     border-right-color: red;
     top: 0;
     right: 100%;
+  }
+}
+.header {
+  text-align: center;
+  .text {
+    padding-top: 32rpx;
+    padding-bottom: 64rpx;
+    color: $white;
+    font-size: 32rpx;
+    font-weight: 500;
   }
 }
 </style>

@@ -50,6 +50,13 @@ page {
   border: 0 !important;
   color: $white !important;
 }
+.button-golden {
+  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.18) inset;
+  box-shadow: -2px -2px 0px 0px rgba(0, 0, 0, 0.35) inset;
+  border: 0 !important;
+  background: linear-gradient(134.61deg, #d8b88e 0.81%, #c49a68 97.27%);
+  color: $white !important;
+}
 .button-plain {
   border: 1rpx solid $main-c !important;
   background: transparent !important;

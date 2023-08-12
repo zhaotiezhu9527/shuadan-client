@@ -1,34 +1,65 @@
 <template>
   <view class="main">
+    <u-navbar
+      placeholder
+      :border="false"
+      autoBack
+      title="任务记录"
+      fixed
+      leftIconColor="#ffffff"
+      bgColor="#1e1e1e"
+      leftIconSize="32"
+      safe-area-inset-top
+      height="100rpx"
+      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+    >
+    </u-navbar>
     <u-list class="container" @scrolltolower="load">
       <view class="title">
         <view>任务记录</view>
         <view>{{ userData.balance }}</view>
       </view>
-      <view class="sub_title">
-        <view>本数据由全民任务官方提供</view>
-        <view>剩余可用资产(元)</view>
-      </view>
       <view class="tabs">
         <u-tabs
           :list="nav"
-          lineColor="#ff9a2c"
-          lineWidth="60rpx"
-          lineHeight="6rpx"
+          lineColor="#fff"
+          lineWidth="180rpx"
+          lineHeight="1rpx"
           :scrollable="false"
           :current="current"
-          activeStyle="color:#ff9a2c;font-weight:600"
+          activeStyle="color:#fff;font-size:28rpx;"
           @change="navChange"
         ></u-tabs>
       </view>
       <view class="list" v-if="isArray">
         <view class="boxstyle" v-for="(item, index) in list" :key="index">
           <view class="box">
-            <view class="time">抢单时间：{{ item.orderTime }}</view>
-            <view class="uid"
-              >抢单编号：{{ item.orderNo
-              }}<text>{{ item.dayOrderCount }}</text></view
+            <view class="time flex items-center">
+              <image
+                src="/static/img/bg-007.png"
+                mode="widthFix"
+                style="width: 26rpx"
+                class="mr-4"
+              />
+              抢单时间：{{ item.orderTime }}</view
             >
+            <view class="flex items-center justify-between">
+              <view class="uid">
+                抢单编号：{{ item.orderNo }}
+                <text>{{ item.dayOrderCount }}</text>
+              </view>
+              <view
+                :class="{
+                  loading: item.status === 0,
+                  success: item.status === 1,
+                  dongjie: item.status === 2,
+                }"
+                class="static"
+              >
+                {{ item.statusStr }}
+              </view>
+            </view>
+
             <view class="goodsstyle">
               <view class="goods">
                 <image class="img" :src="item.goodsImg" mode="widthFix" />
@@ -62,28 +93,10 @@
                 <text>预计返还</text>
                 <text class="moeny">¥ {{ item.returnAmount }}</text>
               </view>
-              <view class="li" v-if="item.status === 0">
+              <view class="li right" v-if="item.status === 0">
                 <view class="submit" @click="change(item)">提交订单</view>
               </view>
             </view>
-            <image
-              v-if="item.status === 0"
-              class="static"
-              src="@/static/img/dai.png"
-              mode="widthFix"
-            />
-            <image
-              v-else-if="item.status === 1"
-              class="static"
-              src="@/static/img/succ.png"
-              mode="widthFix"
-            />
-            <image
-              v-else-if="item.status === 2"
-              class="static"
-              src="@/static/img/dongjie.png"
-              mode="widthFix"
-            />
           </view>
         </view>
       </view>
@@ -179,28 +192,7 @@ export default {
 .main {
   padding-top: var(--status-bar-height);
   .container {
-    height: calc(100vh - var(--status-bar-height)) !important;
-    &::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 20%;
-      background-image: url("@/static/img/bg-01.png");
-      background-size: 100%;
-      top: 0;
-      left: 0;
-      z-index: 2;
-    }
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      background: linear-gradient(1turn, #fff, #bac3d2);
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
+    height: calc(100vh - 100rpx) !important;
     .title {
       font-size: 46rpx;
       font-weight: 600;
@@ -210,65 +202,58 @@ export default {
       align-items: center;
       z-index: 3;
       padding: 40rpx 30rpx;
+      background: #1e1e1e;
+
       view {
-        color: #2f3848;
+        color: $white;
+        font-size: 32rpx;
       }
       view:nth-child(2) {
-        font-size: 40rpx;
-      }
-    }
-    .sub_title {
-      font-size: 24rpx;
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      z-index: 3;
-      padding: 20rpx 30rpx 0;
-      view {
-        color: #7a7d82;
-      }
-      view:nth-child(2) {
-        color: #434343;
+        font-size: 64rpx;
+        font-weight: 500;
       }
     }
   }
   .tabs {
-    padding-top: 30rpx;
     padding-bottom: 10rpx;
-    border-bottom: 1rpx solid #fff;
+    border-top: 1rpx solid rgba($white, 0.2);
     position: relative;
+    background: #1e1e1e;
     z-index: 3;
   }
+}
+/deep/.u-tabs__wrapper__nav__line {
+  bottom: 2rpx !important;
 }
 .boxstyle {
   padding: 30rpx;
   position: relative;
   z-index: 3;
-  border-bottom: 6rpx solid #eee;
-  &:nth-last-child(1) {
-    border-bottom: 0;
-  }
+
   .box {
     padding: 30rpx;
-    background-image: url("@/static/img/bg_04.png");
+    background-color: #1e1e1e;
+    border-radius: 16rpx;
     background-size: 100% 100%;
     position: relative;
     .uid,
     .time {
-      color: #9e9e9e;
+      color: $white;
       font-size: 24rpx;
       padding-bottom: 10rpx;
       text {
         padding: 1px;
         border-radius: 50%;
-        background-color: red;
-        width: 40rpx;
-        height: 40rpx;
-        line-height: 40rpx;
-        color: #fff;
-        font-size: 28rpx;
+        background: #f56c6c;
+        border: 1rpx solid $white;
+        width: 34rpx;
+        height: 34rpx;
         display: inline-block;
+        line-height: 30rpx;
+        color: $white;
+        font-size: 20rpx;
         text-align: center;
+        margin-left: 10rpx;
       }
     }
     .uid {
@@ -276,70 +261,111 @@ export default {
     }
   }
   .static {
-    position: absolute;
-    right: 20rpx;
-    top: 20rpx;
-    width: 130rpx;
+    background: rgba($white, 0.3);
+    border-radius: 4rpx;
+    border: 1rpx solid rgba($white, 0.6);
+    color: $white;
+    font-size: 20rpx;
+    padding: 4rpx 8rpx;
+    &.success {
+      background: rgba($green, 0.3);
+      color: $green;
+      border: 1rpx solid rgba($green, 0.6);
+    }
+    &.loading {
+      background: rgba($orange, 0.3);
+      color: $orange;
+      border: 1rpx solid rgba($orange, 0.6);
+    }
+    &.dongjie {
+      background: rgba($red, 0.3);
+      color: $red;
+      border: 1rpx solid rgba($red, 0.6);
+    }
   }
   .goodsstyle {
     margin: 20rpx 0;
   }
   .goods {
-    background: #f2f2f2;
-    border-radius: 20rpx;
     margin: 20rpx 0;
     display: flex;
     overflow: hidden;
     justify-content: space-between;
     align-items: center;
     .img {
-      width: 180rpx;
-      max-height: 180rpx;
+      width: 128rpx;
+      max-height: 128rpx;
+      border-radius: 8rpx;
+      padding: 8rpx;
+      background-color: $white;
     }
     .content {
-      padding: 20rpx;
+      padding-left: 20rpx;
       display: flex;
-      flex: 1;
+      align-items: center;
       justify-content: space-between;
-      flex-direction: column;
-      font-size: 26rpx;
-      line-height: 1.5;
+      width: calc(100% - 158rpx);
+      color: $white;
+    }
+    .name {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      font-size: 24rpx;
+      line-height: 2;
+      margin-right: 20rpx;
+      width: calc(100% - 100rpx);
     }
     .text {
-      display: flex;
-      padding-top: 20rpx;
-      font-size: 26rpx;
-      justify-content: space-between;
-      align-items: center;
+      font-size: 20rpx;
+      width: 100rpx;
+      text-align: right;
+      view:nth-child(2) {
+        color: #ffffffa6;
+      }
     }
   }
   .ul {
+    background: #303030;
+    padding: 24rpx;
+    border-radius: 8rpx;
     .li {
+      color: #ffffffa6;
       display: flex;
       justify-content: space-between;
+      font-size: 24rpx;
       align-items: center;
-      padding-bottom: 30rpx;
+      padding-bottom: 24rpx;
       &:nth-child(3) {
         padding-bottom: 10rpx;
       }
       &:nth-child(4) {
         padding-bottom: 10rpx;
       }
+      &.right {
+        justify-content: flex-end;
+      }
     }
     .submit {
-      background: #ff575c;
-      color: #fff;
-      font-size: 20rpx;
-      text-align: center;
-      padding: 6rpx 20rpx;
-      border-radius: 10rpx;
+      margin-top: 30rpx;
+      color: $white;
+      font-size: 30rpx;
+      height: 64rpx;
+      width: 176rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100rpx;
+      border: 1rpx solid $white;
     }
     text {
       font-size: 28rpx;
     }
     .moeny {
-      color: #ff9a2c;
-      font-size: 45rpx;
+      color: #f56c6c;
+      font-size: 28rpx;
+      font-weight: 600;
     }
   }
 }
@@ -354,7 +380,7 @@ export default {
   background-color: red;
   width: 88rpx;
   height: 40rpx;
-  color: #fff;
+  color: #313131;
   text-align: center;
   border-radius: 0 8rpx 8rpx 0;
   display: inline-block;
