@@ -22,6 +22,7 @@
         </view>
         <view class="item other button-50" v-else @click="change(index)">
           <image class="img2" :src="item.image1" mode="widthFix" />
+          <view class="txt">任务</view>
         </view>
       </template>
     </view>
@@ -36,7 +37,7 @@ import kefu1 from "@/static/img/kefu1.png";
 import kefu2 from "@/static/img/kefu1.png";
 import user1 from "@/static/img/user1.png";
 import user2 from "@/static/img/user1.png";
-import rw1 from "@/static/img/rw1.png";
+import rw1 from "@/static/img/bg-013.png";
 import home from "@/components/tabs/home.vue";
 import order from "@/components/tabs/order.vue";
 import service from "@/components/tabs/service.vue";
@@ -131,9 +132,9 @@ export default {
   }
   .other {
     padding-top: 0;
-    margin-top: -180rpx;
-    width: 120rpx;
-    height: 120rpx;
+    margin-top: -160rpx;
+    width: 120rpx !important;
+    height: 120rpx !important;
     display: flex;
   }
   .img {

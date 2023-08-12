@@ -347,8 +347,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-bottom: calc(240rpx + constant(safe-area-inset-bottom));
-  padding-bottom: calc(240rpx + env(safe-area-inset-bottom));
+  padding-bottom: calc(220rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid rgba($white, 0.12);
   .item {
     background-color: $white;
