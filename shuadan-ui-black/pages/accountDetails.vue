@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="wapper">
     <u-navbar
       placeholder
       :border="false"
@@ -9,7 +9,7 @@
       leftIconColor="#ffffff"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#000000"
+      bgColor="#1e1e1e"
       height="100rpx"
       titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
     >
@@ -30,18 +30,13 @@
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
             <view class="table-money">
-              {{ item.optTime }}
+              {{ item.optTypeStr}}
             </view>
             <view class="table-foot">
               <view class="table-title">
                 <label
-                  :class="{
-                    'red-text': item.optType === 4,
-                    'blue-text': item.optType === 3,
-                    'yellow-text': item.optType === 5,
-                  }"
                 >
-                  {{ item.optTypeStr }}
+                  {{ item.optTime }}
                 </label>
               </view>
               <view class="table-number">
@@ -145,7 +140,9 @@ export default {
   padding: 20rpx;
   font-size: 24rpx;
   line-height: 40rpx;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #393939;
+  background-color: #1e1e1e;
+  color: #ddd;
   .table-money {
     font-size: 26rpx;
   }
@@ -165,12 +162,12 @@ export default {
     float: left;
   }
   .table-number {
-    float: left;
-    background-color: #f44336;
-    color: #fff;
-    border-radius: 12rpx;
+    float: right;
+    background: linear-gradient(#D8B88E, #C49A68);
+    color: #000;
+    border-radius: 8rpx;
     font-size: 24rpx;
-    padding: 2rpx 8rpx;
+    padding: 4rpx 10rpx;
     margin-left: 120rpx;
   }
 }
