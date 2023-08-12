@@ -55,7 +55,7 @@ export default {
   border: 0 !important;
 }
 .message_block {
-  height: 914rpx;
+  max-height: 914rpx;
   border-radius: 20rpx;
   width: 100%;
   position: relative;
@@ -76,7 +76,7 @@ export default {
     color: $white;
   }
   .button {
-    margin-top: 32rpx;
+    margin: 32rpx 0;
   }
   .rich {
     height: 100%;

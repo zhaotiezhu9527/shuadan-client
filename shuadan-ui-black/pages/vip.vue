@@ -16,7 +16,7 @@
     </u-navbar>
     <view class="carstyle">
       <view class="car">
-        <image class="user" src="@/static/img/head.png" mode="widthFix" />
+        <image class="user" :src="infos.avatarUrl" mode="widthFix" />
         <view class="txt">
           <view>会员等级：{{ items.currLevelName }}</view>
           <view>每天可接单：{{ items.dayOrderCount }}单</view>
@@ -75,6 +75,7 @@ export default {
   data() {
     return {
       items: {},
+      infos: {},
     };
   },
   onShow() {
@@ -85,10 +86,21 @@ export default {
         this.$base.show(data, msg);
       }
     });
+    this.getInfo();
   },
   methods: {
     change() {
       uni.reLaunch({ url: "/pages/index?tabs=4" });
+    },
+    getInfo() {
+      uni.showLoading({
+        title: "加载中",
+      });
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.infos = res.data.data;
+        }
+      });
     },
   },
 };

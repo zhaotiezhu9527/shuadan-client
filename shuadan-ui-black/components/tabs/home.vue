@@ -352,7 +352,7 @@ export default {
   border-top: 1rpx solid rgba($white, 0.12);
   .item {
     background-color: $white;
-    border-radius: 40rpx;
+    border-radius: 20rpx;
     width: calc(25% - 8rpx);
     padding: 20rpx 5rpx;
     @extend .back;
@@ -361,7 +361,7 @@ export default {
     transform: translateX(-10rpx);
   }
   .con {
-    transform: scale(0.8);
+    padding: 0 10rpx;
     .name {
       padding-bottom: 10rpx;
       color: rgba($white, 0.85);
@@ -413,7 +413,7 @@ export default {
   .item {
     @extend .back;
     padding: 20rpx;
-    width: calc(50% - 8rpx);
+    width: calc(50% - 16rpx);
     border-radius: 20rpx;
     position: relative;
     .icon {
