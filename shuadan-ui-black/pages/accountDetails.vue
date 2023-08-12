@@ -29,18 +29,20 @@
         </view> -->
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
-            <view class="table-money">
-              {{ item.optTypeStr}}
-            </view>
-            <view class="table-foot">
-              <view class="table-title">
-                <label
-                >
-                  {{ item.optTime }}
-                </label>
+            <view class="table-content">
+              <view class="table-money">
+                {{ item.optTypeStr}}
               </view>
-              <view class="table-number">
-                {{ item.amount }}
+              <view class="table-foot">
+                <view class="table-title">
+                  <label
+                  >
+                    {{ item.optTime }}
+                  </label>
+                </view>
+                <view class="table-number">
+                  {{ item.amount }}
+                </view>
               </view>
             </view>
           </view>
@@ -114,6 +116,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.main{
+  margin-top: 20rpx;
+}
 .title {
   width: 100%;
   height: 80rpx;
@@ -137,12 +142,21 @@ export default {
   }
 }
 .content {
-  padding: 20rpx;
+  padding: 20rpx 20rpx 0 20rpx;
   font-size: 24rpx;
   line-height: 40rpx;
-  border-bottom: 1px solid #393939;
   background-color: #1e1e1e;
-  color: #ddd;
+  color: #b0b0b0;
+  overflow: hidden;
+  .table-content{
+    width: 96%;
+    margin: auto;
+    border-bottom: 1px solid #393939;
+    .table-foot{
+      padding-bottom: 20rpx;
+      overflow: hidden;
+    }
+  }
   .table-money {
     font-size: 26rpx;
   }
