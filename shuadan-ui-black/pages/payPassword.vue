@@ -44,7 +44,7 @@
         />
       </view>
       <view class="pour">请牢记密码,如忘记密码,请联系客服。</view>
-      <view class="btn" @click="submit"> 确认修改 </view>
+      <view class="password-btn" @click="submit"> 确认修改 </view>
     </view>
   </view>
 </template>
@@ -119,22 +119,6 @@ export default {
     line-height: 90rpx;
   }
 }
-.btn {
-  width: 90%;
-  height: 80rpx;
-  border-radius: 45rpx;
-  opacity: 1;
-  line-height: 78rpx;
-  text-align: center;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: #ddd;
-  margin: 40rpx auto 0 auto;
-  border: 1px solid #666;
-}
-.pour {
-  margin: 30rpx 50rpx 60rpx;
-  color: #666;
-  font-size: 24rpx;
-}
+
+
 </style>
