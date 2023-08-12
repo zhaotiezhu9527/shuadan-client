@@ -9,7 +9,7 @@
       leftIconColor="#ffffff"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#000000"
+      bgColor="#1e1e1e"
       height="100rpx"
       titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
     >
@@ -17,7 +17,7 @@
     <view class="main">
       <view class="head">
         <image class="head-img" :src="avatarUrl" />
-        <view class="btn" @click="postHead">保存</view>
+        <view class="btn" @click="postHead">立即设置</view>
       </view>
       <view class="content">
         <view
@@ -89,34 +89,29 @@ export default {
 <style scoped lang="scss">
 .head {
   width: 100%;
-  height: 252rpx;
-  background: linear-gradient(
-    180deg,
-    rgba(254, 233, 218, 0.3) -4%,
-    rgba(254, 233, 218, 0.3) 52%,
-    rgba(255, 255, 255, 0) 130%
-  );
+  height: 336rpx;
+  background: #1e1e1e;
   overflow: hidden;
-  border-bottom: 20rpx solid #eee;
   .head-img {
     display: block;
-    width: 120rpx;
-    height: 120rpx;
+    width: 176rpx;
+    height: 176rpx;
     margin: 30rpx auto 20rpx auto;
   }
   .btn {
     font-size: 30rpx;
     color: #fff;
-    background: #ffb550;
-    border-radius: 90rpx;
-    width: 160rpx;
+    border-radius: 8rpx;
+    width: 176rpx;
+    height: 64rpx;
+    line-height: 60rpx;
     text-align: center;
     margin: auto;
+    border: 1px solid #666;
   }
 }
 .content {
   width: 100%;
-  background-color: #fff;
   overflow: hidden;
   .item {
     width: 20%;
