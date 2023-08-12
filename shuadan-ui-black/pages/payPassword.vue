@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="wapper">
     <u-navbar
       placeholder
       :border="false"
@@ -92,26 +92,25 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  background-color: #f2f2f2;
   min-height: calc(100vh - 100rpx);
 }
 .title {
   padding: 0 40rpx;
-  background-color: #eee;
   font-size: 24rpx;
   line-height: 75rpx;
-  color: #666;
+  color: #999;
 }
 .from-input {
   padding: 0 40rpx;
+  background-color: #1e1e1e;
+  color: #ddd;
   display: flex;
-  background-color: #fff;
   height: 90rpx;
   line-height: 90rpx;
   label {
     width: 160rpx;
     margin-right: 20rpx;
-    color: #666;
+    color: #ddd;
     text-align: right;
   }
   .input-text {
@@ -121,21 +120,21 @@ export default {
   }
 }
 .btn {
-  width: 388rpx;
-  height: 66rpx;
+  width: 90%;
+  height: 80rpx;
   border-radius: 45rpx;
   opacity: 1;
-  background: #ffb550;
-  line-height: 66rpx;
+  line-height: 78rpx;
   text-align: center;
   font-size: 36rpx;
   font-weight: 500;
-  color: #ffffff;
+  color: #ddd;
   margin: 40rpx auto 0 auto;
+  border: 1px solid #666;
 }
 .pour {
   margin: 30rpx 50rpx 60rpx;
-  color: #f78944;
+  color: #666;
   font-size: 24rpx;
 }
 </style>
