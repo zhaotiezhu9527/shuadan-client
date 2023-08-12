@@ -7,7 +7,7 @@
       title="修改名称"
       fixed
       leftIconColor="#ffffff"
-      bgColor="#000000"
+      bgColor="#1e1e1e"
       leftIconSize="32"
       safe-area-inset-top
       height="100rpx"
@@ -79,12 +79,13 @@ export default {
   line-height: 75rpx;
 }
 .from-input {
-  margin: 40rpx 40rpx 10rpx;
+  padding: 0 40rpx;
+  background-color: #1e1e1e;
+  color: #ddd;
   display: flex;
   height: 90rpx;
-  background-color: #fff;
   line-height: 90rpx;
-  border-radius: 20rpx;
+  margin-top: 20rpx;
   label {
     width: 100rpx;
     margin-right: 20rpx;
@@ -97,16 +98,16 @@ export default {
   }
 }
 .btn {
-  width: 388rpx;
-  height: 66rpx;
+  width: 90%;
+  height: 80rpx;
   border-radius: 45rpx;
   opacity: 1;
-  background: #ffb550;
-  line-height: 66rpx;
+  line-height: 78rpx;
   text-align: center;
   font-size: 36rpx;
   font-weight: 500;
-  color: #ffffff;
+  color: #ddd;
   margin: 40rpx auto 0 auto;
+  border: 1px solid #666;
 }
 </style>
