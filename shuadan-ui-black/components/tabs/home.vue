@@ -251,10 +251,11 @@ export default {
     }
   }
   .price {
-    @extend .back;
     width: 90%;
     margin: 0 auto;
     border-radius: 20rpx;
+    background: url("@/static/img/bg-015.png") no-repeat;
+    background-size: 100% 100%;
   }
 }
 .price-box {

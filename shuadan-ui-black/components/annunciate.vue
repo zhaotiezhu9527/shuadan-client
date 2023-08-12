@@ -55,8 +55,8 @@ export default {
   border: 0 !important;
 }
 .message_block {
-  max-height: 914rpx;
   border-radius: 20rpx;
+  padding: 0 20rpx 20rpx;
   width: 100%;
   position: relative;
   background: url("@/static/img/bg-003.png") no-repeat;

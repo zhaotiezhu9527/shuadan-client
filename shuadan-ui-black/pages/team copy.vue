@@ -9,36 +9,52 @@
       leftIconColor="#ffffff"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#1e1e1e"
+      bgColor="#000000"
       height="100rpx"
       titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="scroll">
       <view class="rows">
-        <view class="team flex items-center justify-between">
-          <view class="tatol">
-            <view class="txt">团队余额（元）</view>
-            <view class="moeny">{{ items.teamBalance || 0 }}</view>
-          </view>
-          <view class="li">
-            <view class="item">
-              <view class="txt">团队流水（元）</view>
-              <view class="moeny green">￥{{ items.teamwithdraw || 0 }}</view>
-            </view>
-            <view class="item">
-              <view class="txt">团队总充值（元）</view>
-              <view class="moeny">￥{{ items.teamBet || 0 }}</view>
-            </view>
-            <view class="item">
-              <view class="txt">团队总提现（元）</view>
-              <view class="moeny green">￥{{ items.teamDeposit || 0 }}</view>
-            </view>
-            <view class="item">
-              <view class="txt">团队订单佣金（元）</view>
-              <view class="moeny">￥{{ items.teamIncome || 0 }}</view>
-            </view>
-          </view>
+        <view class="item">
+          <view class="txt">团队余额（元）</view>
+          <view class="moeny">￥{{ items.teamBalance || 0 }}</view>
+        </view>
+        <view class="item right">
+          <view class="txt">团队流水（元）</view>
+          <view class="moeny green">￥{{ items.teamwithdraw || 0 }}</view>
+        </view>
+        <view class="item">
+          <view class="txt">团队总充值（元）</view>
+          <view class="moeny">￥{{ items.teamBet || 0 }}</view>
+        </view>
+        <view class="item right">
+          <view class="txt">团队总提现（元）</view>
+          <view class="moeny green">￥{{ items.teamDeposit || 0 }}</view>
+        </view>
+        <view class="item">
+          <view class="txt">团队订单佣金（元）</view>
+          <view class="moeny">￥{{ items.teamIncome || 0 }}</view>
+        </view>
+        <view class="item red">
+          <view class="txt">直推人数</view>
+          <view class="moeny">{{ items.inviteCount || 0 }}人</view>
+        </view>
+        <view class="item red">
+          <view class="txt">团队人数</view>
+          <view class="moeny">{{ items.teamMemberCount || 0 }}人</view>
+        </view>
+        <view class="item red">
+          <view class="txt">首充人数</view>
+          <view class="moeny">{{ items.depositCount || 0 }}人</view>
+        </view>
+        <view class="item red">
+          <view class="txt">新增人数</view>
+          <view class="moeny">{{ items.newRegisterCount || 0 }}人</view>
+        </view>
+        <view class="item red">
+          <view class="txt">活跃人数</view>
+          <view class="moeny">{{ items.activeCount || 0 }}人</view>
         </view>
       </view>
       <view class="title">
@@ -173,33 +189,38 @@ export default {
   }
 }
 .rows {
-  padding: 32rpx;
-  background: #1e1e1e;
-  .team > view {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .item {
     width: 50%;
-  }
-  .tatol {
-    color: $white;
+    border-right: 2rpx solid #eee;
+    padding: 20rpx;
+    border-bottom: 1rpx solid #eee;
+    &:nth-child(2n) {
+      border-right: 0;
+    }
+    &.right {
+      text-align: right;
+    }
+    .green {
+      color: green;
+    }
     .txt {
       font-size: 24rpx;
+      color: #9c9c9c;
     }
     .moeny {
-      font-size: 64rpx;
-      padding-top: 16rpx;
+      font-size: 38rpx;
     }
-  }
-  .item {
-    color: #ffffffa6;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 16rpx;
-    &:nth-last-child(1) {
-      padding-bottom: 0;
-    }
-    .moeny,
-    .txt {
-      font-size: 24rpx;
+    &.red {
+      view:nth-child(1) {
+        font-size: 32rpx;
+        color: #000;
+      }
+      view:nth-child(2) {
+        color: red;
+      }
     }
   }
 }

@@ -138,7 +138,8 @@ export default {
     display: flex;
   }
   .img {
-    height: 48rpx;
+    height: 40rpx;
+    height: 40rpx;
   }
   .img2 {
     width: 60rpx;

@@ -181,12 +181,13 @@ export default {
   background: transparent;
 }
 /deep/ .u-modal__content {
-  padding: 0;
+  padding: 0 20rpx;
 }
 /deep/ .u-line {
   border: 0 !important;
 }
 .message_block {
+  box-shadow: 0 0 16rpx 0 #ffb400b2;
   border-radius: 20rpx;
   width: 100%;
   background-color: #1e1e1e;

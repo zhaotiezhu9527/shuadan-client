@@ -118,18 +118,21 @@ export default {
   .car {
     background: url(/static/img/vip_bg.png) no-repeat;
     background-size: 100% 100%;
-    height: 220rpx;
+    height: 250rpx;
     border-top-left-radius: 20rpx;
     border-top-right-radius: 20rpx;
     display: flex;
     align-items: center;
     position: relative;
+    z-index: 1;
     .user {
       width: 80rpx;
       height: 80rpx;
       margin-left: 30rpx;
+      margin-top: -30rpx;
     }
     .txt {
+      margin-top: -30rpx;
       margin-left: 20rpx;
       view {
         color: $white;
@@ -157,7 +160,7 @@ export default {
       position: absolute;
       right: 30rpx;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translateY(calc(-50% - 15rpx));
     }
   }
 }
@@ -168,6 +171,8 @@ export default {
   padding: 40rpx 0;
   background-color: #1e1e1e;
   margin-bottom: 32rpx;
+  position: relative;
+  z-index: 2;
   .item {
     text-align: center;
   }

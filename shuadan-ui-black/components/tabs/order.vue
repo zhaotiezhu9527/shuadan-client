@@ -1,19 +1,19 @@
 <template>
   <view class="main">
-    <u-navbar
-      placeholder
-      :border="false"
-      autoBack
-      title="任务记录"
-      fixed
-      bgColor="#1e1e1e"
-      leftIconSize="0"
-      safe-area-inset-top
-      height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
-    >
-    </u-navbar>
     <u-list class="container" @scrolltolower="load">
+      <u-navbar
+        placeholder
+        :border="false"
+        autoBack
+        title="任务记录"
+        fixed
+        bgColor="#1e1e1e"
+        leftIconSize="0"
+        safe-area-inset-top
+        height="100rpx"
+        titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      >
+      </u-navbar>
       <view class="title">
         <view>任务记录</view>
         <view>{{ userData.balance }}</view>
@@ -191,7 +191,6 @@ export default {
 .main {
   padding-top: var(--status-bar-height);
   .container {
-    height: calc(100vh - 100rpx) !important;
     .title {
       font-size: 46rpx;
       font-weight: 600;
