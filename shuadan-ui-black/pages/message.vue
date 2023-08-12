@@ -24,9 +24,11 @@
         </view>
         <view class="text" v-for="(item, index) in list" :key="index">
           <view class="notice">{{ item.title }}</view>
-          <view class="prompt">温馨提示：</view>
-          <view class="details" v-html="item.content"> </view>
-          <view class="time">{{ item.pushTime }}</view>
+          <view class="text-content">
+            <view class="prompt">温馨提示：</view>
+            <view class="details" v-html="item.content"> </view>
+          </view>
+          <!-- <view class="time">{{ item.pushTime }}</view> -->
         </view>
       </view>
     </view>
@@ -59,7 +61,7 @@ export default {
 <style scoped lang="scss">
 .main {
   min-height: calc(100vh - 100rpx);
-  background-color: #f0f0f0;
+  background: linear-gradient(#000, #2d154d);
   .head {
     width: 100%;
     height: 372rpx;
@@ -80,14 +82,13 @@ export default {
       align-items: center;
       vertical-align: middle;
       font-size: 28rpx;
-      border-bottom: 1rpx solid #eee;
-      background-color: #fff;
+      background-color: #1e1f1e;
       padding: 24rpx;
       border-radius: 8rpx;
-      box-shadow: 0 3rpx 5rpx rgba(0, 0, 0, 0.1);
       margin-bottom: 18rpx;
+      color: #dedede;
       .icon-img {
-        width: 4rpx;
+        width: 40rpx;
         height: 40rpx;
         margin-right: 20rpx;
       }
@@ -114,11 +115,18 @@ export default {
     }
     .text {
       font-size: 28rpx;
-      border-bottom: 1rpx solid #eee;
-      background-color: #fff;
-      padding: 24rpx;
+      background-color: #1e1f1e;
       border-radius: 8rpx;
       margin-top: 20rpx;
+      color: #dedede;
+      .notice{
+        border-bottom: 1px solid #393939;
+        padding: 24rpx 0;
+        text-indent: 24rpx;
+      }
+      .text-content{
+        padding: 24rpx ;
+      }
       .details {
         font-size: 24rpx;
       }
