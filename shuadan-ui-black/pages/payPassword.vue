@@ -7,7 +7,7 @@
       title="交易密码管理"
       fixed
       leftIconColor="#ffffff"
-      bgColor="#000000"
+      bgColor="#1e1e1e"
       leftIconSize="32"
       safe-area-inset-top
       height="100rpx"
