@@ -81,11 +81,20 @@ text {
   float: left;
 }
 .wapper {
-  background-color: #f2f2f2;
   height: 100vh;
+  background: linear-gradient(#000, #2d154d);
 }
 .margin20 {
   margin: 40rpx 0;
+}
+.margin-top10{
+  margin-top: 20rpx;
+}
+.margin-bottom10{
+  margin-bottom: 20rpx;
+}
+.border-bottom393939{
+  border-bottom: 1px solid #393939;
 }
 .color666 {
   color: #666;

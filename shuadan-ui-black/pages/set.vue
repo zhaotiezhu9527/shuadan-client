@@ -20,7 +20,7 @@
         <image class="user-img" :src="userData.avatarUrl" />
         <view class="icon"></view>
       </view>
-      <view class="list-item" @click="goRealName">
+      <view class="list-item margin-top10 border-bottom393939" @click="goRealName">
         <label>全民中文名</label>
         <span class="item-text">{{ userData.nickName }}</span>
         <view class="icon"></view>
@@ -31,14 +31,14 @@
         <view class="icon"></view>
       </view>
     </view>
-    <view class="list margin20">
+    <view class="list margin-top10 margin-bottom10">
       <view class="list-item" @click="goBindBank">
         <label>我的银行卡</label>
         <view class="icon"></view>
       </view>
     </view>
     <view class="list">
-      <view class="list-item" @click="goPassword">
+      <view class="list-item border-bottom393939" @click="goPassword">
         <label>密码管理</label>
         <view class="icon"></view>
       </view>
@@ -111,16 +111,14 @@ export default {
 .list {
   width: 100%;
   border-radius: 20rpx;
-  color: #333;
   .list-item {
     display: flex;
     align-items: center;
     vertical-align: middle;
     font-size: 33rpx;
-    padding: 44rpx;
-    border-bottom: 1px solid #eee;
-    background-color: #fff;
-    border-radius: 20rpx;
+    padding: 18rpx 44rpx;
+    background-color: #1e1e1e;
+    color: #dedede;
     // &:last-child {
     //   border: none;
     // }
@@ -130,8 +128,8 @@ export default {
       margin-right: 20rpx;
     }
     .user-img {
-      width: 90rpx;
-      height: 90rpx;
+      width: 60rpx;
+      height: 60rpx;
       margin-right: 36rpx;
     }
     label {
