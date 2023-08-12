@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="wapper">
     <u-navbar
       placeholder
       :border="false"
@@ -7,7 +7,7 @@
       title="绑定银行卡"
       fixed
       leftIconColor="#ffffff"
-      bgColor="#000000"
+      bgColor="#1e1e1e"
       leftIconSize="32"
       safe-area-inset-top
       height="100rpx"
@@ -16,7 +16,7 @@
     </u-navbar>
     <view class="main">
       <view class="title">您的身份信息</view>
-      <view class="from-input">
+      <view class="from-input border-bottom393939">
         <label>真实姓名</label>
         <input
           type="text"
@@ -37,7 +37,7 @@
         />
       </view>
       <view class="title">您的银行卡信息</view>
-      <view class="from-input">
+      <view class="from-input border-bottom393939">
         <label>银行卡号</label>
         <input
           type="text"
@@ -47,7 +47,7 @@
           placeholder="未输入银行卡号，请设置"
         />
       </view>
-      <view class="from-input">
+      <view class="from-input border-bottom393939">
         <label>银行名称</label>
         <input
           type="text"
@@ -68,15 +68,12 @@
         />
       </view>
       <view class="btn">
-        <u-button
+        <view
           v-if="bindStatus"
-          shape="circle"
-          class="custom-style"
-          color="#9d9d9c"
-          block
+          class="bank-btn"
         >
           修改信息联系客服
-        </u-button>
+        </view>
         <view v-else-if="!bindStatus" @click="submit"> 设置信息 </view>
       </view>
     </view>
@@ -160,47 +157,47 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  background-color: #f2f2f2;
   min-height: calc(100vh - 100rpx);
   .title {
     padding: 0 40rpx;
-    background-color: #eee;
     font-size: 27rpx;
     line-height: 75rpx;
-    color: #333;
+    color: #999;
   }
   .from-input {
     padding: 0 40rpx;
     display: flex;
     height: 112rpx;
     line-height: 112rpx;
-    font-size: 36rpx;
-    background-color: #fff;
+    font-size: 32rpx;
+    background-color: #1e1e1e;
+    color: #ddd;
     label {
       width: 200rpx;
       margin-right: 20rpx;
-      color: #999;
+      color: #ddd;
     }
     .input-text {
       flex: 1;
       height: 112rpx;
       line-height: 112rpx;
-      font-size: 36rpx;
+      font-size: 32rpx;
       text-align: right;
     }
   }
   .btn {
-    width: 388rpx;
-    height: 66rpx;
+    width: 90%;
+    height: 80rpx;
     border-radius: 45rpx;
     opacity: 1;
-    background: #ffb550;
-    line-height: 66rpx;
+    line-height: 78rpx;
     text-align: center;
     font-size: 36rpx;
     font-weight: 500;
-    color: #ffffff;
-    margin: 140rpx auto 0 auto;
+    color: #ddd;
+    margin: 40rpx auto 0 auto;
+    border: 1px solid #666;
   }
 }
+
 </style>
