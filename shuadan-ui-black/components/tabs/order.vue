@@ -6,9 +6,8 @@
       autoBack
       title="任务记录"
       fixed
-      leftIconColor="#ffffff"
       bgColor="#1e1e1e"
-      leftIconSize="32"
+      leftIconSize="0"
       safe-area-inset-top
       height="100rpx"
       titleStyle="color:#fff;font-weight:600;font-size:32rpx;"

@@ -81,8 +81,8 @@ export default {
   .online1 {
     background-color: #fffbf9;
     padding-top: 20rpx;
-    padding-bottom: calc(180rpx + constant(safe-area-inset-bottom));
-    padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+    padding-bottom: calc(240rpx + constant(safe-area-inset-bottom));
+    padding-bottom: calc(240rpx + env(safe-area-inset-bottom));
   }
   .onlineservice {
     box-shadow: 0rpx 8rpx 20rpx 0rpx rgba(0, 0, 0, 0.06);

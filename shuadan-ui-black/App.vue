@@ -16,12 +16,7 @@ export default {
 </script>
 <style lang="scss">
 page {
-  background-image: linear-gradient(
-    180deg,
-    rgba(49, 19, 81, 0) 0%,
-    rgba(44, 17, 72, 0.94) 0%,
-    #311351 100%
-  );
+  background: linear-gradient(#000, #2d154d);
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100%;

@@ -13,14 +13,14 @@
             class="img"
             v-if="active === index"
             :src="item.image1"
-            mode="widthFix"
+            mode="heightFix"
           />
-          <image class="img" v-else :src="item.image2" mode="widthFix" />
-          <view class="name" :class="{ active: active === index }">{{
-            item.name
-          }}</view>
+          <image class="img" v-else :src="item.image2" mode="heightFix" />
+          <view class="name" :class="{ active: active === index }">
+            {{ item.name }}
+          </view>
         </view>
-        <view class="item other" v-else @click="change(index)">
+        <view class="item other button-50" v-else @click="change(index)">
           <image class="img2" :src="item.image1" mode="widthFix" />
         </view>
       </template>
@@ -29,13 +29,13 @@
 </template>
 <script>
 import home1 from "@/static/img/home1.png";
-import home2 from "@/static/img/home2.png";
+import home2 from "@/static/img/home1.png";
 import jilv1 from "@/static/img/jilv1.png";
-import jilv2 from "@/static/img/jilv2.png";
+import jilv2 from "@/static/img/jilv1.png";
 import kefu1 from "@/static/img/kefu1.png";
-import kefu2 from "@/static/img/kefu2.png";
+import kefu2 from "@/static/img/kefu1.png";
 import user1 from "@/static/img/user1.png";
-import user2 from "@/static/img/user2.png";
+import user2 from "@/static/img/user1.png";
 import rw1 from "@/static/img/rw1.png";
 import home from "@/components/tabs/home.vue";
 import order from "@/components/tabs/order.vue";
@@ -106,8 +106,7 @@ export default {
   color: #757575;
   background: url("@/static/img/footer.png");
   background-repeat: no-repeat;
-  background-size: 100% auto;
-  -moz-background-size: 100% auto;
+  background-size: 100% 100%;
   background-position: bottom;
   z-index: 999;
   height: 140rpx;
@@ -120,27 +119,25 @@ export default {
     align-items: center;
     flex-direction: column;
     width: calc(100% / 5);
-    padding-top: 30rpx;
+    padding: 15rpx 30rpx;
     .name {
       padding-top: 6rpx;
-      font-size: 24rpx;
-      color: #333;
+      font-size: 20rpx;
+      color: $white;
       &.active {
-        color: #ffad49;
+        color: $white;
       }
     }
   }
   .other {
     padding-top: 0;
-    margin-top: -80rpx;
+    margin-top: -180rpx;
     width: 120rpx;
     height: 120rpx;
     display: flex;
-    background: linear-gradient(180deg, #ffad49 0%, #ffc861 100%);
-    border-radius: 50%;
   }
   .img {
-    width: 48rpx;
+    height: 48rpx;
   }
   .img2 {
     width: 60rpx;
