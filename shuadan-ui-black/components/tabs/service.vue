@@ -79,6 +79,7 @@ export default {
     .sub_title {
       font-size: 28rpx;
       color: #ffffffd9;
+      padding-bottom: 16rpx;
     }
     .image {
       width: 450rpx;
@@ -99,7 +100,7 @@ export default {
     padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
     .item {
       border-radius: 16rpx;
-      width: calc(50% - 8rpx);
+      width: calc(50% - 10rpx);
       padding: 32rpx;
       background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
         conic-gradient(
@@ -112,7 +113,8 @@ export default {
           rgba(245, 211, 172, 0) 230.62deg,
           rgba(245, 211, 172, 0) 360deg
         );
-      border: 1px solid;
+      box-sizing: border-box;
+      border: 1rpx solid;
 
       border-image-source: conic-gradient(
         from 180deg at 50% 50%,

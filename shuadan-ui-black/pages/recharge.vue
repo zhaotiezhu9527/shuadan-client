@@ -143,6 +143,8 @@ export default {
     font-weight: 500;
     color: #ffffff4d;
     height: 60rpx !important;
+    display: flex;
+    align-items: flex-end;
   }
   .list {
     padding: 24rpx 0 0;

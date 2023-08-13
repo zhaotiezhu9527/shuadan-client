@@ -34,7 +34,7 @@
     <view class="maskLoading" v-if="loading">
       <view class="content">
         <image class="img" src="@/static/img/10001.gif" mode="widthFix" />
-        <p class="txt">加载中。。。</p>
+        <p class="txt">加载中...</p>
       </view>
     </view>
   </view>

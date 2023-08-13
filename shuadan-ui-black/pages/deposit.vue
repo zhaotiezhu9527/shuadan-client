@@ -38,7 +38,7 @@
           <view class="rate" @click="submit">提现费率 {{ withdrawFee }} %</view>
         </view>
         <u-input
-          placeholder="请输入充值金额"
+          placeholder="请输入提现金额"
           border="bottom"
           placeholderClass="placeholder"
           v-model="amount"
@@ -224,6 +224,8 @@ export default {
       font-weight: 500;
       color: #ffffff4d;
       height: 60rpx !important;
+      display: flex;
+      align-items: flex-end;
     }
     .text {
       padding: 26rpx 0 0;
