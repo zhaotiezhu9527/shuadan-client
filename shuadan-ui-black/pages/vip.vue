@@ -245,7 +245,7 @@ export default {
       font-size: 28rpx;
     }
     .tips {
-      padding: 0 8rpx;
+      padding: 4rpx 8rpx;
       border-radius: 8rpx;
       color: #121212;
       display: flex;

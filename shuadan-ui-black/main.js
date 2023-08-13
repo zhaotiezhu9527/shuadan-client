@@ -2,6 +2,10 @@ import Vue from "vue";
 import App from "./App";
 import uView from "@/uni_modules/uview-ui";
 import { router, RouterMount } from "./plugins/router";
+
+// 引入 多语言包
+import VueI18n from "vue-i18n";
+import i18n from "./plugins/lang/index.js";
 Vue.use(router);
 Vue.use(uView);
 // 如此配置即可
@@ -20,6 +24,7 @@ Vue.prototype.$store = store;
 
 Vue.config.productionTip = false;
 
+Vue.prototype._i18n = i18n;
 App.mpType = "app";
 
 const app = new Vue({

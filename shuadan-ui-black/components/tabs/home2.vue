@@ -65,16 +65,17 @@
           routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)
         "
       >
-        <view class="no" v-if="!item.unlock">
-          <image class="img" src="@/static/img/suo.png" mode="widthFix" />
-          <view class="txt">待解锁</view>
+        <view class="content">
+          <!-- <image :src="item.levelImg" class="icon" mode="widthFix" /> -->
+          <view>{{ item.areaName }}</view>
+          <view>{{ item.remark }}</view>
         </view>
         <view class="reactive">
           <image :src="item.areaImg" class="img" mode="widthFix" />
-        </view>
-        <view class="content">
-          <view>{{ item.areaName }}</view>
-          <view>{{ item.remark }}</view>
+          <view class="no" v-if="!item.unlock">
+            <image class="img" src="@/static/img/suo.png" mode="widthFix" />
+            <view class="txt">待解锁</view>
+          </view>
         </view>
       </view>
     </view>
@@ -394,16 +395,14 @@ export default {
     width: 100%;
     height: 100%;
     background-color: rgba(#000, 0.5);
-    border-radius: 20rpx;
+    border-radius: 10rpx;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: hidden;
 
     .img {
-      width: 36rpx;
-      margin: 0 auto;
+      width: 40rpx;
     }
     .txt {
       color: $white;
@@ -417,9 +416,6 @@ export default {
     width: calc(50% - 16rpx);
     border-radius: 20rpx;
     position: relative;
-    display: flex;
-    align-items: center;
-    min-height: 144rpx;
     .icon {
       width: 44rpx;
     }
@@ -437,14 +433,12 @@ export default {
       font-size: 20rpx;
       font-weight: 400;
       color: rgba($white, 0.65);
-      padding-top: 8rpx;
     }
   }
   .img {
-    width: 72rpx;
+    width: 100%;
     z-index: 2;
     position: relative;
-    margin-right: 16rpx;
   }
 }
 .notice {
