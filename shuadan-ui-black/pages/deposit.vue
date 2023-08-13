@@ -204,7 +204,7 @@ export default {
     .u-input {
       padding: 20rpx 0rpx 44rpx !important;
       /deep/.uni-input-input {
-        height: 100rpx !important;
+        height: 80rpx !important;
         font-size: 64rpx;
         color: $white;
       }
@@ -223,9 +223,9 @@ export default {
       font-size: 64rpx;
       font-weight: 500;
       color: #ffffff4d;
-      height: 60rpx !important;
+      height: 80rpx !important;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
     }
     .text {
       padding: 26rpx 0 0;

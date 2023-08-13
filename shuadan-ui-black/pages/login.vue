@@ -9,7 +9,7 @@
       <view class="input">
         <u-input
           border="none"
-          placeholder="账户"
+          :placeholder="$t('account')"
           placeholderClass="placeholder"
           v-model="userName"
         >
@@ -18,7 +18,7 @@
       <view class="input">
         <u-input
           border="none"
-          placeholder="密码"
+          :placeholder="$t('password')"
           placeholderClass="placeholder"
           password
           v-model="loginPwd"
@@ -36,11 +36,15 @@
     </u-button>
     <image class="back" src="/static/img/bg-001.png" mode="widthFix" />
     <view class="flex items-center ul justify-center">
-      <view class="li" @click="nopass('/pages/onlineService')">忘记密码</view>
-      <view class="li" @click="$refs.registerRef.open(inviteCode)">
-        免费注册
+      <view class="li" @click="nopass('/pages/onlineService')">
+        {{ $t("forget_pwd") }}
       </view>
-      <view class="li" @click="nopass('/pages/onlineService')">在线客服</view>
+      <view class="li" @click="$refs.registerRef.open(inviteCode)">
+        {{ $t("free_reg") }}
+      </view>
+      <view class="li" @click="nopass('/pages/onlineService')">
+        {{ $t("service") }}
+      </view>
     </view>
     <register ref="registerRef" />
   </view>
@@ -72,9 +76,9 @@ export default {
   methods: {
     login() {
       if (!this.userName) {
-        return this.$base.show("请输入登录账号~");
+        return this.$base.show(this.$t("input_act"));
       } else if (!this.loginPwd) {
-        return this.$base.show("请输入登录密码~");
+        return this.$base.show(this.$t("input_pwd"));
       }
       this.loading = true;
       this.$api

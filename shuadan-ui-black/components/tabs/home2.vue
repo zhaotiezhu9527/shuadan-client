@@ -16,13 +16,15 @@
       <view class="price-box">
         <view class="flex">
           <view class="money">
-            <view class="title">我的总资产（元）</view>
+            <view class="title">{{ $t("balance") }}（{{ $t("rmb") }}）</view>
             <view class="txt">{{ infos.balance }}</view>
           </view>
           <view class="btn">
-            <view @click="goDeposit('/pages/recharge')"> 充值 </view>
+            <view @click="goDeposit('/pages/recharge')">
+              {{ $t("recharge") }}
+            </view>
             <view class="active" @click="goDeposit('/pages/deposit')">
-              提现
+              {{ $t("deposit") }}
             </view>
           </view>
         </view>
@@ -30,15 +32,17 @@
           <view class="ul">
             <view class="li">
               <view class="name">{{ infos.todayIncome }}</view>
-              <view class="txt">今日收益(元)</view>
+              <view class="txt">{{ $t("todayIncome") }}({{ $t("rmb") }})</view>
             </view>
             <view class="li">
               <view class="name">{{ infos.yesterdayIncome }}</view>
-              <view class="txt">昨日收益(元)</view>
+              <view class="txt">
+                {{ $t("yesterdayIncome") }}({{ $t("rmb") }})
+              </view>
             </view>
             <view class="li">
               <view class="name">{{ infos.totalIncome }}</view>
-              <view class="txt">累计收益(元)</view>
+              <view class="txt">{{ $t("totalIncome") }}({{ $t("rmb") }})</view>
             </view>
           </view>
         </view>
@@ -55,7 +59,7 @@
         <view class="btn" @click="goDeposit('/pages/message')">了解</view>
       </view>
     </view>
-    <view class="header py">任务大厅</view>
+    <view class="header py">{{ $t("task") }}</view>
     <view class="list">
       <view
         class="item"
@@ -74,7 +78,7 @@
           <image :src="item.areaImg" class="img" mode="widthFix" />
           <view class="no" v-if="!item.unlock">
             <image class="img" src="@/static/img/suo.png" mode="widthFix" />
-            <view class="txt">待解锁</view>
+            <view class="txt">{{ $t("unlock") }}</view>
           </view>
         </view>
       </view>
@@ -121,10 +125,30 @@ export default {
   data() {
     return {
       nav: [
-        { img: img13, name: "平台简介", en: "ptjj", txt: "introduce" },
-        { img: img14, name: "规则说明", en: "gzsm", txt: "instructions" },
-        { img: img15, name: "代理合作", en: "dlhz", txt: "cooperation" },
-        { img: img16, name: "公司资质", en: "gszz", txt: "qualification" },
+        {
+          img: img13,
+          name: this.$t("introduce"),
+          en: "ptjj",
+          txt: "introduce",
+        },
+        {
+          img: img14,
+          name: this.$t("instructions"),
+          en: "gzsm",
+          txt: "instructions",
+        },
+        {
+          img: img15,
+          name: this.$t("cooperation"),
+          en: "dlhz",
+          txt: "cooperation",
+        },
+        {
+          img: img16,
+          name: this.$t("qualification"),
+          en: "gszz",
+          txt: "qualification",
+        },
       ],
       list: [],
       items: {},
@@ -169,7 +193,7 @@ export default {
           url,
         });
       } else {
-        this.$base.show("请先绑定银行卡");
+        this.$base.show(this.$t("input_bind"));
       }
     },
     //用户列表数据

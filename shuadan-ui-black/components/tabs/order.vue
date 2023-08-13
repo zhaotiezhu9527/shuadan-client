@@ -4,7 +4,7 @@
       <u-navbar
         placeholder
         :border="false"
-        title="任务记录"
+        :title="$t('task_log')"
         fixed
         bgColor="#1e1e1e"
         leftIconSize="0"
@@ -14,7 +14,7 @@
       >
       </u-navbar>
       <view class="title">
-        <view>任务记录</view>
+        <view>{{ $t("task_log") }}</view>
         <view>{{ userData.balance }}</view>
       </view>
       <view class="tabs">
@@ -39,11 +39,11 @@
                 style="width: 26rpx"
                 class="mr-4"
               />
-              抢单时间：{{ item.orderTime }}</view
+              {{ $t("ordertime") }}：{{ item.orderTime }}</view
             >
             <view class="flex items-center justify-between">
               <view class="uid">
-                抢单编号：{{ item.orderNo }}
+                {{ $t("order_no") }}：{{ item.orderNo }}
                 <text>{{ item.dayOrderCount }}</text>
               </view>
               <view
@@ -74,12 +74,13 @@
             </view>
             <view class="ul">
               <view class="li">
-                <text>订单总额</text>
+                <text>{{ $t("order_amount") }}</text>
                 <text>¥ {{ item.orderAmount }}</text>
               </view>
               <view class="li">
                 <text
-                  >佣金<text
+                  >{{ $t("commission")
+                  }}<text
                     v-if="item.commissionMul >= 2"
                     class="tip-bubble tip-bubble-left"
                     >x{{ item.commissionMul }}</text
@@ -88,17 +89,19 @@
                 <text>¥ {{ item.commission }}</text>
               </view>
               <view class="li">
-                <text>预计返还</text>
+                <text>{{ $t("return_amount") }}</text>
                 <text class="moeny">¥ {{ item.returnAmount }}</text>
               </view>
               <view class="li right" v-if="item.status === 0">
-                <view class="submit" @click="change(item)">提交订单</view>
+                <view class="submit" @click="change(item)">{{
+                  $t("oredr_submit")
+                }}</view>
               </view>
             </view>
           </view>
         </view>
       </view>
-      <u-empty class="empty" text="暂无数据" v-else />
+      <u-empty class="empty" :text="$t('nodata')" v-else />
     </u-list>
     <success ref="sucRef" @ok="ok" />
   </view>
@@ -110,10 +113,10 @@ export default {
     return {
       current: 0,
       nav: [
-        { name: "全部", status: undefined },
-        { name: "待处理", status: 0 },
-        { name: "已完成", status: 1 },
-        { name: "冻结中", status: 2 },
+        { name: this.$t("all"), status: undefined },
+        { name: this.$t("loading"), status: 0 },
+        { name: this.$t("success"), status: 1 },
+        { name: this.$t("error"), status: 2 },
       ],
       list: [],
       userData: {},
