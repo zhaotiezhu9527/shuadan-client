@@ -31,23 +31,23 @@ page {
 .button-50 {
   height: 144rpx !important;
   width: 144rpx !important;
-  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.18) inset;
-  box-shadow: -2px -2px 0px 0px rgba(0, 0, 0, 0.35) inset;
+  box-shadow: 4rpx 4rpx 0 0 rgba(255, 255, 255, 0.18) inset;
+  box-shadow: -4rpx -4rpx 0 0 rgba(0, 0, 0, 0.35) inset;
   background: linear-gradient(130.74deg, $main-c 17.26%, #9167f2 91.1%);
   border: 0 !important;
   color: $white !important;
   border-radius: 50%;
 }
 .button {
-  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.18) inset;
-  box-shadow: -2px -2px 0px 0px rgba(0, 0, 0, 0.35) inset;
+  box-shadow: 4rpx 4rpx 0 0 rgba(255, 255, 255, 0.18) inset;
+  box-shadow: -4rpx -4rpx 0 0 rgba(0, 0, 0, 0.35) inset;
   background: linear-gradient(130.74deg, $main-c 17.26%, #9167f2 91.1%);
   border: 0 !important;
   color: $white !important;
 }
 .button-golden {
-  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.18) inset;
-  box-shadow: -2px -2px 0px 0px rgba(0, 0, 0, 0.35) inset;
+  box-shadow: 4rpx 4rpx 0 0 rgba(255, 255, 255, 0.18) inset;
+  box-shadow: -4rpx -4rpx 0 0 rgba(0, 0, 0, 0.35) inset;
   border: 0 !important;
   background: linear-gradient(134.61deg, #d8b88e 0.81%, #c49a68 97.27%);
   color: $white !important;

@@ -41,39 +41,76 @@
           </view>
         </view>
       </view>
-      <view class="title">
-        <view
-          class="tab"
-          :class="{ active: index === active }"
-          v-for="(item, index) in nav"
-          :key="index"
-          @click="navChange(index)"
-        >
-          {{ item.name }}
+      <view class="views flex items-center">
+        <view class="item">
+          <view class="moeny">{{ items.inviteCount || 0 }}人</view>
+          <view class="txt">直推人数</view>
+        </view>
+        <view class="item">
+          <view class="moeny">{{ items.teamMemberCount || 0 }}人</view>
+          <view class="txt">团队人数</view>
+        </view>
+        <view class="item">
+          <view class="moeny">{{ items.depositCount || 0 }}人</view>
+          <view class="txt">首充人数</view>
+        </view>
+        <view class="item">
+          <view class="moeny">{{ items.newRegisterCount || 0 }}人</view>
+          <view class="txt">新增人数</view>
+        </view>
+        <view class="item">
+          <view class="moeny">{{ items.activeCount || 0 }}人</view>
+          <view class="txt">活跃人数</view>
         </view>
       </view>
-      <template v-if="list.length">
-        <view class="contentStyle" v-for="(item, index) in list" :key="index">
-          <view class="content">
-            <image class="image" src="@/static/img/head.png" mode="widthFix" />
-            <view class="text">
-              <view class="li">
-                <text>姓名:{{ item.nickName }}</text>
-                <text class="blur">电话:{{ item.phone }}</text>
+      <view class="rowStyle">
+        <view class="title">
+          <view
+            class="tab"
+            :class="{ active: index === active }"
+            v-for="(item, index) in nav"
+            :key="index"
+            @click="navChange(index)"
+          >
+            {{ item.name }}
+          </view>
+        </view>
+        <template v-if="list.length">
+          <view class="contentStyle" v-for="(item, index) in list" :key="index">
+            <view class="content">
+              <view class="time">注册时间：{{ item.registerTime }}</view>
+              <view class="user flex items-center justify-between">
+                <view class="flex items-center">
+                  <image
+                    class="image"
+                    src="@/static/img/head.png"
+                    mode="widthFix"
+                  />
+                  <view class="con">
+                    <view class="name">{{ item.nickName }}</view>
+                    <view class="phone">{{ item.phone }}</view>
+                  </view>
+                </view>
+                <view class="num">
+                  <view class="numSize">{{ item.inviteCount }}</view>
+                  <view class="numText">推荐人数</view>
+                </view>
               </view>
-              <view class="li">
-                <text clas="blur">充值:{{ item.deposit }}</text>
-                <text class="green">推荐人数: {{ item.inviteCount }}</text>
-              </view>
-              <view class="li">
-                <text class="blur">提现:0</text>
-                <text>注册时间:{{ item.registerTime }}</text>
+              <view class="moeny">
+                <view class="topup">
+                  <view>充值</view>
+                  <view>￥{{ item.deposit }}</view>
+                </view>
+                <view class="withdraw">
+                  <view>提现</view>
+                  <view>￥{{ item.withdraw }}</view>
+                </view>
               </view>
             </view>
           </view>
-        </view>
-      </template>
-      <u-empty class="nempty" text="暂无数据" v-else />
+        </template>
+        <u-empty class="nempty" text="暂无数据" v-else />
+      </view>
     </view>
   </view>
 </template>
@@ -120,55 +157,141 @@ export default {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
+.rowStyle {
+  background: #1e1e1e;
+  padding: 32rpx;
+  border-radius: 32rpx 32rpx 0 0;
+  margin-top: 32rpx;
+}
 .title {
   width: 100%;
   height: 80rpx;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.2)
+    ),
+    linear-gradient(0deg, #1e1e1e, #1e1e1e);
+  border: 1rpx solid #ffffff33;
+  box-shadow: 0 8rpx 8rpx 0 #00000040 inset;
+  overflow: hidden;
+  border-radius: 100rpx;
+
   .tab {
     float: left;
     width: 33.3%;
-    color: #333;
-    border-bottom: 4rpx solid #ccc;
+    color: #ffffff;
     height: 76rpx;
     line-height: 76rpx;
     text-align: center;
-    border-radius: 4rpx;
-    box-shadow: 0 0 1rpx #b8bbbf;
     font-size: 28rpx;
     transition: all 0.5s;
+    border-radius: 100rpx;
     &.active {
-      color: #be1204;
-      border-color: #be1204;
-      transition: all 0.5s;
+      box-shadow: 4rpx 4rpx 0 0 rgba(255, 255, 255, 0.18) inset;
+      box-shadow: -4rpx -4rpx 0 0 rgba(0, 0, 0, 0.35) inset;
+      background: linear-gradient(130.74deg, $main-c 17.26%, #9167f2 91.1%);
+      border: 0 !important;
+      color: $white !important;
     }
   }
 }
 .contentStyle {
-  padding-top: 20rpx;
+  padding: 32rpx 0 0;
 }
 .content {
-  display: flex;
-  align-items: center;
-  border-bottom: 2rpx solid #f8f2f2;
-  padding: 20rpx;
-  .image {
-    width: 120rpx;
-    height: 120rpx;
+  padding: 28rpx 32rpx;
+  background: #2c2c2c;
+  border-radius: 16rpx;
+  .time {
+    padding-bottom: 28rpx;
+    color: #ffffffd9;
+    border-bottom: 1rpx solid #ffffff1f;
+    font-size: 20rpx;
   }
-  .text {
-    flex: 1;
-    font-size: 24rpx;
-    margin-left: 30rpx;
+  .user {
+    padding: 36rpx 0 52rpx;
+    .image {
+      width: 80rpx;
+    }
+    .con {
+      margin-left: 16rpx;
+    }
+    .name {
+      font-size: 32rpx;
+      color: #ffffffd9;
+      font-weight: 500;
+    }
+    .phone {
+      font-size: 24rpx;
+      color: #ffffffa6;
+      padding-top: 10rpx;
+    }
   }
-  .li {
+  .num {
+    width: 130rpx;
+    padding-left: 30rpx;
+    text-align: center;
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      height: 48rpx;
+      width: 1rpx;
+      background: #ffffff1f;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .numSize {
+      color: #ffffffd9;
+      font-size: 36rpx;
+      font-weight: 700;
+    }
+    .numText {
+      color: #ffffffa6;
+      font-size: 20rpx;
+    }
+  }
+  .moeny {
+    gap: 0 16rpx;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding-bottom: 10rpx;
-    .blur {
-      color: #00bcd4;
+    > view {
+      height: 56rpx;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.08)
+        ),
+        linear-gradient(0deg, #252525, #252525);
+      border: 1rpx solid #ffffff14;
+      border-radius: 8rpx;
+      overflow: hidden;
+      view:nth-child(1) {
+        color: #121212;
+        font-size: 20rpx;
+        width: 72rpx;
+        height: 56rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      view:nth-child(2) {
+        font-size: 24rpx;
+        color: #ffffffd9;
+        margin-left: 16rpx;
+      }
     }
-    .green {
-      color: #00d44b;
+    .topup view:nth-child(1) {
+      background: linear-gradient(134.61deg, #8ed8ac 0.81%, #68c4a3 97.27%);
+    }
+    .withdraw view:nth-child(1) {
+      background: linear-gradient(134.61deg, #d8b88e 0.81%, #c49a68 97.27%);
     }
   }
 }
@@ -200,6 +323,29 @@ export default {
     .moeny,
     .txt {
       font-size: 24rpx;
+    }
+  }
+}
+.views {
+  background: #1e1e1e;
+  border-top: 1rpx solid #ffffff1f;
+
+  .item {
+    width: 25%;
+    text-align: center;
+    height: 128rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: $white;
+    .txt {
+      font-size: 20rpx;
+      color: #ffffffa6;
+    }
+    .moeny {
+      font-size: 32rpx;
+      padding-bottom: 14rpx;
     }
   }
 }

@@ -4,7 +4,6 @@
       <u-navbar
         placeholder
         :border="false"
-        autoBack
         title="任务记录"
         fixed
         bgColor="#1e1e1e"
@@ -213,7 +212,6 @@ export default {
     }
   }
   .tabs {
-    padding-bottom: 10rpx;
     border-top: 1rpx solid rgba($white, 0.2);
     position: relative;
     background: #1e1e1e;
@@ -224,7 +222,7 @@ export default {
   bottom: 2rpx !important;
 }
 .boxstyle {
-  padding: 30rpx;
+  padding: 30rpx 30rpx 0;
   position: relative;
   z-index: 3;
 

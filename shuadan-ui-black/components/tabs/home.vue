@@ -3,7 +3,6 @@
     <u-navbar
       placeholder
       :border="false"
-      autoBack
       title="首页"
       fixed
       bgColor="#000000"

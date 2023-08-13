@@ -1,30 +1,39 @@
 <template>
   <view class="main">
+    <u-navbar
+      placeholder
+      :border="false"
+      title="客服中心"
+      fixed
+      bgColor="#000000"
+      leftIconSize="0"
+      safe-area-inset-top
+      height="100rpx"
+      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+    >
+    </u-navbar>
     <view class="container">
-      <view class="title">客服中心</view>
-      <view class="sub_title">如遇到问题需要帮助请联系在线客服</view>
+      <view class="title">
+        <view class="sub_title">如遇到问题需要帮助</view>
+        <view class="sub_title">请联系在线客服</view>
+      </view>
+      <image class="image" src="@/static/img/bg_02.png" mode="widthFix" />
     </view>
     <view class="customer_type">
-      <image
-        mode="widthFix"
-        class="customerServiceImg"
-        src="@/static/img/bg-02.png"
-      />
-      <view class="online1">
+      <view class="list">
         <view
-          class="onlineservice"
+          class="item"
           v-for="(item, index) in list"
           :key="index"
           @click="route(item)"
         >
-          <view class="servicetime">
-            <image mode="widthFix" class="image" src="@/static/img/zixun.png" />
-            <view class="con">
-              <view class="onlineTitle">{{ item.serviceName }}</view>
-              <view class="onlineText">{{ item.workTime }}</view>
-            </view>
+          <view class="name">{{ item.serviceName }}</view>
+          <image class="img" src="@/static/img/bg_03.png" mode="widthFix" />
+          <view class="txt">{{ item.remark || "客服" }}</view>
+          <view class="time">
+            <image class="icon" src="@/static/img/kefu.png" mode="widthFix" />
+            <text>{{ item.workTime }}</text>
           </view>
-          <image mode="widthFix" class="icon" src="@/static/img/back.png" />
         </view>
       </view>
     </view>
@@ -58,64 +67,90 @@ export default {
 <style lang="scss" scoped>
 .main {
   .container {
-    height: 230rpx;
-    padding: calc(var(--status-bar-height) + 40rpx) 30rpx 0;
-
     position: relative;
-    z-index: 2;
-
+    display: flex;
+    justify-content: flex-end;
     .title {
-      font-size: 52rpx;
-      font-weight: 600;
-      color: #2f3848;
+      position: absolute;
+      left: 32rpx;
+      top: 50%;
+      transform: translateY(-60%);
     }
     .sub_title {
       font-size: 28rpx;
-      padding-top: 20rpx;
-      color: #2f384880;
-    }
-  }
-  .customerServiceImg {
-    width: 100%;
-  }
-  .online1 {
-    background-color: #fffbf9;
-    padding-top: 20rpx;
-    padding-bottom: calc(220rpx + constant(safe-area-inset-bottom));
-    padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
-  }
-  .onlineservice {
-    box-shadow: 0rpx 8rpx 20rpx 0rpx rgba(0, 0, 0, 0.06);
-    background: #eff6fa;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20rpx;
-    width: 90%;
-    margin: 20rpx auto;
-  }
-  .servicetime {
-    padding: 30rpx 30rpx 30rpx 38rpx;
-    display: flex;
-    align-items: center;
-    .con {
-      padding-left: 30rpx;
+      color: #ffffffd9;
     }
     .image {
-      width: 100rpx;
+      width: 450rpx;
     }
   }
-  .icon {
-    width: 36rpx;
-    margin-right: 30rpx;
-  }
-
   .customer_type {
-    border-radius: 30rpx;
-    background-color: #fff;
-    margin-top: -60rpx;
     position: relative;
     z-index: 3;
+  }
+  .list {
+    display: flex;
+    gap: 16rpx;
+    padding: 0 30rpx;
+    position: relative;
+    z-index: 4;
+    flex-wrap: wrap;
+    padding-bottom: calc(220rpx + constant(safe-area-inset-bottom));
+    padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
+    .item {
+      border-radius: 16rpx;
+      width: calc(50% - 8rpx);
+      padding: 32rpx;
+      background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
+        conic-gradient(
+          from 180deg at 50% 50%,
+          rgba(245, 211, 172, 0) 0deg,
+          rgba(245, 211, 172, 0.38) 45deg,
+          rgba(245, 211, 172, 0) 84.38deg,
+          rgba(245, 211, 172, 0) 133.12deg,
+          rgba(245, 211, 172, 0.37) 187.5deg,
+          rgba(245, 211, 172, 0) 230.62deg,
+          rgba(245, 211, 172, 0) 360deg
+        );
+      border: 1px solid;
+
+      border-image-source: conic-gradient(
+        from 180deg at 50% 50%,
+        rgba(245, 211, 172, 0) 0deg,
+        rgba(245, 211, 172, 0.38) 45deg,
+        rgba(245, 211, 172, 0) 84.38deg,
+        rgba(245, 211, 172, 0) 133.12deg,
+        rgba(245, 211, 172, 0.37) 187.5deg,
+        rgba(245, 211, 172, 0) 230.62deg,
+        rgba(245, 211, 172, 0) 360deg
+      );
+    }
+    .name {
+      font-size: 28rpx;
+      font-weight: 600;
+      color: #ffffffd9;
+    }
+    .img {
+      margin: 16rpx 0;
+      width: 100%;
+    }
+    .txt {
+      font-size: 24rpx;
+      color: #ffffffd9;
+    }
+    .time {
+      display: flex;
+      align-items: center;
+      padding-top: 16rpx;
+      .icon {
+        width: 32rpx;
+        margin-right: 8rpx;
+      }
+      text {
+        font-size: 24rpx;
+        color: #ffffffa6;
+      }
+    }
   }
 }
 </style>

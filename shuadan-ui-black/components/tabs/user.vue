@@ -1,45 +1,68 @@
 <template>
   <view>
     <view class="main">
-      <image class="top-bg" src="@/static/img/topMask.png" />
-      <!-- 头部 -->
+      <u-navbar
+        placeholder
+        :border="false"
+        title="个人中心"
+        fixed
+        bgColor="#1e1e1e"
+        leftIconSize="0"
+        safe-area-inset-top
+        height="100rpx"
+        titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      >
+        <template #left>
+          <image
+            style="width: 36rpx"
+            @click="goPage({ label: '信息公告', url: '/pages/message' })"
+            src="/static/img/msg_notice.png"
+            mode="widthFix"
+          />
+        </template>
+        <template #right>
+          <image
+            style="width: 48rpx"
+            @click="goPage({ label: '个人信息', url: '/pages/set' })"
+            src="/static/img/bg-020.png"
+            mode="widthFix"
+          />
+        </template>
+      </u-navbar>
       <view class="title">
         <view class="user">
-          <view class="head">
-            <image class="head-img" :src="userData.avatarUrl" />
-          </view>
+          <image class="head-img" mode="whiteFix" :src="userData.avatarUrl" />
           <view class="information">
-            <view class="level">
+            <view class="flex items-center">
               <view class="name">{{ userData.nickName }}</view>
-              <view class="code">
-                邀请码: {{ userData.inviteCode }}
-                <label class="copy-text" @click="copy(userData.inviteCode)"
-                  >复制</label
-                ></view
-              >
               <image class="level-img" :src="userData.levelIcon" />
               <label class="credit">信用分:{{ userData.creditValue }}</label>
             </view>
-          </view>
-        </view>
-        <view class="money">
-          <view class="balance">
-            <view>账户金额</view>
-            <view class="money-color"
-              >¥<label class="money-number">{{ userData.balance }}</label></view
+            <view class="code">
+              邀请码: {{ userData.inviteCode }}
+              <label class="copy-text" @click="copy(userData.inviteCode)"
+                >复制</label
+              ></view
             >
           </view>
-          <view class="withdrawal" @click="goDeposit('/pages/deposit')"
-            >提现</view
-          >
-          <view class="recharge" @click="goDeposit('/pages/recharge')"
-            >充值</view
-          >
-          <image class="money-img" src="@/static/img/Vector.png" />
+        </view>
+        <view class="price">
+          <view class="price-box">
+            <view class="flex">
+              <view class="money2">
+                <view class="title">账户金额（元）</view>
+                <view class="txt">{{ userData.balance }}</view>
+              </view>
+              <view class="btn">
+                <view @click="goDeposit('/pages/recharge')"> 充值 </view>
+                <view class="active" @click="goDeposit('/pages/deposit')">
+                  提现
+                </view>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
-      <!-- 其他功能文字 -->
-      <view class="other-text">其他功能</view>
       <!-- 导航 -->
       <view class="content">
         <view
@@ -47,14 +70,20 @@
           v-for="(item, index) in list"
           :key="index"
           @click="goPage(item)"
+          :class="{ mb: item.className }"
         >
-          <image class="item-img" :src="'../static/img/' + item.icon" />
+          <view class="item-img flex items-center justify-center">
+            <image
+              :style="{
+                width: item.width + 'rpx',
+              }"
+              :src="'../static/img/' + item.icon"
+              mode="widthFix"
+            />
+          </view>
           <view class="text">{{ item.label }}</view>
         </view>
       </view>
-      <!-- 退出登录 -->
-      <view class="logout" @click="loginoutShow = true"> 退出登录 </view>
-      <view class="bottom-bg"> </view>
       <u-modal
         :show="loginoutShow"
         title="退出登录"
@@ -63,9 +92,10 @@
         ref="uModal"
         :asyncClose="true"
         showCancelButton
-        confirmColor="#4b80af"
+        confirmColor="#6c38ed"
+        cancelColor="#ffffff"
       >
-        <view class="content">你确定退出吗？</view>
+        <view class="btn">你确定退出吗？</view>
       </u-modal>
     </view>
   </view>
@@ -78,44 +108,63 @@ export default {
       loading: false, //加载状态
       list: [
         {
+          label: "个人信息",
+          icon: "bg-021.png",
+          url: "/pages/set",
+          width: "36",
+        },
+        {
           label: "抢单记录",
-          icon: "rob.png",
+          icon: "bg-022.png",
           url: "/pages/index?tabs=1",
+          className: "mb",
+          width: "36",
         },
         {
           label: "账户明细",
-          icon: "list.png",
+          icon: "bg-023.png",
           url: "/pages/accountDetails",
+          width: "36",
         },
         {
           label: "充值记录",
-          icon: "recharge.png",
+          icon: "bg-024.png",
           url: "/pages/rechargeRecord",
+          width: "40",
         },
         {
           label: "提现记录",
-          icon: "withdrawal.png",
+          icon: "bg-025.png",
           url: "/pages/withdrawalRecords",
-        },
-        {
-          label: "个人信息",
-          icon: "user.png",
-          url: "/pages/set",
+          className: "mb",
+          width: "40",
         },
         {
           label: "邀请好友",
-          icon: "friend.png",
+          icon: "bg-026.png",
           url: "/pages/promotion",
+          className: "mb",
+          width: "40",
         },
         {
           label: "信息公告",
-          icon: "message.png",
+          icon: "bg-027.png",
           url: "/pages/message",
+          width: "40",
         },
         {
           label: "团队报表",
-          icon: "team.png",
+          icon: "bg-028.png",
           url: "/pages/team",
+          className: "mb",
+          width: "42",
+        },
+        {
+          label: "退出登录",
+          icon: "bg-029.png",
+          url: "",
+          width: "32",
+          className: "mb",
         },
       ],
       userData: {
@@ -153,6 +202,8 @@ export default {
         uni.reLaunch({
           url: url,
         });
+      } else if (label === "退出登录") {
+        this.loginoutShow = true;
       } else {
         uni.navigateTo({
           url: url,
@@ -200,85 +251,50 @@ export default {
 
 <style scoped lang="scss">
 .title {
-  width: 100%;
-  height: calc(500rpx + var(--status-bar-height));
-  overflow: hidden;
-  padding-top: var(--status-bar-height);
-  position: relative;
-  .icon {
-    margin-top: 20rpx;
-    height: 40rpx;
-    padding: 0 40rpx;
-    display: flex;
-    .icon-img {
-      width: 44rpx;
-      height: 44rpx;
-    }
-  }
   .user {
-    margin-top: 50rpx;
-    padding-left: 40rpx;
-    overflow: hidden;
-    .head {
-      float: left;
-      .head-img {
-        width: 168rpx;
-        height: 168rpx;
-        display: block;
-        border-radius: 50%;
-        border: 2rpx solid #fff;
-        box-sizing: border-box;
-      }
+    display: flex;
+    align-items: center;
+    padding: 44rpx 32rpx;
+    background: #1e1e1e;
+    .head-img {
+      width: 80rpx;
+      height: 80rpx;
+      display: block;
+      border-radius: 50%;
+      border: 1rpx solid #fff;
+      box-sizing: border-box;
     }
     .information {
-      float: left;
-      margin-left: 34rpx;
-      .level {
-        overflow: hidden;
-        .name {
-          font-size: 52rpx;
-          color: #333;
-          font-weight: bold;
-        }
-        // .grade{
-        //   float: left;
-        //   background: rgba(0, 0, 0, .2);
-        //   color: #fff;
-        //   height: 32rpx;
-        //   border-radius: 4rpx;
-        //   font-size: 24rpx;
-        //   margin-left: 12rpx;
-        //   padding: 0 4rpx;
-        //   margin-top: 8rpx;
-        // }
-        .level-img {
-          float: left;
-          color: #fff;
-          height: 36rpx;
-          width: 96rpx;
-          margin-top: 8rpx;
-        }
-        .credit {
-          float: left;
-          background-color: #00ced1;
-          height: 37.5rpx;
-          line-height: 37.5rpx;
-          margin-left: 12rpx;
-          margin-top: 8rpx;
-          color: #fff;
-          font-size: 24rpx;
-          padding: 0rpx 8rpx;
-          border-radius: 4rpx;
-        }
+      margin-left: 16rpx;
+      .name {
+        font-size: 36rpx;
+        color: #ffffffd9;
+        font-weight: 500;
+      }
+      .level-img {
+        float: left;
+        color: #fff;
+        height: 36rpx;
+        width: 96rpx;
+        margin: 0 16rpx;
+      }
+      .credit {
+        background: linear-gradient(130.74deg, #6c38ed 17.26%, #9167f2 91.1%);
+        height: 37.5rpx;
+        line-height: 37.5rpx;
+        color: #fff;
+        font-size: 24rpx;
+        padding: 0rpx 8rpx;
+        border-radius: 4rpx;
       }
       .code {
         margin-top: 14rpx;
         font-size: 26rpx;
-        color: #434343;
+        color: #ffffffa6;
         .copy-text {
           font-size: 24rpx;
           color: #ffb24e;
-          padding-left: 8px;
+          padding-left: 16rpx;
         }
       }
     }
@@ -344,72 +360,133 @@ export default {
     }
   }
 }
-.content {
-  background: #fff;
-  overflow: hidden;
-  width: 92%;
-  margin: auto;
-  border-radius: 20rpx;
-  padding: 20rpx 0;
-  .item {
-    float: left;
-    width: 25%;
-    box-sizing: border-box;
-    text-align: center;
-    padding: 10rpx;
-    .item-img {
-      width: 78rpx;
-      height: 78rpx;
+.price {
+  margin: 16rpx 0;
+  background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
+    conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(245, 211, 172, 0) 0deg,
+      rgba(245, 211, 172, 0.38) 45deg,
+      rgba(245, 211, 172, 0) 84.38deg,
+      rgba(245, 211, 172, 0) 133.12deg,
+      rgba(245, 211, 172, 0.37) 187.5deg,
+      rgba(245, 211, 172, 0) 230.62deg,
+      rgba(245, 211, 172, 0) 360deg
+    );
+  border: 1px solid;
+
+  border-image-source: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(245, 211, 172, 0) 0deg,
+    rgba(245, 211, 172, 0.38) 45deg,
+    rgba(245, 211, 172, 0) 84.38deg,
+    rgba(245, 211, 172, 0) 133.12deg,
+    rgba(245, 211, 172, 0.37) 187.5deg,
+    rgba(245, 211, 172, 0) 230.62deg,
+    rgba(245, 211, 172, 0) 360deg
+  );
+
+  .money2 {
+    .title {
+      font-size: 24rpx;
+      font-weight: 500;
+      color: #ffffff;
     }
-    .text {
-      color: #333;
-      margin-top: 10rpx;
-      font-size: 28rpx;
+    .txt {
+      font-weight: 600;
+      font-size: 64rpx;
+      padding-top: 20rpx;
+      font-weight: bold;
+      color: #ffffff;
+    }
+  }
+  .price-box {
+    padding: 48rpx 32rpx;
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .btn {
+        display: flex;
+        align-items: center;
+        gap: 8rpx;
+        justify-content: space-between;
+        view {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 104rpx;
+          height: 64rpx;
+          padding: 0 24rpx;
+          border-radius: 16rpx;
+          background: rgba($white, 0.12);
+          color: $white;
+        }
+      }
     }
   }
 }
-.logout {
-  width: 388rpx;
-  height: 66rpx;
-  border-radius: 45rpx;
-  opacity: 1;
-  background: #ffb550;
-  line-height: 66rpx;
-  text-align: center;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: #ffffff;
-  margin: 120rpx auto 0 auto;
+.content {
+  padding-bottom: calc(220rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
+  .item {
+    display: flex;
+    align-items: center;
+    padding: 24rpx 32rpx;
+    background-color: #1e1e1e;
+    position: relative;
+    margin-bottom: 0;
+    &::before {
+      content: "";
+      background: rgba($white, 0.12);
+      height: 1rpx;
+      width: 90%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      z-index: 1;
+    }
+    &.mb {
+      margin-bottom: 16rpx;
+      &::before {
+        display: none;
+      }
+    }
+    &:after {
+      content: "";
+      width: 18rpx;
+      height: 18rpx;
+      position: absolute;
+      right: 30rpx;
+      top: 50%;
+
+      border-left: 2rpx solid #aaa;
+      border-bottom: 2rpx solid #aaa;
+      transform: translateY(-50%) rotate(-135deg);
+    }
+    .item-img {
+      width: 40rpx;
+      .image {
+        width: 100%;
+      }
+    }
+  }
+  .text {
+    font-size: 32rpx;
+    color: #ffffffd9;
+    margin-left: 16rpx;
+  }
 }
-.top-bg {
-  position: fixed;
-  left: -20%;
-  top: -12%;
-  width: 150%;
-  height: 320px;
-  opacity: 1;
-  z-index: -1;
+/deep/.u-popup__content {
+  background: #1e1e1e;
+  box-shadow: 0 0 16rpx 0 #ffb400b2;
+  .u-modal__title {
+    color: $white;
+  }
 }
-.other-text {
-  width: 680rpx;
-  margin: auto;
-  font-size: 32rpx;
-}
-.bottom-bg {
-  position: fixed;
-  border-radius: 100%;
-  left: -40%;
-  top: 50%;
-  width: 1440rpx;
-  height: 1440rpx;
-  transform: rotate(151.42deg);
-  opacity: 1;
-  z-index: -1;
-  background: linear-gradient(
-    222deg,
-    #fedfc9 8%,
-    rgba(254, 224, 202, 0.21) 69%,
-    rgba(254, 224, 202, 0.21) 75%
-  );
+.btn {
+  padding: 0 20rpx;
+  color: $white;
 }
 </style>

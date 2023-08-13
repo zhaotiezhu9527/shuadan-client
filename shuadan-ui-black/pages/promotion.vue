@@ -7,7 +7,7 @@
       title="我要分享"
       fixed
       leftIconColor="#ffffff"
-      bgColor="#000000"
+      bgColor="#1e1e1e"
       leftIconSize="32"
       safe-area-inset-top
       height="100rpx"
@@ -16,22 +16,21 @@
     </u-navbar>
     <view class="boxStyle">
       <view class="box">
-        <view class="rwm">
-          <uqrcode
-            ref="uqrcode"
-            canvas-id="qrcode"
-            :value="`${api}/#/pages/login?code=${infos.inviteCode}`"
-            size="150"
-          ></uqrcode>
+        <image class="image" src="/static/img/bg-017.png" mode="widthFix" />
+        <view class="rwmTxt">
+          <view class="rwm">
+            <uqrcode
+              ref="uqrcode"
+              canvas-id="qrcode"
+              :value="`${api}/#/pages/login?code=${infos.inviteCode}`"
+              size="62"
+            ></uqrcode>
+          </view>
+          <view class="txt">邀请码:{{ infos.inviteCode }}</view>
         </view>
-        <view class="txt">邀请码:{{ infos.inviteCode }}</view>
       </view>
-      <view style="padding-top: 40rpx">
-        <u-button
-          color="linear-gradient(180deg, #FFAD49 0%, #FFC861 99%)"
-          text="邀请好友"
-          @click="change"
-        ></u-button>
+      <view class="btn">
+        <u-button text="邀请好友" @click="change" class="button"></u-button>
       </view>
     </view>
   </view>
@@ -75,32 +74,41 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
-  height: 100vh;
-  background: linear-gradient(
-    180deg,
-    rgba(254, 233, 218, 0.3) -4%,
-    rgba(254, 233, 218, 0.3) 52%,
-    rgba(255, 255, 255, 0) 130%
-  );
   .boxStyle {
-    padding: 100rpx 30rpx 0;
+    padding: 48rpx 0;
   }
   .box {
-    padding: 100rpx 20rpx;
-    background: #fff;
-    border-radius: 20rpx;
-    box-shadow: 0 0 10rpx 0 #eee;
+    padding: 0 48rpx;
+    position: relative;
+    .image {
+      width: 100%;
+    }
+    .rwmTxt {
+      position: absolute;
+      bottom: 88rpx;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .rwm {
-      border: 1rpx solid #eee;
-      width: 300rpx;
-      height: 300rpx;
+      background-color: $white;
+      padding: 10rpx;
+      width: 144rpx;
+      height: 144rpx;
       margin: 0 auto;
+      box-sizing: border-box;
     }
     .txt {
       text-align: center;
-      font-size: 26rpx;
-      padding-top: 40rpx;
+      font-size: 32rpx;
+      padding-top: 32rpx;
+      color: $white;
     }
+  }
+}
+.btn {
+  padding: 48rpx 48rpx 0;
+  .button {
+    border-radius: 100rpx;
   }
 }
 </style>

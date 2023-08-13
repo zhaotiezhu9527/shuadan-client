@@ -9,85 +9,72 @@
       leftIconColor="#ffffff"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#000000"
+      bgColor="#1E1E1E"
       height="100rpx"
       titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
-      <view class="title">
-        <view class="title-text">
-          <span>提现金额</span>
-          <label>提现费率{{ withdrawFee }}%</label>
+      <view class="link">
+        <view class="flex">
+          <image
+            class="image"
+            src="@/static/img/unionpay.png"
+            mode="widthFix"
+          />
+          <view class="box">
+            <view>{{ bankName }}</view>
+            <view>{{ bankNo }}</view>
+          </view>
         </view>
-        <view class="title-content">
-          <view class="money">
-            <label>¥</label>
-            <input
-              class="title-input"
-              v-model="amount"
-              type="number"
-              placeholder="请输入提现金额"
-              @blur="update"
-            />
-          </view>
-          <view class="text">
-            <span>余额：¥{{ balance }}</span>
-            <label @click="amount = balance">全部提现</label>
-          </view>
+        <view class="name">
+          <view>{{ realName }}</view>
+          <view>{{ phone }}</view>
         </view>
       </view>
       <view class="content">
-        <view class="item">
-          <view class="detail">
-            <label>手机号</label>
-            <span>{{ phone }}</span>
-          </view>
-          <view class="detail">
-            <label>银行卡号</label>
-            <span>{{ bankNo }}</span>
-          </view>
-          <view class="detail">
-            <label>所属银行</label>
-            <span>{{ bankName }}</span>
-          </view>
-          <view class="detail">
-            <label>开户名</label>
-            <span>{{ realName }}</span>
-          </view>
-          <view class="detail">
-            <label>资金密码</label>
-            <input
-              class="title-input"
-              v-model="pwd"
-              type="number"
-              placeholder="请输入支付密码"
-            />
-          </view>
+        <view class="title">
+          <view class="name">充值金额</view>
+          <view class="rate" @click="submit">提现费率 {{ withdrawFee }} %</view>
+        </view>
+        <u-input
+          placeholder="请输入充值金额"
+          border="bottom"
+          placeholderClass="placeholder"
+          v-model="amount"
+          clearable
+          type="number"
+          @blur="update"
+        >
+          <template #prefix>
+            <view class="rmb">￥</view>
+          </template>
+        </u-input>
+        <view class="text">
+          <text>可用余额：¥{{ balance }}</text>
+          <text @click="amount = balance">全部提现</text>
         </view>
       </view>
       <view class="foot-text">
-        *<br />
         请仔细核对收款信息<br />
         本次提现扣除手续费 {{ withdrawFee }}%
       </view>
       <view class="btn">
-        <u-button
-          class="custom-style"
-          color="#4350af"
-          block
-          @click="submit"
-          :loading="loading"
-        >
-          立即提现
+        <u-button class="button" block @click="submit" :loading="loading">
+          确认提现
         </u-button>
       </view>
     </view>
+    <depositMark ref="depositMarkRef" @ok="clear" />
   </view>
 </template>
 
 <script>
+import depositMark from "../components/depositMark.vue";
 export default {
+  components: {
+    depositMark,
+  },
   data() {
     return {
       amount: "",
@@ -105,30 +92,20 @@ export default {
     this.getInfo();
   },
   methods: {
+    clear() {
+      this.amount = "";
+      this.getInfo();
+    },
     submit() {
       if (!this.amount) {
         return this.$base.show("请输入提现金额~");
-      } else if (!this.pwd) {
-        return this.$base.show("请输入资金密码~");
       } else if (this.amount > this.balance) {
         return this.$base.show("提现金额不能超过" + this.balance);
       }
-      this.loading = true;
-      const DATA_OBJ = {
-        amount: this.amount, //提现金额
-        pwd: this.pwd, //密码
-      };
-      this.$api
-        .user_withdraw(DATA_OBJ)
-        .then((res) => {
-          if (res.data.code == 0) {
-            this.$base.show(res.data.msg);
-            this.getInfo();
-          }
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      this.$refs.depositMarkRef.open({
+        amount: this.amount,
+        balance: this.balance,
+      });
     },
     //用户列表数据
     getInfo() {
@@ -157,98 +134,122 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  background-color: #f2f2f2;
   height: calc(100vh - 52px + var(--status-bar-height));
   overflow: hidden;
-  .title,
-  .content {
-    width: 92%;
-    background-color: #fff;
-    margin: 20rpx auto;
-    border-radius: 20rpx;
-    padding: 20rpx 0;
-    .title-text {
-      padding: 0 20rpx;
-      span {
-        font-size: 32rpx;
-      }
-      label {
-        border: 1px solid #fbbd08;
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24rpx 32rpx;
+    margin-top: 16rpx;
+    background-color: #1e1e1e;
+    .image {
+      width: 96rpx;
+      margin-right: 16rpx;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+    }
+    .name {
+      text-align: right;
+      view:nth-child(1) {
         font-size: 24rpx;
-        padding: 2rpx 12rpx;
-        border-radius: 25rpx;
-        color: #fbbd08;
-        margin-left: 10rpx;
+        color: #ffffffd9;
+      }
+      view:nth-child(2) {
+        padding-top: 10rpx;
+        font-size: 24rpx;
+        color: #ffffffa6;
       }
     }
-    .title-content {
-      background-color: #fff;
-      padding: 0 20rpx;
+  }
+  .box {
+    view:nth-child(1) {
+      font-size: 32rpx;
+      color: #ffffffd9;
+    }
+    view:nth-child(2) {
+      padding-top: 10rpx;
       font-size: 24rpx;
-      .money {
-        height: 80rpx;
+      color: #ffffffa6;
+    }
+  }
+  .content {
+    margin-top: 16rpx;
+    padding: 24rpx 32rpx;
+    background-color: #1e1e1e;
+    .title {
+      padding-bottom: 24rpx;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .name {
+        font-size: 32rpx;
+        color: #ffffffd9;
+        font-weight: 600;
+      }
+      .rate {
+        color: $white;
+        border: 1rpx solid #ffffffa6;
+        height: 48rpx;
         display: flex;
         align-items: center;
-        margin-top: 30rpx;
-        label {
-          width: 80rpx;
-          font-size: 40rpx;
-          font-weight: 500;
-          margin-left: 20rpx;
-          text-align: center;
-        }
-        .title-input {
-          font-size: 56rpx;
-        }
-      }
-      .text {
+        padding: 0 8rpx;
+        justify-content: center;
+        border-radius: 8rpx;
         font-size: 24rpx;
-        font-weight: 500;
-        margin-top: 50rpx;
-        span {
-          color: #999;
-        }
-        label {
-          margin-left: 40rpx;
-          color: #333;
-          font-weight: 400;
-        }
+      }
+    }
+    .u-input {
+      padding: 20rpx 0rpx 44rpx !important;
+      /deep/.uni-input-input {
+        height: 100rpx !important;
+        font-size: 64rpx;
+        color: $white;
+      }
+      /deep/.u-input__content__field-wrapper__field {
+        height: 80rpx !important;
+      }
+      &.u-border-bottom {
+        border-color: rgba($white, 0.12) !important;
+      }
+    }
+    .rmb {
+      font-size: 48rpx;
+      color: #ffffffd9;
+    }
+    .placeholder {
+      font-size: 64rpx;
+      font-weight: 500;
+      color: #ffffff4d;
+      height: 60rpx !important;
+    }
+    .text {
+      padding: 26rpx 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text {
+        font-size: 28rpx;
+        color: #ffffffa6;
       }
     }
   }
-  .detail {
-    display: flex;
-    height: 100rpx;
-    margin: 0 30rpx;
-    line-height: 100rpx;
-    label {
-      width: 200rpx;
-      margin-right: 20rpx;
-      color: #8799a3;
-      font-size: 30rpx;
-    }
-    .title-input {
-      flex: 1;
-      text-align: right;
-      height: 100rpx;
-      line-height: 100rpx;
-    }
-    span {
-      flex: 1;
-      text-align: right;
-      font-size: 30rpx;
-    }
-  }
+
   .foot-text {
-    width: 92%;
-    background-color: #fff;
     margin: 20rpx auto;
-    border-radius: 20rpx;
-    padding: 20rpx 20rpx;
+    background-color: #1e1e1e;
+    padding: 32rpx;
+    color: #ffffff73;
+    font-size: 24rpx;
+    line-height: 2;
   }
   .btn {
-    width: 90%;
-    margin: 40rpx auto;
+    padding: 48rpx 42rpx 0;
+    .button {
+      border-radius: 100rpx;
+    }
   }
 }
 </style>

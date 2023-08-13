@@ -88,8 +88,8 @@ export default {
       margin-bottom: 18rpx;
       color: #dedede;
       .icon-img {
-        width: 40rpx;
-        height: 40rpx;
+        width: 32rpx;
+        height: 32rpx;
         margin-right: 20rpx;
       }
       label {
@@ -119,13 +119,13 @@ export default {
       border-radius: 8rpx;
       margin-top: 20rpx;
       color: #dedede;
-      .notice{
+      .notice {
         border-bottom: 1px solid #393939;
         padding: 24rpx 0;
         text-indent: 24rpx;
       }
-      .text-content{
-        padding: 24rpx ;
+      .text-content {
+        padding: 24rpx;
       }
       .details {
         font-size: 24rpx;
