@@ -380,9 +380,13 @@ export default {
     width: calc(25% - 8rpx);
     padding: 20rpx 5rpx;
     @extend .back;
+    position: relative;
   }
   .arrow-right {
-    transform: translateX(-10rpx);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
   }
   .con {
     padding: 0 10rpx;

@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="提现"
+      :title="$t('deposit')"
       fixed
       leftIconColor="#ffffff"
       leftIconSize="32"
@@ -34,11 +34,13 @@
       </view>
       <view class="content">
         <view class="title">
-          <view class="name">充值金额</view>
-          <view class="rate" @click="submit">提现费率 {{ withdrawFee }} %</view>
+          <view class="name">{{ $t("recharge_acc") }}</view>
+          <view class="rate" @click="submit"
+            >{{ $t("deposit_rate") }} {{ withdrawFee }} %</view
+          >
         </view>
         <u-input
-          placeholder="请输入提现金额"
+          :placeholder="$t('input_balance')"
           border="bottom"
           placeholderClass="placeholder"
           v-model="amount"
@@ -47,21 +49,21 @@
           @blur="update"
         >
           <template #prefix>
-            <view class="rmb">￥</view>
+            <view class="rmb">{{ $t("rmb_icon") }}</view>
           </template>
         </u-input>
         <view class="text">
-          <text>可用余额：¥{{ balance }}</text>
-          <text @click="amount = balance">全部提现</text>
+          <text>{{ $t("usable") }}：{{ $t("rmb_icon") }}{{ balance }}</text>
+          <text @click="amount = balance">{{ $t("all_deposit") }}</text>
         </view>
       </view>
       <view class="foot-text">
-        请仔细核对收款信息<br />
-        本次提现扣除手续费 {{ withdrawFee }}%
+        {{ $t("withdrawFee_info") }}<br />
+        {{ $t("withdrawFee") }} {{ withdrawFee }}%
       </view>
       <view class="btn">
         <u-button class="button" block @click="submit" :loading="loading">
-          确认提现
+          {{ $t("config_deposit") }}
         </u-button>
       </view>
     </view>
@@ -98,9 +100,9 @@ export default {
     },
     submit() {
       if (!this.amount) {
-        return this.$base.show("请输入提现金额~");
+        return this.$base.show(this.$t("input_balance"));
       } else if (this.amount > this.balance) {
-        return this.$base.show("提现金额不能超过" + this.balance);
+        return this.$base.show(this.$t("input_exceed_tatol") + this.balance);
       }
       this.$refs.depositMarkRef.open({
         amount: this.amount,

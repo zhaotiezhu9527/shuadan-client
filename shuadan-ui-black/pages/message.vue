@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="信息公告"
+      :title="$t('notice')"
       fixed
       leftIconColor="#ffffff"
       leftIconSize="32"
@@ -19,13 +19,13 @@
       <view class="content">
         <view class="list-item">
           <image class="icon-img" src="../static/img/msg_notice.png" />
-          <label>系统公告</label>
+          <label>{{ $t("sys_notice") }}</label>
           <view class="icon"></view>
         </view>
         <view class="text" v-for="(item, index) in list" :key="index">
           <view class="notice">{{ item.title }}</view>
           <view class="text-content">
-            <view class="prompt">温馨提示：</view>
+            <view class="prompt">{{ $t("hint") }}</view>
             <view class="details" v-html="item.content"> </view>
           </view>
           <!-- <view class="time">{{ item.pushTime }}</view> -->

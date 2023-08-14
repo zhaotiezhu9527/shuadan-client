@@ -10,7 +10,7 @@
         <view class="message_block">
           <view class="message_info_content">
             <image class="image" src="@/static/img/pass.png" mode="widthFix" />
-            <view class="box"> 请验证交易密码 </view>
+            <view class="box"> {{ $t("input_code_pwd") }} </view>
             <u-input
               placeholder=" "
               border="none"
@@ -34,7 +34,7 @@
     <view class="maskLoading" v-if="loading">
       <view class="content">
         <image class="img" src="@/static/img/10001.gif" mode="widthFix" />
-        <p class="txt">加载中...</p>
+        <p class="txt">{{ $t("load_more") }}</p>
       </view>
     </view>
   </view>
@@ -59,11 +59,11 @@ export default {
     },
     submit() {
       if (!this.amount) {
-        return this.$base.show("请输入提现金额~");
+        return this.$base.show(this.$t("input_balance"));
       } else if (!this.pwd) {
-        return this.$base.show("请输入资金密码~");
+        return this.$base.show(this.$t("input_capital_pwd"));
       } else if (this.amount > this.balance) {
-        return this.$base.show("提现金额不能超过" + this.balance);
+        return this.$base.show(this.$t("input_exceed_tatol") + this.balance);
       }
       this.loading = true;
       setTimeout(() => {

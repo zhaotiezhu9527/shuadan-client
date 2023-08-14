@@ -3,7 +3,7 @@
     <u-navbar
       placeholder
       :border="false"
-      title="抢单"
+      :title="$t('rob_order')"
       fixed
       safe-area-inset-top
       bgColor="#000000"
@@ -17,7 +17,9 @@
         <view class="flex items-center justify-between">
           <view class="content">
             <view>{{ vim.areaName }}</view>
-            <view>{{ vim.remark }} 佣金{{ vim.commission }}%</view>
+            <view>
+              {{ vim.remark }} {{ $t("commission") }}{{ vim.commission }}%
+            </view>
           </view>
           <image :src="vim.levelImg" class="icon" mode="widthFix" />
         </view>
@@ -52,72 +54,70 @@
             </view>
           </view>
         </view>
-        <view class="txt">全力抢单中，抢单结果将在下方发放。</view>
+        <view class="txt">{{ $t("strive") }}</view>
       </view>
       <view class="btn">
         <u-button
           type="primary"
-          text="充值升级"
+          :text="$t('add_vip')"
           @click="addVip"
           class="button-golden"
         ></u-button>
         <u-button
           type="primary"
           @click="startCallBack"
-          text="自动匹配"
+          :text="$t('start_call_back')"
           class="button"
         ></u-button>
       </view>
     </view>
-    <view class="task">今日战果</view>
+    <view class="task">{{ $t("today") }}</view>
     <view class="report">
       <view class="item">
         <view class="moeny gray">
           {{ moenyFn(infos.balance) }}
         </view>
-        <view class="txt">总资产</view>
+        <view class="txt">{{ $t("my_balance") }}</view>
       </view>
       <view class="item">
         <view class="moeny">
           {{ moenyFn(infos.yesterdayIncome) }}
         </view>
-        <view class="txt">昨日收益</view>
+        <view class="txt">{{ $t("yesterday") }}</view>
       </view>
       <view class="item">
         <view class="moeny"> {{ moenyFn(infos.todayIncome) }}</view>
-        <view class="txt">今日已抢佣金</view>
+        <view class="txt">{{ $t("todayIncome") }}</view>
       </view>
       <view class="item">
         <view class="moeny">
           <template v-if="infos.freezeBalance"></template>
           {{ infos.freezeBalance }}
         </view>
-        <view class="txt">账户冻结金额</view>
+        <view class="txt">{{ $t("freezeBalance") }}</view>
       </view>
       <view class="item">
         <view class="moeny">{{ infos.todayOrderCount }} 单</view>
-        <view class="txt">今天已抢单数</view>
+        <view class="txt">{{ $t("todayOrderCount") }}</view>
       </view>
       <view class="item">
         <view class="moeny"> {{ moenyFn(infos.yesterdayTeamIncome) }}</view>
-        <view class="txt">昨日团队佣金</view>
+        <view class="txt">{{ $t("yesterdayTeamIncome") }}</view>
       </view>
     </view>
     <view class="passStyle">
       <view class="pass">
-        <text>解锁</text>
-        <view>下一等级专属通道获得更高佣金</view>
+        <text>{{ $t("unlocking") }}</text>
+        <view>{{ $t("next") }}</view>
       </view>
     </view>
-    <view class="task">订单说明</view>
+    <view class="task">{{ $t("order_tips") }}</view>
     <view class="info">
-      <view>尊敬的用户你好</view>
+      <view>{{ $t("user") }}</view>
+      <view> {{ $t("tips") }} </view>
+      <view>{{ $t("real") }}</view>
       <view>
-        平台为了防止有人恶意进行洗黑钱或者套现一系列不法行为，会员需完成70单方可进行申请提现，提现审核成功后，到账时间为T+0到账（2小时内）具体到账时间以银行为准！
-      </view>
-      <view>为了保证商家成交量的真实性，所有任务订单都是垫付立返</view>
-      <view>
-        抢到任务订单后请及时提交订单，避免长时间未提交导致卡单卡顿异常降低信用分
+        {{ $t("reputation") }}
       </view>
     </view>
     <success ref="sucRef" @ok="getInfo(that)" />
@@ -227,7 +227,7 @@ export default {
       if (!val) {
         return 0;
       } else if (val >= 100000) {
-        return parseInt(val / 100000) + "万+";
+        return parseInt(val / 100000) + this.$t("myriad");
       } else {
         return "" + val;
       }

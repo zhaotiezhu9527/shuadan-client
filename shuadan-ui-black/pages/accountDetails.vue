@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="账户明细"
+      :title="$t('account_log')"
       fixed
       leftIconColor="#ffffff"
       leftIconSize="32"
@@ -31,12 +31,11 @@
           <view class="content">
             <view class="table-content">
               <view class="table-money">
-                {{ item.optTypeStr}}
+                {{ item.optTypeStr }}
               </view>
               <view class="table-foot">
                 <view class="table-title">
-                  <label
-                  >
+                  <label>
                     {{ item.optTime }}
                   </label>
                 </view>
@@ -47,10 +46,10 @@
             </view>
           </view>
         </u-list-item>
-        <view class="loading" v-if="loading">加载中...</view>
-        <view class="nomore" v-if="finished">没有更多了</view>
+        <view class="loading" v-if="loading">{{ $t("load_more") }}</view>
+        <view class="nomore" v-if="finished">{{ $t("no_more") }}</view>
       </u-list>
-      <u-empty class="empty" text="暂无数据" v-else />
+      <u-empty class="empty" :text="$t('nodata')" v-else />
     </view>
   </view>
 </template>
@@ -67,13 +66,13 @@ export default {
       page: 0,
       nav: [
         {
-          name: "所有类型",
+          name: this.$t("all_type"),
         },
         {
-          name: "提现记录",
+          name: this.$t("deposit_log"),
         },
         {
-          name: "充值记录",
+          name: this.$t("account_log"),
         },
       ],
     };
@@ -116,7 +115,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main{
+.main {
   margin-top: 20rpx;
 }
 .title {
@@ -148,11 +147,11 @@ export default {
   background-color: #1e1e1e;
   color: #b0b0b0;
   overflow: hidden;
-  .table-content{
+  .table-content {
     width: 96%;
     margin: auto;
     border-bottom: 1px solid #393939;
-    .table-foot{
+    .table-foot {
       padding-bottom: 20rpx;
       overflow: hidden;
     }
@@ -177,7 +176,7 @@ export default {
   }
   .table-number {
     float: right;
-    background: linear-gradient(#D8B88E, #C49A68);
+    background: linear-gradient(#d8b88e, #c49a68);
     color: #000;
     border-radius: 8rpx;
     font-size: 24rpx;

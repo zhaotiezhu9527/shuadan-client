@@ -4,7 +4,7 @@
       <u-navbar
         placeholder
         :border="false"
-        title="个人中心"
+        :title="$t('centre')"
         fixed
         bgColor="#1e1e1e"
         leftIconSize="0"
@@ -15,7 +15,7 @@
         <template #left>
           <image
             style="width: 36rpx"
-            @click="goPage({ label: '信息公告', url: '/pages/message' })"
+            @click="goPage({ label: $t('notice'), url: '/pages/message' })"
             src="/static/img/msg_notice.png"
             mode="widthFix"
           />
@@ -23,7 +23,7 @@
         <template #right>
           <image
             style="width: 48rpx"
-            @click="goPage({ label: '个人信息', url: '/pages/set' })"
+            @click="goPage({ label: $t('userset'), url: '/pages/set' })"
             src="/static/img/bg-020.png"
             mode="widthFix"
           />
@@ -36,27 +36,33 @@
             <view class="flex items-center">
               <view class="name">{{ userData.nickName }}</view>
               <image class="level-img" :src="userData.levelIcon" />
-              <label class="credit">信用分:{{ userData.creditValue }}</label>
+              <label class="credit"
+                >{{ $t("creditValue") }}:{{ userData.creditValue }}</label
+              >
             </view>
             <view class="code">
-              邀请码: {{ userData.inviteCode }}
-              <label class="copy-text" @click="copy(userData.inviteCode)"
-                >复制</label
-              ></view
-            >
+              {{ $t("inviteCode") }}: {{ userData.inviteCode }}
+              <label class="copy-text" @click="copy(userData.inviteCode)">
+                {{ $t("copy") }}
+              </label>
+            </view>
           </view>
         </view>
         <view class="price">
           <view class="price-box">
             <view class="flex">
               <view class="money2">
-                <view class="title">账户金额（元）</view>
+                <view class="title">
+                  {{ $t("account_balance") }}（{{ $t("rmb") }}）
+                </view>
                 <view class="txt">{{ userData.balance }}</view>
               </view>
               <view class="btn">
-                <view @click="goDeposit('/pages/recharge')"> 充值 </view>
+                <view @click="goDeposit('/pages/recharge')">
+                  {{ $t("recharge") }}
+                </view>
                 <view class="active" @click="goDeposit('/pages/deposit')">
-                  提现
+                  {{ $t("deposit") }}
                 </view>
               </view>
             </view>
@@ -86,7 +92,7 @@
       </view>
       <u-modal
         :show="loginoutShow"
-        title="退出登录"
+        :title="$t('renturn_login')"
         @confirm="loginOut"
         @cancel="loginoutShow = false"
         ref="uModal"
@@ -94,8 +100,10 @@
         showCancelButton
         confirmColor="#6c38ed"
         cancelColor="#ffffff"
+        :confirmText="$t('confirmText')"
+        :cancelText="$t('cancelText')"
       >
-        <view class="btn">你确定退出吗？</view>
+        <view class="btn">{{ $t("loginout") }}</view>
       </u-modal>
     </view>
   </view>
@@ -108,59 +116,59 @@ export default {
       loading: false, //加载状态
       list: [
         {
-          label: "个人信息",
+          label: this.$t("userset"),
           icon: "bg-021.png",
           url: "/pages/set",
           width: "36",
         },
         {
-          label: "抢单记录",
+          label: this.$t("order_log"),
           icon: "bg-022.png",
           url: "/pages/index?tabs=1",
           className: "mb",
           width: "36",
         },
         {
-          label: "账户明细",
+          label: this.$t("account_log"),
           icon: "bg-023.png",
           url: "/pages/accountDetails",
           width: "36",
         },
         {
-          label: "充值记录",
+          label: this.$t("recharge_log"),
           icon: "bg-024.png",
           url: "/pages/rechargeRecord",
           width: "40",
         },
         {
-          label: "提现记录",
+          label: this.$t("deposit_log"),
           icon: "bg-025.png",
           url: "/pages/withdrawalRecords",
           className: "mb",
           width: "40",
         },
         {
-          label: "邀请好友",
+          label: this.$t("invitation"),
           icon: "bg-026.png",
           url: "/pages/promotion",
           className: "mb",
           width: "40",
         },
         {
-          label: "信息公告",
+          label: this.$t("notice"),
           icon: "bg-027.png",
           url: "/pages/message",
           width: "40",
         },
         {
-          label: "团队报表",
+          label: this.$t("team"),
           icon: "bg-028.png",
           url: "/pages/team",
           className: "mb",
           width: "42",
         },
         {
-          label: "退出登录",
+          label: this.$t("renturn_login"),
           icon: "bg-029.png",
           url: "",
           width: "32",
@@ -198,11 +206,11 @@ export default {
       });
     },
     goPage({ label, url }) {
-      if (label === "抢单记录") {
+      if (label === this.$t("order_log")) {
         uni.reLaunch({
           url: url,
         });
-      } else if (label === "退出登录") {
+      } else if (label === this.$t("renturn_login")) {
         this.loginoutShow = true;
       } else {
         uni.navigateTo({
@@ -216,7 +224,7 @@ export default {
           url,
         });
       } else {
-        this.$base.show("请先绑定银行卡");
+        this.$base.show(this.$t("input_bind"));
       }
     },
     //用户列表数据
@@ -235,12 +243,10 @@ export default {
     // 复制功能
     copy(value) {
       uni.setClipboardData({
-        data: value, //要被复制的内容
+        data: value,
         success: () => {
-          //复制成功的回调函数
           uni.showToast({
-            //提示
-            title: "复制成功",
+            title: this.$t("copy_success"),
           });
         },
       });

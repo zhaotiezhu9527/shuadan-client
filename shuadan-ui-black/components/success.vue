@@ -17,18 +17,20 @@
                     src="/static/img/bg-006.png"
                     mode="widthFix"
                   />
-                  <view class="text">恭喜抢单成功</view>
+                  <view class="text">{{ $t("congratulation") }}</view>
                 </view>
                 <view class="flex items-center justify-between">
                   <view class="uid flex items-center mb-16">
-                    抢单编号：{{ items.orderNo }}
+                    {{ $t("order_no") }}：{{ items.orderNo }}
                     <text class="num mx-8">{{ items.countNum }}</text
                     ><text class="txt" v-if="items.orderType == 0">
                       {{ items.promptText }}
                     </text>
                   </view>
                 </view>
-                <view class="time mb-24">抢单时间：{{ items.orderTime }}</view>
+                <view class="time mb-24">
+                  {{ $t("ordertime") }}：{{ items.orderTime }}
+                </view>
 
                 <view class="goodsstyle">
                   <view class="goods">
@@ -38,33 +40,36 @@
                         {{ items.goodsName }}
                       </view>
                       <view class="text">
-                        <view>¥ {{ items.goodsPrice }}</view>
+                        <view>{{ $t("rmb_icon") }} {{ items.goodsPrice }}</view>
                         <view>x {{ items.goodsCount }}</view>
                       </view>
                     </view>
                   </view>
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
-                  可用余额不足，还需充值{{ items.balanceSub }}
+                  {{ $t("not_sufficient_funds") }}{{ items.balanceSub }}
                 </view>
                 <view class="ul">
                   <view class="li">
-                    <text>订单总额</text>
-                    <text>¥ {{ items.orderAmount }}</text>
+                    <text>{{ $t("order_amount") }}</text>
+                    <text>{{ $t("rmb_icon") }} {{ items.orderAmount }}</text>
                   </view>
                   <view class="li">
                     <text
-                      >佣金<text
+                      >{{ $t("commission")
+                      }}<text
                         v-if="items.commissionMul >= 2"
                         class="tip-bubble tip-bubble-left"
                         >x{{ items.commissionMul }}</text
                       ></text
                     >
-                    <text>¥ {{ items.commission }}</text>
+                    <text>{{ $t("rmb_icon") }} {{ items.commission }}</text>
                   </view>
                   <view class="li">
-                    <text>预计返还</text>
-                    <text class="moeny">¥ {{ items.forecastReturn }}</text>
+                    <text>{{ $t("return_amount") }}</text>
+                    <text class="moeny"
+                      >{{ $t("rmb_icon") }} {{ items.forecastReturn }}</text
+                    >
                   </view>
                 </view>
               </view>
@@ -75,12 +80,12 @@
                 color="#fff"
                 plain
                 @click="show = false"
-                text="暂不提交"
+                :text="$t('no_submit')"
               ></u-button>
               <u-button
                 shape="circle"
                 color="#ffffff"
-                text="立即提交"
+                :text="$t('submit')"
                 :loading="loading"
                 style="color: #000"
                 @click="change"
@@ -100,7 +105,7 @@
     <view class="maskLoading" v-if="loading">
       <view class="content">
         <image class="img" src="@/static/img/10001.gif" mode="widthFix" />
-        <p class="txt">远程主机正在分配</p>
+        <p class="txt">{{ $t("long_distance") }}</p>
       </view>
     </view>
   </view>
@@ -339,11 +344,11 @@ export default {
       font-size: 24rpx;
       line-height: 2;
       margin-right: 20rpx;
-      width: calc(100% - 100rpx);
+      width: calc(100% - 120rpx);
     }
     .text {
       font-size: 20rpx;
-      width: 100rpx;
+      width: 120rpx;
       text-align: right;
       view:nth-child(2) {
         color: #ffffffa6;

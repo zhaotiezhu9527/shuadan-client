@@ -18,49 +18,71 @@
       <view class="rows">
         <view class="team flex items-center justify-between">
           <view class="tatol">
-            <view class="txt">团队余额（元）</view>
+            <view class="txt">{{ $t("teamBalance") }}（{{ $t("rmb") }}）</view>
             <view class="moeny">{{ items.teamBalance || 0 }}</view>
           </view>
           <view class="li">
             <view class="item">
-              <view class="txt">团队流水（元）</view>
-              <view class="moeny green">￥{{ items.teamwithdraw || 0 }}</view>
+              <view class="txt"
+                >{{ $t("teamwithdraw") }}（{{ $t("rmb") }}）</view
+              >
+              <view class="moeny green"
+                >{{ $t("rmb_icon") }}{{ items.teamwithdraw || 0 }}</view
+              >
             </view>
             <view class="item">
-              <view class="txt">团队总充值（元）</view>
-              <view class="moeny">￥{{ items.teamBet || 0 }}</view>
+              <view class="txt">{{ $t("teamBet") }}（{{ $t("rmb") }}）</view>
+              <view class="moeny"
+                >{{ $t("rmb_icon") }}{{ items.teamBet || 0 }}</view
+              >
             </view>
             <view class="item">
-              <view class="txt">团队总提现（元）</view>
-              <view class="moeny green">￥{{ items.teamDeposit || 0 }}</view>
+              <view class="txt"
+                >{{ $t("teamDeposit") }}（{{ $t("rmb") }}）</view
+              >
+              <view class="moeny green"
+                >{{ $t("rmb_icon") }}{{ items.teamDeposit || 0 }}</view
+              >
             </view>
             <view class="item">
-              <view class="txt">团队订单佣金（元）</view>
-              <view class="moeny">￥{{ items.teamIncome || 0 }}</view>
+              <view class="txt">{{ $t("teamIncome") }}（{{ $t("rmb") }}）</view>
+              <view class="moeny"
+                >{{ $t("rmb_icon") }}{{ items.teamIncome || 0 }}</view
+              >
             </view>
           </view>
         </view>
       </view>
       <view class="views flex items-center">
         <view class="item">
-          <view class="moeny">{{ items.inviteCount || 0 }}人</view>
-          <view class="txt">直推人数</view>
+          <view class="moeny"
+            >{{ items.inviteCount || 0 }}{{ $t("person") }}</view
+          >
+          <view class="txt">{{ $t("inviteCount") }}</view>
         </view>
         <view class="item">
-          <view class="moeny">{{ items.teamMemberCount || 0 }}人</view>
-          <view class="txt">团队人数</view>
+          <view class="moeny"
+            >{{ items.teamMemberCount || 0 }}{{ $t("person") }}</view
+          >
+          <view class="txt">{{ $t("teamMemberCount") }}</view>
         </view>
         <view class="item">
-          <view class="moeny">{{ items.depositCount || 0 }}人</view>
-          <view class="txt">首充人数</view>
+          <view class="moeny"
+            >{{ items.depositCount || 0 }}{{ $t("person") }}</view
+          >
+          <view class="txt">{{ $t("depositCount") }}</view>
         </view>
         <view class="item">
-          <view class="moeny">{{ items.newRegisterCount || 0 }}人</view>
-          <view class="txt">新增人数</view>
+          <view class="moeny"
+            >{{ items.newRegisterCount || 0 }}{{ $t("person") }}</view
+          >
+          <view class="txt">{{ $t("newRegisterCount") }}</view>
         </view>
         <view class="item">
-          <view class="moeny">{{ items.activeCount || 0 }}人</view>
-          <view class="txt">活跃人数</view>
+          <view class="moeny"
+            >{{ items.activeCount || 0 }}{{ $t("person") }}</view
+          >
+          <view class="txt">{{ $t("activeCount") }}</view>
         </view>
       </view>
       <view class="rowStyle">
@@ -78,7 +100,9 @@
         <template v-if="list.length">
           <view class="contentStyle" v-for="(item, index) in list" :key="index">
             <view class="content">
-              <view class="time">注册时间：{{ item.registerTime }}</view>
+              <view class="time">
+                {{ $t("registerTime") }}：{{ item.registerTime }}
+              </view>
               <view class="user flex items-center justify-between">
                 <view class="flex items-center">
                   <image
@@ -93,23 +117,23 @@
                 </view>
                 <view class="num">
                   <view class="numSize">{{ item.inviteCount }}</view>
-                  <view class="numText">推荐人数</view>
+                  <view class="numText">{{ $t("inviteCount") }}</view>
                 </view>
               </view>
               <view class="moeny">
                 <view class="topup">
-                  <view>充值</view>
-                  <view>￥{{ item.deposit }}</view>
+                  <view>{{ $t("recharge") }}</view>
+                  <view>{{ $t("rmb_icon") }}{{ item.deposit }}</view>
                 </view>
                 <view class="withdraw">
-                  <view>提现</view>
-                  <view>￥{{ item.withdraw }}</view>
+                  <view>{{ $t("deposit") }}</view>
+                  <view>{{ $t("rmb_icon") }}{{ item.withdraw }}</view>
                 </view>
               </view>
             </view>
           </view>
         </template>
-        <u-empty class="nempty" text="暂无数据" v-else />
+        <u-empty class="nempty" :text="$t('nodata')" v-else />
       </view>
     </view>
   </view>
@@ -123,7 +147,11 @@ export default {
       active: 0,
       datetime: Number(new Date()),
       items: {},
-      nav: [{ name: "一级" }, { name: "二级" }, { name: "三级" }],
+      nav: [
+        { name: this.$t("one") },
+        { name: this.$t("two") },
+        { name: this.$t("three") },
+      ],
     };
   },
   onShow() {

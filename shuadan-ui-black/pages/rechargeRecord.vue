@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="充值记录"
+      :title="$t('recharge_log')"
       fixed
       leftIconColor="#ffffff"
       leftIconSize="32"
@@ -33,27 +33,26 @@
                   {{ item.statusStr }}
                 </view>
                 <view class="table-money">
-                  {{ item.orderNo}}
+                  {{ item.orderNo }}
                 </view>
               </view>
               <view class="table-foot">
                 <view class="table-title">
-                  <label
-                  >
+                  <label>
                     {{ item.amount }}
                   </label>
                 </view>
                 <view class="table-number">
-                  {{ item.time}}
+                  {{ item.time }}
                 </view>
               </view>
             </view>
           </view>
         </u-list-item>
-        <view class="loading" v-if="loading">加载中...</view>
-        <view class="nomore" v-if="finished">没有更多了</view>
+        <view class="loading" v-if="loading">{{ $t("load_more") }}</view>
+        <view class="nomore" v-if="finished">{{ $t("no_more") }}</view>
       </u-list>
-      <u-empty class="empty" text="暂无数据" v-else />
+      <u-empty class="empty" :text="$t('nodata')" v-else />
     </view>
   </view>
 </template>
@@ -157,20 +156,20 @@ export default {
   background-color: #1e1e1e;
   color: #b0b0b0;
   overflow: hidden;
-  .table-content{
+  .table-content {
     width: 96%;
     margin: auto;
     border-bottom: 1px solid #393939;
     overflow: hidden;
-    .table-left{
+    .table-left {
       float: left;
     }
-    .table-foot{
+    .table-foot {
       float: right;
       text-align: right;
       padding-bottom: 20rpx;
       overflow: hidden;
-      .table-title{
+      .table-title {
         color: #ddd;
         font-size: 32rpx;
       }

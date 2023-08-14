@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="修改名称"
+      :title="$t('edit_name')"
       fixed
       leftIconColor="#ffffff"
       bgColor="#1e1e1e"
@@ -16,16 +16,16 @@
     </u-navbar>
     <view class="main">
       <view class="from-input">
-        <label>名字：</label>
+        <label>{{ $t("name") }}：</label>
         <input
           type="text"
           v-model="nickName"
           class="input-text"
-          placeholder="请输入您的名称"
+          :placeholder="$t('input_name')"
         />
       </view>
-      <view class="title">请修改您的名称</view>
-      <view class="btn"> 确认修改 </view>
+      <view class="title">{{ $t("edit_my_name") }}</view>
+      <view class="btn" @click="submit"> {{ $t("condig_edit") }} </view>
     </view>
   </view>
 </template>

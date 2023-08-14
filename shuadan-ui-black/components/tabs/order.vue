@@ -66,7 +66,7 @@
                     {{ item.goodsName }}
                   </view>
                   <view class="text">
-                    <view>¥ {{ item.goodsPrice }}</view>
+                    <view>{{ $t("rmb_icon") }} {{ item.goodsPrice }}</view>
                     <view>x {{ item.goodsCount }}</view>
                   </view>
                 </view>
@@ -75,7 +75,7 @@
             <view class="ul">
               <view class="li">
                 <text>{{ $t("order_amount") }}</text>
-                <text>¥ {{ item.orderAmount }}</text>
+                <text>{{ $t("rmb_icon") }} {{ item.orderAmount }}</text>
               </view>
               <view class="li">
                 <text
@@ -86,16 +86,18 @@
                     >x{{ item.commissionMul }}</text
                   ></text
                 >
-                <text>¥ {{ item.commission }}</text>
+                <text>{{ $t("rmb_icon") }} {{ item.commission }}</text>
               </view>
               <view class="li">
                 <text>{{ $t("return_amount") }}</text>
-                <text class="moeny">¥ {{ item.returnAmount }}</text>
+                <text class="moeny">
+                  {{ $t("rmb_icon") }} {{ item.returnAmount }}
+                </text>
               </view>
               <view class="li right" v-if="item.status === 0">
-                <view class="submit" @click="change(item)">{{
-                  $t("oredr_submit")
-                }}</view>
+                <view class="submit" @click="change(item)">
+                  {{ $t("oredr_submit") }}
+                </view>
               </view>
             </view>
           </view>
@@ -314,11 +316,11 @@ export default {
       font-size: 24rpx;
       line-height: 2;
       margin-right: 20rpx;
-      width: calc(100% - 100rpx);
+      width: calc(100% - 120rpx);
     }
     .text {
       font-size: 20rpx;
-      width: 100rpx;
+      width: 120rpx;
       text-align: right;
       view:nth-child(2) {
         color: #ffffffa6;

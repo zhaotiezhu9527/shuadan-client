@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="充值"
+      :title="$t('recharge')"
       fixed
       leftIconColor="#ffffff"
       bgColor="#1E1E1E"
@@ -15,9 +15,9 @@
     >
     </u-navbar>
     <view class="content" v-if="!active">
-      <view class="title">充值金额</view>
+      <view class="title">{{ $t("recharge_acc") }}</view>
       <u-input
-        placeholder="请输入充值金额"
+        :placeholder="$t('input_recharge_acc')"
         border="bottom"
         placeholderClass="placeholder"
         v-model="value"
@@ -25,7 +25,7 @@
         type="number"
       >
         <template #prefix>
-          <view class="rmb">￥</view>
+          <view class="rmb">{{ $t("rmb_icon") }}</view>
         </template>
       </u-input>
       <view class="list">
@@ -35,7 +35,7 @@
           v-for="(item, index) in list"
           :key="index"
         >
-          {{ item }}元
+          {{ item }}{{ $t("rmb") }}
         </view>
       </view>
     </view>
@@ -44,7 +44,7 @@
         type="primary"
         @click="change"
         class="button"
-        text="下一步"
+        :text="$t('next_step')"
       ></u-button>
     </view>
     <rechargeMark ref="rechargeMarkRef" @ok="value = ''" />
@@ -68,7 +68,7 @@ export default {
     change() {
       let num = /^\+?[1-9]\d*$/;
       if (!num.test(this.value)) {
-        this.$base.show("请输入整数");
+        this.$base.show(this.$t("input_integer"));
       } else {
         // this.active = 1;
         this.$refs.rechargeMarkRef.open();

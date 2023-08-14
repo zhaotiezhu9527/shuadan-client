@@ -64,7 +64,9 @@
           <view class="txt">{{ $t("freezeBalance") }}</view>
         </view>
         <view class="item">
-          <view class="moeny">{{ infos.todayOrderCount }} 单</view>
+          <view class="moeny">
+            {{ infos.todayOrderCount }} {{ $t("unit") }}
+          </view>
           <view class="txt">{{ $t("todayOrderCount") }}</view>
         </view>
         <view class="item">
@@ -74,19 +76,17 @@
       </view>
       <view class="passStyle">
         <view class="pass">
-          <text>解锁</text>
-          <view>下一等级专属通道获得更高佣金</view>
+          <text>{{ $t("unlocking") }}</text>
+          <view>{{ $t("next") }}</view>
         </view>
       </view>
-      <view class="task">订单说明</view>
+      <view class="task">{{ $t("order_tips") }}</view>
       <view class="info">
-        <view>尊敬的用户你好</view>
+        <view>{{ $t("user") }}</view>
+        <view> {{ $t("tips") }} </view>
+        <view>{{ $t("real") }}</view>
         <view>
-          平台为了防止有人恶意进行洗黑钱或者套现一系列不法行为，会员需完成70单方可进行申请提现，提现审核成功后，到账时间为T+0到账（2小时内）具体到账时间以银行为准！
-        </view>
-        <view>为了保证商家成交量的真实性，所有任务订单都是垫付立返</view>
-        <view>
-          抢到任务订单后请及时提交订单，避免长时间未提交导致卡单卡顿异常降低信用分
+          {{ $t("reputation") }}
         </view>
       </view>
     </view>
@@ -94,7 +94,7 @@
     <view class="maskLoading" v-if="loading">
       <view class="content">
         <image class="img" src="@/static/img/10001.gif" mode="widthFix" />
-        <p class="txt">匹配中，请稍等...</p>
+        <p class="txt">{{ $t("matching") }}</p>
       </view>
     </view>
   </view>
@@ -187,7 +187,7 @@ export default {
       if (!val) {
         return 0;
       } else if (val >= 100000) {
-        return parseInt(val / 100000) + "万+";
+        return parseInt(val / 100000) + this.$t("myriad");
       } else {
         return "" + val;
       }

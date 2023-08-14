@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="我要分享"
+      :title="$t('promotion')"
       fixed
       leftIconColor="#ffffff"
       bgColor="#1e1e1e"
@@ -26,11 +26,15 @@
               size="62"
             ></uqrcode>
           </view>
-          <view class="txt">邀请码:{{ infos.inviteCode }}</view>
+          <view class="txt">{{ $t("inviteCode") }}:{{ infos.inviteCode }}</view>
         </view>
       </view>
       <view class="btn">
-        <u-button text="邀请好友" @click="change" class="button"></u-button>
+        <u-button
+          :text="$t('invitation')"
+          @click="change"
+          class="button"
+        ></u-button>
       </view>
     </view>
   </view>
@@ -56,7 +60,7 @@ export default {
     //用户列表数据
     getInfo() {
       uni.showLoading({
-        title: "加载中",
+        title: this.$t("load_more"),
       });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {

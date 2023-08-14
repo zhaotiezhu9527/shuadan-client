@@ -7,13 +7,13 @@
   >
     <view class="flex">
       <view class="message_block">
-        <view class="title flex items-center">特别公告通知</view>
+        <view class="title flex items-center">{{ $t("announcement") }}</view>
         <view class="message_info_content">
           <rich-text class="rich" :nodes="content"></rich-text>
           <u-button
             class="button"
             @click="show = false"
-            text="确定"
+            :text="$t('confirmText')"
             shape="circle"
           ></u-button>
         </view>

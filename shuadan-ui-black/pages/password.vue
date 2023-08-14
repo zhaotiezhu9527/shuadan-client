@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="密码管理"
+      :title="$t('pwd')"
       fixed
       leftIconColor="#ffffff"
       bgColor="#1e1e1e"
@@ -15,36 +15,38 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">请输入您的新密码</view>
+      <view class="title">{{ $t("input_my_new_pwd") }}</view>
       <view class="from-input">
-        <label>旧密码：</label>
+        <label>{{ $t("former_pwd") }}：</label>
         <input
           type="text"
           v-model="oldPwd"
           class="input-text"
-          placeholder="请输入旧密码"
+          :placeholder="$t('input_former_pwd')"
         />
       </view>
       <view class="from-input">
-        <label>新密码：</label>
+        <label>{{ $t("new_pwd") }}：</label>
         <input
           type="text"
           v-model="newPwd"
           class="input-text"
-          placeholder="请输入新密码"
+          :placeholder="$t('input_new_pwd')"
         />
       </view>
       <view class="from-input">
-        <label>确认密码：</label>
+        <label>{{ $t("config_pwd") }}：</label>
         <input
           type="text"
           v-model="password"
           class="input-text"
-          placeholder="请再次输入密码"
+          :placeholder="$t('input_config_pwd')"
         />
       </view>
-      <view class="pour">请牢记密码,如忘记密码,请联系客服。</view>
-      <view class="password-btn" @click="submit"> 确认修改 </view>
+      <view class="pour">{{ $t("pwd_info") }}</view>
+      <view class="password-btn" @click="submit">
+        {{ $t("condig_edit") }}
+      </view>
     </view>
   </view>
 </template>
@@ -63,11 +65,11 @@ export default {
   methods: {
     submit() {
       if (!this.oldPwd) {
-        return this.$base.show("旧密码不能为空~");
+        return this.$base.show(this.$t("former_pwd_no"));
       } else if (!this.newPwd) {
-        return this.$base.show("请填写新密码~");
+        return this.$base.show(this.$t("input_new_pwd_edit"));
       } else if (this.newPwd != this.password) {
-        return this.$base.show("两次输入的密码不一致~");
+        return this.$base.show(this.$t("input_tow_pwd_edit"));
       }
       this.loading = true;
       const DATA_OBJ = {

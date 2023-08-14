@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="会员升级"
+      :title="$t('vip')"
       fixed
       safe-area-inset-top
       bgColor="#1e1e1e"
@@ -18,24 +18,27 @@
       <view class="car">
         <image class="user" :src="infos.avatarUrl" mode="widthFix" />
         <view class="txt">
-          <view>会员等级：{{ items.currLevelName }}</view>
-          <view>每天可接单：{{ items.dayOrderCount }}单</view>
+          <view>{{ $t("vip") }}：{{ items.currLevelName }}</view>
+          <view
+            >{{ $t("dayOrderCount") }}：{{ items.dayOrderCount
+            }}{{ $t("unit") }}</view
+          >
         </view>
-        <view class="link" @click="change">会员详情</view>
+        <view class="link" @click="change">{{ $t("vip_info") }}</view>
       </view>
     </view>
     <view class="list">
       <view class="item">
         <image class="img" src="@/static/img/bg-009.png" mode="widthFix" />
-        <view class="txt">佣金加成</view>
+        <view class="txt">{{ $t("addition") }}</view>
       </view>
       <view class="item">
         <image class="img" src="@/static/img/bg-010.png" mode="widthFix" />
-        <view class="txt">任务增多</view>
+        <view class="txt">{{ $t("task_limit") }}</view>
       </view>
       <view class="item">
         <image class="img" src="@/static/img/bg-011.png" mode="widthFix" />
-        <view class="txt">专属客服</view>
+        <view class="txt">{{ $t("exclusive") }}</view>
       </view>
     </view>
     <view class="row">
@@ -43,26 +46,26 @@
         <view class="header">
           <view class="title"
             >{{ item.levelName }}
-            <text class="tips">永久</text>
+            <text class="tips">{{ $t("perpetual") }}</text>
           </view>
-          <view class="money">{{ item.levelPrice }}元</view>
+          <view class="money">{{ item.levelPrice }}{{ $t("rmb") }}</view>
         </view>
         <view class="view">
           <view class="txt">
-            <text>提现次数:</text>
-            <text>{{ item.dayWithdrawCount }}/天</text>
+            <text>{{ $t("frequency") }}:</text>
+            <text>{{ item.dayWithdrawCount }}/{{ $t("day") }}</text>
           </view>
           <view class="txt">
-            <text>提现额度:</text>
-            <text>{{ item.maxWithdrawAmount }}/天</text>
+            <text>{{ $t("limit") }}:</text>
+            <text>{{ item.maxWithdrawAmount }}/{{ $t("day") }}</text>
           </view>
           <view class="txt">
-            <text>接单数量:</text>
-            <text>{{ item.dayOrderCount }}/天</text>
+            <text>{{ $t("dayOrderCount") }}:</text>
+            <text>{{ item.dayOrderCount }}/{{ $t("day") }}</text>
           </view>
           <view class="txt">
-            <text>佣金比例:</text>
-            <text>{{ item.commissionRate }}/天</text>
+            <text>{{ $t("commissionRate") }}:</text>
+            <text>{{ item.commissionRate }}/{{ $t("day") }}</text>
           </view>
         </view>
       </view>
@@ -94,7 +97,7 @@ export default {
     },
     getInfo() {
       uni.showLoading({
-        title: "加载中",
+        title: this.$t("load_more"),
       });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {

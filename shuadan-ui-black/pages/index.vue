@@ -22,7 +22,7 @@
         </view>
         <view class="item other button-50" v-else @click="change(index)">
           <image class="img2" :src="item.image1" mode="widthFix" />
-          <view class="txt">任务</view>
+          <view class="txt">{{ $t("task_name") }}</view>
         </view>
       </template>
     </view>
@@ -49,11 +49,21 @@ export default {
       active: 0,
       route: {},
       list: [
-        { image1: home1, image2: home2, route: home, name: "首页" },
-        { image1: jilv1, image2: jilv2, route: order, name: "记录" },
+        { image1: home1, image2: home2, route: home, name: this.$t("home") },
+        { image1: jilv1, image2: jilv2, route: order, name: this.$t("log") },
         { image1: rw1, route: "task", route: task },
-        { image1: kefu1, image2: kefu2, route: service, name: "客服" },
-        { image1: user1, image2: user2, route: user, name: "我的" },
+        {
+          image1: kefu1,
+          image2: kefu2,
+          route: service,
+          name: this.$t("service_name"),
+        },
+        {
+          image1: user1,
+          image2: user2,
+          route: user,
+          name: this.$t("my"),
+        },
       ],
     };
   },

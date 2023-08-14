@@ -14,8 +14,8 @@
               src="@/static/img/unionpay.png"
               mode="widthFix"
             />
-            <view class="box"> 充值请咨询在线客服 </view>
-            <view class="btn" @click="submit">立即咨询</view>
+            <view class="box"> {{ $t("input_consult") }} </view>
+            <view class="btn" @click="submit">{{ $t("consult") }}</view>
           </view>
         </view>
         <u-icon

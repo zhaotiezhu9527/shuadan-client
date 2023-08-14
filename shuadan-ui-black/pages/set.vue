@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="个人信息"
+      :title="$t('userset')"
       fixed
       safe-area-inset-top
       bgColor="#000000"
@@ -16,34 +16,37 @@
     </u-navbar>
     <view class="list">
       <view class="list-item" @click="goHeadimg">
-        <label>头像</label>
+        <label>{{ $t("avatar_name") }}</label>
         <image class="user-img" :src="userData.avatarUrl" />
         <view class="icon"></view>
       </view>
-      <view class="list-item margin-top10 border-bottom393939" @click="goRealName">
-        <label>全民中文名</label>
+      <view
+        class="list-item margin-top10 border-bottom393939"
+        @click="goRealName"
+      >
+        <label>{{ $t("nickName_all") }}</label>
         <span class="item-text">{{ userData.nickName }}</span>
         <view class="icon"></view>
       </view>
       <view class="list-item">
-        <label>全民用户名</label>
+        <label>{{ $t("userName_all") }}</label>
         <span class="item-text">{{ userData.userName }}</span>
         <view class="icon"></view>
       </view>
     </view>
     <view class="list margin-top10 margin-bottom10">
       <view class="list-item" @click="goBindBank">
-        <label>我的银行卡</label>
+        <label>{{ $t("bindBank_all") }}</label>
         <view class="icon"></view>
       </view>
     </view>
     <view class="list">
       <view class="list-item border-bottom393939" @click="goPassword">
-        <label>密码管理</label>
+        <label>{{ $t("pwd") }}</label>
         <view class="icon"></view>
       </view>
       <view class="list-item" @click="goPayPassword">
-        <label>交易密码</label>
+        <label>{{ $t("pwd_acc_all") }}</label>
         <view class="icon"></view>
       </view>
     </view>
