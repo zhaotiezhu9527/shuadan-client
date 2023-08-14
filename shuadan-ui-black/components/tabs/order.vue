@@ -14,7 +14,7 @@
       >
       </u-navbar>
       <view class="title">
-        <view>剩余可用资产（元）</view>
+        <view>{{ $t("residue_balance") }}（{{ $t("rmb") }}）</view>
         <view>{{ userData.balance }}</view>
       </view>
       <view class="tabs">

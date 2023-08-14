@@ -14,8 +14,8 @@
     </u-navbar>
     <view class="container">
       <view class="title">
-        <view class="sub_title">如遇到问题需要帮助</view>
-        <view class="sub_title">请联系在线客服</view>
+        <view class="sub_title">{{ $t("help") }}</view>
+        <view class="sub_title">{{ $t("relation_service") }}</view>
       </view>
       <image class="image" src="@/static/img/bg_02.png" mode="widthFix" />
     </view>

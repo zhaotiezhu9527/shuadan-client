@@ -2,7 +2,7 @@
   <view class="main">
     <u-navbar
       :border="false"
-      title="抢单"
+      :title="$t('rob_order')"
       fixed
       safe-area-inset-top
       bgColor="transparent"
@@ -17,57 +17,59 @@
         <view class="con">
           <image class="img" :src="vim.levelImg" mode="widthFix" />
           <view class="title">{{ vim.areaName }}</view>
-          <view class="text">{{ vim.remark }} 佣金{{ vim.commission }}%</view>
+          <view class="text">
+            {{ vim.remark }} {{ $t("commission") }}{{ vim.commission }}%
+          </view>
         </view>
         <view class="btn">
           <u-button
             type="primary"
-            text="充值升级"
+            :text="$t('add_vip')"
             @click="addVip"
             class="button-golden"
           ></u-button>
           <u-button
             type="primary"
             @click="startCallBack"
-            text="自动匹配"
+            :text="$t('start_call_back')"
             class="button"
           ></u-button>
         </view>
       </view>
     </view>
     <view class="px-16">
-      <view class="task">今日战果</view>
+      <view class="task">{{ $t("today") }}</view>
       <view class="report">
         <view class="item">
           <view class="moeny gray">
             {{ moenyFn(infos.balance) }}
           </view>
-          <view class="txt">总资产</view>
+          <view class="txt">{{ $t("my_balance") }}</view>
         </view>
         <view class="item">
           <view class="moeny">
             {{ moenyFn(infos.yesterdayIncome) }}
           </view>
-          <view class="txt">昨日收益</view>
+          <view class="txt">{{ $t("yesterday") }}</view>
         </view>
         <view class="item">
           <view class="moeny"> {{ moenyFn(infos.todayIncome) }}</view>
-          <view class="txt">今日已抢佣金</view>
+          <view class="txt">{{ $t("todayIncome") }}</view>
         </view>
         <view class="item">
           <view class="moeny">
             <template v-if="infos.freezeBalance"></template>
             {{ infos.freezeBalance }}
           </view>
-          <view class="txt">账户冻结金额</view>
+          <view class="txt">{{ $t("freezeBalance") }}</view>
         </view>
         <view class="item">
           <view class="moeny">{{ infos.todayOrderCount }} 单</view>
-          <view class="txt">今天已抢单数</view>
+          <view class="txt">{{ $t("todayOrderCount") }}</view>
         </view>
         <view class="item">
           <view class="moeny"> {{ moenyFn(infos.yesterdayTeamIncome) }}</view>
-          <view class="txt">昨日团队佣金</view>
+          <view class="txt">{{ $t("yesterdayTeamIncome") }}</view>
         </view>
       </view>
       <view class="passStyle">
