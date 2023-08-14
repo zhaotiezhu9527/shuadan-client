@@ -14,7 +14,7 @@
       >
       </u-navbar>
       <view class="title">
-        <view>{{ $t("task_log") }}</view>
+        <view>剩余可用资产（元）</view>
         <view>{{ userData.balance }}</view>
       </view>
       <view class="tabs">
