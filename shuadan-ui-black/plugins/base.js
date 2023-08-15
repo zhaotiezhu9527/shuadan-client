@@ -77,6 +77,7 @@ export const request = (params) => {
       data: params.data,
       method: str,
       header: params.header,
+      sslVerify: false,
       success: (res) => {
         if (res.data.code == -2) {
           uni.redirectTo({
