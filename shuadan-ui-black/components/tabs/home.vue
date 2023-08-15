@@ -111,7 +111,7 @@
         ></u-icon>
       </view>
     </view>
-    <annunciate />
+    <annunciate ref="annunciateRef" />
   </view>
 </template>
 
@@ -160,10 +160,14 @@ export default {
     };
   },
   methods: {
-    async open() {
-      await this.$onLaunched;
-      this.homeNotice = uni.getStorageSync("config").homeNotice;
+    open() {
       this.getInfo();
+      this.$api.system_config().then(({ data }) => {
+        if (data.code == 0) {
+          this.homeNotice = data.data.homeNotice;
+          this.$refs.annunciateRef.open(data.data);
+        }
+      });
       this.$api.area_list().then(({ data }) => {
         if (data.code == 0) {
           this.list = data.data;

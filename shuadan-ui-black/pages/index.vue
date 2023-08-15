@@ -75,6 +75,11 @@ export default {
       this.active = this.$store.tabs;
     }
     this.route = e;
+    // #ifdef APP-PLUS
+    this.$nextTick(() => {
+      this.$refs.main.open(this.route);
+    });
+    // #endif
   },
   onShow() {
     // #ifdef H5

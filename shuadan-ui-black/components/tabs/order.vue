@@ -193,7 +193,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
-  padding-top: var(--status-bar-height);
   .container {
     .title {
       font-size: 46rpx;

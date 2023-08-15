@@ -26,16 +26,25 @@
 export default {
   data() {
     return {
-      config: {}, //配置
       path: "",
     };
   },
-  async onLoad(e) {
-    await this.$onLaunched;
-    this.config = uni.getStorageSync("config");
-    this.path = e.path || this.config.onlineService;
+  onLoad(e) {
+    if (e?.path) {
+      this.path = e.path;
+    } else {
+      dataFn();
+    }
   },
-  methods: {},
+  methods: {
+    dataFn() {
+      this.$api.system_config().then(({ data }) => {
+        if (data.code == 0) {
+          this.path = data.data.onlineService;
+        }
+      });
+    },
+  },
 };
 </script>
 

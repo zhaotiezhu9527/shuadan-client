@@ -4,64 +4,124 @@
   },
   "pages": [
     {
-      "path": "pages/index"
+      "path": "pages/index",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/team"
+      "path": "pages/team",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/onlineService"
+      "path": "pages/onlineService",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/promotion"
+      "path": "pages/promotion",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/accountDetails"
+      "path": "pages/accountDetails",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/recharge"
+      "path": "pages/recharge",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/rechargeRecord"
+      "path": "pages/rechargeRecord",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/deposit"
+      "path": "pages/deposit",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/message"
+      "path": "pages/message",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/withdrawalRecords"
+      "path": "pages/withdrawalRecords",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/rechargeRecord"
+      "path": "pages/rechargeRecord",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/realName"
+      "path": "pages/realName",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/headimg"
+      "path": "pages/headimg",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/vip"
+      "path": "pages/vip",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/set"
+      "path": "pages/set",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/bindBank"
+      "path": "pages/bindBank",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/password"
+      "path": "pages/password",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/payPassword"
+      "path": "pages/payPassword",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/richtext"
+      "path": "pages/richtext",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     },
     {
-      "path": "pages/login"
+      "path": "pages/login",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     }
   ],
   "globalStyle": {

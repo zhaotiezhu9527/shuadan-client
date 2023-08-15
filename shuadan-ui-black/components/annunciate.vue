@@ -28,15 +28,23 @@
 export default {
   data() {
     return {
-      show: true,
+      show: false,
       content: "",
     };
   },
-  async mounted() {
-    await this.$onLaunched;
-    this.content = uni.getStorageSync("config").homeMsg;
+  mounted() {
+    this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+        this.content = data.data.homeMsg;
+      }
+    });
   },
-  methods: {},
+  methods: {
+    open(data) {
+      this.show = true;
+      this.content = data.homeMsg;
+    },
+  },
 };
 </script>
 

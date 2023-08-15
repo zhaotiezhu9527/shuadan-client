@@ -92,9 +92,7 @@ export default {
       bindStatus: false, //绑定状态
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-  },
+  onLoad() {},
   onShow() {
     this.getInfo();
   },

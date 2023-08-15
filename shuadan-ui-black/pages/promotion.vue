@@ -49,11 +49,12 @@ export default {
       api: "",
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-    this.api = uni.getStorageSync("config").webDomain;
-  },
   onShow() {
+    this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+        this.api = data.data.webDomain;
+      }
+    });
     this.getInfo();
   },
   methods: {
@@ -96,8 +97,8 @@ export default {
     .rwm {
       background-color: $white;
       padding: 10rpx;
-      width: 144rpx;
-      height: 144rpx;
+      width: 72px;
+      height: 72px;
       margin: 0 auto;
       box-sizing: border-box;
     }

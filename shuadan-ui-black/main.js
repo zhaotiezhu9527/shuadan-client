@@ -14,10 +14,6 @@ import * as base from "plugins/base.js";
 import * as api from "plugins/api.js";
 import * as store from "plugins/store.js";
 
-Vue.prototype.$onLaunched = new Promise((resolve) => {
-  Vue.prototype.$isResolve = resolve;
-});
-
 Vue.prototype.$api = api;
 Vue.prototype.$base = base;
 Vue.prototype.$store = store;
