@@ -1,4 +1,5 @@
 export default {
+  title: "全民任务",
   account: "账户",
   password: "密码",
   forget_pwd: "忘记密码",
