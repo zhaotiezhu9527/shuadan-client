@@ -1,6 +1,11 @@
 <template>
   <view>
-    <component :is="list[active].route" ref="main" />
+    <!-- <component :is="list[active].route" ref="main" /> -->
+    <home v-if="active === 0" ref="main" />
+    <order v-else-if="active === 1" ref="main" />
+    <task v-else-if="active === 2" ref="main" />
+    <service v-else-if="active === 3" ref="main" />
+    <user v-else-if="active === 4" ref="main" />
     <view class="tabs">
       <template v-for="(item, index) in list">
         <view
@@ -49,19 +54,17 @@ export default {
       active: 0,
       route: {},
       list: [
-        { image1: home1, image2: home2, route: home, name: this.$t("home") },
-        { image1: jilv1, image2: jilv2, route: order, name: this.$t("log") },
-        { image1: rw1, route: "task", route: task },
+        { image1: home1, image2: home2, name: this.$t("home") },
+        { image1: jilv1, image2: jilv2, name: this.$t("log") },
+        { image1: rw1 },
         {
           image1: kefu1,
           image2: kefu2,
-          route: service,
           name: this.$t("service_name"),
         },
         {
           image1: user1,
           image2: user2,
-          route: user,
           name: this.$t("my"),
         },
       ],
