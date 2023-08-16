@@ -32,13 +32,6 @@ export default {
       content: "",
     };
   },
-  mounted() {
-    this.$api.system_config().then(({ data }) => {
-      if (data.code == 0) {
-        this.content = data.data.homeMsg;
-      }
-    });
-  },
   methods: {
     open(data) {
       this.show = true;
