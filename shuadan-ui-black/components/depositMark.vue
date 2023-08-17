@@ -19,7 +19,9 @@
               @confirm="submit"
             >
             </u-input>
-            <!-- <view class="btn" @click="submit">立即咨询</view> -->
+            <u-button class="button" block @click="submit">
+              {{ $t("confirmText") }}
+            </u-button>
           </view>
         </view>
         <u-icon
@@ -178,11 +180,9 @@ export default {
       color: $white;
       font-size: 32rpx;
     }
-    .btn {
-      padding: 14rpx 32rpx;
+    .button {
+      width: 80%;
       border-radius: 100rpx;
-      color: $white;
-      border: 1rpx solid #ffffffa6;
     }
   }
 }
