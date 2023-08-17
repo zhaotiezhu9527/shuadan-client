@@ -1,11 +1,11 @@
 <template>
   <view>
     <!-- <component :is="list[active].route" ref="main" /> -->
-    <home v-if="active === 0" ref="main" />
-    <order v-else-if="active === 1" ref="main" />
-    <task v-else-if="active === 2" ref="main" />
-    <service v-else-if="active === 3" ref="main" />
-    <user v-else-if="active === 4" ref="main" />
+    <home v-show="active === 0" ref="main0" />
+    <order v-show="active === 1" ref="main1" />
+    <task v-show="active === 2" ref="main2" />
+    <service v-show="active === 3" ref="main3" />
+    <user v-show="active === 4" ref="main4" />
     <view class="tabs">
       <template v-for="(item, index) in list">
         <view
@@ -80,14 +80,14 @@ export default {
     this.route = e;
     // #ifdef APP-PLUS
     this.$nextTick(() => {
-      this.$refs.main.open(this.route);
+      this.$refs[`main${this.active}`].open(this.route);
     });
     // #endif
   },
   onShow() {
     // #ifdef H5
     this.$nextTick(() => {
-      this.$refs.main.open(this.route);
+      this.$refs[`main${this.active}`].open(this.route);
     });
     // #endif
   },
@@ -102,7 +102,7 @@ export default {
 
       // #ifdef APP-PLUS
       this.$nextTick(() => {
-        this.$refs.main.open({ tabs: index });
+        this.$refs[`main${this.active}`].open({ tabs: index });
       });
       // #endif
     },

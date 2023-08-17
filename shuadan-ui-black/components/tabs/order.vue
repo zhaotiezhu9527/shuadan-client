@@ -130,9 +130,9 @@ export default {
   },
   methods: {
     open() {
+      uni.showLoading();
       this.getInfo();
       this.list = [];
-      uni.showLoading();
       this.page = 1;
       this.dataFn();
     },
