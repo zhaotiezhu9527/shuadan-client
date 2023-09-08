@@ -24,23 +24,25 @@
               <label class="name">{{ userData.nickName }}</label>
               <!-- <label class="grade">{{ userData.levelName }}</label> -->
               <image class="level-img" :src="userData.levelIcon" />
-              <label class="credit">信用分:{{ userData.creditValue }}</label>
+              <label class="credit">{{$t('credit') }}:{{ userData.creditValue }}</label>
             </view>
-            <view class="code"> 邀请码: {{ userData.inviteCode }} </view>
+            <view class="code"> {{$t('referralCode') }}: {{ userData.inviteCode }} </view>
           </view>
         </view>
         <view class="money">
           <view class="balance">
-            <view>账户金额</view>
+            <view>{{$t('accountBalance') }}</view>
             <view class="money-color"
-              >¥<label class="money-number">{{ userData.balance }}</label></view
+              >
+              <!-- ¥ -->
+              <label class="money-number">{{ userData.balance }}</label></view
             >
           </view>
           <view class="withdrawal" @click="goDeposit('/pages/deposit')"
-            >提现</view
+            >{{$t('withdraw') }}</view
           >
           <view class="recharge" @click="goDeposit('/pages/recharge')"
-            >充值</view
+            >{{$t('recharge') }}</view
           >
         </view>
         <view class="money-bottom"></view>
@@ -66,12 +68,12 @@
           @click="loginoutShow = true"
           :loading="loading"
         >
-          退出登陆
+        {{$t('logout') }}
         </u-button>
       </view>
       <u-modal
         :show="loginoutShow"
-        title="退出登陆"
+        :title="$t('logout')"
         @confirm="loginOut"
         @cancel="loginoutShow = false"
         ref="uModal"
@@ -79,7 +81,7 @@
         showCancelButton
         confirmColor="#4b80af"
       >
-        <view class="content">你确定退出吗？</view>
+        <view class="content">{{$t('confirmLogout') }}</view>
       </u-modal>
     </view>
   </view>
@@ -92,42 +94,42 @@ export default {
       loading: false, //加载状态
       list: [
         {
-          label: "个人信息",
+          label: this.$t('personalInformation'),
           icon: "user.png",
           url: "/pages/set",
         },
         {
-          label: "抢单记录",
+          label: this.$t('financialHistory'),
           icon: "rob.png",
           url: "/pages/index?tabs=1",
         },
         {
-          label: "账户明细",
+          label: this.$t('accountDetails'),
           icon: "list.png",
           url: "/pages/accountDetails",
         },
         {
-          label: "充值记录",
+          label: this.$t('rechargeRecord'),
           icon: "recharge.png",
           url: "/pages/rechargeRecord",
         },
         {
-          label: "提现记录",
+          label: this.$t('withdrawalsRecord'),
           icon: "withdrawal.png",
           url: "/pages/withdrawalRecords",
         },
         {
-          label: "邀请好友",
+          label: this.$t('inviteFriends'),
           icon: "friend.png",
           url: "/pages/promotion",
         },
         {
-          label: "信息公告",
+          label: this.$t('systemInformation'),
           icon: "message.png",
           url: "/pages/message",
         },
         {
-          label: "团队报表",
+          label: this.$t('teamReports'),
           icon: "team.png",
           url: "/pages/team",
         },
@@ -163,7 +165,7 @@ export default {
       });
     },
     goPage({ label, url }) {
-      if (label === "抢单记录") {
+      if (label === this.$t('financialHistory')) {
         uni.reLaunch({
           url: url,
         });
@@ -179,7 +181,7 @@ export default {
           url,
         });
       } else {
-        this.$base.show("请先绑定银行卡");
+        this.$base.show(this.$t('cardMsg'));
       }
     },
     //用户列表数据
