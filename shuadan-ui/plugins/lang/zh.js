@@ -1,4 +1,22 @@
 export default {
   companyName: "全民任务",
   version: "版本号",
+  userLogin: "用户登录",
+  enterAccount: "请输入账户",
+  enterPassword: "请输入密码",
+  login: "登录",
+  forgetPassword: "忘记密码",
+  freeRegistration: "免费注册",
+
+  accountEmpty: "请输入登录账号~",
+  passwordEmpty: "请输入登录密码~",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
+  enterPassword: "请输入密码",
 };

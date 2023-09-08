@@ -1,14 +1,14 @@
 <template>
   <view class="main">
     <view class="title">
-      <view class="sub">{{$t("companyName")}}</view>
-      <view class="name">用户登录</view>
+      <view class="sub">{{$t('companyName')}}</view>
+      <view class="name">{{$t('userLogin')}}</view>
     </view>
     <view class="form">
       <view class="input">
         <u-input
           border="bottom"
-          placeholder="请输入账户"
+          :placeholder="$t('enterAccount')"
           placeholderClass="placeholder"
           v-model="userName"
         >
@@ -20,7 +20,7 @@
       <view class="input">
         <u-input
           border="bottom"
-          placeholder="请输入密码"
+          :placeholder="$t('enterPassword')"
           placeholderClass="placeholder"
           password
           v-show="passicon1"
@@ -35,7 +35,7 @@
         </u-input>
         <u-input
           border="bottom"
-          placeholder="请输入密码"
+          :placeholder="$t('enterPassword')"
           placeholderClass="placeholder"
           v-model="loginPwd"
           v-show="!passicon1"
@@ -51,16 +51,16 @@
       <u-button
         class="button"
         @click="login"
-        text="登录"
+        :text="$t('login')"
         color="#2f3848"
         :loading="loading"
       ></u-button>
       <view class="other">
-        <view @click="nopass('/pages/onlineService')">忘记密码</view>
-        <view @click="nopass('/pages/register')">免费注册</view>
+        <view @click="nopass('/pages/onlineService')">{{$t('forgetPassword')}}</view>
+        <view @click="nopass('/pages/register')">{{$t('freeRegistration')}}</view>
       </view>
     </view>
-    <service />
+    <!-- <service /> -->
   </view>
 </template>
 
@@ -82,9 +82,9 @@ export default {
     },
     login() {
       if (!this.userName) {
-        return this.$base.show("请输入登录账号~");
+        return this.$base.show(this.$t("accountEmpty"));
       } else if (!this.loginPwd) {
-        return this.$base.show("请输入登录密码~");
+        return this.$base.show(this.$t("passwordEmpty"));
       }
       this.loading = true;
       this.$api
