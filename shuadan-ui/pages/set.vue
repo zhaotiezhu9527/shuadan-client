@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="个人信息"
+      :title="$t('personalInformation')"
       fixed
       safe-area-inset-top
       bgColor="#fff"
@@ -20,7 +20,7 @@
         @click="goHeadimg"
       >
         <image class="icon-img" src="../static/img/touxiang.png" />
-        <label>头像</label>
+        <label>{{$t('avatar') }}</label>
         <image class="user-img" :src="userData.avatarUrl" />
         <view class="icon"></view>
       </view>
@@ -29,7 +29,7 @@
         @click="goRealName"
       >
         <image class="icon-img" src="../static/img/real_name.png" />
-        <label>全民中文名</label>
+        <label>{{$t('nickName') }}</label>
         <span class="item-text">{{ userData.nickName }}</span>
         <view class="icon"></view>
       </view>
@@ -37,7 +37,7 @@
         class="list-item"
       >
         <image class="icon-img" src="../static/img/user_name.png" />
-        <label>全民用户名</label>
+        <label>{{$t('userName') }}</label>
         <span class="item-text">{{ userData.userName }}</span>
         <view class="icon"></view>
       </view>
@@ -46,7 +46,7 @@
         @click="goBindBank"
       >
         <image class="icon-img" src="../static/img/my_card.png" />
-        <label>我的银行卡</label>
+        <label>{{$t('bankCard') }}</label>
         <view class="icon"></view>
       </view>
       <view
@@ -54,7 +54,7 @@
         @click="goPassword"
       >
         <image class="icon-img" src="../static/img/my_password.png" />
-        <label>密码管理</label>
+        <label>{{$t('password') }}</label>
         <view class="icon"></view>
       </view>
       <view
@@ -62,7 +62,7 @@
         @click="goPayPassword"
       >
         <image class="icon-img" src="../static/img/pay_password.png" />
-        <label>交易密码</label>
+        <label>{{$t('payPassword') }}</label>
         <view class="icon"></view>
       </view>
     </view>

@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="头像设置"
+      :title="$t('avatar')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -17,7 +17,7 @@
     <view class="main">
       <view class="head">
         <image class="head-img" :src="avatarUrl"/>
-        <view class="btn" @click="postHead">立即设置</view>
+        <view class="btn" @click="postHead">{{$t('setUp') }}</view>
       </view>
       <view class="content">
         <view class="item" v-for="(item,index) in list" :key="index" @click="changeAvatar(item)">

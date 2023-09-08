@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="绑定银行卡"
+      :title="$t('bindBank')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -15,61 +15,61 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">您的身份信息</view>
+      <view class="title">{{$t('personalInformation') }}</view>
       <view class="from-input">
-        <label>真实姓名</label>
+        <label>{{$t('realName') }}</label>
         <input
           type="text"
           v-model="userData.realName"
           :disabled="bindStatus"
           class="input-text"
-          placeholder="未输入真实姓名，请设置"
+          :placeholder="$t('noRealName')"
         />
       </view>
       <view class="from-input">
-        <label>联系电话</label>
+        <label>{{$t('phoneNo') }}</label>
         <input
           type="text"
           v-model="userData.phone"
           :disabled="bindStatus"
           class="input-text"
-          placeholder="未输入电话，请设置"
+          :placeholder="$t('noPhone')"
         />
       </view>
-      <view class="title">您的银行卡信息</view>
+      <view class="title">{{$t('cardDetails') }}</view>
       <view class="from-input">
-        <label>银行卡号</label>
+        <label>{{$t('bankNo') }}</label>
         <input
           type="text"
           v-model="userData.bankNo"
           :disabled="bindStatus"
           class="input-text"
-          placeholder="未输入银行卡号，请设置"
+          :placeholder="$t('noBankNo')"
         />
       </view>
       <view class="from-input">
-        <label>银行名称</label>
+        <label>{{$t('bankName') }}</label>
         <input
           type="text"
           v-model="userData.bankName"
           :disabled="bindStatus"
           class="input-text"
-          placeholder="未输入银行名称，请设置"
+          :placeholder="$t('noBankName')"
         />
       </view>
       <view class="from-input">
-        <label>支行地址</label>
+        <label>{{$t('addr') }}</label>
         <input
           type="text"
           v-model="userData.bankAddr"
           :disabled="bindStatus"
           class="input-text"
-          placeholder="未输入支行地址，请设置"
+          :placeholder="$t('noAddr')"
         />
       </view>
       <view class="btn">
         <u-button v-if="bindStatus" class="custom-style" color="#9d9d9c" block>
-          修改信息联系客服
+          {{$t('modifyService') }}
         </u-button>
         <u-button
           v-else-if="!bindStatus"
@@ -79,7 +79,7 @@
           @click="submit"
           :loading="loading"
         >
-          设置信息
+        {{$t('confirm') }}
         </u-button>
       </view>
     </view>
@@ -110,15 +110,15 @@ export default {
   methods: {
     submit() {
       if (!this.userData.realName) {
-        return this.$base.show("真实姓名不能为空~");
+        return this.$base.show(this.$t('noRealName'));
       } else if (!this.userData.phone) {
-        return this.$base.show("请填写联系电话~");
+        return this.$base.show(this.$t('noPhone'));
       } else if (!this.userData.bankNo) {
-        return this.$base.show("请填写银行卡号~");
+        return this.$base.show(this.$t('noBankNo'));
       } else if (!this.userData.bankName) {
-        return this.$base.show("请填写银行名称~");
+        return this.$base.show(this.$t('noBankName'));
       } else if (!this.userData.bankAddr) {
-        return this.$base.show("请填写支行地址~");
+        return this.$base.show(this.$t('noAddr'));
       }
       this.loading = true;
       const DATA_OBJ = {
@@ -144,7 +144,7 @@ export default {
     //用户列表数据
     getInfo() {
       uni.showLoading({
-        title: "加载中",
+        title: this.$t('loading'),
       });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
