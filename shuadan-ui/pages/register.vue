@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="注册"
+      :title="$t('enterPassword')"
       fixed
       safe-area-inset-top
       bgColor="#fff"
@@ -18,30 +18,30 @@
     <view class="mainstyle">
       <view class="main">
         <view class="input">
-          <text>昵称</text>
+          <text>{{$t('nickName') }}</text>
           <u-input
             shape="circle"
-            placeholder="请输入您的中文昵称"
+            :placeholder="$t('enterNickName')"
             border="surround"
             placeholderClass="placeholder"
             v-model="nickName"
           ></u-input>
         </view>
         <view class="input">
-          <text>账号</text>
+          <text>{{$t('userName') }}</text>
           <u-input
             shape="circle"
-            placeholder="请输入字母加数字"
+            :placeholder="$t('enterUserName')"
             border="surround"
             placeholderClass="placeholder"
             v-model="userName"
           ></u-input>
         </view>
         <view class="input">
-          <text>密码</text>
+          <text>{{$t('password') }}</text>
           <u-input
             shape="circle"
-            placeholder="请输入密码"
+            :placeholder="$t('enterPassword')"
             border="surround"
             placeholderClass="placeholder"
             v-model="loginPwd"
@@ -54,7 +54,7 @@
           </u-input>
           <u-input
             shape="circle"
-            placeholder="请输入密码"
+            :placeholder="$t('enterPassword')"
             border="surround"
             placeholderClass="placeholder"
             v-model="loginPwd"
@@ -66,10 +66,10 @@
           </u-input>
         </view>
         <view class="input">
-          <text>交易密码</text>
+          <text>{{$t('payPassword') }}</text>
           <u-input
             shape="circle"
-            placeholder="请输入交易密码"
+            :placeholder="$t('enterPayPassword')"
             border="surround"
             placeholderClass="placeholder"
             v-model="payPwd"
@@ -82,7 +82,7 @@
           </u-input>
           <u-input
             shape="circle"
-            placeholder="请输入交易密码"
+            :placeholder="$t('enterPayPassword')"
             border="surround"
             placeholderClass="placeholder"
             v-model="payPwd"
@@ -94,10 +94,10 @@
           </u-input>
         </view>
         <view class="input">
-          <text>推荐码</text>
+          <text>{{$t('referralCode') }}</text>
           <u-input
             shape="circle"
-            placeholder="请输入推荐码"
+            :placeholder="$t('enterReferralCode')"
             border="surround"
             placeholderClass="placeholder"
             v-model="inviteCode"
@@ -107,9 +107,9 @@
           <u-radio-group v-model="radio">
             <u-radio name="1" activeColor="red" size="30rpx">
               <view>
-                我已知晓并同意
-                <text>“开户协议”</text>
-                各项条约
+                {{$t('iKnow') }} 
+                <text>{{$t('accountOpening') }} </text>
+                {{$t('termsContract') }} 
               </view>
             </u-radio>
           </u-radio-group>
@@ -119,7 +119,7 @@
             shape="circle"
             type="primary"
             color="#ec0022"
-            text="注册"
+            :text="$t('register')"
             hairline
             :loading="loading"
             @click="login"
@@ -130,7 +130,7 @@
             shape="circle"
             type="primary"
             color="#ffffff"
-            text="已有帐号，马上下载"
+            :text="$t('haveAccount')"
             plain
           ></u-button>
         </view>
@@ -171,16 +171,17 @@ export default {
       let en = /^(?=.*[a-zA-Z])(?=.*\d).+$/;
       let cn =
         /^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$/;
-      if (!cn.test(this.nickName) || this.nickName.length < 2) {
-        return this.$base.show("请输入中文昵称且长度大于2~");
-      } else if (!en.test(this.userName) || this.userName.length < 6) {
-        return this.$base.show("请输入账号且长度大于6~");
+      // if (!cn.test(this.nickName) || this.nickName.length < 2) {
+      //   return this.$base.show("请输入中文昵称且长度大于2~");
+      // } else 
+      if (!en.test(this.userName) || this.userName.length < 6) {
+        return this.$base.show(this.$t('accountLength'));
       } else if (!this.loginPwd || this.loginPwd.length < 6) {
-        return this.$base.show("请输入密码且长度大于6~");
+        return this.$base.show(this.$t('passwordLength'));
       } else if (!pay.test(this.payPwd) || this.payPwd.length !== 6) {
-        return this.$base.show("请输入6位数字支付密码~");
+        return this.$base.show(this.$t('payPasswordLength'));
       } else if (!this.inviteCode || this.inviteCode.length < 6) {
-        return this.$base.show("请输入推荐码ID且长度大于6~");
+        return this.$base.show(this.$t('referralCodeLength'));
       }
       const DATA_OBJ = {
         userName: this.userName,
