@@ -2,27 +2,27 @@
   <view class="main">
     <view class="price">
       <view class="price-box">
-        <view class="title">我的总资产(元)</view>
+        <view class="title">{{$t('myAssets') }}</view>
         <view class="money">
           <view class="txt">{{ infos.balance }}</view>
           <view class="btn">
-            <view @click="goDeposit('/pages/deposit')">提现</view>
-            <view @click="goDeposit('/pages/recharge')">充值</view>
+            <view @click="goDeposit('/pages/deposit')">{{$t('withdraw') }}</view>
+            <view @click="goDeposit('/pages/recharge')">{{$t('recharge') }}</view>
           </view>
         </view>
         <view class="ulStyle">
           <view class="ul">
             <view class="li">
               <view class="name">{{ infos.yesterdayIncome }}</view>
-              <view class="txt">昨日收益(元)</view>
+              <view class="txt">{{$t('yesterdayEarnings') }}</view>
             </view>
             <view class="li">
               <view class="name">{{ infos.totalIncome }}</view>
-              <view class="txt">累计收益(元)</view>
+              <view class="txt">{{$t('CumulativeIncome') }}</view>
             </view>
             <view class="li">
               <view class="name">{{ infos.todayIncome }}</view>
-              <view class="txt">今日收益(元)</view>
+              <view class="txt">{{$t('todayEarnings') }}</view>
             </view>
           </view>
         </view>
@@ -30,14 +30,14 @@
     </view>
     <view class="notice">
       <view class="image">
-        <image class="img" src="@/static/img/icon12.png" mode="widthFix" />
+        <image class="img" src="@/static/img/msg_notice.png" mode="widthFix" />
       </view>
       <marquee class="marquee">
         <div v-html="homeNotice"></div>
       </marquee>
-      <view class="txt">了解</view>
+      <view class="txt">{{$t('learn') }}</view>
     </view>
-    <view class="task">任务大厅</view>
+    <view class="task">{{$t('missionHall') }}</view>
     <view class="list">
       <view
         class="item"
@@ -56,7 +56,7 @@
         <image :src="item.areaImg" class="img" mode="heightFix" />
         <view class="no" v-if="!item.unlock">
           <image class="img" src="@/static/img/suo.png" mode="widthFix" />
-          <view class="txt">待解锁</view>
+          <view class="txt">{{$t('unlocked') }}</view>
         </view>
       </view>
     </view>
@@ -84,10 +84,10 @@ export default {
   data() {
     return {
       nav: [
-        { img: img13, name: "平台简介", en: "ptjj" },
-        { img: img14, name: "规则说明", en: "gzsm" },
-        { img: img15, name: "代理合作", en: "dlhz" },
-        { img: img16, name: "公司资质", en: "gszz" },
+        { img: img13, name: this.$t('platformIntroduction'), en: "ptjj" },
+        { img: img14, name: this.$t('rule'), en: "gzsm" },
+        { img: img15, name: this.$t('agentCooperation'), en: "dlhz" },
+        { img: img16, name: this.$t('companyQualification'), en: "gszz" },
       ],
       list: [],
       items: {},
@@ -132,7 +132,7 @@ export default {
           url,
         });
       } else {
-        this.$base.show("请先绑定银行卡");
+        this.$base.show(this.$t('cardMsg'));
       }
     },
     //用户列表数据
@@ -331,9 +331,9 @@ export default {
     top: 50%;
     z-index: 2;
     transform: translateY(-50%);
-    padding: 0 40rpx 0 20rpx;
+    padding: 0 20rpx 0 20rpx;
     .img {
-      width: 80rpx;
+      width: 60rpx;
     }
   }
   .txt {
