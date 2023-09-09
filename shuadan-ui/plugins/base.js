@@ -1,6 +1,10 @@
 import Vue from "vue";
 import * as store from "plugins/store.js";
 Vue.prototype.$store = store;
+import i18n from "./lang/index";
+Vue.prototype._i18n = i18n;
+let langType = 'zh-CN'
+let that = i18n.vm.messages[uni.getStorageSync("lang") || langType];
 
 //设置缓存内容
 export const storage = (name, value) => {
@@ -52,7 +56,7 @@ export const request = (params) => {
   let str = params.method.toUpperCase();
   if (str == "POST") {
     params.header = {
-      lang: "zh_CN",
+      lang: langType,
       "Content-Type":
         params["Content-Type"] === undefined
           ? "application/x-www-form-urlencoded;charset=UTF-8"
@@ -61,13 +65,13 @@ export const request = (params) => {
     };
   } else {
     params.header = {
-      lang: "zh_CN",
+      lang: langType,
       token: uni.getStorageSync("token"),
     };
   }
   if (params.loading) {
     uni.showLoading({
-      title: "加载中",
+      title: that.loading,
       mask: true,
     });
   }
@@ -86,7 +90,7 @@ export const request = (params) => {
           show(res.data.msg);
         } else if (res.data.code != 0) {
           uni.showToast({
-            title: res?.data?.msg || "存在网络异常",
+            title: res?.data?.msg || that.networkAnomaly,
             duration: 2000,
             icon: "none",
           });
@@ -94,7 +98,7 @@ export const request = (params) => {
         resolve(res);
       },
       fail: (e) => {
-        show("存在网络异常");
+        show(that.networkAnomaly);
       },
       complete: () => {
         uni.hideLoading();

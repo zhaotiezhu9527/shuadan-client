@@ -14,7 +14,7 @@
           <view class="message_info_content">
             <view class="boxstyle">
               <view class="box">
-                <view class="time">抢单时间：{{ items.orderTime }}</view>
+                <view class="time">{{$t('grabOrder') }}{{$t('time') }}：{{ items.orderTime }}</view>
                 <view class="uid">
                   {{ items.orderNo
                   }}<text class="num">{{ items.countNum }}</text
@@ -30,33 +30,33 @@
                         {{ items.goodsName }}
                       </view>
                       <view class="text">
-                        <view>¥ {{ items.goodsPrice }}</view>
+                        <view>{{$t('currencySymbol') }} {{ items.goodsPrice }}</view>
                         <view>x {{ items.goodsCount }}</view>
                       </view>
                     </view>
                   </view>
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
-                  可用余额不足，还需充值{{ items.balanceSub }}
+                  {{$t('insufficientBalance') }}{{ items.balanceSub }}
                 </view>
                 <view class="ul">
                   <view class="li">
-                    <text>订单总额</text>
-                    <text>¥ {{ items.orderAmount }}</text>
+                    <text>{{$t('orderTotal') }}</text>
+                    <text>{{$t('currencySymbol') }} {{ items.orderAmount }}</text>
                   </view>
                   <view class="li">
                     <text
-                      >佣金<text
+                      >{{$t('commission') }}<text
                         v-if="items.commissionMul >= 2"
                         class="tip-bubble tip-bubble-left"
                         >x{{ items.commissionMul }}</text
                       ></text
                     >
-                    <text>¥ {{ items.commission }}</text>
+                    <text>{{$t('currencySymbol') }} {{ items.commission }}</text>
                   </view>
                   <view class="li">
-                    <text>预计返还</text>
-                    <text class="moeny">¥ {{ items.forecastReturn }}</text>
+                    <text>{{$t('expectedReturn') }}</text>
+                    <text class="moeny">{{$t('currencySymbol') }} {{ items.forecastReturn }}</text>
                   </view>
                 </view>
                 <image
@@ -72,12 +72,12 @@
                 color="#2f3848"
                 plain
                 @click="show = false"
-                text="暂不提交"
+                :text="$t('notSubmitted')"
               ></u-button>
               <u-button
                 shape="circle"
                 color="#2f3848"
-                text="立即提交"
+                :text="$t('submitNow')"
                 :loading="loading"
                 @click="change"
               ></u-button>
@@ -96,7 +96,7 @@
     <view class="maskLoading" v-if="loading">
       <view class="content">
         <image class="img" src="@/static/img/10001.gif" mode="widthFix" />
-        <p class="txt">远程主机正在分配</p>
+        <p class="txt">{{$t('remoteHost') }}</p>
       </view>
     </view>
   </view>
