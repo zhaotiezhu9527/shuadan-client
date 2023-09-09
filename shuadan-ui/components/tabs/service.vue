@@ -1,8 +1,8 @@
 <template>
   <view class="main">
     <view class="container">
-      <view class="title">客服中心</view>
-      <view class="sub_title">如遇到问题需要帮助请联系在线客服</view>
+      <view class="title">{{$t('customerService') }}</view>
+      <view class="sub_title">{{$t('askService') }}</view>
     </view>
     <view class="customer_type">
       <image class="image" src="@/static/img/bg_02.png" mode="widthFix" />
@@ -15,7 +15,7 @@
         >
           <view class="name">{{ item.serviceName }}</view>
           <image class="img" src="@/static/img/bg_03.png" mode="widthFix" />
-          <view class="txt">{{ item.remark || "客服" }}</view>
+          <view class="txt">{{ item.remark || $t('service') }}</view>
           <view class="time">
             <image class="icon" src="@/static/img/kefu.png" mode="widthFix" />
             <text>{{ item.workTime }}</text>

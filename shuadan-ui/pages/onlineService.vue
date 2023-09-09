@@ -2,7 +2,7 @@
   <view class="page">
     <u-navbar
       placeholder
-      title="在线客服"
+      :title="$t('onlineService')"
       :border="false"
       autoBack
       fixed

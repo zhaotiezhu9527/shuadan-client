@@ -2,12 +2,12 @@
   <view class="main">
     <u-list class="container" @scrolltolower="load">
       <view class="title">
-        <view>任务记录</view>
+        <view>{{$t('taskRecord') }}</view>
         <view>{{ userData.balance }}</view>
       </view>
       <view class="sub_title">
-        <view>本数据由全民任务官方提供</view>
-        <view>剩余可用资产(元)</view>
+        <view>{{$t('officiallyProvided') }}</view>
+        <view>{{$t('remainingAssets') }}</view>
       </view>
       <view class="tabs">
         <u-tabs
@@ -24,9 +24,9 @@
       <view class="list" v-if="isArray">
         <view class="boxstyle" v-for="(item, index) in list" :key="index">
           <view class="box">
-            <view class="time">抢单时间：{{ item.orderTime }}</view>
+            <view class="time">{{$t('grabOrder') }}{{$t('time') }}：{{ item.orderTime }}</view>
             <view class="uid"
-              >抢单编号：{{ item.orderNo
+              >{{$t('grabOrder') }}{{$t('number') }}：{{ item.orderNo
               }}<text>{{ item.dayOrderCount }}</text></view
             >
             <view class="goodsstyle">
@@ -37,7 +37,7 @@
                     {{ item.goodsName }}
                   </view>
                   <view class="text">
-                    <view>¥ {{ item.goodsPrice }}</view>
+                    <view>{{$t('currencySymbol') }} {{ item.goodsPrice }}</view>
                     <view>x {{ item.goodsCount }}</view>
                   </view>
                 </view>
@@ -45,25 +45,25 @@
             </view>
             <view class="ul">
               <view class="li">
-                <text>订单总额</text>
-                <text>¥ {{ item.orderAmount }}</text>
+                <text>{{$t('orderTotal') }}</text>
+                <text>{{$t('currencySymbol') }} {{ item.orderAmount }}</text>
               </view>
               <view class="li">
                 <text
-                  >佣金<text
+                  >{{$t('commission') }}<text
                     v-if="item.commissionMul >= 2"
                     class="tip-bubble tip-bubble-left"
                     >x{{ item.commissionMul }}</text
                   ></text
                 >
-                <text>¥ {{ item.commission }}</text>
+                <text>{{$t('currencySymbol') }} {{ item.commission }}</text>
               </view>
               <view class="li">
-                <text>预计返还</text>
-                <text class="moeny">¥ {{ item.returnAmount }}</text>
+                <text>{{$t('expectedReturn') }}</text>
+                <text class="moeny">{{$t('currencySymbol') }} {{ item.returnAmount }}</text>
               </view>
               <view class="li" v-if="item.status === 0">
-                <view class="submit" @click="change(item)">提交订单</view>
+                <view class="submit" @click="change(item)">{{$t('submitOrder') }}</view>
               </view>
             </view>
             <image
@@ -87,7 +87,7 @@
           </view>
         </view>
       </view>
-      <u-empty class="empty" text="暂无数据" v-else />
+      <u-empty class="empty" :text="$t('noData')" v-else />
     </u-list>
     <success ref="sucRef" @ok="ok" />
   </view>
@@ -99,10 +99,10 @@ export default {
     return {
       current: 0,
       nav: [
-        { name: "全部", status: undefined },
-        { name: "待处理", status: 0 },
-        { name: "已完成", status: 1 },
-        { name: "冻结中", status: 2 },
+        { name: this.$t('all'), status: undefined },
+        { name: this.$t('pending'), status: 0 },
+        { name: this.$t('completed'), status: 1 },
+        { name: this.$t('freezing'), status: 2 },
       ],
       list: [],
       userData: {},

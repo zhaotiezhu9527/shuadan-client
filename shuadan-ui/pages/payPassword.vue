@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="交易密码管理"
+      :title="$t('payPasswordManagement')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -15,35 +15,35 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">请输入您的新密码</view>
+      <view class="title">{{$t('enterNewPassword') }}</view>
       <view class="from-input">
-        <label>旧密码</label>
+        <label>{{$t('oldPassword') }}</label>
         <input
           type="number"
           v-model="oldPwd"
           class="input-text"
-          placeholder="请输入旧密码"
+          :placeholder="$t('enterOldPassword')"
         />
       </view>
       <view class="from-input">
-        <label>新密码</label>
+        <label>{{$t('newPassword') }}</label>
         <input
           type="number"
           v-model="newPwd"
           class="input-text"
-          placeholder="请输入新密码"
+          :placeholder="$t('enterNewPassword')"
         />
       </view>
       <view class="from-input">
-        <label>确认密码</label>
+        <label>{{$t('confirmPassword') }}</label>
         <input
           type="number"
           v-model="password"
           class="input-text"
-          placeholder="请再次输入密码"
+          :placeholder="$t('enterConfirmPassword')"
         />
       </view>
-      <view class="pour">请牢记密码,如忘记密码,请联系客服。</view>
+      <view class="pour">{{$t('passwordService') }}</view>
       <view class="btn">
         <u-button
           class="custom-style"
@@ -52,7 +52,7 @@
           @click="submit"
           :loading="loading"
         >
-          确认修改
+        {{$t('confirm') }}
         </u-button>
       </view>
     </view>
@@ -73,11 +73,11 @@ export default {
     submit() {
       let pay = /^(?:0|(?:-?[1-9]\d*))$/;
       if (!pay.test(this.oldPwd) || this.oldPwd.length !== 6) {
-        return this.$base.show("请输入6位数字旧密码~");
+        return this.$base.show(this.$t('payPasswordLength'));
       } else if (!pay.test(this.newPwd) || this.newPwd.length !== 6) {
-        return this.$base.show("请填写新密码~");
+        return this.$base.show(this.$t('enterNewPassword'));
       } else if (this.newPwd != this.password) {
-        return this.$base.show("两次输入的密码不一致~");
+        return this.$base.show(this.$t('passwordDifferent'));
       }
       this.loading = true;
       const DATA_OBJ = {

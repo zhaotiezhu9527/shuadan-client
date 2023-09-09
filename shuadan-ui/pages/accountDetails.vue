@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="账户明细"
+      :title="$t('accountDetails')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -50,10 +50,10 @@
             </view>
           </view>
         </u-list-item>
-        <view class="loading" v-if="loading">加载中...</view>
-        <view class="nomore" v-if="finished">没有更多了</view>
+        <view class="loading" v-if="loading">{{$t('loading') }}...</view>
+        <view class="nomore" v-if="finished">{{$t('noMore') }}</view>
       </u-list>
-      <u-empty class="empty" text="暂无数据" v-else />
+      <u-empty class="empty" :text="$t('noData')" v-else />
     </view>
   </view>
 </template>
@@ -70,13 +70,13 @@ export default {
       page: 0,
       nav: [
         {
-          name: "所有类型",
+          name: this.$t('allType'),
         },
         {
-          name: "提现记录",
+          name: this.$t('withdrawalsRecord'),
         },
         {
-          name: "充值记录",
+          name: this.$t('rechargeRecord'),
         },
       ],
     };

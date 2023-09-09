@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="提现"
+      :title="$t('withdraw')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -17,59 +17,59 @@
     <view class="main">
       <view class="title">
         <view class="title-text">
-          <span>提现金额</span>
-          <label>提现费率{{ withdrawFee }}%</label>
+          <span>{{$t('withdrawalAmount') }}</span>
+          <label>{{$t('withdrawalRate') }}{{ withdrawFee }}%</label>
         </view>
         <view class="title-content">
           <view class="money">
-            <label>¥</label>
+            <!-- <label>¥</label> -->
             <input
               class="title-input"
               v-model="amount"
               type="number"
-              placeholder="请输入提现金额"
+              :placeholder="$t('enterWithdrawalAmount')"
               @blur="update"
             />
           </view>
           <view class="text">
-            <span>余额：¥{{ balance }}</span>
-            <label @click="amount = balance">全部提现</label>
+            <span>{{$t('balance') }}：{{ balance }}</span>
+            <label @click="amount = balance">{{$t('withdrawAll') }}</label>
           </view>
         </view>
       </view>
       <view class="content">
         <view class="item">
           <view class="detail">
-            <label>手机号</label>
+            <label>{{$t('phoneNo') }}</label>
             <span>{{ phone }}</span>
           </view>
           <view class="detail">
-            <label>银行卡号</label>
+            <label>{{$t('bankNo') }}</label>
             <span>{{ bankNo }}</span>
           </view>
           <view class="detail">
-            <label>所属银行</label>
+            <label>{{$t('bankName') }}</label>
             <span>{{ bankName }}</span>
           </view>
           <view class="detail">
-            <label>开户名</label>
+            <label>{{$t('realName') }}</label>
             <span>{{ realName }}</span>
           </view>
           <view class="detail">
-            <label>资金密码</label>
+            <label>{{$t('payPassword') }}</label>
             <input
               class="title-input"
               v-model="pwd"
               type="number"
-              placeholder="请输入支付密码"
+              :placeholder="$t('enterPayPassword')"
             />
           </view>
         </view>
       </view>
       <view class="foot-text">
         *<br />
-        请仔细核对收款信息<br />
-        本次提现扣除手续费 {{ withdrawFee }}%
+        {{$t('checkInfo') }}<br />
+        {{$t('handlingFee') }} {{ withdrawFee }}%
       </view>
       <view class="btn">
         <u-button
@@ -79,7 +79,7 @@
           @click="submit"
           :loading="loading"
         >
-          立即提现
+        {{$t('withdrawImmediately') }}
         </u-button>
       </view>
     </view>
@@ -107,11 +107,11 @@ export default {
   methods: {
     submit() {
       if (!this.amount) {
-        return this.$base.show("请输入提现金额~");
+        return this.$base.show(this.$t('enterWithdrawalAmount'));
       } else if (!this.pwd) {
-        return this.$base.show("请输入资金密码~");
+        return this.$base.show(this.$t('enterPayPassword'));
       } else if (this.amount > this.balance) {
-        return this.$base.show("提现金额不能超过" + this.balance);
+        return this.$base.show(this.$t('NotExceed') + this.balance);
       }
       this.loading = true;
       const DATA_OBJ = {

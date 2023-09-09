@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="充值记录"
+      :title="$t('rechargeRecord')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -22,10 +22,10 @@
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
-            <view class="table-money"> 充值金额（¥）{{ item.amount }} </view>
-            <view class="table-title"> 订单号：{{ item.orderNo }} </view>
+            <view class="table-money"> {{$t('rechargeAmount') }}：{{ item.amount }} </view>
+            <view class="table-title"> {{$t('orderNumber') }}：{{ item.orderNo }} </view>
             <view>
-              充值状态：
+              {{$t('rechargeStatus') }}：
               <label v-if="item.status == 0" class="yellow-text">
                 {{ item.statusStr }}
               </label>
@@ -38,10 +38,10 @@
             </view>
           </view>
         </u-list-item>
-        <view class="loading" v-if="loading">加载中...</view>
-        <view class="nomore" v-if="finished">没有更多了</view>
+        <view class="loading" v-if="loading">{{$t('loading') }}...</view>
+        <view class="nomore" v-if="finished">{{$t('noMore') }}</view>
       </u-list>
-      <u-empty class="empty" text="暂无数据" v-else />
+      <u-empty class="empty" :text="$t('noData')" v-else />
     </view>
   </view>
 </template>

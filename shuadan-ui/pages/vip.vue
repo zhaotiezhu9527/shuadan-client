@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="会员升级"
+      :title="$t('vipUp')"
       fixed
       safe-area-inset-top
       bgColor="#ec6b00"
@@ -18,37 +18,37 @@
       <view class="car">
         <image class="user" src="@/static/img/head.png" mode="widthFix" />
         <view class="txt">
-          <view>会员等级：{{ items.currLevelName }}</view>
-          <view>每天可接单：{{ items.dayOrderCount }}单</view>
+          <view>{{$t('vipLevel') }}：{{ items.currLevelName }}</view>
+          <view>{{$t('availableEveryday') }}：{{ items.dayOrderCount }}</view>
         </view>
-        <view class="link" @click="change">会员详情</view>
+        <view class="link" @click="change">{{$t('vipInfo') }}</view>
       </view>
     </view>
     <view class="list">
       <view class="item">
         <image class="img" src="@/static/img/v1.png" mode="widthFix" />
-        <view class="txt">佣金加成</view>
+        <view class="txt">{{$t('commissionPlus') }}</view>
       </view>
       <view class="item">
         <image class="img" src="@/static/img/v2.png" mode="widthFix" />
-        <view class="txt">任务增多</view>
+        <view class="txt">{{$t('moreTasks') }}</view>
       </view>
       <view class="item">
         <image class="img" src="@/static/img/v3.png" mode="widthFix" />
-        <view class="txt">专属客服</view>
+        <view class="txt">{{$t('onlyService') }}</view>
       </view>
     </view>
-    <view class="more">左右滑动查看更多</view>
+    <view class="more">{{$t('swipeRight') }}</view>
     <u-scroll-list>
       <view class="row">
         <view class="item" v-for="(item, index) in items.levels" :key="index">
           <view class="title">{{ item.levelName }}</view>
-          <view class="money">{{ item.levelPrice }}元</view>
-          <view class="txt">提现次数:{{ item.dayWithdrawCount }}/天</view>
-          <view class="txt">提现额度:{{ item.maxWithdrawAmount }}</view>
-          <view class="txt">接单数量:{{ item.dayOrderCount }}/天</view>
-          <view class="txt">佣金比例:{{ item.commissionRate }}</view>
-          <view class="txt">会员永久有效</view>
+          <view class="money">{{ item.levelPrice }}</view>
+          <view class="txt">{{$t('dayWithdrawCount') }}:{{ item.dayWithdrawCount }}</view>
+          <view class="txt">{{$t('maxWithdrawAmount') }}:{{ item.maxWithdrawAmount }}</view>
+          <view class="txt">{{$t('dayOrderCount') }}:{{ item.dayOrderCount }}</view>
+          <view class="txt">{{$t('commissionRate') }}:{{ item.commissionRate }}</view>
+          <view class="txt">{{$t('vipEveryday') }}</view>
         </view>
       </view>
     </u-scroll-list>

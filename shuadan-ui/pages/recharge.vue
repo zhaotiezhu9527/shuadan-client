@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="充值"
+      :title="$t('recharge')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -16,19 +16,19 @@
     </u-navbar>
     <view class="contentStyle">
       <view class="content" v-if="!active">
-        <view class="title">充值金额</view>
+        <view class="title">{{$t('rechargeAmount') }}</view>
         <u-input
-          placeholder="请输入金额"
+          :placeholder="$t('enterMoney')"
           border="bottom"
           v-model="value"
           clearable
           type="number"
         >
           <template #prefix>
-            <view class="rmb">￥</view>
+            <!-- <view class="rmb">￥</view> -->
           </template>
         </u-input>
-        <view class="txt">充值说明</view>
+        <view class="txt">{{$t('rechargeIllustrate') }}</view>
         <view class="list">
           <view
             class="item"
@@ -36,12 +36,13 @@
             v-for="(item, index) in list"
             :key="index"
           >
-            {{ item }}元
+            {{ item }}
+            <!-- 元 -->
           </view>
         </view>
       </view>
       <view class="content" v-else @click="submit">
-        <view class="title">请选择支付通道</view>
+        <view class="title">{{$t('selectPaymentChannel') }}</view>
         <view class="link">
           <view class="flex">
             <image
@@ -50,8 +51,8 @@
               mode="widthFix"
             />
             <view class="box">
-              <view>充值请咨询在线客服</view>
-              <view>充值请咨询在线客服</view>
+              <view>{{$t('rechargeService') }}</view>
+              <view>{{$t('rechargeService') }}</view>
             </view>
           </view>
           <u-icon name="arrow-right" color="#cacaca" size="40rpx"></u-icon>
@@ -82,7 +83,7 @@ export default {
     change() {
       let num = /^\+?[1-9]\d*$/;
       if (!num.test(this.value)) {
-        this.$base.show("请输入整数");
+        this.$base.show(this.$t('enterInteger'));
       } else {
         this.active = 1;
       }

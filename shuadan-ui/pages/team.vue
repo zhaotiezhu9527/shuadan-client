@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      title="团队报表"
+      :title="$t('teamReports')"
       fixed
       leftIconColor="#666"
       leftIconSize="32"
@@ -17,44 +17,44 @@
     <view class="scroll">
       <view class="rows">
         <view class="item">
-          <view class="txt">团队余额（元）</view>
-          <view class="moeny">￥{{ items.teamBalance || 0 }}</view>
+          <view class="txt">{{$t('teamBalance') }}({{ $t('currency') }})</view>
+          <view class="moeny">{{ items.teamBalance || 0 }}</view>
         </view>
         <view class="item right">
-          <view class="txt">团队流水（元）</view>
-          <view class="moeny green">￥{{ items.teamwithdraw || 0 }}</view>
+          <view class="txt">{{$t('teamFlow') }}({{ $t('currency') }})</view>
+          <view class="moeny green">{{ items.teamwithdraw || 0 }}</view>
         </view>
         <view class="item">
-          <view class="txt">团队总充值（元）</view>
-          <view class="moeny">￥{{ items.teamBet || 0 }}</view>
+          <view class="txt">{{$t('totalTeamRecharge') }}({{ $t('currency') }})</view>
+          <view class="moeny">{{ items.teamBet || 0 }}</view>
         </view>
         <view class="item right">
-          <view class="txt">团队总提现（元）</view>
-          <view class="moeny green">￥{{ items.teamDeposit || 0 }}</view>
+          <view class="txt">{{$t('totalTeamWithdraw') }}({{ $t('currency') }})</view>
+          <view class="moeny green">{{ items.teamDeposit || 0 }}</view>
         </view>
         <view class="item">
-          <view class="txt">团队订单佣金（元）</view>
-          <view class="moeny">￥{{ items.teamIncome || 0 }}</view>
+          <view class="txt">{{$t('teamOrderCommission') }}({{ $t('currency') }})</view>
+          <view class="moeny">{{ items.teamIncome || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">直推人数</view>
-          <view class="moeny">{{ items.inviteCount || 0 }}人</view>
+          <view class="txt">{{$t('pushNo') }}</view>
+          <view class="moeny">{{ items.inviteCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">团队人数</view>
-          <view class="moeny">{{ items.teamMemberCount || 0 }}人</view>
+          <view class="txt">{{$t('teamNo') }}</view>
+          <view class="moeny">{{ items.teamMemberCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">首充人数</view>
-          <view class="moeny">{{ items.depositCount || 0 }}人</view>
+          <view class="txt">{{$t('firstNo') }}</view>
+          <view class="moeny">{{ items.depositCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">新增人数</view>
-          <view class="moeny">{{ items.newRegisterCount || 0 }}人</view>
+          <view class="txt">{{$t('addNo') }}</view>
+          <view class="moeny">{{ items.newRegisterCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">活跃人数</view>
-          <view class="moeny">{{ items.activeCount || 0 }}人</view>
+          <view class="txt">{{$t('activeNo') }}</view>
+          <view class="moeny">{{ items.activeCount || 0 }}</view>
         </view>
       </view>
       <view class="title">
@@ -74,22 +74,22 @@
             <image class="image" src="@/static/img/head.png" mode="widthFix" />
             <view class="text">
               <view class="li">
-                <text>姓名:{{ item.nickName }}</text>
-                <text class="blur">电话:{{ item.phone }}</text>
+                <text>{{$t('nickName') }}:{{ item.nickName }}</text>
+                <text class="blur">{{$t('phoneNo') }}:{{ item.phone || 'xxxx'}}</text>
               </view>
               <view class="li">
-                <text clas="blur">充值:{{ item.deposit }}</text>
-                <text class="green">推荐人数: {{ item.inviteCount }}</text>
+                <text clas="blur">{{$t('recharge') }}:{{ item.deposit }}</text>
+                <text class="green">{{$t('agentNo') }}: {{ item.inviteCount }}</text>
               </view>
               <view class="li">
-                <text class="blur">提现:0</text>
-                <text>注册时间:{{ item.registerTime }}</text>
+                <text class="blur">{{$t('withdraw') }}:0</text>
+                <text>{{$t('register')}}{{$t('time')}}:{{ item.registerTime }}</text>
               </view>
             </view>
           </view>
         </view>
       </template>
-      <u-empty class="nempty" text="暂无数据" v-else />
+      <u-empty class="nempty" :text="$t('noData')" v-else />
     </view>
   </view>
 </template>
@@ -102,7 +102,7 @@ export default {
       active: 0,
       datetime: Number(new Date()),
       items: {},
-      nav: [{ name: "一级" }, { name: "二级" }, { name: "三级" }],
+      nav: [{ name: this.$t('level1')}, { name: this.$t('level2')}, { name: this.$t('level3') }],
     };
   },
   onShow() {
