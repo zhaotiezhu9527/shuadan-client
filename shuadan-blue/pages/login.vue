@@ -60,7 +60,7 @@
         <view @click="nopass('/pages/register')">{{$t('freeRegistration')}}</view>
       </view>
     </view>
-    <!-- <service /> -->
+    <service />
   </view>
 </template>
 
