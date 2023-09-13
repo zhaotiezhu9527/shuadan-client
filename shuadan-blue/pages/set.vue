@@ -24,7 +24,7 @@
         <image class="user-img" :src="userData.avatarUrl" />
         <view class="icon"></view>
       </view>
-      <view
+      <!-- <view
         class="list-item"
         @click="goRealName"
       >
@@ -32,12 +32,12 @@
         <label>{{$t('nickName') }}</label>
         <span class="item-text">{{ userData.nickName }}</span>
         <view class="icon"></view>
-      </view>
+      </view> -->
       <view
         class="list-item"
       >
         <image class="icon-img" src="../static/img/user_name.png" />
-        <label>{{$t('userName') }}</label>
+        <label>{{$t('mine') }}{{$t('userName') }}</label>
         <span class="item-text">{{ userData.userName }}</span>
         <view class="icon"></view>
       </view>
@@ -46,7 +46,7 @@
         @click="goBindBank"
       >
         <image class="icon-img" src="../static/img/my_card.png" />
-        <label>{{$t('bankCard') }}</label>
+        <label>{{$t('mine') }}{{$t('bankCard') }}</label>
         <view class="icon"></view>
       </view>
       <view
@@ -54,7 +54,7 @@
         @click="goPassword"
       >
         <image class="icon-img" src="../static/img/my_password.png" />
-        <label>{{$t('password') }}</label>
+        <label>{{$t('passwordManagement') }}</label>
         <view class="icon"></view>
       </view>
       <view
@@ -62,7 +62,7 @@
         @click="goPayPassword"
       >
         <image class="icon-img" src="../static/img/pay_password.png" />
-        <label>{{$t('payPassword') }}</label>
+        <label>{{$t('payPasswordManagement') }}</label>
         <view class="icon"></view>
       </view>
     </view>

@@ -171,4 +171,7 @@ export default {
   sendNow: "ส่งตอนนี้",
   remoteHost: "กำลังจัดสรรโฮสต์ระยะไกล",
   networkAnomaly: "มีความผิดปกติของเครือข่าย",
+  mine: "ของฉัน",
+  supportHours: "เวลาให้บริการสนับสนุน: 09:00-22:00 น",
+  connect: "เชื่อมต่อ",
 };

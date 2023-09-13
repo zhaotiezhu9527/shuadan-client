@@ -171,4 +171,7 @@ export default {
   submitNow: "立即提交",
   remoteHost: "远程主机正在分配",
   networkAnomaly: "存在网络异常",
+  mine: "我的",
+  supportHours: "支持服务运行时间 : 09:00-22:00",
+  connect: "联系",
 };

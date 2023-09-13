@@ -98,11 +98,11 @@ export default {
           icon: "user.png",
           url: "/pages/set",
         },
-        {
-          label: this.$t('financialHistory'),
-          icon: "rob.png",
-          url: "/pages/index?tabs=1",
-        },
+        // {
+        //   label: this.$t('financialHistory'),
+        //   icon: "rob.png",
+        //   url: "/pages/index?tabs=1",
+        // },
         {
           label: this.$t('accountDetails'),
           icon: "list.png",
@@ -118,16 +118,16 @@ export default {
           icon: "withdrawal.png",
           url: "/pages/withdrawalRecords",
         },
-        {
-          label: this.$t('inviteFriends'),
-          icon: "friend.png",
-          url: "/pages/promotion",
-        },
-        {
-          label: this.$t('systemInformation'),
-          icon: "message.png",
-          url: "/pages/message",
-        },
+        // {
+        //   label: this.$t('inviteFriends'),
+        //   icon: "friend.png",
+        //   url: "/pages/promotion",
+        // },
+        // {
+        //   label: this.$t('systemInformation'),
+        //   icon: "message.png",
+        //   url: "/pages/message",
+        // },
         {
           label: this.$t('teamReports'),
           icon: "team.png",
