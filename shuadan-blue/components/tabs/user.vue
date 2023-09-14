@@ -35,8 +35,22 @@
           <view class="recharge" @click="goDeposit('/pages/recharge')"
             >{{$t('recharge') }}</view
           >
+          <view class="clear-float"></view>
+          <view class="income">
+            <view class="income-item">
+              <view class="income-item-text">昨日收益</view>
+              <view class="income-item-number">78.55</view>
+            </view>
+            <view class="income-item">
+              <view class="income-item-text">昨日收益</view>
+              <view class="income-item-number">78.55</view>
+            </view>
+            <view class="income-item">
+              <view class="income-item-text">昨日收益</view>
+              <view class="income-item-number">78.55</view>
+            </view>
+          </view>
         </view>
-        <view class="money-bottom"></view>
       </view>
       <!-- 导航 -->
       <view class="content">
@@ -54,7 +68,7 @@
       <view class="logout">
         <u-button
           class="custom-style"
-          color="#2f3848"
+          color="#2E68F2"
           block
           @click="loginoutShow = true"
           :loading="loading"
@@ -100,6 +114,11 @@ export default {
           url: "/pages/accountDetails",
         },
         {
+          label: this.$t('teamReports'),
+          icon: "team.png",
+          url: "/pages/team",
+        },
+        {
           label: this.$t('rechargeRecord'),
           icon: "recharge.png",
           url: "/pages/rechargeRecord",
@@ -119,11 +138,7 @@ export default {
         //   icon: "message.png",
         //   url: "/pages/message",
         // },
-        {
-          label: this.$t('teamReports'),
-          icon: "team.png",
-          url: "/pages/team",
-        },
+        
       ],
       userData: {
         nickName: "", //昵称
@@ -203,9 +218,7 @@ export default {
 }
 .title {
   width: 100%;
-  height: calc(440rpx + var(--status-bar-height));
   overflow: hidden;
-  padding-top: var(--status-bar-height);
   position: relative;
   .icon {
     margin-top: 20rpx;
@@ -293,9 +306,9 @@ export default {
     }
   }
   .money {
-    width: 660rpx;
-    height: 160rpx;
-    margin: 54rpx auto auto;
+    width: 90%;
+    height: 336rpx;
+    margin: 20rpx auto auto;
     background-color: rgba(98,176,233,0.5);
     backdrop-filter: blur(5px);
     padding: 0 32rpx;
@@ -305,13 +318,13 @@ export default {
       margin-top: 24rpx;
       display: block;
       float: left;
+      font-size: 28rpx;
       .money-color {
         font-size: 24rpx;
         margin-top: 15rpx;
         .money-number {
           font-weight: 700;
           font-size: 44rpx;
-          margin-left: 10rpx;
         }
       }
     }
@@ -321,8 +334,8 @@ export default {
       height: 56rpx;
       text-align: center;
       line-height: 56rpx;
-      background: hsla(0, 0%, 100%, 0.2);
-      color: #fff;
+      background-color: #D8E4F9;
+      color: #2E68F2;
       border-radius: 28rpx;
       margin: 54rpx 0 0 32rpx;
       font-size: 28rpx;
@@ -333,40 +346,44 @@ export default {
       height: 56rpx;
       text-align: center;
       line-height: 56rpx;
-      background: hsla(0, 0%, 100%, 0.2);
-      color: #fff;
+      background-color: #D8E4F9;
+      color: #2E68F2;
       border-radius: 28rpx;
-      margin: 54rpx 0 0 32rpx;
+      margin: 54rpx 0 0 20rpx;
       font-size: 28rpx;
     }
-  }
-  .money-bottom {
-    width: 100%;
-    height: 69rpx;
-    background: url("@/static/img/money_bottom.png") no-repeat;
-    background-size: 100%;
-    position: absolute;
-    bottom: 0;
+    .income{
+      display: flex;
+      margin-top: 40rpx;
+      .income-item{
+        width: 33.33%;
+        text-align: center;
+        .income-item-text{
+          font-size: 24rpx;
+        }
+        .income-item-number{
+          padding-top: 36rpx;
+          text-shadow: 0 0 6rpx #2E68F2;
+          font-size: 36rpx;
+        }
+      }
+    }
   }
 }
 .content {
-  border-top: 2rpx solid #f2f2f2;
-  background: #fff;
   overflow: hidden;
   .item {
     float: left;
     width: 33.33%;
     box-sizing: border-box;
-    border-right: 2rpx solid #eee;
-    border-bottom: 2rpx solid #eee;
     text-align: center;
-    padding: 42rpx 0 50rpx;
+    padding: 42rpx 0 0rpx 0rpx;
     .item-img {
-      width: 78rpx;
-      height: 78rpx;
+      width: 150rpx;
+      height: 150rpx;
     }
     .text {
-      color: #333;
+      color: #fff;
       margin-top: 10rpx;
       font-size: 28rpx;
     }
