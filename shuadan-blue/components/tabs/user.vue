@@ -3,18 +3,6 @@
     <view class="main">
       <!-- 头部 -->
       <view class="title">
-        <view class="icon">
-          <image
-            class="icon-img"
-            src="@/static/img/notice.png"
-            @click="goPage({ label: '', url: list[6].url })"
-          />
-          <image
-            class="icon-img box-right"
-            src="@/static/img/setting.png"
-            @click="goPage({ label: '', url: list[0].url })"
-          />
-        </view>
         <view class="user">
           <view class="head">
             <image class="head-img" :src="userData.avatarUrl" />
@@ -27,6 +15,9 @@
               <label class="credit">{{$t('credit') }}:{{ userData.creditValue }}</label>
             </view>
             <view class="code"> {{$t('referralCode') }}: {{ userData.inviteCode }} </view>
+          </view>
+          <view class="customer-box">
+            <image class="customer-img" src="@/static/img/customer.png" />
           </view>
         </view>
         <view class="money">
@@ -202,11 +193,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.main {
+  background-image: url("@/static/img/userbg.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
 .title {
   width: 100%;
   height: calc(440rpx + var(--status-bar-height));
-  background: url(@/static/img/title.png) no-repeat;
-  background-size: 100% 100%;
   overflow: hidden;
   padding-top: var(--status-bar-height);
   position: relative;
@@ -221,28 +218,29 @@ export default {
     }
   }
   .user {
-    margin-top: 50rpx;
+    margin-top: 60rpx;
     padding-left: 40rpx;
     overflow: hidden;
+    color: #fff;
     .head {
       float: left;
       .head-img {
-        width: 100rpx;
-        height: 100rpx;
+        width: 135rpx;
+        height: 135rpx;
         display: block;
         border-radius: 50%;
-        border: 2rpx solid #fff;
+        // border: 2rpx solid #fff;
         box-sizing: border-box;
       }
     }
     .information {
       float: left;
-      margin-left: 24rpx;
+      margin-left: 22rpx;
+      margin-top: 22rpx;
       .level {
         overflow: hidden;
         .name {
           font-size: 36rpx;
-          color: #171717;
           font-weight: bold;
           float: left;
         }
@@ -267,38 +265,47 @@ export default {
         }
         .credit {
           float: left;
-          background-color: #00ced1;
+          background: #D8E4F9;
           height: 37.5rpx;
-          line-height: 37.5rpx;
+          line-height: 35.5rpx;
           margin-left: 12rpx;
           margin-top: 8rpx;
-          color: #fff;
+          color: #546592;
           font-size: 24rpx;
           padding: 0rpx 8rpx;
           border-radius: 4rpx;
+          border-radius: 6rpx;
         }
       }
       .code {
         margin-top: 14rpx;
         font-size: 26rpx;
-        color: #434343;
+      }
+    }
+    .customer-box{
+      float: right;
+      .customer-img{
+        width: 52rpx;
+        height: 52rpx;
+        margin-right: 44rpx;
+        margin-top: 20rpx;
       }
     }
   }
   .money {
     width: 660rpx;
     height: 160rpx;
-    background: url("@/static/img/money.png") no-repeat;
-    background-size: 100% 100%;
     margin: 54rpx auto auto;
+    background-color: rgba(98,176,233,0.5);
+    backdrop-filter: blur(5px);
     padding: 0 32rpx;
+    border-radius: 10rpx;
+    color: #fff;
     .balance {
-      color: hsla(0, 0%, 100%, 0.6);
       margin-top: 24rpx;
       display: block;
       float: left;
       .money-color {
-        color: #f2d8be;
         font-size: 24rpx;
         margin-top: 15rpx;
         .money-number {
