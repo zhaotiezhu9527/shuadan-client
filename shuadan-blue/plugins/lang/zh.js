@@ -4,7 +4,7 @@ export default {
   userLogin: "用户登录",
   enterAccount: "请输入账户",
   enterPassword: "请输入密码",
-  login: "登录",
+  login: "登入",
   forgetPassword: "忘记密码",
   freeRegistration: "免费注册",
   accountEmpty: "请输入登录账号~",
@@ -28,7 +28,7 @@ export default {
   payPasswordLength: "请输入6位数字交易密码~",
   referralCodeLength: "请输入推荐码ID且长度大于6~",
   myAssets: "我的总资产",
-  currency: "元",  //对应币种
+  currency: "元", //对应币种
   withdraw: "提现",
   recharge: "充值",
   yesterdayEarnings: "昨日收益",
@@ -47,7 +47,7 @@ export default {
   logout: "退出登录",
   confirmLogout: "你确定退出吗？",
   personalInformation: "个人信息",
-  financialHistory: "抢单记录",  // 泰国盘翻译成金融历史
+  financialHistory: "抢单记录", // 泰国盘翻译成金融历史
   accountDetails: "账户明细",
   rechargeRecord: "充值记录",
   withdrawalsRecord: "提现记录",
@@ -162,9 +162,11 @@ export default {
   unlock: "解锁",
   nextLevel: "下一等级专属通道获得更高佣金",
   respectUsers: "尊敬的用户你好",
-  rule1: "平台为了防止有人恶意进行洗黑钱或者套现一系列不法行为，会员需完成70单方可进行申请提现，提现审核成功后，到账时间为T+0到账（2小时内）具体到账时间以银行为准！",
+  rule1:
+    "平台为了防止有人恶意进行洗黑钱或者套现一系列不法行为，会员需完成70单方可进行申请提现，提现审核成功后，到账时间为T+0到账（2小时内）具体到账时间以银行为准！",
   rule2: "为了保证商家成交量的真实性，所有任务订单都是垫付立返",
-  rule3: "抢到任务订单后请及时提交订单，避免长时间未提交导致卡单卡顿异常降低信用分",
+  rule3:
+    "抢到任务订单后请及时提交订单，避免长时间未提交导致卡单卡顿异常降低信用分",
   orderInfo: "订单说明",
   insufficientBalance: "可用余额不足，还需充值",
   notSubmitted: "暂不提交",

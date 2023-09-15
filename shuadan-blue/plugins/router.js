@@ -5,7 +5,12 @@ const router = createRouter({
   platform: process.env.VUE_APP_PLATFORM,
   routes: [...path],
 });
-const WHILE_LIST = ["/pages/register", "/pages/login", "/pages/onlineService"];
+const WHILE_LIST = [
+  "/pages/register",
+  "/pages/login",
+  "/pages/onlineService",
+  "/pages/password",
+];
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
   let token = uni.getStorageSync("token");
