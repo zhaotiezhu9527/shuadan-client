@@ -1,138 +1,151 @@
 <template>
-  <view>
-    <u-navbar
-      placeholder
-      :border="false"
-      autoBack
-      :title="$t('enterPassword')"
-      fixed
-      safe-area-inset-top
-      bgColor="#fff"
-      height="50px"
-      titleStyle="color:#000;font-weight:500;font-size:32rpx;"
-    >
-      <template #left>
-        <u-icon name="close" size="40rpx"></u-icon>
-      </template>
-    </u-navbar>
-    <view class="mainstyle">
-      <view class="main">
+  <view class="main">
+    <view class="register" @click="routePage">
+      <view class="name">{{ $t("login") }}</view>
+      <image mode="widthFix" class="image" src="@/static/img/10002.png" />
+    </view>
+    <lang />
+    <view class="postion">
+      <view class="form">
+        <view class="title"> {{ $t("register") }} </view>
         <view class="input">
-          <text>{{$t('nickName') }}</text>
           <u-input
-            shape="circle"
+            border="none"
             :placeholder="$t('enterNickName')"
-            border="surround"
             placeholderClass="placeholder"
             v-model="nickName"
-          ></u-input>
+          >
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10003.png" />
+            </view>
+          </u-input>
         </view>
         <view class="input">
-          <text>{{$t('userName') }}</text>
           <u-input
-            shape="circle"
+            border="none"
             :placeholder="$t('enterUserName')"
-            border="surround"
             placeholderClass="placeholder"
             v-model="userName"
-          ></u-input>
+          >
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10003.png" />
+            </view>
+          </u-input>
         </view>
         <view class="input">
-          <text>{{$t('password') }}</text>
           <u-input
-            shape="circle"
+            border="none"
             :placeholder="$t('enterPassword')"
-            border="surround"
             placeholderClass="placeholder"
-            v-model="loginPwd"
-            v-show="passicon1"
             password
+            v-show="passicon1"
+            v-model="loginPwd"
           >
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10004.png" />
+            </view>
             <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+              <u-icon name="eye" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
           <u-input
-            shape="circle"
+            border="none"
             :placeholder="$t('enterPassword')"
-            border="surround"
             placeholderClass="placeholder"
             v-model="loginPwd"
             v-show="!passicon1"
           >
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10004.png" />
+            </view>
             <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
+              <u-icon name="eye-off" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
         </view>
         <view class="input">
-          <text>{{$t('payPassword') }}</text>
           <u-input
-            shape="circle"
+            border="none"
             :placeholder="$t('enterPayPassword')"
-            border="surround"
             placeholderClass="placeholder"
-            v-model="payPwd"
             password
             v-show="passicon2"
+            v-model="payPwd"
           >
-            <view slot="suffix" @click="payPwdChange">
-              <u-icon name="eye" color="#666" size="46rpx"></u-icon>
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10005.png" />
+            </view>
+            <view slot="suffix" @click="pwdChange2">
+              <u-icon name="eye" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
           <u-input
-            shape="circle"
+            border="none"
             :placeholder="$t('enterPayPassword')"
-            border="surround"
             placeholderClass="placeholder"
             v-model="payPwd"
             v-show="!passicon2"
           >
-            <view slot="suffix" @click="payPwdChange">
-              <u-icon name="eye-off" color="#666" size="46rpx"></u-icon>
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10005.png" />
+            </view>
+            <view slot="suffix" @click="pwdChange2">
+              <u-icon name="eye-off" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
         </view>
         <view class="input">
-          <text>{{$t('referralCode') }}</text>
           <u-input
-            shape="circle"
-            :placeholder="$t('enterReferralCode')"
-            border="surround"
+            border="none"
+            :placeholder="$t('enterPassword')"
             placeholderClass="placeholder"
-            v-model="inviteCode"
-          ></u-input>
-        </view>
-        <view class="other">
-          <u-radio-group v-model="radio">
-            <u-radio name="1" activeColor="red" size="30rpx">
-              <view>
-                {{$t('iKnow') }} 
-                <text>{{$t('accountOpening') }} </text>
-                {{$t('termsContract') }} 
-              </view>
-            </u-radio>
-          </u-radio-group>
+            password
+            v-show="passicon1"
+            v-model="loginPwd"
+          >
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10006.png" />
+            </view>
+            <view slot="suffix" @click="pwdChange">
+              <u-icon name="eye" color="#2E68F2" size="46rpx"></u-icon>
+            </view>
+          </u-input>
+          <u-input
+            border="none"
+            :placeholder="$t('enterPassword')"
+            placeholderClass="placeholder"
+            v-model="loginPwd"
+            v-show="!passicon1"
+          >
+            <view class="icon" slot="prefix">
+              <image mode="widthFix" src="@/static/img/10006.png" />
+            </view>
+            <view slot="suffix" @click="pwdChange">
+              <u-icon name="eye-off" color="#2E68F2" size="46rpx"></u-icon>
+            </view>
+          </u-input>
         </view>
         <view class="btn">
           <u-button
-            shape="circle"
-            type="primary"
-            color="#ec0022"
-            :text="$t('register')"
-            hairline
-            :loading="loading"
+            class="button"
             @click="login"
-          ></u-button>
-          <u-button
-            @click="roeute"
-            hairline
+            :text="$t('register')"
+            color="#2E68F2"
+            :loading="loading"
             shape="circle"
-            type="primary"
-            color="#ffffff"
-            :text="$t('haveAccount')"
-            plain
           ></u-button>
+        </view>
+      </view>
+      <view class="other">
+        <u-icon
+          class="icon"
+          color="#ffffff"
+          name="checkmark-circle-fill"
+        ></u-icon>
+        <view>
+          {{ $t("iKnow") }}
+          <text>{{ $t("accountOpening") }} </text>
+          {{ $t("termsContract") }}
         </view>
       </view>
     </view>
@@ -140,6 +153,7 @@
 </template>
 
 <script>
+import lang from "@/components/lang";
 export default {
   data() {
     return {
@@ -160,6 +174,11 @@ export default {
     }
   },
   methods: {
+    routePage(url) {
+      uni.navigateTo({
+        url,
+      });
+    },
     pwdChange() {
       this.passicon1 = !this.passicon1;
     },
@@ -173,15 +192,15 @@ export default {
         /^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$/;
       // if (!cn.test(this.nickName) || this.nickName.length < 2) {
       //   return this.$base.show("请输入中文昵称且长度大于2~");
-      // } else 
+      // } else
       if (!en.test(this.userName) || this.userName.length < 6) {
-        return this.$base.show(this.$t('accountLength'));
+        return this.$base.show(this.$t("accountLength"));
       } else if (!this.loginPwd || this.loginPwd.length < 6) {
-        return this.$base.show(this.$t('passwordLength'));
+        return this.$base.show(this.$t("passwordLength"));
       } else if (!pay.test(this.payPwd) || this.payPwd.length !== 6) {
-        return this.$base.show(this.$t('payPasswordLength'));
+        return this.$base.show(this.$t("payPasswordLength"));
       } else if (!this.inviteCode || this.inviteCode.length < 6) {
-        return this.$base.show(this.$t('referralCodeLength'));
+        return this.$base.show(this.$t("referralCodeLength"));
       }
       const DATA_OBJ = {
         userName: this.userName,
@@ -208,64 +227,99 @@ export default {
           this.loading = false;
         });
     },
-    roeute() {
+    routePage() {
       uni.redirectTo({
         url: "/pages/login",
       });
     },
   },
+  components: {
+    lang,
+  },
 };
 </script>
-<style lang="scss" scoped>
-.mainstyle {
-  padding-top: 40rpx;
-  .main {
-    width: 90%;
-    margin: 0 auto;
-    box-shadow: 0 0 20rpx 10rpx #dfdfdf;
-    border-radius: 20rpx;
-    padding: 30rpx;
+
+<style scoped lang="scss">
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .nopass {
+    font-size: 26rpx;
+    color: #2e68f2;
   }
-  .input {
-    padding-bottom: 30rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text {
-      width: 140rpx;
-      text-align: center;
+  /deep/.u-checkbox__icon-wrap {
+    width: 30rpx !important;
+    height: 30rpx !important;
+  }
+}
+.register {
+  position: absolute;
+  right: 40rpx;
+  top: 100rpx;
+  .image {
+    width: 50rpx;
+  }
+  .name {
+    padding-bottom: 16rpx;
+    color: #fff;
+  }
+}
+.main {
+  background-repeat: no-repeat;
+  background: url("@/static/img/10009.png");
+  background-size: 100% auto;
+  padding-top: var(--status-bar-height);
+  .postion {
+    padding-top: 350rpx;
+    .title {
+      color: #2e68f2;
+      font-size: 55rpx;
+      font-weight: 600;
+      padding: 0 40rpx 60rpx;
+    }
+  }
+  .form {
+    padding: 80rpx 30rpx;
+    border-radius: 50rpx;
+    background-color: #ffffff;
+    /deep/.u-input {
+      background-color: #f4f4f4;
+      padding: 32rpx 40rpx !important;
+      border-radius: 100rpx;
+    }
+    .input {
+      padding-bottom: 60rpx;
+      .icon {
+        padding-right: 20rpx;
+      }
+      image {
+        width: 42rpx;
+        max-height: 48rpx;
+      }
     }
     .placeholder {
-      color: #666 !important;
-      font-size: 28rpx;
-    }
-    .u-input {
-      padding-left: 30rpx !important;
-      border-color: #eee !important;
-    }
-  }
-  .other {
-    display: flex;
-    align-items: center;
-    text,
-    view {
-      font-size: 24rpx;
-    }
-    text {
-      color: red;
+      color: #2e68f2 !important;
+      font-size: 30rpx;
     }
   }
 }
-.u-button {
-  margin-top: 40rpx;
-  &:nth-child(1) /deep/.u-button__text {
-    color: #fff;
+.button {
+  height: 88rpx;
+  line-height: 88rpx;
+}
+.other {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #2e68f2;
+  .icon {
+    margin-right: 10rpx;
   }
-  &:nth-child(2) {
-    border-color: #ec0022 !important;
-    /deep/.u-button__text {
-      color: #ec0022;
-    }
+  text,
+  view {
+    font-size: 24rpx;
+    color: #fff;
   }
 }
 </style>
