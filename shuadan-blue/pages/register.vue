@@ -75,7 +75,7 @@
             <view class="icon" slot="prefix">
               <image mode="widthFix" src="@/static/img/10005.png" />
             </view>
-            <view slot="suffix" @click="pwdChange2">
+            <view slot="suffix" @click="payPwdChange">
               <u-icon name="eye" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
@@ -89,7 +89,7 @@
             <view class="icon" slot="prefix">
               <image mode="widthFix" src="@/static/img/10005.png" />
             </view>
-            <view slot="suffix" @click="pwdChange2">
+            <view slot="suffix" @click="payPwdChange">
               <u-icon name="eye-off" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
@@ -97,30 +97,30 @@
         <view class="input">
           <u-input
             border="none"
-            :placeholder="$t('enterPassword')"
+            :placeholder="$t('enterReferralCode')"
             placeholderClass="placeholder"
             password
-            v-show="passicon1"
-            v-model="loginPwd"
+            v-show="passicon3"
+            v-model="inviteCode"
           >
             <view class="icon" slot="prefix">
               <image mode="widthFix" src="@/static/img/10006.png" />
             </view>
-            <view slot="suffix" @click="pwdChange">
+            <view slot="suffix" @click="codeChange">
               <u-icon name="eye" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
           <u-input
             border="none"
-            :placeholder="$t('enterPassword')"
+            :placeholder="$t('enterReferralCode')"
             placeholderClass="placeholder"
-            v-model="loginPwd"
-            v-show="!passicon1"
+            v-model="inviteCode"
+            v-show="!passicon3"
           >
             <view class="icon" slot="prefix">
               <image mode="widthFix" src="@/static/img/10006.png" />
             </view>
-            <view slot="suffix" @click="pwdChange">
+            <view slot="suffix" @click="codeChange">
               <u-icon name="eye-off" color="#2E68F2" size="46rpx"></u-icon>
             </view>
           </u-input>
@@ -160,6 +160,7 @@ export default {
       radio: "1",
       passicon1: true,
       passicon2: true,
+      passicon3: true,
       nickName: "", //昵称
       userName: "", //账号
       loginPwd: "", // 密码
@@ -184,6 +185,9 @@ export default {
     },
     payPwdChange() {
       this.passicon2 = !this.passicon2;
+    },
+    codeChange() {
+      this.passicon3 = !this.passicon3;
     },
     login() {
       let pay = /^(?:0|(?:-?[1-9]\d*))$/;
