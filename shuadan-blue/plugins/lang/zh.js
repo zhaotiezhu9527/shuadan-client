@@ -174,4 +174,5 @@ export default {
   mine: "我的",
   supportHours: "支持服务运行时间 : 09:00-22:00",
   connect: "联系",
+  paymentChannel: "请选择支付信道",
 };

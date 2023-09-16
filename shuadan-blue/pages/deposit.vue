@@ -39,10 +39,10 @@
       </view>
       <view class="content">
         <view class="item">
-          <view class="detail">
+          <!-- <view class="detail">
             <label>{{$t('phoneNo') }}</label>
             <span>{{ phone }}</span>
-          </view>
+          </view> -->
           <view class="detail">
             <label>{{$t('bankNo') }}</label>
             <span>{{ bankNo }}</span>
@@ -245,6 +245,7 @@ export default {
     margin: 20rpx auto;
     border-radius: 20rpx;
     padding: 20rpx 20rpx;
+    font-size: 24rpx;
   }
   .btn {
     width: 90%;
