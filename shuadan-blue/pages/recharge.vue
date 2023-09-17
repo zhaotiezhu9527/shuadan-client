@@ -16,61 +16,45 @@
     </u-navbar>
     <view class="contentStyle">
       <view class="content" v-if="!active">
-        <view class="title">{{$t('rechargeAmount') }}</view>
-        <u-input
-          :placeholder="$t('enterMoney')"
-          border="bottom"
-          v-model="value"
-          clearable
-          type="number"
-        >
-          <template #prefix>
-            <!-- <view class="rmb">￥</view> -->
-          </template>
-        </u-input>
-        <view class="txt">{{$t('rechargeIllustrate') }}</view>
-        <view class="list">
-          <view
-            class="item"
-            @click="value = item"
-            v-for="(item, index) in list"
-            :key="index"
-          >
-            {{ item }}
-            <!-- 元 -->
-          </view>
-        </view>
-      </view>
-      <view class="content" v-else @click="submit">
-        <view class="title">{{$t('selectPaymentChannel') }}</view>
-        <view class="link">
-          <view class="flex">
-            <image
-              class="image"
-              src="@/static/img/unionpay.jpg"
-              mode="widthFix"
-            />
-            <view class="box">
-              <view>{{$t('rechargeService') }}</view>
-              <view>{{$t('rechargeService') }}</view>
+        <view class="title">{{$t('paymentChannel') }}</view>
+        <view class="payment-item" @click="submit">
+          <image class="payment-img" src="../static/img/tiktok.png" />
+          <view class="payment-text">
+            <view class="payment-text-box">
+              <text class="payment-text-black">抖币充值</text>
+              <text class="payment-text-red">推荐</text>
             </view>
+            <view class="payment-text-grey">抖币充值</view>
           </view>
-          <u-icon name="arrow-right" color="#cacaca" size="40rpx"></u-icon>
+        </view>
+        <view class="payment-item" @click="submit">
+          <image class="payment-img" src="../static/img/unionpay.png" />
+          <view class="payment-text">
+            <view class="payment-text-box">
+              <text class="payment-text-black">银行卡转账</text>
+              <text class="payment-text-red">推荐</text>
+            </view>
+            <view class="payment-text-grey">银行卡转账</view>
+          </view>
+        </view>
+        <view class="payment-item" @click="submit">
+          <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
+          <view class="payment-text">
+            <view class="payment-text-box">
+              <text class="payment-text-black">USDT充值</text>
+              <text class="payment-text-red">推荐</text>
+            </view>
+            <view class="payment-text-grey">USDT充值</view>
+          </view>
         </view>
       </view>
     </view>
-    <view class="btn" v-if="!active">
-      <u-button
-        type="primary"
-        @click="change"
-        color="#2f3848"
-        text="下一步"
-      ></u-button>
-    </view>
+    <service />
   </view>
 </template>
 
 <script>
+import service from "@/components/service";
 export default {
   data() {
     return {
@@ -94,6 +78,9 @@ export default {
       });
     },
   },
+  components: {
+    service,
+  },
 };
 </script>
 
@@ -109,14 +96,50 @@ export default {
       border-radius: 5rpx;
       box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.15);
       background-color: #fff;
+      .payment-item{
+        padding: 16rpx 10rpx;
+        border-bottom: 2rpx solid #f2f2f2;
+        background: url(../static/img/jiaobiao.png) no-repeat 100%;
+        background-size: auto 30rpx;
+        background-origin: content-box;
+        background-color: #fff;
+        overflow: hidden;
+        .payment-img{
+          width: 80rpx;
+          height: 80rpx;
+          float: left;
+          margin-right: 30rpx;
+        }
+        .payment-text{
+          float: left;
+          font-size: 28rpx;
+          .payment-text-red{
+            display: block;
+            background: red;
+            padding: 1px 4px;
+            color: #fff;
+            border-radius: 3px;
+            float: left;
+            margin-left: 20rpx;
+          }
+          .payment-text-black{
+            float: left;
+          }
+          .payment-text-box{
+            overflow: hidden;
+          }
+          .payment-text-grey{
+            font-size: 24rpx;
+            color: #777;
+            margin-top: 10rpx;
+          }
+        }
+      }
     }
     .title {
       font-size: 28rpx;
-    }
-    .txt {
-      padding-top: 10rpx;
-      color: #999;
-      font-size: 24rpx;
+      color: #333;
+      margin-bottom: 10rpx;
     }
   }
   .u-input {
@@ -130,28 +153,6 @@ export default {
   .rmb {
     color: #d91d37;
     font-size: 24rpx;
-  }
-  .list {
-    padding-top: 20rpx;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20rpx;
-    .item {
-      border: 1px solid #bbb;
-      font-size: 24rpx;
-      padding: 15rpx 0;
-      width: 130rpx;
-      color: #d91d37;
-      text-align: center;
-    }
-  }
-  .btn {
-    padding: 20rpx 30rpx 0;
-    /deep/.u-button__text {
-      color: #fff;
-    }
   }
   .link {
     display: flex;
