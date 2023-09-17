@@ -20,4 +20,12 @@ export default {
 /deep/.u-navbar__content {
   z-index: 1024;
 }
+@keyframes roll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-100% + 345rpx));
+  }
+}
 </style>

@@ -8,15 +8,12 @@
     >
       <view class="flex">
         <view class="message_block">
-          <view class="message_info">
-            <image mode="widthFix" class="center" src="@/static/img/qd.png" />
-          </view>
+          <view class="message_info"> 恭喜匹配成功 </view>
           <view class="message_info_content">
             <view class="boxstyle">
               <view class="box">
-                <view class="time">{{$t('grabOrder') }}{{$t('time') }}：{{ items.orderTime }}</view>
                 <view class="uid">
-                  {{ items.orderNo
+                  {{ $t("grabOrder") }}{{ $t("number") }}：{{ items.orderNo
                   }}<text class="num">{{ items.countNum }}</text
                   ><text class="txt" v-if="items.orderType == 0">
                     {{ items.promptText }}
@@ -30,53 +27,53 @@
                         {{ items.goodsName }}
                       </view>
                       <view class="text">
-                        <view>{{$t('currencySymbol') }} {{ items.goodsPrice }}</view>
+                        <view
+                          >{{ $t("currencySymbol") }}
+                          {{ items.goodsPrice }}</view
+                        >
                         <view>x {{ items.goodsCount }}</view>
+                      </view>
+                      <view class="text yj">
+                        {{ $t("commission") }}
+                        {{ $t("currencySymbol") }}
+                        {{ items.commission }}
                       </view>
                     </view>
                   </view>
                 </view>
+                <view class="time">
+                  {{ $t("grabOrder") }}{{ $t("time") }} {{ items.orderTime }}
+                </view>
                 <view class="redb" v-if="items.balanceSub < 0">
-                  {{$t('insufficientBalance') }}{{ items.balanceSub }}
+                  {{ $t("insufficientBalance") }}{{ items.balanceSub }}
                 </view>
                 <view class="ul">
                   <view class="li">
-                    <text>{{$t('orderTotal') }}</text>
-                    <text>{{$t('currencySymbol') }} {{ items.orderAmount }}</text>
-                  </view>
-                  <view class="li">
-                    <text
-                      >{{$t('commission') }}<text
-                        v-if="items.commissionMul >= 2"
-                        class="tip-bubble tip-bubble-left"
-                        >x{{ items.commissionMul }}</text
-                      ></text
+                    <text class="label">{{ $t("orderTotal") }}</text>
+                    <text class="value"
+                      >{{ $t("currencySymbol") }} {{ items.orderAmount }}</text
                     >
-                    <text>{{$t('currencySymbol') }} {{ items.commission }}</text>
                   </view>
                   <view class="li">
-                    <text>{{$t('expectedReturn') }}</text>
-                    <text class="moeny">{{$t('currencySymbol') }} {{ items.forecastReturn }}</text>
+                    <text class="mr-10 label">{{ $t("expectedReturn") }}</text>
+                    <text class="moeny">
+                      {{ $t("currencySymbol") }}{{ items.forecastReturn }}
+                    </text>
                   </view>
                 </view>
-                <image
-                  class="static"
-                  src="@/static/img/succ.png"
-                  mode="widthFix"
-                />
               </view>
             </view>
             <view class="btn">
               <u-button
                 shape="circle"
-                color="#2f3848"
+                color="#2E68F2"
                 plain
                 @click="show = false"
                 :text="$t('notSubmitted')"
               ></u-button>
               <u-button
                 shape="circle"
-                color="#2f3848"
+                color="#2E68F2"
                 :text="$t('submitNow')"
                 :loading="loading"
                 @click="change"
@@ -96,7 +93,7 @@
     <view class="maskLoading" v-if="loading">
       <view class="content">
         <image class="img" src="@/static/img/10001.gif" mode="widthFix" />
-        <p class="txt">{{$t('remoteHost') }}</p>
+        <p class="txt">{{ $t("remoteHost") }}</p>
       </view>
     </view>
   </view>
@@ -185,19 +182,11 @@ export default {
 .message_block {
   border-radius: 20rpx;
   width: 100%;
-  background: linear-gradient(1turn, #fff, #ffcc2c);
+  background: url("@/static/img/order-frame.png");
+  background-repeat: round;
+  background-size: 100% auto;
   position: relative;
-  &::after {
-    content: "";
-    top: 0;
-    left: 0;
-    background: url("@/static/img/bg_05.png") 0rpx no-repeat;
-    background-size: 100%;
-    position: absolute;
-    height: 70%;
-    width: 100%;
-    z-index: 1;
-  }
+  padding: 50rpx 0;
   .message_info {
     position: relative;
     z-index: 2;
@@ -205,6 +194,9 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 30rpx 0;
+    color: #2e68f2;
+    font-weight: 600;
+    font-size: 36rpx;
     .center {
       width: 340rpx;
       margin: 0 20rpx;
@@ -238,9 +230,7 @@ export default {
   position: relative;
   z-index: 3;
   .box {
-    padding: 30rpx;
-    background-image: url("@/static/img/bg_04.png");
-    background-size: 100% 100%;
+    padding: 0 30rpx;
     position: relative;
     .uid,
     .time {
@@ -251,11 +241,12 @@ export default {
         padding: 1px;
         border-radius: 50%;
         background-color: red;
-        width: 40rpx;
-        height: 40rpx;
-        line-height: 40rpx;
+        width: 36rpx;
+        height: 36rpx;
+        line-height: 34rpx;
         color: #fff;
-        font-size: 28rpx;
+        font-size: 24rpx;
+        margin-left: 10rpx;
         display: inline-block;
         text-align: center;
       }
@@ -268,12 +259,6 @@ export default {
     .uid {
       padding-bottom: 0;
     }
-  }
-  .static {
-    position: absolute;
-    right: 20rpx;
-    top: 20rpx;
-    width: 130rpx;
   }
   .redb {
     background: #ff575c;
@@ -288,7 +273,6 @@ export default {
     margin: 20rpx 0;
   }
   .goods {
-    background: #f2f2f2;
     border-radius: 20rpx;
     margin: 20rpx 0;
     display: flex;
@@ -309,23 +293,34 @@ export default {
     }
     .text {
       display: flex;
-      padding-top: 20rpx;
-      font-size: 26rpx;
+      padding-top: 5rpx;
+      font-size: 30rpx;
       justify-content: space-between;
       align-items: center;
+      color: #7e869f;
+      font-weight: 600;
+      &.yj {
+        font-weight: 400;
+      }
     }
   }
   .ul {
     .li {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding-bottom: 30rpx;
-      &:nth-child(3) {
-        padding-bottom: 10rpx;
+      padding-bottom: 10rpx;
+      .mr-10 {
+        margin-right: 10rpx;
       }
-      &:nth-child(4) {
-        padding-bottom: 10rpx;
+      &:nth-child(1) {
+        justify-content: space-between;
+      }
+      .label {
+        color: #969696;
+      }
+      .value {
+        color: #7e869f;
+        font-weight: 600;
       }
     }
     .submit {
@@ -340,7 +335,7 @@ export default {
       font-size: 28rpx;
     }
     .moeny {
-      color: #ff9a2c;
+      color: #ff9a2c !important;
       font-size: 45rpx;
     }
   }

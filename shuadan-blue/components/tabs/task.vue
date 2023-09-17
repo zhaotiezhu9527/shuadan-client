@@ -1,24 +1,44 @@
 <template>
   <view class="main">
-    <u-navbar
-      placeholder
-      :border="false"
-      :title="$t('grabOrder')"
-      fixed
-      safe-area-inset-top
-      bgColor="#fff"
-      leftIconSize="0"
-      height="50px"
-      titleStyle="color:#000;font-weight:500;font-size:32rpx;"
-    >
-    </u-navbar>
+    <view class="sub_title">
+      <view class="txt noborder">{{ $t("missionHall") }}</view>
+    </view>
+    <view class="items">
+      <view class="li">
+        <view class="flex">
+          <image :src="vim.levelImg" class="icon" mode="widthFix" />
+          <view class="txt">{{ vim.areaName }}</view>
+        </view>
+        <view class="gray">{{ vim.commission }}%</view>
+      </view>
+      <view class="li">
+        <view class="flex">
+          <image src="@/static/img/100042.png" class="icon" mode="widthFix" />
+          <view class="con">
+            <view class="gray">{{ $t("commissionToday") }}</view>
+            <view class="blue">
+              {{ $t("currencySymbol") }}{{ moenyFn(infos.todayIncome) }}</view
+            >
+          </view>
+        </view>
+        <view style="width: 30%" class="gray">系统将于今日自动更新佣金</view>
+      </view>
+      <view class="li">
+        <view class="flex">
+          <image src="@/static/img/100043.png" class="icon" mode="widthFix" />
+          <view class="con">
+            <view class="gray">{{ $t("myAssets") }}</view>
+            <view class="blue">
+              {{ $t("currencySymbol") }}{{ moenyFn(infos.balance) }}</view
+            >
+          </view>
+        </view>
+        <view style="width: 30%" class="gray">每个任务佣金将加到总余额中</view>
+      </view>
+    </view>
     <view class="list">
       <view class="item">
-        <image :src="vim.levelImg" class="icon" mode="widthFix" />
-        <view class="content">
-          <view>{{ vim.areaName }}</view>
-          <view>{{ vim.remark }} {{$t('commission') }}{{ vim.commission }}%</view>
-        </view>
+        <view class="name">{{ vim.areaName }}</view>
         <view class="task_content">
           <view class="padding">
             <view class="container">
@@ -45,72 +65,56 @@
             </view>
           </view>
         </view>
-        <view class="txt">{{$t('workingOrders') }}</view>
+        <view class="btn">
+          <u-button
+            type="primary"
+            @click="startCallBack"
+            :text="$t('automaticMatching')"
+          ></u-button>
+        </view>
+        <view class="txt">{{ $t("workingOrders") }}</view>
       </view>
     </view>
-    <view class="btn">
-      <u-button
-        color="#2f3848"
-        type="primary"
-        :text="$t('vipUp')"
-        @click="addVip"
-      ></u-button>
-      <u-button
-        color="#ff6225"
-        type="primary"
-        @click="startCallBack"
-        :text="$t('automaticMatching')"
-      ></u-button>
+    <view class="sub_title">
+      <view class="txt white">{{ $t("todayResults") }}</view>
     </view>
-    <view class="task">{{$t('todayResults') }}</view>
     <view class="report">
       <view class="item">
-        <view class="txt gray">{{$t('myAssets') }}</view>
-        <view class="moeny gray">
-          {{ moenyFn(infos.balance) }}
-        </view>
-      </view>
-      <view class="item">
-        <view class="txt gray">{{$t('yesterdayEarnings') }}</view>
+        <view class="txt">{{ $t("yesterdayTeamCommission") }}</view>
         <view class="moeny">
-          {{ moenyFn(infos.yesterdayIncome) }}
+          {{ $t("currencySymbol")
+          }}{{ moenyFn(infos.yesterdayTeamIncome) }}</view
+        >
+      </view>
+      <view class="item">
+        <view class="txt">{{ $t("yesterdayEarnings") }}</view>
+        <view class="moeny">
+          {{ $t("currencySymbol") }}{{ moenyFn(infos.yesterdayIncome) }}
         </view>
       </view>
       <view class="item">
-        <view class="txt">{{$t('commissionToday') }}</view>
-        <view class="moeny"> {{ moenyFn(infos.todayIncome) }}</view>
+        <view class="txt">{{ $t("todayNo") }}</view>
+        <view class="moeny">{{ infos.todayOrderCount || 0 }}</view>
       </view>
       <view class="item">
-        <view class="txt">{{$t('AccountFrozenAmount') }}</view>
+        <view class="txt">{{ $t("AccountFrozenAmount") }}</view>
         <view class="moeny">
           <template v-if="infos.freezeBalance"></template>
-          {{ infos.freezeBalance }}
+          {{ $t("currencySymbol") }}{{ infos.freezeBalance }}
         </view>
       </view>
-      <view class="item">
-        <view class="txt">{{$t('todayNo') }}</view>
-        <view class="moeny">{{ infos.todayOrderCount || 0}}</view>
-      </view>
-      <view class="item">
-        <view class="txt">{{$t('yesterdayTeamCommission') }}</view>
-        <view class="moeny"> {{ moenyFn(infos.yesterdayTeamIncome) }}</view>
-      </view>
     </view>
-    <view class="passStyle">
-      <view class="pass">
-        <text>{{$t('unlock') }}</text>
-        <view>{{$t('nextLevel') }}</view>
-      </view>
+    <view class="sub_title">
+      <view class="txt white">{{ $t("orderInfo") }}</view>
     </view>
-    <view class="order">{{$t('orderInfo') }}</view>
     <view class="info">
-      <view>{{$t('respectUsers') }}</view>
+      <view>{{ $t("respectUsers") }}</view>
       <view>
-        {{$t('rule1') }}
+        {{ $t("rule1") }}
       </view>
-      <view>{{$t('rule2') }}</view>
+      <view>{{ $t("rule2") }}</view>
       <view>
-        {{$t('rule3') }}
+        {{ $t("rule3") }}
       </view>
     </view>
     <success ref="sucRef" @ok="getInfo(that)" />
@@ -186,7 +190,7 @@ export default {
     startCallBack() {
       if (this.loading) return false;
       this.loading = true;
-      let height = 19 * 220;
+      let height = 19 * 180;
       this.animation.forEach((item) => {
         let animation = uni.createAnimation({
           duration: 6500,
@@ -230,43 +234,64 @@ export default {
 </script>
 <style scoped lang="scss">
 .main {
-  background-color: #f8f8f8;
+  background: url("@/static/img/userbg.png") no-repeat;
+  background-size: 100% 100%;
   min-height: 100vh;
   padding: 0 30rpx;
   padding-top: var(--status-bar-height);
   padding-bottom: calc(160rpx + constant(safe-area-inset-bottom));
   padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
 }
+.items {
+  background-color: rgba(#fff, 0.5);
+  border-radius: 16rpx;
+  margin-bottom: 40rpx;
+  .li {
+    padding: 20rpx 30rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1rpx solid #c0c7d8;
+    &:nth-last-child(1) {
+      border-bottom: 0;
+    }
+    .con {
+      padding-left: 10rpx;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+    }
+    .txt {
+      font-size: 26rpx;
+      padding-left: 20rpx;
+    }
+    .gray {
+      font-size: 26rpx;
+      color: #7e869f;
+    }
+    .blue {
+      color: #2e68f2;
+      font-weight: 600;
+      font-size: 26rpx;
+      margin-top: 6rpx;
+    }
+  }
+  .icon {
+    width: 110rpx;
+  }
+}
 .list {
   display: flex;
-  padding: 60rpx 0 20rpx;
+  padding: 0 0 20rpx;
   justify-content: center;
   flex-wrap: wrap;
   .item {
     width: 100%;
     padding: 20rpx;
-    border-radius: 10rpx;
-    background: #fff;
-    position: relative;
-    .bg {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 1;
-      width: 210rpx;
-    }
-    .icon {
-      width: 148rpx;
-      position: absolute;
-      left: 20rpx;
-      top: -20rpx;
-      z-index: 2;
-    }
-    .txt {
-      padding: 20rpx 0;
-      font-size: 24rpx;
-      color: #434343;
-    }
+    border-radius: 18rpx;
+    background: url("@/static/img/100041.jpg") no-repeat;
+    background-size: 100% 100%;
   }
   .content {
     z-index: 2;
@@ -296,38 +321,17 @@ export default {
   padding: 30rpx 0 10rpx;
 }
 .btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30rpx 0;
-  gap: 30rpx;
-  /deep/.u-button:nth-child(1) .u-button__text {
-    color: #f2d8be;
-    font-size: 30rpx !important;
-  }
-  /deep/.u-button:nth-child(2) .u-button__text {
-    color: #ffffff;
-    font-size: 30rpx !important;
-  }
-}
-.passStyle {
-  padding: 30rpx 0;
-  .pass {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10rpx;
-    padding: 25rpx 20rpx;
-    view {
-      font-size: 28rpx;
-      padding-left: 16rpx;
-    }
-    text {
-      background: #2f3848;
-      border-radius: 4rpx;
-      color: #f2d8be;
-      font-size: 24rpx;
-      padding: 6rpx 10rpx;
+  padding: 50rpx 0 30rpx;
+  width: 320rpx;
+  margin: 0 auto;
+  /deep/.u-button {
+    background: url("@/static/img/100040.png") no-repeat;
+    background-size: 100% 100%;
+    border: 0;
+    height: 100rpx;
+    .u-button__text {
+      color: red;
+      font-size: 30rpx !important;
     }
   }
 }
@@ -341,73 +345,88 @@ export default {
   font-size: 24rpx;
 }
 .info {
-  padding: 60rpx 0 20rpx;
+  padding: 0 0 20rpx;
   view {
-    font-size: 28rpx;
+    font-size: 26rpx;
     line-height: 1.5;
-    color: #9c9c9c;
+    color: #fff;
     padding-top: 6rpx;
+    font-weight: 600;
   }
 }
 .report {
-  background-color: #fff;
   border-radius: 20rpx;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 30rpx 0;
   .item {
-    width: calc(100% / 3);
-    padding: 20rpx;
-    border-right: 1rpx solid #f1f1f1;
-    &:nth-child(-n + 3) {
-      padding-bottom: 30rpx;
-    }
-    &:nth-child(3) {
-      border-right: 0;
-    }
+    background-color: rgba(#fff, 0.8);
+    width: calc(96% / 2);
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+    border-radius: 16rpx;
   }
   .txt {
-    font-size: 24rpx;
+    text-align: center;
+    font-size: 26rpx;
     padding-bottom: 10rpx;
-    &.gray {
-      color: #9c9c9c;
-    }
   }
   .moeny {
-    font-size: 40rpx;
-    color: red;
-    &.gray {
-      color: #000;
-    }
+    text-align: center;
+    font-size: 26rpx;
+    color: #ff6b21;
+    font-weight: 600;
+  }
+}
+.list {
+  .name {
+    font-size: 28rpx;
+    text-align: center;
+    padding: 40rpx 0 20rpx;
+  }
+  .txt {
+    color: #7e869f;
+    font-size: 24rpx;
+    padding-top: 30rpx;
   }
 }
 .task_content {
   width: 100%;
-  height: 490rpx;
-  background: url("@/static/img/task.png") no-repeat;
-  background-size: 100% 100%;
-  .padding {
-    padding: 250rpx 20rpx 0;
-  }
 }
 .container {
   width: 100%;
   display: flex;
+  padding: 20rpx 0;
 }
 .scroll-container {
   width: calc(100% / 3);
-  height: 220rpx;
+  height: 180rpx;
   text-align: center;
   overflow: hidden;
   .wenhao {
-    height: 220rpx;
-    max-height: 220rpx;
+    height: 180rpx;
+    max-height: 180rpx;
   }
   .item-text {
-    line-height: 220rpx;
-    max-height: 220rpx;
+    line-height: 180rpx;
+    max-height: 180rpx;
+  }
+}
+
+.sub_title {
+  padding: 40rpx 0;
+  .txt {
+    border-left: 6rpx solid #2e68f2;
+    &.noborder {
+      border-width: 0;
+    }
+    font-weight: 600;
+    font-size: 36rpx;
+    padding-left: 10rpx;
+    &.white {
+      color: #fff;
+    }
   }
 }
 </style>
