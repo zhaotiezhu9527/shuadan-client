@@ -1,43 +1,50 @@
 <template>
   <view class="main">
-    <view class="price">
-      <view class="price-box">
-        <view class="title">{{$t('myAssets') }}</view>
-        <view class="money">
-          <view class="txt">{{ infos.balance }}</view>
-          <view class="btn">
-            <view @click="goDeposit('/pages/deposit')">{{$t('withdraw') }}</view>
-            <view @click="goDeposit('/pages/recharge')">{{$t('recharge') }}</view>
-          </view>
+    <u-navbar
+      :border="false"
+      :fixed="false"
+      title="天下商城"
+      leftIconSize="32"
+      rightIconSize="32"
+      bgColor="transparent"
+      @rightClick="routechange('/pages/message')"
+      height="50px"
+      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+    >
+      <template #left>
+        <lang inherit />
+      </template>
+      <template #right>
+        <view>
+          <image
+            mode="widthFix"
+            class="customer"
+            src="@/static/img/customer.png"
+          />
         </view>
-        <view class="ulStyle">
-          <view class="ul">
-            <view class="li">
-              <view class="name">{{ infos.yesterdayIncome }}</view>
-              <view class="txt">{{$t('yesterdayEarnings') }}</view>
-            </view>
-            <view class="li">
-              <view class="name">{{ infos.totalIncome }}</view>
-              <view class="txt">{{$t('CumulativeIncome') }}</view>
-            </view>
-            <view class="li">
-              <view class="name">{{ infos.todayIncome }}</view>
-              <view class="txt">{{$t('todayEarnings') }}</view>
-            </view>
-          </view>
-        </view>
+      </template>
+    </u-navbar>
+    <u-swiper :list="swiper" height="300"></u-swiper>
+    <view class="nav">
+      <view
+        class="item"
+        @click="routechange(item.url)"
+        v-for="(item, index) in nav"
+        :key="index"
+      >
+        <image class="img" :src="item.img" mode="widthFix" />
+        <text class="txt">{{ item.name }}</text>
       </view>
     </view>
     <view class="notice">
-      <view class="image">
-        <image class="img" src="@/static/img/msg_notice.png" mode="widthFix" />
+      <view class="black">
+        <image class="image" src="@/static/img/100020.png" mode="widthFix" />
       </view>
       <marquee class="marquee">
         <div v-html="homeNotice"></div>
       </marquee>
-      <view class="txt">{{$t('learn') }}</view>
     </view>
-    <view class="task">{{$t('missionHall') }}</view>
+    <view class="sub_title"> <view class="txt">VIP等级</view> </view>
     <view class="list">
       <view
         class="item"
@@ -47,52 +54,116 @@
           routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)
         "
       >
-        <image :src="item.levelImg" class="icon" mode="widthFix" />
-        <image src="@/static/img/icon07.png" class="bg" mode="widthFix" />
-        <view class="content">
-          <view>{{ item.areaName }}</view>
-          <view>{{ item.remark }}</view>
+        <view class="flex">
+          <image :src="item.levelImg" class="icon" mode="widthFix" />
+          <view class="txt">
+            <view>{{ item.areaName }}</view>
+            <view>{{ item.remark }}</view>
+          </view>
         </view>
-        <image :src="item.areaImg" class="img" mode="heightFix" />
-        <view class="no" v-if="!item.unlock">
-          <image class="img" src="@/static/img/suo.png" mode="widthFix" />
-          <view class="txt">{{$t('unlocked') }}</view>
+        <view class="status">
+          <image
+            mode="widthFix"
+            v-if="!item.unlock"
+            src="@/static/img/10004.png"
+          />
+          <view v-else>已解锁</view>
         </view>
       </view>
     </view>
-    <view class="rich">
-      <image
-        @click="change(item.en)"
-        mode="widthFix"
-        v-for="(item, index) in nav"
-        :key="index"
-        :src="item.img"
-      />
+    <view class="sub_title"> <view class="txt white">收益榜</view> </view>
+    <view class="ranking">
+      <view class="notice__inner">
+        <view
+          class="notice__box"
+          :style="{ animation: `roll ${ranking.length / 2}s linear infinite` }"
+        >
+          <view
+            class="notice__item"
+            v-for="(item, index) in ranking"
+            :key="index"
+          >
+            <view class="txt">
+              <image
+                class="img"
+                src="@/static/img/100026.png"
+                mode="widthFix"
+              />
+              <text>{{ item.name }}</text>
+            </view>
+            <view class="time">{{ item.time }}</view>
+          </view>
+        </view>
+      </view>
     </view>
-    <annunciate />
+    <view class="sub_title"> <view class="txt white">合作伙伴</view> </view>
+    <view class="partners">
+      <image src="@/static/img/100028.png" mode="widthFix" />
+      <image src="@/static/img/100029.png" mode="widthFix" />
+      <image src="@/static/img/100030.png" mode="widthFix" />
+      <image src="@/static/img/100031.png" mode="widthFix" />
+      <image src="@/static/img/100032.png" mode="widthFix" />
+      <image src="@/static/img/100033.png" mode="widthFix" />
+    </view>
   </view>
 </template>
 
 <script>
-import annunciate from "@/components/annunciate";
-import img13 from "@/static/img/icon13.png";
-import img14 from "@/static/img/icon14.png";
-import img15 from "@/static/img/icon15.png";
-import img16 from "@/static/img/icon16.png";
-
+import img014 from "@/static/img/100014.jpg";
+import img015 from "@/static/img/100015.png";
+import img017 from "@/static/img/100017.png";
+import img018 from "@/static/img/100018.png";
+import img019 from "@/static/img/100019.png";
+import lang from "@/components/lang.vue";
 export default {
+  components: {
+    lang,
+  },
   data() {
     return {
+      swiper: [img014],
       nav: [
-        { img: img13, name: this.$t('platformIntroduction'), en: "ptjj" },
-        { img: img14, name: this.$t('rule'), en: "gzsm" },
-        { img: img15, name: this.$t('agentCooperation'), en: "dlhz" },
-        { img: img16, name: this.$t('companyQualification'), en: "gszz" },
+        {
+          name: "充值",
+          img: img015,
+          url: "/pages/recharge",
+        },
+        {
+          name: "提现",
+          img: img017,
+          url: "/pages/deposit",
+        },
+        {
+          name: "邀请",
+          img: img018,
+          url: "/pages/promotion",
+        },
+        {
+          name: "公告",
+          img: img019,
+          url: "/pages/message",
+        },
+      ],
+      ranking: [
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
+        { name: "0984****274", time: "2023-09-16" },
       ],
       list: [],
       items: {},
       infos: {},
-      level: 1,
       homeNotice: "",
       bindStatus: false, //银行卡绑定状态
     };
@@ -132,7 +203,7 @@ export default {
           url,
         });
       } else {
-        this.$base.show(this.$t('cardMsg'));
+        this.$base.show(this.$t("cardMsg"));
       }
     },
     //用户列表数据
@@ -140,9 +211,6 @@ export default {
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.items = res.data.data;
-          this.level =
-            this.list.find((item) => item.remark.includes(this.items.levelName))
-              ?.level || 1;
           if (this.items.bankNo === null || !this.items.bankNo) {
             this.bindStatus = false;
           } else {
@@ -160,211 +228,165 @@ export default {
       });
     },
   },
-  components: {
-    annunciate,
-  },
 };
 </script>
 
 <style scoped lang="scss">
 .main {
-  padding-top: calc(var(--status-bar-height) + 40rpx);
-  .price {
-    background: url("@/static/img/info_bg.png");
-    background-size: 100%;
-    height: 368rpx;
-    width: auto;
-    position: relative;
-    padding: 0 30rpx;
-  }
-}
-.price-box {
-  padding: 40rpx 20rpx;
-  .title {
-    color: #434343;
-    font-size: 28rpx;
-  }
-  .money {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .txt {
-      font-weight: 600;
-      font-size: 58rpx;
-    }
-    .btn {
-      display: flex;
-      view {
-        width: 100rpx;
-        padding: 6rpx 0;
-        text-align: center;
-        background: #a2b0c8;
-        border-radius: 25rpx;
-        color: #fff;
-        font-weight: 600;
-        margin-left: 20rpx;
-        font-size: 26rpx;
-      }
-    }
-  }
-  .ulStyle {
-    padding-top: 40rpx;
-  }
-}
-.ul {
-  padding-top: 5rpx;
-  display: flex;
-  text-align: center;
-  border-top: 1rpx solid rgba(#434343, 0.1);
-  .li {
-    width: calc(100% / 3);
-    border-right: 1rpx solid rgba(#434343, 0.1);
-    &:nth-child(3) {
-      border: 0;
-    }
-  }
-  .name {
-    color: #434343;
-    font-weight: 600;
-    font-size: 32rpx;
-  }
-  .txt {
-    color: #434343;
-    opacity: 0.7;
-    font-size: 24rpx;
-    padding-top: 4rpx;
-  }
-}
-.rich {
-  padding: 40rpx 30rpx;
-  width: 100%;
-  gap: 8rpx;
-  display: flex;
-  justify-content: space-between;
+  background: url("@/static/img/100016.jpg") no-repeat;
+  width: 100vw;
+  min-height: 100vh;
+  padding-top: calc(var(--status-bar-height));
   padding-bottom: calc(160rpx + constant(safe-area-inset-bottom));
   padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
-}
-.task {
-  font-weight: 600;
-  color: #434343;
-  font-size: 36rpx;
-  padding: 50rpx 30rpx 50rpx;
-}
-.list {
-  display: flex;
-  padding: 0 30rpx;
-  flex-wrap: wrap;
-  gap: 40rpx;
-  .no {
-    position: absolute;
-    z-index: 10;
-    bottom: 30rpx;
-    left: 20rpx;
-    width: calc(100% - 40rpx);
-    height: 140rpx;
-    background-color: rgba(#000, 0.5);
-    border-radius: 10rpx;
+  .customer {
+    width: 52rpx;
+  }
+  .nav {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    padding: 20rpx 0;
+    .item {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
     .img {
-      width: 40rpx;
+      width: 108rpx;
     }
     .txt {
-      color: #fff;
-      font-size: 24rpx;
-      padding-top: 10rpx;
+      font-size: 28rpx;
     }
-  }
-  .item {
-    width: calc(50% - 22rpx);
-    padding: 20rpx;
-
-    border-radius: 10rpx;
-    background: #f2f3f399;
-    position: relative;
-    .bg {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 1;
-      width: 210rpx;
-    }
-    .icon {
-      width: 96rpx;
-      position: absolute;
-      left: 20rpx;
-      top: -20rpx;
-      z-index: 10;
-    }
-  }
-  .content {
-    z-index: 2;
-    position: relative;
-    view:nth-child(1) {
-      color: #434343;
-      font-weight: 600;
-      font-size: 26rpx;
-      padding-top: 4rpx;
-    }
-    view:nth-child(2) {
-      color: #969696;
-      font-size: 24rpx;
-      padding: 4rpx 0 8rpx;
-    }
-  }
-  .img {
-    width: 100%;
-    z-index: 2;
-    max-height: 140rpx !important;
-    position: relative;
   }
 }
 .notice {
-  position: relative;
-  border: 2rpx solid #eee;
-  .image {
-    background-color: #fff;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    z-index: 2;
-    transform: translateY(-50%);
-    padding: 0 20rpx 0 20rpx;
-    .img {
-      width: 60rpx;
-    }
-  }
-  .txt {
-    position: absolute;
-    z-index: 2;
-    padding: 0 20rpx 0 40rpx;
-    top: 50%;
-    right: 0;
-    height: 86rpx;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
+  display: flex;
+  margin: 0 30rpx;
+  padding: 10rpx 20rpx;
+  background-color: rgba(#fff, 0.5);
+  border-radius: 8rpx;
+  align-items: center;
+  .black {
     align-items: center;
-    transform: translateY(-50%);
-    color: #ffa94b;
-    font-size: 24rpx;
+    display: flex;
+    padding-right: 40rpx;
+    position: relative;
     &::before {
       content: "";
-      height: 40rpx;
-      left: 20rpx;
-      top: 50%;
-      transform: translateY(-50%);
       position: absolute;
-      background-color: #e2e2e2;
-      width: 2rpx;
+      right: 20rpx;
+      height: 100%;
+      width: 1rpx;
+      background-color: #afafaf;
+    }
+  }
+  .image {
+    width: 36rpx;
+  }
+}
+.sub_title {
+  padding: 30rpx;
+  .txt {
+    border-left: 6rpx solid #2e68f2;
+    font-weight: 600;
+    font-size: 36rpx;
+    padding-left: 10rpx;
+    &.white {
+      color: #fff;
     }
   }
 }
-.marquee {
+.list {
+  .item {
+    padding: 20rpx 30rpx;
+    background-color: rgba(#fff, 0.5);
+    margin: 0 30rpx 20rpx;
+    border-radius: 16rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .flex {
+      display: flex;
+      align-items: center;
+    }
+    .icon {
+      width: 110rpx;
+    }
+  }
+  .txt {
+    padding-left: 20rpx;
+    view:nth-child(1) {
+      color: #566a98;
+      font-weight: 700;
+      font-size: 30rpx;
+    }
+    view:nth-child(2) {
+      font-size: 20rpx;
+      padding-top: 6rpx;
+    }
+  }
+  .status {
+    width: 80rpx;
+    color: #2e68f2;
+    font-size: 26rpx;
+    display: flex;
+    justify-content: center;
+    image {
+      width: 36rpx;
+    }
+  }
+}
+.partners {
+  padding: 10rpx 30rpx;
   display: flex;
-  align-items: center;
-  height: 84rpx;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  image {
+    width: 212rpx;
+    padding: 10rpx 0;
+  }
+}
+.ranking {
+  margin: 30rpx 30rpx 0;
+  overflow: hidden;
+  height: 345rpx;
+  border-radius: 16rpx;
+  background-color: rgba(#fff, 0.5);
+  .notice__inner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 28rpx;
+    padding: 0 30rpx;
+  }
+  .notice__box {
+    animation: roll 10s linear infinite;
+  }
+  .notice__item {
+    width: 100%;
+    height: 60rpx;
+    background-color: #f2f2f2;
+    line-height: 60rpx;
+    padding: 0 10rpx;
+    margin: 20rpx 0;
+    border-radius: 16rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .img {
+    width: 38rpx;
+    margin-right: 10rpx;
+  }
+  .txt {
+    display: flex;
+    font-size: 28rpx;
+    align-items: center;
+  }
+  .time {
+    font-size: 26rpx;
+    color: #999999;
+  }
 }
 </style>

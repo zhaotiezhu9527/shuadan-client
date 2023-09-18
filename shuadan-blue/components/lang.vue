@@ -1,6 +1,6 @@
 <template>
   <view>
-    <view class="cn" @click="show = true">
+    <view class="cn" :class="{ inherit }" @click="show = true">
       <view class="txt">简体中文</view>
       <image src="@/static/img/10001.png" mode="widthFix" class="image" />
     </view>
@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  props: ["inherit"],
   data() {
     return {
       show: false,
@@ -35,6 +36,7 @@ export default {
       ],
     };
   },
+  mounted() {},
   methods: {},
   components: {},
 };
@@ -47,6 +49,9 @@ export default {
   position: absolute;
   top: 50rpx;
   left: 30rpx;
+  &.inherit {
+    position: inherit !important;
+  }
   .image {
     width: 36rpx;
   }

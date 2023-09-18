@@ -2,33 +2,42 @@
   <view class="main">
     <u-list class="container" @scrolltolower="load">
       <view class="title">
-        <view>{{$t('taskRecord') }}</view>
-        <view>{{ userData.balance }}</view>
+        <view>{{ $t("taskRecord") }}</view>
+        <view class="sub_title">
+          <view>{{ $t("remainingAssets") }}：</view>
+          <view>{{ userData.balance }}</view>
+        </view>
       </view>
-      <view class="sub_title">
-        <view>{{$t('officiallyProvided') }}</view>
-        <view>{{$t('remainingAssets') }}</view>
-      </view>
-      <view class="tabs">
-        <u-tabs
-          :list="nav"
-          lineColor="#ff9a2c"
-          lineWidth="60rpx"
-          lineHeight="6rpx"
-          :scrollable="false"
-          :current="current"
-          activeStyle="color:#ff9a2c;font-weight:600"
-          @change="navChange"
-        ></u-tabs>
+      <view class="tabstyle">
+        <view class="tabs">
+          <u-tabs
+            :list="nav"
+            lineColor="#2E68F2"
+            lineWidth="60rpx"
+            lineHeight="6rpx"
+            :scrollable="false"
+            :current="current"
+            activeStyle="color:#2E68F2;"
+            @change="navChange"
+          ></u-tabs>
+        </view>
       </view>
       <view class="list" v-if="isArray">
         <view class="boxstyle" v-for="(item, index) in list" :key="index">
           <view class="box">
-            <view class="time">{{$t('grabOrder') }}{{$t('time') }}：{{ item.orderTime }}</view>
-            <view class="uid"
-              >{{$t('grabOrder') }}{{$t('number') }}：{{ item.orderNo
-              }}<text>{{ item.dayOrderCount }}</text></view
-            >
+            <view class="uid">
+              {{ $t("grabOrder") }}{{ $t("number") }}：{{ item.orderNo }}
+              <text class="ml-10">{{ item.dayOrderCount }}</text>
+              <text v-if="item.status === 0" class="static loading"
+                >待处理</text
+              >
+              <text v-else-if="item.status === 1" class="static success"
+                >已完成</text
+              >
+              <text v-else-if="item.status === 2" class="static error"
+                >冻结</text
+              >
+            </view>
             <view class="goodsstyle">
               <view class="goods">
                 <image class="img" :src="item.goodsImg" mode="widthFix" />
@@ -37,53 +46,45 @@
                     {{ item.goodsName }}
                   </view>
                   <view class="text">
-                    <view>{{$t('currencySymbol') }} {{ item.goodsPrice }}</view>
+                    <view>
+                      {{ $t("currencySymbol") }} {{ item.goodsPrice }}
+                    </view>
                     <view>x {{ item.goodsCount }}</view>
+                  </view>
+                  <view class="text yj">
+                    <view>
+                      {{ $t("commission") }}：{{ $t("currencySymbol")
+                      }}{{ item.commission }}
+                    </view>
+                    <view class="num">x {{ item.commissionMul }}</view>
                   </view>
                 </view>
               </view>
             </view>
+
+            <view class="time">
+              {{ $t("grabOrder") }}{{ $t("time") }}：{{ item.orderTime }}
+              <text class="txt" v-if="item.orderType == 0">
+                [{{ item.promptText }}]
+              </text>
+            </view>
             <view class="ul">
+              <!-- <view class="li">
+                <text>{{ $t("orderTotal") }}</text>
+                <text>{{ $t("currencySymbol") }} {{ item.orderAmount }}</text>
+              </view> -->
               <view class="li">
-                <text>{{$t('orderTotal') }}</text>
-                <text>{{$t('currencySymbol') }} {{ item.orderAmount }}</text>
-              </view>
-              <view class="li">
-                <text
-                  >{{$t('commission') }}<text
-                    v-if="item.commissionMul >= 2"
-                    class="tip-bubble tip-bubble-left"
-                    >x{{ item.commissionMul }}</text
-                  ></text
+                <text>{{ $t("expectedReturn") }}：</text>
+                <text class="moeny"
+                  >{{ $t("currencySymbol") }} {{ item.returnAmount }}</text
                 >
-                <text>{{$t('currencySymbol') }} {{ item.commission }}</text>
               </view>
-              <view class="li">
-                <text>{{$t('expectedReturn') }}</text>
-                <text class="moeny">{{$t('currencySymbol') }} {{ item.returnAmount }}</text>
-              </view>
-              <view class="li" v-if="item.status === 0">
-                <view class="submit" @click="change(item)">{{$t('submitOrder') }}</view>
+              <view class="li flex" v-if="item.status === 0">
+                <view class="submit" @click="change(item)">{{
+                  $t("submitOrder")
+                }}</view>
               </view>
             </view>
-            <image
-              v-if="item.status === 0"
-              class="static"
-              src="@/static/img/dai.png"
-              mode="widthFix"
-            />
-            <image
-              v-else-if="item.status === 1"
-              class="static"
-              src="@/static/img/succ.png"
-              mode="widthFix"
-            />
-            <image
-              v-else-if="item.status === 2"
-              class="static"
-              src="@/static/img/dongjie.png"
-              mode="widthFix"
-            />
           </view>
         </view>
       </view>
@@ -99,10 +100,10 @@ export default {
     return {
       current: 0,
       nav: [
-        { name: this.$t('all'), status: undefined },
-        { name: this.$t('pending'), status: 0 },
-        { name: this.$t('completed'), status: 1 },
-        { name: this.$t('freezing'), status: 2 },
+        { name: this.$t("all"), status: undefined },
+        { name: this.$t("pending"), status: 0 },
+        { name: this.$t("completed"), status: 1 },
+        { name: this.$t("freezing"), status: 2 },
       ],
       list: [],
       userData: {},
@@ -180,29 +181,9 @@ export default {
   padding-top: var(--status-bar-height);
   .container {
     height: calc(100vh - var(--status-bar-height)) !important;
-    &::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 20%;
-      background-image: url("@/static/img/bg-01.png");
-      background-size: 100%;
-      top: 0;
-      left: 0;
-      z-index: 2;
-    }
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      background: linear-gradient(1turn, #fff, #bac3d2);
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
+    background: linear-gradient(#dbe9fa, #f3f7fa);
     .title {
-      font-size: 46rpx;
+      font-size: 36rpx;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
@@ -214,59 +195,57 @@ export default {
         color: #2f3848;
       }
       view:nth-child(2) {
-        font-size: 40rpx;
+        font-size: 26rpx;
+        font-weight: 400;
       }
     }
     .sub_title {
-      font-size: 24rpx;
       display: flex;
-      justify-content: space-between;
-      position: relative;
-      z-index: 3;
-      padding: 20rpx 30rpx 0;
       view {
-        color: #7a7d82;
-      }
-      view:nth-child(2) {
-        color: #434343;
+        color: red;
+        padding-left: 10rpx;
       }
     }
   }
-  .tabs {
-    padding-top: 30rpx;
-    padding-bottom: 10rpx;
-    border-bottom: 1rpx solid #fff;
-    position: relative;
-    z-index: 3;
+  .tabstyle {
+    padding: 0 30rpx;
+    .tabs {
+      border-radius: 20rpx;
+      padding: 20rpx 0;
+      background: #fff;
+      position: relative;
+      z-index: 3;
+    }
   }
 }
 .boxstyle {
-  padding: 30rpx;
+  padding: 30rpx 30rpx 0;
   position: relative;
   z-index: 3;
-  border-bottom: 6rpx solid #eee;
   &:nth-last-child(1) {
     border-bottom: 0;
   }
   .box {
     padding: 30rpx;
-    background-image: url("@/static/img/bg_04.png");
+    background: #fff;
     background-size: 100% 100%;
     position: relative;
+    border-radius: 16rpx;
     .uid,
     .time {
-      color: #9e9e9e;
       font-size: 24rpx;
       padding-bottom: 10rpx;
-      text {
+      position: relative;
+      .ml-10 {
+        margin-left: 10rpx;
         padding: 1px;
         border-radius: 50%;
         background-color: red;
-        width: 40rpx;
-        height: 40rpx;
-        line-height: 40rpx;
+        width: 36rpx;
+        height: 36rpx;
+        line-height: 34rpx;
         color: #fff;
-        font-size: 28rpx;
+        font-size: 24rpx;
         display: inline-block;
         text-align: center;
       }
@@ -274,18 +253,34 @@ export default {
     .uid {
       padding-bottom: 0;
     }
+    .time {
+      text {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #ff0000;
+      }
+    }
   }
   .static {
     position: absolute;
-    right: 20rpx;
-    top: 20rpx;
-    width: 130rpx;
+    right: 0;
+    top: 0;
+    font-size: 24rpx;
+    &.error {
+      color: red;
+    }
+    &.success {
+      color: #2e68f2;
+    }
+    &.loading {
+      color: #ff6b21;
+    }
   }
   .goodsstyle {
     margin: 20rpx 0;
   }
   .goods {
-    background: #f2f2f2;
     border-radius: 20rpx;
     margin: 20rpx 0;
     display: flex;
@@ -307,39 +302,43 @@ export default {
     }
     .text {
       display: flex;
-      padding-top: 20rpx;
       font-size: 26rpx;
       justify-content: space-between;
       align-items: center;
+      font-weight: 600;
+    }
+    .yj {
+      font-weight: 400;
+      font-size: 24rpx;
+      .num {
+        color: #ff6b21;
+      }
     }
   }
   .ul {
     .li {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding-bottom: 30rpx;
-      &:nth-child(3) {
-        padding-bottom: 10rpx;
-      }
-      &:nth-child(4) {
-        padding-bottom: 10rpx;
-      }
+      padding-bottom: 10rpx;
+    }
+    .flex {
+      display: flex;
+      justify-content: flex-end;
     }
     .submit {
-      background: #ff575c;
+      background: #2e68f2;
       color: #fff;
-      font-size: 20rpx;
+      font-size: 28rpx;
       text-align: center;
-      padding: 6rpx 20rpx;
-      border-radius: 10rpx;
+      padding: 15rpx 30rpx;
+      border-radius: 50rpx;
     }
     text {
-      font-size: 28rpx;
+      font-size: 24rpx;
     }
     .moeny {
       color: #ff9a2c;
-      font-size: 45rpx;
+      font-size: 34rpx;
     }
   }
 }
