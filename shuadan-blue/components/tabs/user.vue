@@ -12,9 +12,12 @@
               <label class="name">{{ userData.nickName }}</label>
               <!-- <label class="grade">{{ userData.levelName }}</label> -->
               <image class="level-img" :src="userData.levelIcon" />
+             
+            </view>
+            <view class="code"> 
+              <text>{{$t('referralCode') }}: {{ userData.inviteCode }}</text>
               <label class="credit">{{$t('credit') }}:{{ userData.creditValue }}</label>
             </view>
-            <view class="code"> {{$t('referralCode') }}: {{ userData.inviteCode }} </view>
           </view>
           <view class="customer-box">
             <image class="customer-img" src="@/static/img/customer.png" />
@@ -38,16 +41,16 @@
           <view class="clear-float"></view>
           <view class="income">
             <view class="income-item">
-              <view class="income-item-text">昨日收益</view>
-              <view class="income-item-number">78.55</view>
+              <view class="income-item-text">{{ $t("yesterdayEarnings") }}</view>
+              <view class="income-item-number">{{ infos.yesterdayIncome }}</view>
             </view>
             <view class="income-item">
-              <view class="income-item-text">昨日收益</view>
-              <view class="income-item-number">78.55</view>
+              <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
+              <view class="income-item-number">{{ infos.totalIncome }}</view>
             </view>
             <view class="income-item">
-              <view class="income-item-text">昨日收益</view>
-              <view class="income-item-number">78.55</view>
+              <view class="income-item-text">{{ $t("todayEarnings") }}</view>
+              <view class="income-item-number">{{ infos.todayIncome }}</view>
             </view>
           </view>
         </view>
@@ -152,6 +155,7 @@ export default {
       },
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
+      infos: {},//收益数据
     };
   },
   methods: {
@@ -200,6 +204,14 @@ export default {
           } else {
             this.bindStatus = true;
           }
+        }
+      });
+      // 用户收益详情
+      this.$api.user_income_detail().then(({ data }) => {
+        if (data.code == 0) {
+          this.infos = data.data;
+        } else {
+          this.$base.show(data.msg);
         }
       });
     },
@@ -276,8 +288,12 @@ export default {
           margin-left: 12rpx;
           margin-top: 8rpx;
         }
+       
+      }
+      .code {
+        margin-top: 14rpx;
+        font-size: 26rpx;
         .credit {
-          float: left;
           background: #D8E4F9;
           height: 37.5rpx;
           line-height: 35.5rpx;
@@ -289,10 +305,6 @@ export default {
           border-radius: 4rpx;
           border-radius: 6rpx;
         }
-      }
-      .code {
-        margin-top: 14rpx;
-        font-size: 26rpx;
       }
     }
     .customer-box{

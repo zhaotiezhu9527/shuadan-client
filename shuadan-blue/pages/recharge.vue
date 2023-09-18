@@ -21,30 +21,30 @@
           <image class="payment-img" src="../static/img/tiktok.png" />
           <view class="payment-text">
             <view class="payment-text-box">
-              <text class="payment-text-black">抖币充值</text>
-              <text class="payment-text-red">推荐</text>
+              <text class="payment-text-black">{{$t('抖币充值') }}</text>
+              <text class="payment-text-red">{{$t('推荐') }}</text>
             </view>
-            <view class="payment-text-grey">抖币充值</view>
+            <view class="payment-text-grey">{{$t('抖币充值') }}</view>
           </view>
         </view>
         <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/unionpay.png" />
           <view class="payment-text">
             <view class="payment-text-box">
-              <text class="payment-text-black">银行卡转账</text>
-              <text class="payment-text-red">推荐</text>
+              <text class="payment-text-black">{{$t('银行卡转账') }}</text>
+              <text class="payment-text-red">{{$t('推荐') }}</text>
             </view>
-            <view class="payment-text-grey">银行卡转账</view>
+            <view class="payment-text-grey">{{$t('银行卡转账') }}</view>
           </view>
         </view>
         <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
           <view class="payment-text">
             <view class="payment-text-box">
-              <text class="payment-text-black">USDT充值</text>
-              <text class="payment-text-red">推荐</text>
+              <text class="payment-text-black">{{$t('USDT充值') }}</text>
+              <text class="payment-text-red">{{$t('推荐') }}</text>
             </view>
-            <view class="payment-text-grey">USDT充值</view>
+            <view class="payment-text-grey">{{$t('USDT充值') }}</view>
           </view>
         </view>
       </view>

@@ -4,7 +4,7 @@
       <view class="name">{{ $t("register") }}</view>
       <image mode="widthFix" class="image" src="@/static/img/10002.png" />
     </view>
-    <lang />
+    <!-- <lang /> -->
     <view class="postion">
       <view class="form">
         <view class="title"> {{ $t("login") }} </view>
