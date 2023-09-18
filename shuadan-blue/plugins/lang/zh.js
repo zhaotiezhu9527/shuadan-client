@@ -31,7 +31,7 @@ export default {
   currency: "元", //对应币种
   withdraw: "提现",
   recharge: "充值",
-  yesterdayEarnings: "个人昨日收益",
+  yesterdayEarnings: "昨日收益",
   CumulativeIncome: "累计收益",
   todayEarnings: "今日收益",
   learn: "了解",
@@ -177,4 +177,7 @@ export default {
   supportHours: "支持服务运行时间 : 09:00-22:00",
   connect: "联系",
   paymentChannel: "请选择支付信道",
+  douBinRecharge: "抖币充值",
+  bankCardTransfer: "银行卡转账",
+  USDTdeposit: "USDT充值",
 };

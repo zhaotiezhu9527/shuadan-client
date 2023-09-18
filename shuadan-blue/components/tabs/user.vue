@@ -38,16 +38,16 @@
           <view class="clear-float"></view>
           <view class="income">
             <view class="income-item">
-              <view class="income-item-text">昨日收益</view>
-              <view class="income-item-number">78.55</view>
+              <view class="income-item-text">{{ $t("yesterdayEarnings") }}</view>
+              <view class="income-item-number">{{ infos.yesterdayIncome }}</view>
             </view>
             <view class="income-item">
-              <view class="income-item-text">昨日收益</view>
-              <view class="income-item-number">78.55</view>
+              <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
+              <view class="income-item-number">{{ infos.totalIncome }}</view>
             </view>
             <view class="income-item">
-              <view class="income-item-text">昨日收益</view>
-              <view class="income-item-number">78.55</view>
+              <view class="income-item-text">{{ $t("todayEarnings") }}</view>
+              <view class="income-item-number">{{ infos.todayIncome }}</view>
             </view>
           </view>
         </view>
@@ -152,6 +152,7 @@ export default {
       },
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
+      infos: {},//收益数据
     };
   },
   methods: {
@@ -200,6 +201,14 @@ export default {
           } else {
             this.bindStatus = true;
           }
+        }
+      });
+      // 用户收益详情
+      this.$api.user_income_detail().then(({ data }) => {
+        if (data.code == 0) {
+          this.infos = data.data;
+        } else {
+          this.$base.show(data.msg);
         }
       });
     },
