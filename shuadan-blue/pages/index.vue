@@ -9,36 +9,28 @@
           v-if="index !== 2"
           @click="change(index)"
         >
-          <image
-            :class="'img0' + index"
-            v-if="active === index"
-            :src="item.image1"
-            mode="widthFix"
-          />
-          <image
-            :class="'img' + index"
-            v-else
-            :src="item.image2"
-            mode="widthFix"
-          />
+          <image class="img" :src="item.image" mode="widthFix" />
+          <view class="name" :class="{ active: active === index }">
+            {{ item.name }}
+          </view>
         </view>
         <view class="item other" v-else @click="change(index)">
-          <image class="img2" :src="item.image1" mode="widthFix" />
+          <image class="img2" :src="item.image" mode="widthFix" />
+          <view class="name name2" :class="{ active: active === index }">
+            {{ item.name }}
+          </view>
         </view>
       </template>
     </view>
   </view>
 </template>
 <script>
-import home1 from "@/static/img/home1.png";
-import home2 from "@/static/img/home2.png";
-import jilv1 from "@/static/img/jilv1.png";
-import jilv2 from "@/static/img/jilv2.png";
-import kefu1 from "@/static/img/kefu1.png";
-import kefu2 from "@/static/img/kefu2.png";
-import user1 from "@/static/img/user1.png";
-import user2 from "@/static/img/user2.png";
-import rw1 from "@/static/img/rw1.png";
+import homeimg from "@/static/img/100034.png";
+import jilv from "@/static/img/100035.png";
+import kefu from "@/static/img/100037.png";
+import userimg from "@/static/img/100038.png";
+import rw from "@/static/img/100036.png";
+
 import home from "@/components/tabs/home.vue";
 import order from "@/components/tabs/order.vue";
 import service from "@/components/tabs/service.vue";
@@ -50,11 +42,11 @@ export default {
       active: 0,
       route: {},
       list: [
-        { image1: home1, image2: home2, route: home },
-        { image1: jilv1, image2: jilv2, route: order },
-        { image1: rw1, route: "task", route: task },
-        { image1: kefu1, image2: kefu2, route: service },
-        { image1: user1, image2: user2, route: user },
+        { image: homeimg, route: home, name: "首页" },
+        { image: jilv, route: order, name: "记录" },
+        { image: rw, route: task, name: "任务" },
+        { image: kefu, route: service, name: "客服" },
+        { image: userimg, route: user, name: "个人" },
       ],
     };
   },
@@ -106,11 +98,7 @@ export default {
   bottom: 0;
   width: 100%;
   color: #757575;
-  background: url("@/static/img/footer.png");
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  -moz-background-size: 100% auto;
-  background-position: bottom;
+  background-color: #fff;
   z-index: 999;
   height: 140rpx;
   display: flex;
@@ -128,30 +116,26 @@ export default {
     padding-top: 0;
     margin-top: -60rpx;
   }
-  .img0 {
-    width: 40rpx;
-  }
-  .img00 {
-    width: 44rpx;
-  }
-  .img1 {
-    width: 40rpx;
-  }
-  .img01 {
-    width: 48rpx;
+  .img {
+    width: 60rpx;
   }
   .img2 {
-    width: 120rpx;
+    width: 110rpx;
+    background-color: #fff;
+    padding: 20rpx;
+    border-radius: 50%;
+    box-sizing: border-box;
   }
-  .img3 {
-    width: 40rpx;
+  .name {
+    font-size: 28rpx;
+    padding: 4rpx 0;
+    &.active {
+      color: #2e68f2;
+    }
   }
-  .img03 {
-    width: 52rpx;
-  }
-  .img4,
-  .img04 {
-    width: 70rpx;
+  .name2 {
+    position: relative;
+    top: -16rpx;
   }
 }
 </style>
