@@ -91,6 +91,14 @@
               />
               <text>{{ item.name }}</text>
             </view>
+            <view class="txt">
+              <!-- <image
+                class="img"
+                src="@/static/img/doubi.png"
+                mode="widthFix"
+              /> -->
+              <text class="blue-text">{{ item.name }}</text>
+            </view>
             <view class="time">{{ item.time }}</view>
           </view>
         </view>
@@ -257,7 +265,9 @@ export default {
     }
     .txt {
       font-size: 28rpx;
+      
     }
+    
   }
 }
 .notice {
@@ -388,5 +398,8 @@ export default {
     font-size: 26rpx;
     color: #999999;
   }
+}
+.blue-text{
+  color: #2E68F2;
 }
 </style>

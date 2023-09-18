@@ -12,9 +12,12 @@
               <label class="name">{{ userData.nickName }}</label>
               <!-- <label class="grade">{{ userData.levelName }}</label> -->
               <image class="level-img" :src="userData.levelIcon" />
+             
+            </view>
+            <view class="code"> 
+              <text>{{$t('referralCode') }}: {{ userData.inviteCode }}</text>
               <label class="credit">{{$t('credit') }}:{{ userData.creditValue }}</label>
             </view>
-            <view class="code"> {{$t('referralCode') }}: {{ userData.inviteCode }} </view>
           </view>
           <view class="customer-box">
             <image class="customer-img" src="@/static/img/customer.png" />
@@ -285,8 +288,12 @@ export default {
           margin-left: 12rpx;
           margin-top: 8rpx;
         }
+       
+      }
+      .code {
+        margin-top: 14rpx;
+        font-size: 26rpx;
         .credit {
-          float: left;
           background: #D8E4F9;
           height: 37.5rpx;
           line-height: 35.5rpx;
@@ -298,10 +305,6 @@ export default {
           border-radius: 4rpx;
           border-radius: 6rpx;
         }
-      }
-      .code {
-        margin-top: 14rpx;
-        font-size: 26rpx;
       }
     }
     .customer-box{
