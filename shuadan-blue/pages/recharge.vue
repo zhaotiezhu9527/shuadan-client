@@ -21,30 +21,30 @@
           <image class="payment-img" src="../static/img/tiktok.png" />
           <view class="payment-text">
             <view class="payment-text-box">
-              <text class="payment-text-black">{{$t('抖币充值') }}</text>
-              <text class="payment-text-red">{{$t('推荐') }}</text>
+              <text class="payment-text-black">{{$t('douBinRecharge') }}</text>
+              <text class="payment-text-red">{{$t('recommend') }}</text>
             </view>
-            <view class="payment-text-grey">{{$t('抖币充值') }}</view>
+            <view class="payment-text-grey">{{$t('douBinRecharge') }}</view>
           </view>
         </view>
         <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/unionpay.png" />
           <view class="payment-text">
             <view class="payment-text-box">
-              <text class="payment-text-black">{{$t('银行卡转账') }}</text>
-              <text class="payment-text-red">{{$t('推荐') }}</text>
+              <text class="payment-text-black">{{$t('bankCardTransfer') }}</text>
+              <text class="payment-text-red">{{$t('recommend') }}</text>
             </view>
-            <view class="payment-text-grey">{{$t('银行卡转账') }}</view>
+            <view class="payment-text-grey">{{$t('bankCardTransfer') }}</view>
           </view>
         </view>
         <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
           <view class="payment-text">
             <view class="payment-text-box">
-              <text class="payment-text-black">{{$t('USDT充值') }}</text>
-              <text class="payment-text-red">{{$t('推荐') }}</text>
+              <text class="payment-text-black">{{$t('USDTdeposit') }}</text>
+              <text class="payment-text-red">{{$t('recommend') }}</text>
             </view>
-            <view class="payment-text-grey">{{$t('USDT充值') }}</view>
+            <view class="payment-text-grey">{{$t('USDTdeposit') }}</view>
           </view>
         </view>
       </view>

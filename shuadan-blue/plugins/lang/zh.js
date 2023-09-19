@@ -180,4 +180,5 @@ export default {
   douBinRecharge: "抖币充值",
   bankCardTransfer: "银行卡转账",
   USDTdeposit: "USDT充值",
+  recommend: "推荐",
 };
