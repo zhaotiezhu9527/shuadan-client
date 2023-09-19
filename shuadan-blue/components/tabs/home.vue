@@ -3,17 +3,17 @@
     <u-navbar
       :border="false"
       :fixed="false"
-      title="天下商城"
-      leftIconSize="32"
+      :title="$t('companyName')"
+      leftIconSize="0"
       rightIconSize="32"
       bgColor="transparent"
       @rightClick="routechange('/pages/message')"
       height="50px"
       titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
     >
-      <template #left>
+      <!-- <template #left>
         <lang inherit />
-      </template>
+      </template> -->
       <template #right>
         <view>
           <image
@@ -44,7 +44,7 @@
         <div v-html="homeNotice"></div>
       </marquee>
     </view>
-    <view class="sub_title"> <view class="txt">VIP等级</view> </view>
+    <view class="sub_title"> <view class="txt">{{$t('vipLevel') }}</view> </view>
     <view class="list">
       <view
         class="item"
@@ -67,11 +67,11 @@
             v-if="!item.unlock"
             src="@/static/img/10004.png"
           />
-          <view v-else>已解锁</view>
+          <view v-else>{{$t('unlocked') }}</view>
         </view>
       </view>
     </view>
-    <view class="sub_title"> <view class="txt white">收益榜</view> </view>
+    <view class="sub_title"> <view class="txt white">{{$t('revenueList') }}</view> </view>
     <view class="ranking">
       <view class="notice__inner">
         <view
@@ -104,7 +104,7 @@
         </view>
       </view>
     </view>
-    <view class="sub_title"> <view class="txt white">合作伙伴</view> </view>
+    <view class="sub_title"> <view class="txt white">{{$t('partner') }}</view> </view>
     <view class="partners">
       <image src="@/static/img/100028.png" mode="widthFix" />
       <image src="@/static/img/100029.png" mode="widthFix" />
@@ -132,22 +132,22 @@ export default {
       swiper: [img014],
       nav: [
         {
-          name: "充值",
+          name: this.$t('recharge'),
           img: img015,
           url: "/pages/recharge",
         },
         {
-          name: "提现",
+          name: this.$t('withdraw'),
           img: img017,
           url: "/pages/deposit",
         },
         {
-          name: "邀请",
+          name: this.$t('invite'),
           img: img018,
           url: "/pages/promotion",
         },
         {
-          name: "公告",
+          name: this.$t('announcement'),
           img: img019,
           url: "/pages/message",
         },
