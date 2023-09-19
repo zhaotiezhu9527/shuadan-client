@@ -8,7 +8,7 @@
     >
       <view class="flex">
         <view class="message_block">
-          <view class="message_info"> 恭喜匹配成功 </view>
+          <view class="message_info">{{ $t("matchSuccessful") }}</view>
           <view class="message_info_content">
             <view class="boxstyle">
               <view class="box">

@@ -42,11 +42,11 @@ export default {
       active: 0,
       route: {},
       list: [
-        { image: homeimg, route: home, name: "首页" },
-        { image: jilv, route: order, name: "记录" },
-        { image: rw, route: task, name: "任务" },
-        { image: kefu, route: service, name: "客服" },
-        { image: userimg, route: user, name: "个人" },
+        { image: homeimg, route: home, name: this.$t("frontPage") },
+        { image: jilv, route: order, name: this.$t("record")},
+        { image: rw, route: task, name: this.$t("task") },
+        { image: kefu, route: service, name: this.$t("service")},
+        { image: userimg, route: user, name: this.$t("personal")},
       ],
     };
   },

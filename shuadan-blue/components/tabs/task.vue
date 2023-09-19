@@ -21,7 +21,7 @@
             >
           </view>
         </view>
-        <view style="width: 30%" class="gray">系统将于今日自动更新佣金</view>
+        <view style="width: 30%" class="gray">{{ $t("updateCommissionToday") }}</view>
       </view>
       <view class="li">
         <view class="flex">
@@ -33,7 +33,7 @@
             >
           </view>
         </view>
-        <view style="width: 30%" class="gray">每个任务佣金将加到总余额中</view>
+        <view style="width: 30%" class="gray">{{ $t("addedTotalBalance") }}</view>
       </view>
     </view>
     <view class="list">

@@ -29,13 +29,13 @@
               {{ $t("grabOrder") }}{{ $t("number") }}：{{ item.orderNo }}
               <text class="ml-10">{{ item.dayOrderCount }}</text>
               <text v-if="item.status === 0" class="static loading"
-                >待处理</text
+                >{{ $t("pending") }}</text
               >
               <text v-else-if="item.status === 1" class="static success"
-                >已完成</text
+                >{{ $t("completed") }}</text
               >
               <text v-else-if="item.status === 2" class="static error"
-                >冻结</text
+                >{{ $t("freezing") }}</text
               >
             </view>
             <view class="goodsstyle">

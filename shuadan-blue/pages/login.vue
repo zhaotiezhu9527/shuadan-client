@@ -55,7 +55,7 @@
           <u-checkbox-group v-model="checked">
             <u-checkbox
               activeColor="#4e995c"
-              label="记住密码"
+              :label="$t('rememberPassword')"
               name="1"
             ></u-checkbox>
           </u-checkbox-group>
@@ -74,9 +74,9 @@
       </view>
       <view class="other">
         <view class="link" @click="routePage('/pages/onlineService')">
-          联系客服
+          {{ $t("contactService") }} 
         </view>
-        <view class="link">APP下载</view>
+        <view class="link">{{ $t("appDownload") }}</view>
       </view>
     </view>
     <service />
