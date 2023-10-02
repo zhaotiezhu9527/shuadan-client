@@ -97,7 +97,7 @@
                 src="@/static/img/doubi.png"
                 mode="widthFix"
               /> -->
-              <text class="blue-text">{{ item.name }}</text>
+              <text class="blue-text">¥ {{ item.money }}</text>
             </view>
             <view class="time">{{ item.time }}</view>
           </view>
@@ -123,6 +123,7 @@ import img017 from "@/static/img/100017.png";
 import img018 from "@/static/img/100018.png";
 import img019 from "@/static/img/100019.png";
 import lang from "@/components/lang.vue";
+import { dateFormat } from "@/plugins/util";
 export default {
   components: {
     lang,
@@ -153,21 +154,30 @@ export default {
         },
       ],
       ranking: [
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
-        { name: "0984****274", time: "2023-09-16" },
+        { name: "186****1590", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "132****4137", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "152****1906", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "133****6398", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "182****1131", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "133****6798", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "130****2724", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "173****3794", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "186****2131", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "155****7485", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "199****7525", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "158****4534", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "138****1329", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "151****2113", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "185****2372", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "137****3085", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "136****3082", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "189****1136", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "177****4986", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "177****6031", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "158****3819", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "134****4069", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "130****5815", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        { name: "133****6442", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
       ],
       list: [],
       items: {},
