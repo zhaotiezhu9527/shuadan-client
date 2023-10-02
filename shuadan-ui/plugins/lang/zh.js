@@ -1,5 +1,5 @@
 export default {
-  companyName: "全民任务",
+  companyName: "天下商城",
   version: "版本号",
   userLogin: "用户登录",
   enterAccount: "请输入账户",
@@ -136,7 +136,7 @@ export default {
   commissionRate: "佣金比例",
   vipEveryday: "会员永久有效",
   taskRecord: "任务记录",
-  officiallyProvided: "本数据由全民任务官方提供",
+  officiallyProvided: "本数据由天下商城官方提供",
   remainingAssets: "剩余可用资产",
   grabOrder: "抢单",
   number: "编号",
