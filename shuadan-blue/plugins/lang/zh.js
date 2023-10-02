@@ -136,7 +136,7 @@ export default {
   commissionRate: "佣金比例",
   vipEveryday: "会员永久有效",
   taskRecord: "订单记录",
-  officiallyProvided: "本数据由全民任务官方提供",
+  officiallyProvided: "本数据由天下商城官方提供",
   remainingAssets: "剩余可用资产",
   grabOrder: "订单",
   number: "编号",

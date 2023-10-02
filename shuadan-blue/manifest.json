@@ -1,5 +1,5 @@
 {
-    "name" : "全民任务",
+    "name" : "天下商城",
     "appid" : "__UNI__8475A5A",
     "description" : "",
     "versionName" : "1.0.1",
@@ -107,7 +107,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "安科生物",
+        "title" : "天下商城",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",
