@@ -1,17 +1,19 @@
 <template>
-  <view class="main">
-    <view class="container">
-      <view class="title">{{$t('customerService') }}</view>
-      <view class="sub_title">{{$t('askService') }}</view>
-    </view>
-    <view class="customer_type">
-      <image class="image" src="@/static/img/kefu-service.png" mode="widthFix" />
-    </view>
-    <view class="support-hours">
-      {{$t('supportHours') }}
-    </view>
-    <view class="service-btn" @click="route">
-      {{$t('connect') }}{{$t('onlineService') }}
+  <view>
+    <view class="main">
+      <view class="container">
+        <view class="title">{{$t('customerService') }}</view>
+        <view class="sub_title">{{$t('askService') }}</view>
+      </view>
+      <view class="customer_type">
+        <image class="image" src="@/static/img/kefu-service.png" mode="widthFix" />
+      </view>
+      <view class="support-hours">
+        {{$t('supportHours') }}
+      </view>
+      <view class="service-btn" @click="goService">
+        {{$t('connect') }}{{$t('onlineService') }}
+      </view>
     </view>
   </view>
 </template>
@@ -23,7 +25,7 @@ export default {
     };
   },
   methods: {
-    route() {
+    goService() {
       uni.navigateTo({
         url: "/pages/onlineService",
       });
