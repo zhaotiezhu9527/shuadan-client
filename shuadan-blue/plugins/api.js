@@ -409,3 +409,18 @@ export const order_detail = (data) => {
       });
   });
 };
+
+// 用户资金流动列表
+export const system_bounslist = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "system/bonuslist",
+        method: "get",
+        data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

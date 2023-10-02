@@ -89,7 +89,7 @@
                 src="@/static/img/100026.png"
                 mode="widthFix"
               />
-              <text>{{ item.name }}</text>
+              <text>{{ item.phone }}</text>
             </view>
             <view class="txt">
               <!-- <image
@@ -97,9 +97,9 @@
                 src="@/static/img/doubi.png"
                 mode="widthFix"
               /> -->
-              <text class="blue-text">¥ {{ item.money }}</text>
+              <text class="blue-text">¥ {{ item.price }}</text>
             </view>
-            <view class="time">{{ item.time }}</view>
+            <view class="time">{{ item.date }}</view>
           </view>
         </view>
       </view>
@@ -154,30 +154,7 @@ export default {
         },
       ],
       ranking: [
-        { name: "186****1590", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "132****4137", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "152****1906", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "133****6398", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "182****1131", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "133****6798", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "130****2724", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "173****3794", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "186****2131", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "155****7485", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "199****7525", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "158****4534", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "138****1329", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "151****2113", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "185****2372", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "137****3085", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "136****3082", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "189****1136", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "177****4986", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "177****6031", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "158****3819", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "134****4069", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "130****5815", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
-        { name: "133****6442", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
+        // { name: "186****1590", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
       ],
       list: [],
       items: {},
@@ -191,6 +168,7 @@ export default {
       await this.$onLaunched;
       this.homeNotice = uni.getStorageSync("config").homeNotice;
       this.getInfo();
+      this.getList();
       this.$api.area_list().then(({ data }) => {
         if (data.code == 0) {
           this.list = data.data;
@@ -242,6 +220,14 @@ export default {
           this.infos = data.data;
         } else {
           this.$base.show(data.msg);
+        }
+      });
+    },
+    //  获取滚动列表数据
+    getList() {
+      this.$api.system_bounslist().then((res) => {
+        if (res.data.code == 0) {
+          this.ranking = res.data.data
         }
       });
     },
