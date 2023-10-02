@@ -25,6 +25,8 @@ export default {
     };
   },
   methods: {
+    open() {
+    },
     goService() {
       uni.navigateTo({
         url: "/pages/onlineService",
