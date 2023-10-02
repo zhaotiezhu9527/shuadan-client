@@ -1,5 +1,9 @@
 package com.juhai.api.controller;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.DesensitizedUtil;
+import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -12,14 +16,16 @@ import com.juhai.commons.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Api(value = "获取系统配置相关", tags = "获取系统配置相关")
@@ -35,6 +41,9 @@ public class SiteConfigController {
 
     @Autowired
     private CustomerServiceService customerServiceService;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @ApiOperation(value = "获取系统配置")
     @GetMapping("/config")
@@ -53,6 +62,31 @@ public class SiteConfigController {
         obj.put("webDomain", allParamByMap.get("web_domain"));
 
         return R.ok().put("data", obj);
+    }
+
+    @ApiOperation(value = "获取首页奖金列表")
+    @GetMapping("/bonuslist")
+    public R bonuslist(HttpServletRequest httpServletRequest) {
+        String date = DateUtil.formatDate(new Date());
+        String key = "bonuslist:" + date;
+        String arrStr = redisTemplate.opsForValue().get(key);
+        if (StringUtils.isNotBlank(arrStr)) {
+            return R.ok().put("data", JSONArray.parseArray(arrStr));
+        }
+
+        List<JSONObject> arr = new ArrayList<>();
+        List<String> phones = Arrays.asList("130", "131", "132", "155", "156", "186", "185", "134", "135", "136", "137", "138", "139", "150", "151", "152", "157", "158", "159", "182", "183", "187", "188", "");
+        for (int i = 0; i < 20; i++) {
+            JSONObject obj = new JSONObject();
+            String s = phones.get(RandomUtil.randomInt(0, phones.size() - 1));
+            String phone = s + RandomUtil.randomNumbers(8);
+            obj.put("phone", DesensitizedUtil.mobilePhone(phone));
+            obj.put("price", RandomUtil.randomLong(10, 1000) * 100);
+            obj.put("date", DateUtil.formatDate(new Date()));
+            arr.add(obj);
+        }
+        redisTemplate.opsForValue().set(key, JSON.toJSONString(arr), 1, TimeUnit.HOURS);
+        return R.ok().put("data", arr);
     }
 
     @ApiOperation(value = "获取客服列表")
