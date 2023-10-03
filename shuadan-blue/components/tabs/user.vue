@@ -29,8 +29,16 @@
             <view class="money-color"
               >
               <!-- ¥ -->
-              <label class="money-number">{{ userData.balance }}</label></view
-            >
+              <label class="money-number">{{ userData.balance }}</label>
+              <view class="doubi-money">=
+                <image
+                  class="doubi-img"
+                  src="@/static/img/doubi.png"
+                  mode="widthFix"
+                />
+                {{ Number(userData.balance * 10).toFixed(2) }}
+              </view>
+            </view>
           </view>
           <view class="withdrawal" @click="goDeposit('/pages/deposit')"
             >{{$t('withdraw') }}</view
@@ -42,15 +50,42 @@
           <view class="income">
             <view class="income-item">
               <view class="income-item-text">{{ $t("yesterdayEarnings") }}</view>
-              <view class="income-item-number">{{ infos.yesterdayIncome }}</view>
+              <view class="income-item-number">{{ infos.yesterdayIncome }}
+                <view class="doubi-money">=
+                  <image
+                    class="doubi-img"
+                    src="@/static/img/doubi.png"
+                    mode="widthFix"
+                  />
+                  {{ Number(infos.yesterdayIncome * 10).toFixed(2) }}
+                </view>
+              </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
-              <view class="income-item-number">{{ infos.totalIncome }}</view>
+              <view class="income-item-number">{{ infos.totalIncome }}
+                <view class="doubi-money">=
+                  <image
+                    class="doubi-img"
+                    src="@/static/img/doubi.png"
+                    mode="widthFix"
+                  />
+                  {{ Number(infos.totalIncome * 10).toFixed(2) }}
+                </view>
+              </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("todayEarnings") }}</view>
-              <view class="income-item-number">{{ infos.todayIncome }}</view>
+              <view class="income-item-number">{{ infos.todayIncome }}
+                <view class="doubi-money">=
+                  <image
+                    class="doubi-img"
+                    src="@/static/img/doubi.png"
+                    mode="widthFix"
+                  />
+                  {{ Number(infos.todayIncome * 10).toFixed(2) }}
+                </view>
+              </view>
             </view>
           </view>
         </view>
@@ -366,7 +401,7 @@ export default {
     }
     .income{
       display: flex;
-      margin-top: 40rpx;
+      margin-top: 20rpx;
       .income-item{
         width: 33.33%;
         text-align: center;
@@ -374,7 +409,6 @@ export default {
           font-size: 24rpx;
         }
         .income-item-number{
-          padding-top: 36rpx;
           text-shadow: 0 0 6rpx #2E68F2;
           font-size: 36rpx;
         }

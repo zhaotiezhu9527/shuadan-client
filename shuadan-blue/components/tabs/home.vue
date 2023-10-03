@@ -92,12 +92,12 @@
               <text>{{ item.phone }}</text>
             </view>
             <view class="txt">
-              <!-- <image
+              <image
                 class="img"
                 src="@/static/img/doubi.png"
                 mode="widthFix"
-              /> -->
-              <text class="blue-text">¥ {{ item.price }}</text>
+              />
+              <text class="blue-text">{{ Number(item.price).toFixed(2) }}</text>
             </view>
             <view class="time">{{ item.date }}</view>
           </view>

@@ -197,9 +197,4 @@ export default {
   rememberPassword: "记住密码",
   appDownload: "APP下载",
   vipLevel: "VIP等级",
-  vipLevel: "VIP等级",
-  vipLevel: "VIP等级",
-  vipLevel: "VIP等级",
-  vipLevel: "VIP等级",
-  vipLevel: "VIP等级",
 };

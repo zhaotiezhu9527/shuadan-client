@@ -108,3 +108,18 @@ text {
 .clear-float {
   clear: both;
 }
+.doubi-money{
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  justify-content: center;
+  &.yellow-text{
+    font-size: 34rpx;
+    color: #ff9a2c;
+  }
+  .doubi-img {
+    width: 40rpx;
+    height: 40rpx;
+    margin: 0 6rpx;
+  }
+}

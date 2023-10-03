@@ -17,7 +17,17 @@
           <view class="con">
             <view class="gray">{{ $t("commissionToday") }}</view>
             <view class="blue">
-              {{ $t("currencySymbol") }}{{ moenyFn(infos.todayIncome) }}</view
+              {{ $t("currencySymbol") }}{{ moenyFn(infos.todayIncome) }}
+              <view class="doubi-money"
+                  >=
+                  <image
+                    class="doubi-img"
+                    src="@/static/img/doubi.png"
+                    mode="widthFix"
+                  />
+                  {{ Number(infos.todayIncome * 10).toFixed(2) }}
+              </view>  
+            </view
             >
           </view>
         </view>
@@ -29,7 +39,17 @@
           <view class="con">
             <view class="gray">{{ $t("myAssets") }}</view>
             <view class="blue">
-              {{ $t("currencySymbol") }}{{ moenyFn(infos.balance) }}</view
+              {{ $t("currencySymbol") }}{{ moenyFn(infos.balance) }}
+              <view class="doubi-money"
+                  >=
+                  <image
+                    class="doubi-img"
+                    src="@/static/img/doubi.png"
+                    mode="widthFix"
+                  />
+                  {{ Number(infos.balance * 10).toFixed(2) }}
+              </view>  
+              </view
             >
           </view>
         </view>
