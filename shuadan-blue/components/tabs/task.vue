@@ -243,8 +243,8 @@ export default {
     moenyFn(val) {
       if (!val) {
         return 0;
-      } else if (val >= 100000) {
-        return parseInt(val / 100000) + "万+";
+      } else if (val >= 10000) {
+        return parseInt(val / 10000) + "万+";
       } else {
         return "" + val;
       }
