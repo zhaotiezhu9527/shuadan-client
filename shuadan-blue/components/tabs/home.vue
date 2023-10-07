@@ -238,6 +238,7 @@ export default {
 <style scoped lang="scss">
 .main {
   background: url("@/static/img/100016.jpg") no-repeat;
+  background-size: cover;
   width: 100vw;
   min-height: 100vh;
   padding-top: calc(var(--status-bar-height));
