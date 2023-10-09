@@ -11,7 +11,7 @@ export default {
   passwordEmpty: "请输入登录密码~",
   register: "注册",
   nickName: "昵称",
-  enterNickName: "请输入中文昵称",
+  enterNickName: "请输入昵称",
   userName: "账号",
   enterUserName: "请设置4位以上数字+英文账号",
   password: "密码",
