@@ -56,17 +56,7 @@
                       {{ $t("commission") }}：{{ $t("currencySymbol")
                       }}{{ item.commission }}
                     </view>
-                    <view class="doubi-money"
-                      >=
-                      <image
-                        class="doubi-img"
-                        src="@/static/img/doubi.png"
-                        mode="widthFix"
-                      />
-                      {{ Number(item.commission * 10).toFixed(2) }}
-                      </view
-                    >
-                    <!-- <view class="num">x {{ item.commissionMul }}</view> -->
+                    <view class="num">x {{ item.commissionMul }}</view>
                   </view>
                 </view>
               </view>
@@ -87,16 +77,6 @@
                 <text>{{ $t("expectedReturn") }}：</text>
                 <text class="moeny"
                   >{{ $t("currencySymbol") }} {{ item.returnAmount }}</text
-                >
-                <view class="doubi-money yellow-text"
-                  >=
-                  <image
-                    class="doubi-img"
-                    src="@/static/img/doubi.png"
-                    mode="widthFix"
-                  />
-                  {{ Number(item.returnAmount * 10).toFixed(2) }}
-                  </view
                 >
               </view>
               <view class="li flex" v-if="item.status === 0">
