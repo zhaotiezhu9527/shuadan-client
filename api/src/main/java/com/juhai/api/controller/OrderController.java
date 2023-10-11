@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.juhai.api.utils.JwtUtils;
 import com.juhai.commons.entity.*;
 import com.juhai.commons.service.*;
+import com.juhai.commons.utils.MsgUtil;
 import com.juhai.commons.utils.R;
 import icu.mhb.mybatisplus.plugln.core.JoinLambdaWrapper;
 import io.swagger.annotations.Api;
@@ -90,7 +91,7 @@ public class OrderController {
             Date beginTime = DateUtil.parse(today + " " + timeArr[0]);
             Date endTime = DateUtil.parse(today + " " + timeArr[1]);
             if (!DateUtil.isIn(now, beginTime, endTime)) {
-                return R.error("交易时间为每日[" + orderTimeStr + "]");
+                return R.error(StrUtil.format(MsgUtil.get("system.order.opentime"), orderTimeStr));
             }
         }
         // 获取用户信息
@@ -101,7 +102,7 @@ public class OrderController {
         Level userLevel = user.getLevel();
 
         if (StringUtils.isEmpty(user.getBankNo())) {
-            return R.error("请先绑定银行卡");
+            return R.error(MsgUtil.get("system.withdraw.nobank"));
         }
 
         // 获取专区信息
@@ -114,12 +115,12 @@ public class OrderController {
         Level areaLevel = area.getLevel();
         // 校验当前用户是否解锁该区域
         if (areaLevel.getLevelValue().intValue() > userLevel.getLevelValue().intValue()) {
-            return R.error("未解锁该专区");
+            return R.error(MsgUtil.get("system.order.unlockarea"));
         }
 
         // 校验用户余额是否大于专区余额
         if (area.getAreaBalance().doubleValue() > user.getBalance().doubleValue()) {
-            return R.error("余额低于" + area.getAreaBalance() + "元,无法进行交易");
+            return R.error(StrUtil.format(MsgUtil.get("system.order.minbalance"), area.getAreaBalance()));
         }
 
         // 验证是否还有订单未完成
@@ -129,7 +130,7 @@ public class OrderController {
                         .eq(Order::getUserName, userName)
         );
         if (noFinishCount >= 1) {
-            return R.error("您还有订单未完成");
+            return R.error(MsgUtil.get("system.order.nofinish"));
         }
 
         // 获取今日订单数
@@ -142,7 +143,7 @@ public class OrderController {
         int countNum = CollUtil.isEmpty(orderCounts) ? 0 : orderCounts.get(0).getOrderCount();
 
         if (countNum >= userLevel.getDayOrderCount()) {
-            return R.error("今日任务已完成");
+            return R.error(MsgUtil.get("system.order.dayfinish"));
         }
 
         // 预派送业务
@@ -244,7 +245,7 @@ public class OrderController {
         incOrderCount(user.getUserName(), now);
 
         object.put("orderNo", order.getOrderNo());
-        return R.ok("抢单成功!").put("data", object);
+        return R.ok(MsgUtil.get("system.order.success")).put("data", object);
     }
 
     /**
@@ -278,7 +279,7 @@ public class OrderController {
             Date beginTime = DateUtil.parse(today + " " + timeArr[0]);
             Date endTime = DateUtil.parse(today + " " + timeArr[1]);
             if (!DateUtil.isIn(now, beginTime, endTime)) {
-                return R.error("交易时间为每日[" + orderTimeStr + "]");
+                return R.error(StrUtil.format(MsgUtil.get("system.order.opentime"), orderTimeStr));
             }
         }
 
@@ -295,10 +296,10 @@ public class OrderController {
                         .eq(Order::getUserName, userName)
         );
         if (order == null) {
-            return R.error("无效订单");
+            return R.error(MsgUtil.get("system.payorder.noexist"));
         }
         if (order.getStatus().intValue() == 1 || order.getStatus().intValue() == 2 || order.getStatus().intValue() == 3) {
-            return R.error("该订单已完成");
+            return R.error(MsgUtil.get("system.payorder.orderfinish"));
         }
 
         if (order.getOrderType().intValue() == 1 ) {
@@ -326,7 +327,7 @@ public class OrderController {
         if (order.getStatus().intValue() == 4) {
             if (user.getBalance().doubleValue() < 0) {
                 // 未完成支付,余额小于等于0
-                return R.error("尊敬的会员,恭喜您获得系统随机派送的高额加急单,您的余额不足,请您联系客服充值后尽快完成任务!!");
+                return R.error(MsgUtil.get("system.payorder.jebg"));
             } else {
                 // 余额充足,可以完成支付
                 // 查询当前批次是否还有预派送订单  有则冻结这一单的钱
@@ -458,7 +459,7 @@ public class OrderController {
 
                     JSONObject object = new JSONObject();
                     object.put("orderNo", "");
-                    return R.ok("加急单完成,可以继续抢单").put("data", object);
+                    return R.ok(MsgUtil.get("system.payorder.jjdwc")).put("data", object);
                 } else {
                     // 还有预派送订单 扣除用户余额 累计冻结金额 修改订单状态为冻结
 
@@ -607,7 +608,7 @@ public class OrderController {
                     incOrderCount(user.getUserName(), now);
                     JSONObject object = new JSONObject();
                     object.put("orderNo", newOrder.getOrderNo());
-                    return R.ok("订单提交成功,下一单继续提交").put("data", object);
+                    return R.ok(MsgUtil.get("system.payorder.ddtjcg")).put("data", object);
                 }
             }
         } else if (order.getStatus().intValue() == 0) {
@@ -742,7 +743,7 @@ public class OrderController {
 
                     JSONObject object = new JSONObject();
                     object.put("orderNo", "");
-                    return R.ok("加急单完成,可以继续抢单").put("data", object);
+                    return R.ok(MsgUtil.get("system.payorder.jjdwc")).put("data", object);
                 } else {
                     // 还有预派送订单 扣除用户余额 累计冻结金额 修改订单状态为冻结
 
@@ -891,7 +892,7 @@ public class OrderController {
                     incOrderCount(user.getUserName(), now);
                     JSONObject object = new JSONObject();
                     object.put("orderNo", newOrder.getOrderNo());
-                    return R.ok("订单提交成功,下一单继续提交").put("data", object);
+                    return R.ok(MsgUtil.get("system.payorder.ddtjcg")).put("data", object);
                 }
             } else {
                 // 余额不足
@@ -909,7 +910,7 @@ public class OrderController {
                                 .eq(Order::getStatus, 0)
                                 .set(Order::getStatus, 4)
                 );
-                return R.error("尊敬的会员,恭喜您获得系统随机派送的高额加急单,您的余额不足,请您联系客服充值后尽快完成任务!!");
+                return R.error(MsgUtil.get("system.payorder.jebg"));
             }
         }
         return R.error("订单已完成");
@@ -1032,7 +1033,7 @@ public class OrderController {
 
         JSONObject object = new JSONObject();
         object.put("orderNo", "");
-        return R.ok("订单提交成功").put("data", object);
+        return R.ok(MsgUtil.get("system.payorder.ddtiwc")).put("data", object);
     }
 
     @ApiOperation(value = "订单详情")
@@ -1046,7 +1047,7 @@ public class OrderController {
                         .eq(Order::getUserName, userName)
         );
         if (order == null) {
-            return R.error("无效订单号");
+            return R.error(MsgUtil.get("system.payorder.noexist"));
         }
 
         User user = userService.getUserByName(userName);

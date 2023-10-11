@@ -216,7 +216,7 @@ public class UserController {
             /** 累计密码错误 **/
             redisTemplate.opsForValue().increment(incKey);
             redisTemplate.expire(incKey, 1, TimeUnit.DAYS);
-            return R.error("密码错误");
+            return R.error(MsgUtil.get("system.login.pwderror"));
         }
         if (user.getStatus().intValue() == 1) {
             return R.error(MsgUtil.get("system.user.enable"));
@@ -499,19 +499,19 @@ public class UserController {
         List<Account> list = (List<Account>) page.getList();
         if (CollUtil.isNotEmpty(list)) {
             Map<Integer, String> typeMap = new HashMap<>();
-            typeMap.put(1, "用户充值");
-            typeMap.put(2, "用户提现");
-            typeMap.put(3, "用户接单");
-            typeMap.put(4, "接单返佣");
-            typeMap.put(5, "下级返佣");
-            typeMap.put(6, "系统扣款");
+            typeMap.put(1, MsgUtil.get("system.account.type1"));
+            typeMap.put(2, MsgUtil.get("system.account.type2"));
+            typeMap.put(3, MsgUtil.get("system.account.type3"));
+            typeMap.put(4, MsgUtil.get("system.account.type4"));
+            typeMap.put(5, MsgUtil.get("system.account.type5"));
+            typeMap.put(6, MsgUtil.get("system.account.type6"));
             JSONArray arr = new JSONArray();
             for (Account temp : list) {
                 JSONObject obj = new JSONObject();
                 obj.put("amount", temp.getOptAmount());
                 obj.put("optTime", temp.getOptTime());
                 obj.put("optType", temp.getOptType());
-                obj.put("optTypeStr", typeMap.getOrDefault(temp.getOptType(), "未知"));
+                obj.put("optTypeStr", typeMap.getOrDefault(temp.getOptType(), "-"));
                 arr.add(obj);
             }
             page.setList(arr);
@@ -534,14 +534,14 @@ public class UserController {
         List<Deposit> list = (List<Deposit>) page.getList();
         if (CollUtil.isNotEmpty(list)) {
             Map<Integer, String> statusMap = new HashMap<>();
-            statusMap.put(0, "待审核");
-            statusMap.put(1, "审核通过");
+            statusMap.put(0, MsgUtil.get("system.deposit.type0"));
+            statusMap.put(1, MsgUtil.get("system.deposit.type1"));
             JSONArray arr = new JSONArray();
             for (Deposit temp : list) {
                 JSONObject obj = new JSONObject();
                 obj.put("time", temp.getOrderTime());
                 obj.put("status", temp.getStatus());
-                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
+                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "-"));
                 obj.put("amount", temp.getOptAmount());
                 obj.put("orderNo", temp.getOrderNo());
                 arr.add(obj);
@@ -566,15 +566,15 @@ public class UserController {
         List<Withdraw> list = (List<Withdraw>) page.getList();
         if (CollUtil.isNotEmpty(list)) {
             Map<Integer, String> statusMap = new HashMap<>();
-            statusMap.put(0, "待审核");
-            statusMap.put(1, "审核通过");
-            statusMap.put(2, "拒绝");
+            statusMap.put(0, MsgUtil.get("system.withdraw.type0"));
+            statusMap.put(1, MsgUtil.get("system.withdraw.type1"));
+            statusMap.put(2, MsgUtil.get("system.withdraw.type2"));
             JSONArray arr = new JSONArray();
             for (Withdraw temp : list) {
                 JSONObject obj = new JSONObject();
                 obj.put("time", temp.getOrderTime());
                 obj.put("status", temp.getStatus());
-                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
+                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "-"));
                 obj.put("amount", temp.getOptAmount());
                 obj.put("orderNo", temp.getOrderNo());
                 arr.add(obj);
@@ -701,11 +701,11 @@ public class UserController {
             String resourceDomain = paramsMap.get("resource_domain");
 
             Map<Integer, String> statusMap = new HashMap<>();
-            statusMap.put(0, "待处理");
-            statusMap.put(1, "已完成");
-            statusMap.put(2, "冻结中");
-            statusMap.put(3, "已取消");
-            statusMap.put(4, "待处理");
+            statusMap.put(0, MsgUtil.get("system.order.type0"));
+            statusMap.put(1, MsgUtil.get("system.order.type1"));
+            statusMap.put(2, MsgUtil.get("system.order.type2"));
+            statusMap.put(3, MsgUtil.get("system.order.type3"));
+            statusMap.put(4, MsgUtil.get("system.order.type4"));
             JSONArray arr = new JSONArray();
             for (Order temp : list) {
                 JSONObject obj = new JSONObject();
@@ -714,7 +714,7 @@ public class UserController {
                 obj.put("dayOrderCount", temp.getCountNum());
                 temp.setStatus(temp.getStatus().intValue() == 4 ? 0 : temp.getStatus());
                 obj.put("status", temp.getStatus());
-                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "未知"));
+                obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "-"));
                 obj.put("orderAmount", temp.getOrderAmount());
                 BigDecimal commissionRate = NumberUtil.div(temp.getCommissionRate(), 100);
                 BigDecimal commission = NumberUtil.mul(temp.getOrderAmount(), commissionRate, temp.getCommissionMul());
@@ -807,7 +807,8 @@ public class UserController {
         );
         int countNum = orderCount == null ? 0 : orderCount.getOrderCount();
         if (user.getLevel().getWithdrawOrderCount() > countNum) {
-            return R.error("您还需要完成" + (user.getLevel().getWithdrawOrderCount() - countNum) + "次订单后才能提现");
+            String msg = StrUtil.format(MsgUtil.get("system.withdraw.ordercount"), user.getLevel().getWithdrawOrderCount() - countNum);
+            return R.error(msg);
         }
 
         // 校验今日提现次数
