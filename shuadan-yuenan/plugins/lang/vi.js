@@ -36,7 +36,7 @@ export default {
   todayEarnings: "Hôm nay",
   learn: "Đã hiểu",
   missionHall: "Trang nhiệm vụ",
-  unlocked: "Đã mở khóa",
+  unlocked: "Mở",
   platformIntroduction: "Giới thiệu nền tảng",
   rule: "Mô tả quy tắc ",
   agentCooperation: "Hợp tác đại lý",
