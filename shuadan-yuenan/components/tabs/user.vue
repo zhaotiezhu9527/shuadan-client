@@ -19,9 +19,9 @@
               <label class="credit">{{$t('credit') }}:{{ userData.creditValue }}</label>
             </view>
           </view>
-          <view class="customer-box">
+          <!-- <view class="customer-box">
             <image class="customer-img" src="@/static/img/customer.png" />
-          </view>
+          </view> -->
         </view>
         <view class="money">
           <view class="balance">
@@ -29,7 +29,7 @@
             <view class="money-color"
               >
               <!-- ¥ -->
-              <label class="money-number">{{ userData.balance }}</label>
+              <label class="money-number">{{ $u.priceFormat(userData.balance) }}</label>
             </view>
           </view>
           <view class="withdrawal" @click="goDeposit('/pages/deposit')"
@@ -42,17 +42,17 @@
           <view class="income">
             <view class="income-item">
               <view class="income-item-text">{{ $t("yesterdayEarnings") }}</view>
-              <view class="income-item-number">{{ infos.yesterdayIncome }}
+              <view class="income-item-number">{{ $u.priceFormat(infos.yesterdayIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
-              <view class="income-item-number">{{ infos.totalIncome }}
+              <view class="income-item-number">{{ $u.priceFormat(infos.totalIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("todayEarnings") }}</view>
-              <view class="income-item-number">{{ infos.todayIncome }}
+              <view class="income-item-number">{{ $u.priceFormat(infos.todayIncome) }}
               </view>
             </view>
           </view>

@@ -5,7 +5,7 @@
         <view>{{ $t("taskRecord") }}</view>
         <view class="sub_title">
           <view>{{ $t("remainingAssets") }}：</view>
-          <view>{{ userData.balance }}</view>
+          <view>{{ $u.priceFormat(userData.balance) }}</view>
         </view>
       </view>
       <view class="tabstyle">
@@ -47,14 +47,14 @@
                   </view>
                   <view class="text">
                     <view>
-                      {{ $t("currencySymbol") }} {{ item.goodsPrice }}
+                      {{ $t("currencySymbol") }} {{ $u.priceFormat(item.goodsPrice) }}
                     </view>
                     <view>x {{ item.goodsCount }}</view>
                   </view>
                   <view class="text yj">
                     <view>
                       {{ $t("commission") }}：{{ $t("currencySymbol")
-                      }}{{ item.commission }}
+                      }}{{ $u.priceFormat(item.commission) }}
                     </view>
                     <view class="num">x {{ item.commissionMul }}</view>
                   </view>
@@ -76,7 +76,7 @@
               <view class="li">
                 <text>{{ $t("expectedReturn") }}：</text>
                 <text class="moeny"
-                  >{{ $t("currencySymbol") }} {{ item.returnAmount }}</text
+                  >{{ $t("currencySymbol") }} {{ $u.priceFormat(item.returnAmount) }}</text
                 >
               </view>
               <view class="li flex" v-if="item.status === 0">

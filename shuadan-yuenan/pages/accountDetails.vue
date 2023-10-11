@@ -45,7 +45,7 @@
                 </label>
               </view>
               <view class="table-number">
-                {{ item.amount }}
+                {{ $u.priceFormat(item.amount) }}
               </view>
             </view>
           </view>

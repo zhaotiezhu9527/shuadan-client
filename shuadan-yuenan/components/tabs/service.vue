@@ -12,7 +12,7 @@
         {{$t('supportHours') }}
       </view>
       <view class="service-btn" @click="goService">
-        {{$t('connect') }}{{$t('onlineService') }}
+        {{$t('service') }}
       </view>
     </view>
   </view>

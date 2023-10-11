@@ -32,7 +32,7 @@
             />
           </view>
           <view class="text">
-            <span>{{$t('balance') }}：{{ balance }}</span>
+            <span>{{$t('balance') }}：{{ $u.priceFormat(balance) }}</span>
             <label @click="amount = balance">{{$t('withdrawAll') }}</label>
           </view>
         </view>

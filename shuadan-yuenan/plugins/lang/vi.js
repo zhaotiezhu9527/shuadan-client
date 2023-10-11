@@ -151,7 +151,7 @@ export default {
   currencySymbol: "VND", //泰国用 ฿
   customerService: "Trung tâm chăm sóc khách hàng",
   askService: "Nếu bạn gặp vấn đề và cần trợ giúp, vui lòng liên hệ với bộ phận chăm sóc khách hàng trực tuyến",
-  service: "Chăm sóc khách hàng",
+  service: "CSKH",
   workingOrders: "Đã khớp hoàn toàn, kết quả đặt hàng sẽ được công bố bên dưới",
   automaticMatching: "tự động kết hợp",
   todayResults: "Kết quả hôm nay",

@@ -17,7 +17,7 @@
     <view class="contentStyle">
       <view class="content" v-if="!active">
         <view class="title">{{$t('paymentChannel') }}</view>
-        <view class="payment-item" @click="submit">
+        <!-- <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/tiktok.png" />
           <view class="payment-text">
             <view class="payment-text-box">
@@ -26,7 +26,7 @@
             </view>
             <view class="payment-text-grey">{{$t('douBinRecharge') }}</view>
           </view>
-        </view>
+        </view> -->
         <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/unionpay.png" />
           <view class="payment-text">
@@ -37,7 +37,7 @@
             <view class="payment-text-grey">{{$t('bankCardTransfer') }}</view>
           </view>
         </view>
-        <view class="payment-item" @click="submit">
+        <!-- <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
           <view class="payment-text">
             <view class="payment-text-box">
@@ -46,7 +46,7 @@
             </view>
             <view class="payment-text-grey">{{$t('USDTdeposit') }}</view>
           </view>
-        </view>
+        </view> -->
       </view>
     </view>
     <service />

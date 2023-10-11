@@ -29,14 +29,14 @@
                       <view class="text">
                         <view
                           >{{ $t("currencySymbol") }}
-                          {{ items.goodsPrice }}</view
+                          {{ $u.priceFormat(items.goodsPrice) }}</view
                         >
                         <view>x {{ items.goodsCount }}</view>
                       </view>
                       <view class="text yj">
                         {{ $t("commission") }}
                         {{ $t("currencySymbol") }}
-                        {{ items.commission }}
+                        {{ $u.priceFormat(items.commission) }}
                       </view>
                     </view>
                   </view>
@@ -51,13 +51,13 @@
                   <view class="li">
                     <text class="label">{{ $t("orderTotal") }}</text>
                     <text class="value"
-                      >{{ $t("currencySymbol") }} {{ items.orderAmount }}</text
+                      >{{ $t("currencySymbol") }} {{ $u.priceFormat(items.orderAmount) }}</text
                     >
                   </view>
                   <view class="li">
                     <text class="mr-10 label">{{ $t("expectedReturn") }}</text>
                     <text class="moeny">
-                      {{ $t("currencySymbol") }}{{ items.forecastReturn }}
+                      {{ $t("currencySymbol") }}{{ $u.priceFormat(items.forecastReturn) }}
                     </text>
                   </view>
                 </view>

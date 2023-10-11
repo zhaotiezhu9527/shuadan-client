@@ -92,7 +92,7 @@
               <text>{{ item.phone }}</text>
             </view>
             <view class="txt">
-              <text class="blue-text">{{ item.price }}</text>
+              <text class="blue-text">{{ $u.priceFormat(item.price) }}</text>
             </view>
             <view class="time">{{ item.date }}</view>
           </view>

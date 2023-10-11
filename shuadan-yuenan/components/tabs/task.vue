@@ -17,7 +17,7 @@
           <view class="con">
             <view class="gray">{{ $t("commissionToday") }}</view>
             <view class="blue">
-              {{ $t("currencySymbol") }}{{ moenyFn(infos.todayIncome) }}
+              {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.todayIncome) }}
             </view
             >
           </view>
@@ -30,7 +30,7 @@
           <view class="con">
             <view class="gray">{{ $t("myAssets") }}</view>
             <view class="blue">
-              {{ $t("currencySymbol") }}{{ infos.balance }}
+              {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.balance) }}
               </view
             >
           </view>
@@ -85,13 +85,13 @@
         <view class="txt">{{ $t("yesterdayTeamCommission") }}</view>
         <view class="moeny">
           {{ $t("currencySymbol")
-          }}{{ moenyFn(infos.yesterdayTeamIncome) }}</view
+          }}{{ $u.priceFormat(infos.yesterdayTeamIncome) }}</view
         >
       </view>
       <view class="item">
         <view class="txt">{{ $t("yesterdayEarnings") }}</view>
         <view class="moeny">
-          {{ $t("currencySymbol") }}{{ moenyFn(infos.yesterdayIncome) }}
+          {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.yesterdayIncome) }}
         </view>
       </view>
       <view class="item">
@@ -102,7 +102,7 @@
         <view class="txt">{{ $t("AccountFrozenAmount") }}</view>
         <view class="moeny">
           <template v-if="infos.freezeBalance"></template>
-          {{ $t("currencySymbol") }}{{ infos.freezeBalance }}
+          {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.freezeBalance) }}
         </view>
       </view>
     </view>
