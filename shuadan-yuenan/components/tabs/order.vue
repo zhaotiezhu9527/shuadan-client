@@ -26,7 +26,8 @@
         <view class="boxstyle" v-for="(item, index) in list" :key="index">
           <view class="box">
             <view class="uid">
-              {{ $t("grabOrder") }}{{ $t("number") }}：{{ item.orderNo }}
+              <!-- {{ $t("grabOrder") }} -->
+              {{ $t("number") }}：{{ item.orderNo }}
               <text class="ml-10">{{ item.dayOrderCount }}</text>
               <text v-if="item.status === 0" class="static loading"
                 >{{ $t("pending") }}</text

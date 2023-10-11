@@ -188,7 +188,7 @@ export default {
   frontPage: "trang chủ",
   record: "ghi nhớ",
   task: "nhiệm vụ",
-  personal: "cá nhân",
+  personal: "Của tôi",
   contactService: "liên hệ chăm sóc khách hàng",
   rememberPassword: "ghi nhớ mật khẩu",
   appDownload: "tải app",
