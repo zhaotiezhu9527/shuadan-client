@@ -193,4 +193,5 @@ export default {
   rememberPassword: "ghi nhớ mật khẩu",
   appDownload: "tải app",
   vipLevel: "cấp độ VIP",
+  quxiao: "Hủy bỏ",
 };
