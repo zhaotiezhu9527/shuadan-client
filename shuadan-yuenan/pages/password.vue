@@ -118,6 +118,7 @@ export default {
   display: flex;
   height: 90rpx;
   line-height: 90rpx;
+  font-size: 28rpx;
   label {
     width: 200rpx;
     margin-right: 20rpx;
@@ -127,6 +128,7 @@ export default {
     flex: 1;
     height: 90rpx;
     line-height: 90rpx;
+    font-size: 28rpx;
   }
 }
 .btn {

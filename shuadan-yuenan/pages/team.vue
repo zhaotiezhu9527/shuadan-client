@@ -215,7 +215,7 @@ export default {
     }
     &.red {
       view:nth-child(1) {
-        font-size: 32rpx;
+        font-size: 28rpx;
         color: #000;
       }
       view:nth-child(2) {

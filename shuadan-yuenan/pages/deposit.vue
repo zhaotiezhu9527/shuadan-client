@@ -225,7 +225,7 @@ export default {
       width: 200rpx;
       margin-right: 20rpx;
       color: #8799a3;
-      font-size: 30rpx;
+      font-size: 26rpx;
     }
     .title-input {
       flex: 1;
