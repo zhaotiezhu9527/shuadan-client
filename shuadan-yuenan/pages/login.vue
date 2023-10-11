@@ -52,13 +52,13 @@
           </u-input>
         </view>
         <view class="btn">
-          <u-checkbox-group v-model="checked">
+          <!-- <u-checkbox-group v-model="checked">
             <u-checkbox
               activeColor="#4e995c"
               :label="$t('rememberPassword')"
               name="1"
             ></u-checkbox>
-          </u-checkbox-group>
+          </u-checkbox-group> -->
           <u-button
             class="button"
             @click="login"
@@ -67,16 +67,16 @@
             :loading="loading"
             shape="circle"
           ></u-button>
-          <view class="nopass" @click="routePage('/pages/password')">
+          <!-- <view class="nopass" @click="routePage('/pages/password')">
             {{ $t("forgetPassword") }}
-          </view>
+          </view> -->
         </view>
       </view>
       <view class="other">
-        <view class="link" @click="routePage('/pages/onlineService')">
+        <!-- <view class="link" @click="routePage('/pages/onlineService')">
           {{ $t("contactService") }} 
-        </view>
-        <view class="link">{{ $t("appDownload") }}</view>
+        </view> -->
+        <!-- <view class="link">{{ $t("appDownload") }}</view> -->
       </view>
     </view>
     <service />
