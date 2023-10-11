@@ -184,7 +184,7 @@ export default {
     height: calc(100vh - var(--status-bar-height)) !important;
     background: linear-gradient(#dbe9fa, #f3f7fa);
     .title {
-      font-size: 36rpx;
+      font-size: 26rpx;
       font-weight: 600;
       display: flex;
       justify-content: space-between;

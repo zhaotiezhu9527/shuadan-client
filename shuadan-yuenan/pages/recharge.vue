@@ -121,6 +121,7 @@ export default {
             border-radius: 3px;
             float: left;
             margin-left: 20rpx;
+            font-size: 24rpx;
           }
           .payment-text-black{
             float: left;
