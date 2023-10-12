@@ -18,23 +18,23 @@
       <view class="rows">
         <view class="item">
           <view class="txt">{{$t('teamBalance') }}({{ $t('currency') }})</view>
-          <view class="moeny">{{ $u.priceFormat(items.teamBalance) || 0 }}</view>
+          <view class="moeny">{{ FormatAmount(items.teamBalance) || 0 }}</view>
         </view>
         <view class="item right">
           <view class="txt">{{$t('teamFlow') }}({{ $t('currency') }})</view>
-          <view class="moeny green">{{ $u.priceFormat(items.teamwithdraw) || 0 }}</view>
+          <view class="moeny green">{{ FormatAmount(items.teamwithdraw) || 0 }}</view>
         </view>
         <view class="item">
           <view class="txt">{{$t('totalTeamRecharge') }}({{ $t('currency') }})</view>
-          <view class="moeny">{{ $u.priceFormat(items.teamBet) || 0 }}</view>
+          <view class="moeny">{{ FormatAmount(items.teamBet) || 0 }}</view>
         </view>
         <view class="item right">
           <view class="txt">{{$t('totalTeamWithdraw') }}({{ $t('currency') }})</view>
-          <view class="moeny green">{{ $u.priceFormat(items.teamDeposit) || 0 }}</view>
+          <view class="moeny green">{{ FormatAmount(items.teamDeposit) || 0 }}</view>
         </view>
         <view class="item">
           <view class="txt">{{$t('teamOrderCommission') }}({{ $t('currency') }})</view>
-          <view class="moeny">{{ $u.priceFormat(items.teamIncome) || 0 }}</view>
+          <view class="moeny">{{ FormatAmount(items.teamIncome) || 0 }}</view>
         </view>
         <view class="item red">
           <view class="txt">{{$t('pushNo') }}</view>
@@ -78,11 +78,11 @@
                 <text class="blur">{{$t('phoneNo') }}:{{ item.phone || 'xxxx'}}</text>
               </view>
               <view class="li">
-                <text clas="blur">{{$t('recharge') }}:{{ $u.priceFormat(item.deposit) }}</text>
+                <text clas="blur">{{$t('recharge') }}:{{ FormatAmount(item.deposit) }}</text>
                 <text class="green">{{$t('agentNo') }}: {{ item.inviteCount }}</text>
               </view>
               <view class="li">
-                <text class="blur">{{$t('withdraw') }}:{{ $u.priceFormat(item.withdraw) }}</text>
+                <text class="blur">{{$t('withdraw') }}:{{ FormatAmount(item.withdraw) }}</text>
                 <text>{{$t('register')}}{{$t('time')}}:{{ item.registerTime }}</text>
               </view>
             </view>
@@ -127,6 +127,14 @@ export default {
         }
       });
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>

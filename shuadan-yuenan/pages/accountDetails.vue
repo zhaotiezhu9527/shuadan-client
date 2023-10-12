@@ -45,7 +45,7 @@
                 </label>
               </view>
               <view class="table-number">
-                {{ $u.priceFormat(item.amount) }}
+                {{ FormatAmount(item.amount) }}
               </view>
             </view>
           </view>
@@ -114,6 +114,14 @@ export default {
           this.loading = false;
         });
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>

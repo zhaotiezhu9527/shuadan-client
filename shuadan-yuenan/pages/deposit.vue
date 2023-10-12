@@ -32,7 +32,7 @@
             />
           </view>
           <view class="text">
-            <span>{{$t('balance') }}：{{ $u.priceFormat(balance) }}</span>
+            <span>{{$t('balance') }}：{{ FormatAmount(balance) }}</span>
             <label @click="amount = balance">{{$t('withdrawAll') }}</label>
           </view>
         </view>
@@ -61,8 +61,9 @@
               class="title-input"
               v-model="pwd"
               type="number"
-              :placeholder="$t('enterPayPassword')"
+              
             />
+            <!-- :placeholder="$t('enterPayPassword')" -->
           </view>
         </view>
       </view>
@@ -151,6 +152,14 @@ export default {
         this.amount = 0;
       }
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>

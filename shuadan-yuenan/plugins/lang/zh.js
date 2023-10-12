@@ -198,4 +198,6 @@ export default {
   appDownload: "APP下载",
   vipLevel: "VIP等级",
   quxiao: "取消",
+  userYesterday: "Hôm qua",
+  userNameNo: "Tài khoản của tôi",
 };

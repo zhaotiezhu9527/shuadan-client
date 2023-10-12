@@ -20,7 +20,7 @@ export default {
                     return format(text)
                 }
                 // 如果format非正则，非函数，则使用默认的金额格式化方法进行操作
-                return uni.$u.priceFormat(text, 2)
+                return uni.FormatAmount(text, 2)
             } if (mode === 'date') {
                 // 判断是否合法的日期或者时间戳
                 !uni.$u.test.date(text) && uni.$u.error('日期模式下，text参数需要为日期或时间戳格式')

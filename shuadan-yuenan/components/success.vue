@@ -28,15 +28,15 @@
                       </view>
                       <view class="text">
                         <view
-                          >{{ $t("currencySymbol") }}
-                          {{ $u.priceFormat(items.goodsPrice) }}</view
+                          >
+                          {{ FormatAmount(items.goodsPrice) }}</view
                         >
                         <view>x {{ items.goodsCount }}</view>
                       </view>
                       <view class="text yj">
                         {{ $t("commission") }}
-                        {{ $t("currencySymbol") }}
-                        {{ $u.priceFormat(items.commission) }}
+                        
+                        {{ FormatAmount(items.commission) }}
                       </view>
                     </view>
                   </view>
@@ -51,13 +51,13 @@
                   <view class="li">
                     <text class="label">{{ $t("orderTotal") }}</text>
                     <text class="value"
-                      >{{ $t("currencySymbol") }} {{ $u.priceFormat(items.orderAmount) }}</text
+                      > {{ FormatAmount(items.orderAmount) }}</text
                     >
                   </view>
                   <view class="li">
                     <text class="mr-10 label">{{ $t("expectedReturn") }}</text>
                     <text class="moeny">
-                      {{ $t("currencySymbol") }}{{ $u.priceFormat(items.forecastReturn) }}
+                      {{ FormatAmount(items.forecastReturn) }}
                     </text>
                   </view>
                 </view>
@@ -141,6 +141,14 @@ export default {
         });
       }, 4000);
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>

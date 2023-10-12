@@ -29,7 +29,7 @@
             <view class="money-color"
               >
               <!-- ¥ -->
-              <label class="money-number">{{ $u.priceFormat(userData.balance) }}</label>
+              <label class="money-number">{{ FormatAmount(userData.balance) }}</label>
             </view>
           </view>
           <view class="withdrawal" @click="goDeposit('/pages/deposit')"
@@ -41,18 +41,18 @@
           <view class="clear-float"></view>
           <view class="income">
             <view class="income-item">
-              <view class="income-item-text">{{ $t("yesterdayEarnings") }}</view>
-              <view class="income-item-number">{{ $u.priceFormat(infos.yesterdayIncome) }}
+              <view class="income-item-text">{{ $t("userYesterday") }}</view>
+              <view class="income-item-number">{{ FormatAmount(infos.yesterdayIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
-              <view class="income-item-number">{{ $u.priceFormat(infos.totalIncome) }}
+              <view class="income-item-number">{{ FormatAmount(infos.totalIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("todayEarnings") }}</view>
-              <view class="income-item-number">{{ $u.priceFormat(infos.todayIncome) }}
+              <view class="income-item-number">{{ FormatAmount(infos.todayIncome) }}
               </view>
             </view>
           </view>
@@ -220,6 +220,14 @@ export default {
         }
       });
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>

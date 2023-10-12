@@ -17,3 +17,12 @@ export function dateFormat(fmt, date) {
     };
     return fmt;
   }
+
+  export function formatPrice(price) {
+    return String(price)
+    .split('')
+    .reverse()
+    .reduce((prev,next,index) => {
+        return ( index % 3 ? next : next + '.') + prev
+    })
+  }

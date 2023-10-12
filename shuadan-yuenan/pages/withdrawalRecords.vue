@@ -22,7 +22,7 @@
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
-            <view class="table-money"> {{$t('withdrawalAmount') }}：{{ $u.priceFormat(item.amount) }} </view>
+            <view class="table-money"> {{$t('withdrawalAmount') }}：{{ FormatAmount(item.amount) }} </view>
             <view class="table-title"> {{$t('orderNumber') }}：{{ item.orderNo }} </view>
             <view>
               {{$t('withdrawalStatus') }}：
@@ -87,6 +87,14 @@ export default {
           this.loading = false;
         });
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>

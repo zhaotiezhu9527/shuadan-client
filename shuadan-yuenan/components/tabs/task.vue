@@ -17,7 +17,7 @@
           <view class="con">
             <view class="gray">{{ $t("commissionToday") }}</view>
             <view class="blue">
-              {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.todayIncome) }}
+              {{ FormatAmount(infos.todayIncome) }}
             </view
             >
           </view>
@@ -30,7 +30,7 @@
           <view class="con">
             <view class="gray">{{ $t("myAssets") }}</view>
             <view class="blue">
-              {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.balance) }}
+              {{ FormatAmount(infos.balance) }}
               </view
             >
           </view>
@@ -84,14 +84,13 @@
       <view class="item">
         <view class="txt">{{ $t("yesterdayTeamCommission") }}</view>
         <view class="moeny">
-          {{ $t("currencySymbol")
-          }}{{ $u.priceFormat(infos.yesterdayTeamIncome) }}</view
+          {{ FormatAmount(infos.yesterdayTeamIncome) }}</view
         >
       </view>
       <view class="item">
         <view class="txt">{{ $t("yesterdayEarnings") }}</view>
         <view class="moeny">
-          {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.yesterdayIncome) }}
+          {{ FormatAmount(infos.yesterdayIncome) }}
         </view>
       </view>
       <view class="item">
@@ -102,7 +101,7 @@
         <view class="txt">{{ $t("AccountFrozenAmount") }}</view>
         <view class="moeny">
           <template v-if="infos.freezeBalance"></template>
-          {{ $t("currencySymbol") }}{{ $u.priceFormat(infos.freezeBalance) }}
+          {{ FormatAmount(infos.freezeBalance) }}
         </view>
       </view>
     </view>
@@ -231,6 +230,14 @@ export default {
         return "" + val;
       }
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>

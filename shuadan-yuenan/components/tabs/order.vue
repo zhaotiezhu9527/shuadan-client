@@ -5,7 +5,7 @@
         <view>{{ $t("taskRecord") }}</view>
         <view class="sub_title">
           <view>{{ $t("remainingAssets") }}：</view>
-          <view>{{ $u.priceFormat(userData.balance) }}</view>
+          <view>{{ FormatAmount(userData.balance) }}</view>
         </view>
       </view>
       <view class="tabstyle">
@@ -48,14 +48,14 @@
                   </view>
                   <view class="text">
                     <view>
-                      {{ $t("currencySymbol") }} {{ $u.priceFormat(item.goodsPrice) }}
+                       {{ FormatAmount(item.goodsPrice) }}
                     </view>
                     <view>x {{ item.goodsCount }}</view>
                   </view>
                   <view class="text yj">
                     <view>
-                      {{ $t("commission") }}：{{ $t("currencySymbol")
-                      }}{{ $u.priceFormat(item.commission) }}
+                      {{ $t("commission") }}：
+                      {{ FormatAmount(item.commission) }}
                     </view>
                     <view class="num">x {{ item.commissionMul }}</view>
                   </view>
@@ -64,7 +64,7 @@
             </view>
 
             <view class="time">
-              {{ $t("grabOrder") }}{{ $t("time") }}：{{ item.orderTime }}
+              {{ $t("time") }} {{ $t("grabOrder") }}：{{ item.orderTime }}
               <text class="txt" v-if="item.orderType == 0">
                 [{{ item.promptText }}]
               </text>
@@ -77,7 +77,7 @@
               <view class="li">
                 <text>{{ $t("expectedReturn") }}：</text>
                 <text class="moeny"
-                  >{{ $t("currencySymbol") }} {{ $u.priceFormat(item.returnAmount) }}</text
+                  > {{ FormatAmount(item.returnAmount) }}</text
                 >
               </view>
               <view class="li flex" v-if="item.status === 0">
@@ -173,6 +173,14 @@ export default {
       this.current = e.index;
       this.ok();
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
   components: { success },
 };
@@ -216,6 +224,8 @@ export default {
       background: #fff;
       position: relative;
       z-index: 3;
+      text-align: center;
+      font-size: 24rpx;
     }
   }
 }
@@ -268,6 +278,7 @@ export default {
     right: 0;
     top: 0;
     font-size: 24rpx;
+    text-align: center;
     &.error {
       color: red;
     }

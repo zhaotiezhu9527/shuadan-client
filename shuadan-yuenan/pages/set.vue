@@ -37,7 +37,7 @@
         class="list-item"
       >
         <image class="icon-img" src="../static/img/user_name.png" />
-        <label>{{$t('userName') }}  {{$t('mine') }}</label>
+        <label>{{$t('userNameNo') }}</label>
         <span class="item-text">{{ userData.userName }}</span>
         <view class="icon"></view>
       </view>

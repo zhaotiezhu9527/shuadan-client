@@ -92,7 +92,7 @@
               <text>{{ item.phone }}</text>
             </view>
             <view class="txt">
-              <text class="blue-text">{{ $u.priceFormat(item.price) }}</text>
+              <text class="blue-text">{{ FormatAmount(item.price) }}</text>
             </view>
             <view class="time">{{ item.date }}</view>
           </view>
@@ -101,12 +101,12 @@
     </view>
     <view class="sub_title"> <view class="txt white">{{$t('partner') }}</view> </view>
     <view class="partners">
-      <image src="@/static/img/100028.png" mode="widthFix" />
-      <image src="@/static/img/100029.png" mode="widthFix" />
-      <image src="@/static/img/100030.png" mode="widthFix" />
-      <image src="@/static/img/100031.png" mode="widthFix" />
-      <image src="@/static/img/100032.png" mode="widthFix" />
-      <image src="@/static/img/100033.png" mode="widthFix" />
+      <image src="@/static/img/100028.jpg" />
+      <image src="@/static/img/100029.jpg" />
+      <image src="@/static/img/100030.jpg" />
+      <image src="@/static/img/100031.jpg" />
+      <image src="@/static/img/100032.jpg" />
+      <image src="@/static/img/100033.jpg" />
     </view>
   </view>
 </template>
@@ -119,6 +119,7 @@ import img018 from "@/static/img/100018.png";
 import img019 from "@/static/img/100019.png";
 import lang from "@/components/lang.vue";
 import { dateFormat } from "@/plugins/util";
+import { formatPrice } from "@/plugins/util";
 export default {
   components: {
     lang,
@@ -226,6 +227,14 @@ export default {
         }
       });
     },
+    FormatAmount(price){
+      return String(Math.floor(price))
+      .split('')
+      .reverse()
+      .reduce((prev,next,index) => {
+          return ( index % 3 ? next : next + '.') + prev
+      })
+    }
   },
 };
 </script>
@@ -346,7 +355,9 @@ export default {
   justify-content: space-between;
   image {
     width: 212rpx;
+    height: 160rpx;
     padding: 10rpx 0;
+    border-radius: 30rpx;
   }
 }
 .ranking {
