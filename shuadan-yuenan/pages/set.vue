@@ -37,7 +37,7 @@
         class="list-item"
       >
         <image class="icon-img" src="../static/img/user_name.png" />
-        <label>{{$t('mine') }}{{$t('userName') }}</label>
+        <label>{{$t('userName') }}  {{$t('mine') }}</label>
         <span class="item-text">{{ userData.userName }}</span>
         <view class="icon"></view>
       </view>
@@ -46,7 +46,7 @@
         @click="goBindBank"
       >
         <image class="icon-img" src="../static/img/my_card.png" />
-        <label>{{$t('mine') }}{{$t('bankCard') }}</label>
+        <label>{{$t('bankCard') }}</label>
         <view class="icon"></view>
       </view>
       <view
