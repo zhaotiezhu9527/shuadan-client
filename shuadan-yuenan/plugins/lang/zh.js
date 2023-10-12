@@ -200,4 +200,5 @@ export default {
   quxiao: "取消",
   userYesterday: "Hôm qua",
   userNameNo: "Tài khoản của tôi",
+  teamTime: "Thời gian đăng kí",
 };

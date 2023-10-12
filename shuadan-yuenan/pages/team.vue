@@ -22,7 +22,7 @@
         </view>
         <view class="item right">
           <view class="txt">{{$t('teamFlow') }}({{ $t('currency') }})</view>
-          <view class="moeny green">{{ FormatAmount(items.teamwithdraw) || 0 }}</view>
+          <view class="moeny green">{{ FormatAmount(items.teamWithdraw) || 0 }}</view>
         </view>
         <view class="item">
           <view class="txt">{{$t('totalTeamRecharge') }}({{ $t('currency') }})</view>
@@ -83,7 +83,7 @@
               </view>
               <view class="li">
                 <text class="blur">{{$t('withdraw') }}:{{ FormatAmount(item.withdraw) }}</text>
-                <text>{{$t('register')}}{{$t('time')}}:{{ item.registerTime }}</text>
+                <text>{{$t('teamTime')}}:{{ item.registerTime }}</text>
               </view>
             </view>
           </view>
