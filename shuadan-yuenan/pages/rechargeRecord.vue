@@ -101,7 +101,6 @@ export default {
       }
       if(result[0] == '-'){
         result.splice(1,1)
-        console.log(result)
       }
       return result.join('');
     }
