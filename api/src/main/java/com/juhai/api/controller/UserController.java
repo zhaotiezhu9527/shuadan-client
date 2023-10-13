@@ -1,6 +1,7 @@
 package com.juhai.api.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.*;
@@ -34,6 +35,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -488,6 +491,7 @@ public class UserController {
     @ApiOperation(value = "用户资金流动列表")
     @GetMapping("/account/list")
     public R accountList(PageBaseRequest request, HttpServletRequest httpServletRequest) {
+        String lang = httpServletRequest.getHeader("lang");
         String userName = JwtUtils.getUserName(httpServletRequest);
 
         Map<String, Object> params = new HashMap<>();
@@ -509,7 +513,7 @@ public class UserController {
             for (Account temp : list) {
                 JSONObject obj = new JSONObject();
                 obj.put("amount", temp.getOptAmount());
-                obj.put("optTime", temp.getOptTime());
+                obj.put("optTime", StringUtils.equals(lang, "vi_VN") ? DateUtil.format(temp.getOptTime(), "dd-MM-yyyy HH:mm:ss") : temp.getOptTime());
                 obj.put("optType", temp.getOptType());
                 obj.put("optTypeStr", typeMap.getOrDefault(temp.getOptType(), "-"));
                 arr.add(obj);
@@ -519,10 +523,10 @@ public class UserController {
         return R.ok().put("page", page);
     }
 
-
     @ApiOperation(value = "用户充值记录列表")
     @GetMapping("/deposit/list")
     public R depositList(PageBaseRequest request, HttpServletRequest httpServletRequest) {
+        String lang = httpServletRequest.getHeader("lang");
         String userName = JwtUtils.getUserName(httpServletRequest);
 
         Map<String, Object> params = new HashMap<>();
@@ -539,7 +543,8 @@ public class UserController {
             JSONArray arr = new JSONArray();
             for (Deposit temp : list) {
                 JSONObject obj = new JSONObject();
-                obj.put("time", temp.getOrderTime());
+//                obj.put("time", temp.getOrderTime());
+                obj.put("time", StringUtils.equals(lang, "vi_VN") ? DateUtil.format(temp.getOrderTime(), "dd-MM-yyyy HH:mm:ss") : temp.getOrderTime());
                 obj.put("status", temp.getStatus());
                 obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "-"));
                 obj.put("amount", temp.getOptAmount());
@@ -556,7 +561,7 @@ public class UserController {
     @GetMapping("/withdraw/list")
     public R withdrawList(PageBaseRequest request, HttpServletRequest httpServletRequest) {
         String userName = JwtUtils.getUserName(httpServletRequest);
-
+        String lang = httpServletRequest.getHeader("lang");
         Map<String, Object> params = new HashMap<>();
         params.put(Constant.PAGE, request.getPage());
         params.put(Constant.LIMIT, request.getLimit());
@@ -572,7 +577,8 @@ public class UserController {
             JSONArray arr = new JSONArray();
             for (Withdraw temp : list) {
                 JSONObject obj = new JSONObject();
-                obj.put("time", temp.getOrderTime());
+//                obj.put("time", temp.getOrderTime());
+                obj.put("time", StringUtils.equals(lang, "vi_VN") ? DateUtil.format(temp.getOrderTime(), "dd-MM-yyyy HH:mm:ss") : temp.getOrderTime());
                 obj.put("status", temp.getStatus());
                 obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "-"));
                 obj.put("amount", temp.getOptAmount());
@@ -589,7 +595,7 @@ public class UserController {
     @GetMapping("/team/{level}")
     public R teamList(HttpServletRequest httpServletRequest, @PathVariable(value = "level") Integer level) {
         String userName = JwtUtils.getUserName(httpServletRequest);
-
+        String lang = httpServletRequest.getHeader("lang");
         User user = userService.getUserByName(userName);
         List<User> teams = userService.list(
                 new LambdaQueryWrapper<User>()
@@ -605,7 +611,8 @@ public class UserController {
             obj.put("deposit", temp.getDeposit());
             obj.put("withdraw", temp.getWithdraw());
             obj.put("inviteCount", temp.getInviteCount());
-            obj.put("registerTime", temp.getRegisterTime());
+//            obj.put("registerTime", temp.getRegisterTime());
+            obj.put("registerTime", StringUtils.equals(lang, "vi_VN") ? DateUtil.format(temp.getRegisterTime(), "dd-MM-yyyy HH:mm:ss") : temp.getRegisterTime());
             array.add(obj);
         }
         return R.ok().put("data", array);
@@ -686,6 +693,7 @@ public class UserController {
     @ApiOperation(value = "用户订单列表")
     @GetMapping("/order/list")
     public R orderList(OrderListRequest request, HttpServletRequest httpServletRequest) {
+        String lang = httpServletRequest.getHeader("lang");
         String userName = JwtUtils.getUserName(httpServletRequest);
 
         Map<String, Object> params = new HashMap<>();
@@ -709,7 +717,8 @@ public class UserController {
             JSONArray arr = new JSONArray();
             for (Order temp : list) {
                 JSONObject obj = new JSONObject();
-                obj.put("orderTime", temp.getOrderTime());
+//                obj.put("orderTime", temp.getOrderTime());
+                obj.put("orderTime", StringUtils.equals(lang, "vi_VN") ? DateUtil.format(temp.getOrderTime(), "dd-MM-yyyy HH:mm:ss") : temp.getOrderTime());
                 obj.put("orderNo", temp.getOrderNo());
                 obj.put("dayOrderCount", temp.getCountNum());
                 temp.setStatus(temp.getStatus().intValue() == 4 ? 0 : temp.getStatus());
