@@ -13,7 +13,7 @@
             <view class="boxstyle">
               <view class="box">
                 <view class="uid">
-                  {{ $t("grabOrder") }}{{ $t("number") }}：{{ items.orderNo
+                  {{ $t("number") }} {{ $t("grabOrder") }}：{{ items.orderNo
                   }}<text class="num">{{ items.countNum }}</text
                   ><text class="txt" v-if="items.orderType == 0">
                     {{ items.promptText }}
@@ -42,7 +42,7 @@
                   </view>
                 </view>
                 <view class="time">
-                  {{ $t("grabOrder") }}{{ $t("time") }} {{ items.orderTime }}
+                  {{ $t("time") }} {{ $t("grabOrder") }} {{ items.orderTime }}
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
                   {{ $t("insufficientBalance") }}{{ items.balanceSub }}
@@ -325,6 +325,7 @@ export default {
       }
       .label {
         color: #969696;
+        margin-right: 40rpx;
       }
       .value {
         color: #7e869f;
