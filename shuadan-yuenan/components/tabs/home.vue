@@ -355,7 +355,7 @@ export default {
   justify-content: space-between;
   image {
     width: 212rpx;
-    height: 160rpx;
+    height: 140rpx;
     padding: 10rpx 0;
     border-radius: 30rpx;
   }

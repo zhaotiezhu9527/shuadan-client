@@ -90,7 +90,7 @@ export default {
   withdrawImmediately: "Rút tiền ngay lập tức",
   NotExceed: "Số tiền rút không được vượt mức",
   kindTips: "Lời nhắc nhở",
-  onlineService: "Trực tuyến chăm sóc khách hàng",
+  onlineService: "Trực tuyến CSKH",
   passwordManagement: "Quản lý mật khẩu",
   enterNewPassword: "Vui lòng nhập mật khẩu mới",
   oldPassword: "Mật khẩu cũ",

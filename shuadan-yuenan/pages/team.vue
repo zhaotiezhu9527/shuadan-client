@@ -74,16 +74,16 @@
             <image class="image" src="@/static/img/head.png" mode="widthFix" />
             <view class="text">
               <view class="li">
-                <text>{{$t('nickName') }}:{{ item.nickName }}</text>
-                <text class="blur">{{$t('phoneNo') }}:{{ item.phone || 'xxxx'}}</text>
+                <text>{{$t('nickName') }}：{{ item.nickName }}</text>
+                <text class="blur">{{$t('phoneNo') }}：{{ item.phone || 'xxxx'}}</text>
               </view>
               <view class="li">
-                <text clas="blur">{{$t('recharge') }}:{{ FormatAmount(item.deposit) }}</text>
+                <text clas="blur">{{$t('recharge') }}：{{ FormatAmount(item.deposit) }}</text>
                 <text class="green">{{$t('agentNo') }}: {{ item.inviteCount }}</text>
               </view>
               <view class="li">
-                <text class="blur">{{$t('withdraw') }}:{{ FormatAmount(item.withdraw) }}</text>
-                <text>{{$t('teamTime')}}:{{ item.registerTime }}</text>
+                <text class="blur">{{$t('withdraw') }}：{{ FormatAmount(item.withdraw) }}</text>
+                <text>{{$t('teamTime')}}：{{ item.registerTime }}</text>
               </view>
             </view>
           </view>
@@ -175,8 +175,8 @@ export default {
   border-bottom: 2rpx solid #f8f2f2;
   padding: 20rpx;
   .image {
-    width: 120rpx;
-    height: 120rpx;
+    width: 80rpx;
+    height: 80rpx;
   }
   .text {
     flex: 1;
