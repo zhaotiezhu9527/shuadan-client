@@ -70,20 +70,33 @@ public class SiteConfigController {
         String date = DateUtil.formatDate(new Date());
         String key = "bonuslist:" + date;
         String arrStr = redisTemplate.opsForValue().get(key);
+        String lang = httpServletRequest.getHeader("lang");
+
         if (StringUtils.isNotBlank(arrStr)) {
             return R.ok().put("data", JSONArray.parseArray(arrStr));
         }
-
         List<JSONObject> arr = new ArrayList<>();
-        List<String> phones = Arrays.asList("130", "131", "132", "155", "156", "186", "185", "134", "135", "136", "137", "138", "139", "150", "151", "152", "157", "158", "159", "182", "183", "187", "188", "");
-        for (int i = 0; i < 20; i++) {
-            JSONObject obj = new JSONObject();
-            String s = phones.get(RandomUtil.randomInt(0, phones.size() - 1));
-            String phone = s + RandomUtil.randomNumbers(8);
-            obj.put("phone", DesensitizedUtil.mobilePhone(phone));
-            obj.put("price", RandomUtil.randomLong(10, 1000) * 100);
-            obj.put("date", DateUtil.formatDate(new Date()));
-            arr.add(obj);
+        List<String> zhphones = Arrays.asList("130", "131", "132", "155", "156", "186", "185", "134", "135", "136", "137", "138", "139", "150", "151", "152", "157", "158", "159", "182", "183", "187", "188", "");
+        List<String> ynphones = Arrays.asList("0984", "0982","0985","0903","8986","0901");
+        if (StringUtils.equals(lang, "vi_VN")) {
+            for (int i = 0; i < 20; i++) {
+                JSONObject obj = new JSONObject();
+                String s = ynphones.get(RandomUtil.randomInt(0, ynphones.size() - 1));
+                obj.put("phone", s + "****" + RandomUtil.randomNumbers(3));
+                obj.put("price", RandomUtil.randomLong(1000, 100000) * 100);
+                obj.put("date", DateUtil.formatDate(new Date()));
+                arr.add(obj);
+            }
+        } else {
+            for (int i = 0; i < 20; i++) {
+                JSONObject obj = new JSONObject();
+                String s = zhphones.get(RandomUtil.randomInt(0, zhphones.size() - 1));
+                String phone = s + RandomUtil.randomNumbers(8);
+                obj.put("phone", DesensitizedUtil.mobilePhone(phone));
+                obj.put("price", RandomUtil.randomLong(10, 1000) * 100);
+                obj.put("date", DateUtil.formatDate(new Date()));
+                arr.add(obj);
+            }
         }
         redisTemplate.opsForValue().set(key, JSON.toJSONString(arr), 1, TimeUnit.HOURS);
         return R.ok().put("data", arr);
