@@ -84,7 +84,7 @@ public class SiteConfigController {
                 String s = ynphones.get(RandomUtil.randomInt(0, ynphones.size() - 1));
                 obj.put("phone", s + "****" + RandomUtil.randomNumbers(3));
                 obj.put("price", RandomUtil.randomLong(1000, 100000) * 100);
-                obj.put("date", DateUtil.formatDate(new Date()));
+                obj.put("date", DateUtil.format(new Date(), "dd-MM-yyyy"));
                 arr.add(obj);
             }
         } else {
@@ -94,7 +94,7 @@ public class SiteConfigController {
                 String phone = s + RandomUtil.randomNumbers(8);
                 obj.put("phone", DesensitizedUtil.mobilePhone(phone));
                 obj.put("price", RandomUtil.randomLong(10, 1000) * 100);
-                obj.put("date", DateUtil.format(new Date(), "dd-MM-yyyy"));
+                obj.put("date", DateUtil.formatDate(new Date()));
                 arr.add(obj);
             }
         }
