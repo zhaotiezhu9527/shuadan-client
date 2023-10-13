@@ -127,13 +127,22 @@ export default {
         }
       });
     },
-    FormatAmount(price){
-      return String(Math.floor(price))
-      .split('')
-      .reverse()
-      .reduce((prev,next,index) => {
-          return ( index % 3 ? next : next + '.') + prev
-      })
+    FormatAmount(num) {
+      var result = [],
+      counter = 0;
+      num = (Math.floor(num) || 0).toString().split('');
+      for (var i = num.length - 1; i >= 0; i--) {
+        counter++;
+        result.unshift(num[i]);
+        if (!(counter % 3) && i != 0) {
+            result.unshift('.');
+        }
+      }
+      if(result[0] == '-'){
+        result.splice(1,1)
+        console.log(result)
+      }
+      return result.join('');
     }
   },
 };

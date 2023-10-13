@@ -45,7 +45,7 @@
                   {{ $t("time") }} {{ $t("grabOrder") }} {{ items.orderTime }}
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
-                  {{ $t("insufficientBalance") }}{{ items.balanceSub }}
+                  {{ $t("insufficientBalance") }}： {{ FormatAmount(items.balanceSub) }}
                 </view>
                 <view class="ul">
                   <view class="li">
@@ -141,13 +141,22 @@ export default {
         });
       }, 4000);
     },
-    FormatAmount(price){
-      return String(Math.floor(price))
-      .split('')
-      .reverse()
-      .reduce((prev,next,index) => {
-          return ( index % 3 ? next : next + '.') + prev
-      })
+    FormatAmount(num) {
+      var result = [],
+      counter = 0;
+      num = (Math.floor(num) || 0).toString().split('');
+      for (var i = num.length - 1; i >= 0; i--) {
+        counter++;
+        result.unshift(num[i]);
+        if (!(counter % 3) && i != 0) {
+            result.unshift('.');
+        }
+      }
+      if(result[0] == '-'){
+        result.splice(1,1)
+        console.log(result)
+      }
+      return result.join('');
     }
   },
 };

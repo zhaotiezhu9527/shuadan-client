@@ -166,7 +166,7 @@ export default {
   rule2: "Để đảm bảo tính xác thực của khối lượng giao dịch của người bán, tất cả các nhiệm vụ đều được thanh toán trước và hoàn trả ngay lập tức.",
   rule3: "Khi nhận được đơn hàng khẩn cấp phải nhanh chóng gửi đi, tránh hạ điểm tín dụng của bạn khi không gửi đơn đặt hàng trong một thời gian dài", 
   orderInfo: "Giới thiệu đơn hàng",
-  insufficientBalance: "Số tiến vốn không đủ, vui lòng nạp thêm tiền",
+  insufficientBalance: "Số dư không đủ ,vui lòng nạp tiền",
   notSubmitted: "Không gửi hàng",
   submitNow: "Gửi ngay lập tức",
   remoteHost: "Đơn hàng đang được gửi đi",
