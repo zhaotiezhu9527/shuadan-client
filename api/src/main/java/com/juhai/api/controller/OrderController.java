@@ -916,6 +916,7 @@ public class OrderController {
         return R.error("订单已完成");
     }
 
+
     /**
      * 支付普通订单
      * @param user
@@ -1039,6 +1040,7 @@ public class OrderController {
     @ApiOperation(value = "订单详情")
     @GetMapping("/detail/{orderNo}")
     public R detail(HttpServletRequest httpServletRequest,@PathVariable(value = "orderNo") String orderNo) {
+        String lang = httpServletRequest.getHeader("lang");
         String userName = JwtUtils.getUserName(httpServletRequest);
 
         Order order = orderService.getOne(
@@ -1056,7 +1058,8 @@ public class OrderController {
 
         JSONObject object = new JSONObject();
         object.put("orderNo", order.getOrderNo());
-        object.put("orderTime", order.getOrderTime());
+//        object.put("orderTime", order.getOrderTime());
+        object.put("orderTime", StringUtils.equals(lang, "vi_VN") ? DateUtil.format(order.getOrderTime(), "dd-MM-yyyy HH:mm:ss") : order.getOrderTime());
         object.put("orderType", order.getOrderType());
         object.put("orderAmount", order.getOrderAmount().stripTrailingZeros());
         object.put("countNum", order.getCountNum());
