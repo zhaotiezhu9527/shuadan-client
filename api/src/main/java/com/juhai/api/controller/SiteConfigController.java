@@ -94,7 +94,7 @@ public class SiteConfigController {
                 String phone = s + RandomUtil.randomNumbers(8);
                 obj.put("phone", DesensitizedUtil.mobilePhone(phone));
                 obj.put("price", RandomUtil.randomLong(10, 1000) * 100);
-                obj.put("date", DateUtil.formatDate(new Date()));
+                obj.put("date", DateUtil.format(new Date(), "dd-MM-yyyy"));
                 arr.add(obj);
             }
         }
