@@ -1,5 +1,5 @@
 {
-    "name" : "天下商城",
+    "name" : "Picodi",
     "appid" : "__UNI__8475A5A",
     "description" : "",
     "versionName" : "1.0.1",
@@ -107,7 +107,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "天下商城",
+        "title" : "Picodi",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",

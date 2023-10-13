@@ -35,10 +35,10 @@ const app = new Vue({
 Vue.mixin({
   onShow() {
     uni.setNavigationBarTitle({
-      title: "天下商城",
+      title: "Picodi",
     });
     // #ifdef H5
-    document.title = "天下商城";
+    document.title = "Picodi";
     // #endif
   },
 });

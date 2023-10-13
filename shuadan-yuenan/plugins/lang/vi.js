@@ -1,6 +1,6 @@
 export default {
-  companyName: "天下商城",
-  version: "版本号",
+  companyName: "Picodi",
+  version: "số phiên bản",
   userLogin: "Đăng nhập tài khoản",
   enterAccount: "Vui lòng nhập tài khoản",
   enterPassword: "Đăng nhập mật khẩu",
