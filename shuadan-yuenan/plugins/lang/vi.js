@@ -175,7 +175,7 @@ export default {
   supportHours: "Thời gian làm việc: 9:00-22:00",
   connect: "Liên hệ",
   paymentChannel: "Vui lòng chọn phương thức thanh toán",
-  bankCardTransfer: "Thanh toán ngân hàng",
+  bankCardTransfer: "Thanh toan bằng thẻ ngân hàng",
   recommend: "Mời bạn bè",
   vipLevel: "Cấp độ VIP",
   revenueList: "Tiền lợi nhuận",
