@@ -125,7 +125,7 @@ export default {
             result.unshift('.');
         }
       }
-      if(result[0] == '-'){
+      if(result[0] == '-' && result[1] == '.'){
         result.splice(1,1)
       }
       return result.join('');
