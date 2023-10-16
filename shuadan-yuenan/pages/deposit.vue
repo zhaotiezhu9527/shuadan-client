@@ -17,8 +17,8 @@
     <view class="main">
       <view class="title">
         <view class="title-text">
-          <span>{{$t('withdrawalAmount') }}</span>
-          <label>{{$t('withdrawalRate') }}{{ withdrawFee }}%</label>
+          <span>{{ $t("withdrawalAmount") }}</span>
+          <label>{{ $t("withdrawalRate") }}{{ withdrawFee }}%</label>
         </view>
         <view class="title-content">
           <view class="money">
@@ -32,8 +32,8 @@
             />
           </view>
           <view class="text">
-            <span>{{$t('balance') }}：{{ FormatAmount(balance) }}</span>
-            <label @click="amount = balance">{{$t('withdrawAll') }}</label>
+            <span>{{ $t("balance") }}：{{ FormatAmount(balance) }}</span>
+            <label @click="amount = balance">{{ $t("withdrawAll") }}</label>
           </view>
         </view>
       </view>
@@ -44,33 +44,28 @@
             <span>{{ phone }}</span>
           </view> -->
           <view class="detail">
-            <label>{{$t('bankNo') }}</label>
+            <label>{{ $t("bankNo") }}</label>
             <span>{{ bankNo }}</span>
           </view>
           <view class="detail">
-            <label>{{$t('bankName') }}</label>
+            <label>{{ $t("bankName") }}</label>
             <span>{{ bankName }}</span>
           </view>
           <view class="detail">
-            <label>{{$t('realName') }}</label>
+            <label>{{ $t("realName") }}</label>
             <span>{{ realName }}</span>
           </view>
           <view class="detail">
-            <label>{{$t('payPassword') }}</label>
-            <input
-              class="title-input"
-              v-model="pwd"
-              type="number"
-              
-            />
+            <label>{{ $t("payPassword") }}</label>
+            <input class="title-input" v-model="pwd" type="number" />
             <!-- :placeholder="$t('enterPayPassword')" -->
           </view>
         </view>
       </view>
       <view class="foot-text">
         *<br />
-        {{$t('checkInfo') }}<br />
-        {{$t('handlingFee') }} {{ withdrawFee }}%
+        {{ $t("checkInfo") }}<br />
+        {{ $t("handlingFee") }} {{ withdrawFee }}%
       </view>
       <view class="btn">
         <u-button
@@ -80,7 +75,7 @@
           @click="submit"
           :loading="loading"
         >
-        {{$t('withdrawImmediately') }}
+          {{ $t("withdrawImmediately") }}
         </u-button>
       </view>
     </view>
@@ -88,9 +83,11 @@
 </template>
 
 <script>
+import { FormatAmount } from "@/plugins/util";
 export default {
   data() {
     return {
+      FormatAmount,
       amount: "",
       loading: false,
       phone: "", //手机号
@@ -108,11 +105,11 @@ export default {
   methods: {
     submit() {
       if (!this.amount) {
-        return this.$base.show(this.$t('enterWithdrawalAmount'));
+        return this.$base.show(this.$t("enterWithdrawalAmount"));
       } else if (!this.pwd) {
-        return this.$base.show(this.$t('enterPayPassword'));
+        return this.$base.show(this.$t("enterPayPassword"));
       } else if (this.amount > this.balance) {
-        return this.$base.show(this.$t('NotExceed') + this.balance);
+        return this.$base.show(this.$t("NotExceed") + this.balance);
       }
       this.loading = true;
       const DATA_OBJ = {
@@ -152,22 +149,6 @@ export default {
         this.amount = 0;
       }
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
 };
 </script>

@@ -22,10 +22,14 @@
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
-            <view class="table-money"> {{$t('rechargeAmount') }}：{{ FormatAmount(item.amount) }} </view>
-            <view class="table-title"> {{$t('orderNumber') }}：{{ item.orderNo }} </view>
+            <view class="table-money">
+              {{ $t("rechargeAmount") }}：{{ FormatAmount(item.amount) }}
+            </view>
+            <view class="table-title">
+              {{ $t("orderNumber") }}：{{ item.orderNo }}
+            </view>
             <view>
-              {{$t('rechargeStatus') }}：
+              {{ $t("rechargeStatus") }}：
               <label v-if="item.status == 0" class="yellow-text">
                 {{ item.statusStr }}
               </label>
@@ -38,8 +42,8 @@
             </view>
           </view>
         </u-list-item>
-        <view class="loading" v-if="loading">{{$t('loading') }}...</view>
-        <view class="nomore" v-if="finished">{{$t('noMore') }}</view>
+        <view class="loading" v-if="loading">{{ $t("loading") }}...</view>
+        <view class="nomore" v-if="finished">{{ $t("noMore") }}</view>
       </u-list>
       <u-empty class="empty" :text="$t('noData')" v-else />
     </view>
@@ -47,9 +51,11 @@
 </template>
 
 <script>
+import { FormatAmount } from "@/plugins/util";
 export default {
   data() {
     return {
+      FormatAmount,
       list: [], //列表数据
       loading: false,
       finished: false,
@@ -90,20 +96,20 @@ export default {
     },
     FormatAmount(num) {
       var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
+        counter = 0;
+      num = (Math.floor(num) || 0).toString().split("");
       for (var i = num.length - 1; i >= 0; i--) {
         counter++;
         result.unshift(num[i]);
         if (!(counter % 3) && i != 0) {
-            result.unshift('.');
+          result.unshift(".");
         }
       }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
+      if (result[0] == "-" && result[1] == ".") {
+        result.splice(1, 1);
       }
-      return result.join('');
-    }
+      return result.join("");
+    },
   },
 };
 </script>

@@ -15,9 +15,9 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">{{$t('personalInformation') }}</view>
+      <view class="title">{{ $t("personalInformation") }}</view>
       <view class="from-input">
-        <label>{{$t('realName') }}</label>
+        <label>{{ $t("realName") }}</label>
         <input
           type="text"
           v-model="userData.realName"
@@ -27,7 +27,7 @@
         />
       </view>
       <view class="from-input">
-        <label>{{$t('phoneNo') }}</label>
+        <label>{{ $t("phoneNo") }}</label>
         <input
           type="text"
           v-model="userData.phone"
@@ -36,9 +36,9 @@
           :placeholder="$t('noPhone')"
         />
       </view>
-      <view class="title">{{$t('cardDetails') }}</view>
+      <view class="title">{{ $t("cardDetails") }}</view>
       <view class="from-input">
-        <label>{{$t('bankNo') }}</label>
+        <label>{{ $t("bankNo") }}</label>
         <input
           type="text"
           v-model="userData.bankNo"
@@ -48,7 +48,7 @@
         />
       </view>
       <view class="from-input">
-        <label>{{$t('bankName') }}</label>
+        <label>{{ $t("bankName") }}</label>
         <input
           type="text"
           v-model="userData.bankName"
@@ -58,7 +58,7 @@
         />
       </view>
       <view class="from-input">
-        <label>{{$t('addr') }}</label>
+        <label>{{ $t("addr") }}</label>
         <input
           type="text"
           v-model="userData.bankAddr"
@@ -69,7 +69,7 @@
       </view>
       <view class="btn">
         <u-button v-if="bindStatus" class="custom-style" color="#9d9d9c" block>
-          {{$t('modifyService') }}
+          {{ $t("modifyService") }}
         </u-button>
         <u-button
           v-else-if="!bindStatus"
@@ -79,7 +79,7 @@
           @click="submit"
           :loading="loading"
         >
-        {{$t('confirm') }}
+          {{ $t("confirm") }}
         </u-button>
       </view>
     </view>
@@ -101,24 +101,21 @@ export default {
       bindStatus: false, //绑定状态
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-  },
   onShow() {
     this.getInfo();
   },
   methods: {
     submit() {
       if (!this.userData.realName) {
-        return this.$base.show(this.$t('noRealName'));
+        return this.$base.show(this.$t("noRealName"));
       } else if (!this.userData.phone) {
-        return this.$base.show(this.$t('noPhone'));
+        return this.$base.show(this.$t("noPhone"));
       } else if (!this.userData.bankNo) {
-        return this.$base.show(this.$t('noBankNo'));
+        return this.$base.show(this.$t("noBankNo"));
       } else if (!this.userData.bankName) {
-        return this.$base.show(this.$t('noBankName'));
+        return this.$base.show(this.$t("noBankName"));
       } else if (!this.userData.bankAddr) {
-        return this.$base.show(this.$t('noAddr'));
+        return this.$base.show(this.$t("noAddr"));
       }
       this.loading = true;
       const DATA_OBJ = {
@@ -144,7 +141,7 @@ export default {
     //用户列表数据
     getInfo() {
       uni.showLoading({
-        title: this.$t('loading'),
+        title: this.$t("loading"),
       });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {

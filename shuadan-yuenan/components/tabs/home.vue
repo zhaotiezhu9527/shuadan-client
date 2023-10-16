@@ -44,7 +44,9 @@
         <div v-html="homeNotice"></div>
       </marquee>
     </view>
-    <view class="sub_title"> <view class="txt">{{$t('vipLevel') }}</view> </view>
+    <view class="sub_title">
+      <view class="txt">{{ $t("vipLevel") }}</view>
+    </view>
     <view class="list">
       <view
         class="item"
@@ -67,11 +69,13 @@
             v-if="!item.unlock"
             src="@/static/img/10004.png"
           />
-          <view v-else>{{$t('unlocked') }}</view>
+          <view v-else>{{ $t("unlocked") }}</view>
         </view>
       </view>
     </view>
-    <view class="sub_title"> <view class="txt white">{{$t('revenueList') }}</view> </view>
+    <view class="sub_title">
+      <view class="txt white">{{ $t("revenueList") }}</view>
+    </view>
     <view class="ranking">
       <view class="notice__inner">
         <view
@@ -99,7 +103,9 @@
         </view>
       </view>
     </view>
-    <view class="sub_title"> <view class="txt white">{{$t('partner') }}</view> </view>
+    <view class="sub_title">
+      <view class="txt white">{{ $t("partner") }}</view>
+    </view>
     <view class="partners">
       <image src="@/static/img/100028.jpg" />
       <image src="@/static/img/100029.jpg" />
@@ -118,33 +124,33 @@ import img017 from "@/static/img/100017.png";
 import img018 from "@/static/img/100018.png";
 import img019 from "@/static/img/100019.png";
 import lang from "@/components/lang.vue";
-import { dateFormat } from "@/plugins/util";
-import { formatPrice } from "@/plugins/util";
+import { dateFormat, FormatAmount } from "@/plugins/util";
 export default {
   components: {
     lang,
   },
   data() {
     return {
+      FormatAmount,
       swiper: [img014],
       nav: [
         {
-          name: this.$t('recharge'),
+          name: this.$t("recharge"),
           img: img015,
           url: "/pages/recharge",
         },
         {
-          name: this.$t('withdraw'),
+          name: this.$t("withdraw"),
           img: img017,
           url: "/pages/deposit",
         },
         {
-          name: this.$t('invite'),
+          name: this.$t("invite"),
           img: img018,
           url: "/pages/promotion",
         },
         {
-          name: this.$t('announcement'),
+          name: this.$t("announcement"),
           img: img019,
           url: "/pages/message",
         },
@@ -160,9 +166,8 @@ export default {
     };
   },
   methods: {
-    async open() {
-      await this.$onLaunched;
-      this.homeNotice = uni.getStorageSync("config").homeNotice;
+    open() {
+      this.getConfig();
       this.getInfo();
       this.getList();
       this.$api.area_list().then(({ data }) => {
@@ -170,6 +175,13 @@ export default {
           this.list = data.data;
         } else {
           this.$base.show(data.msg);
+        }
+      });
+    },
+    getConfig() {
+      this.$api.system_config().then(({ data }) => {
+        if (data.code == 0) {
+          this.homeNotice = data.data.homeNotice;
         }
       });
     },
@@ -223,26 +235,10 @@ export default {
     getList() {
       this.$api.system_bounslist().then((res) => {
         if (res.data.code == 0) {
-          this.ranking = res.data.data
+          this.ranking = res.data.data;
         }
       });
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
 };
 </script>
@@ -274,9 +270,7 @@ export default {
     }
     .txt {
       font-size: 28rpx;
-      
     }
-    
   }
 }
 .notice {
@@ -410,7 +404,7 @@ export default {
     color: #999999;
   }
 }
-.blue-text{
-  color: #2E68F2;
+.blue-text {
+  color: #2e68f2;
 }
 </style>

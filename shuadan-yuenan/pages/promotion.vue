@@ -24,10 +24,14 @@
             size="150"
           ></uqrcode>
         </view>
-        <view class="txt">{{$t('referralCode') }}:{{ infos.inviteCode }}</view>
+        <view class="txt">{{ $t("referralCode") }}:{{ infos.inviteCode }}</view>
       </view>
       <view style="padding-top: 40rpx">
-        <u-button color="#89bfdb" :text="$t('inviteFriends')" @click="change"></u-button>
+        <u-button
+          color="#89bfdb"
+          :text="$t('inviteFriends')"
+          @click="change"
+        ></u-button>
       </view>
     </view>
   </view>
@@ -42,18 +46,22 @@ export default {
       api: "",
     };
   },
-  async onLoad() {
-    await this.$onLaunched;
-    this.api = uni.getStorageSync("config").webDomain;
-  },
   onShow() {
     this.getInfo();
+    this.getConfig();
   },
   methods: {
+    getConfig() {
+      this.$api.system_config().then(({ data }) => {
+        if (data.code == 0) {
+          this.api = data.data.webDomain;
+        }
+      });
+    },
     //用户列表数据
     getInfo() {
       uni.showLoading({
-        title: this.$t('loading'),
+        title: this.$t("loading"),
       });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {

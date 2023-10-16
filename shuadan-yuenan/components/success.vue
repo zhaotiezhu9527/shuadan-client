@@ -27,15 +27,12 @@
                         {{ items.goodsName }}
                       </view>
                       <view class="text">
-                        <view
-                          >
-                          {{ FormatAmount(items.goodsPrice) }}</view
-                        >
+                        <view> {{ FormatAmount(items.goodsPrice) }}</view>
                         <view>x {{ items.goodsCount }}</view>
                       </view>
                       <view class="text yj">
                         {{ $t("commission") }}
-                        
+
                         {{ FormatAmount(items.commission) }}
                       </view>
                     </view>
@@ -45,13 +42,14 @@
                   {{ $t("time") }} {{ $t("grabOrder") }} {{ items.orderTime }}
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
-                  {{ $t("insufficientBalance") }}： {{ FormatAmount(items.balanceSub) }}
+                  {{ $t("insufficientBalance") }}：
+                  {{ FormatAmount(items.balanceSub) }}
                 </view>
                 <view class="ul">
                   <view class="li">
                     <text class="label">{{ $t("orderTotal") }}</text>
-                    <text class="value"
-                      > {{ FormatAmount(items.orderAmount) }}</text
+                    <text class="value">
+                      {{ FormatAmount(items.orderAmount) }}</text
                     >
                   </view>
                   <view class="li">
@@ -100,11 +98,13 @@
 </template>
 
 <script>
+import { FormatAmount } from "@/plugins/util";
 export default {
   data() {
     return {
       show: false,
       loading: false,
+      FormatAmount,
       items: {},
     };
   },
@@ -141,22 +141,6 @@ export default {
         });
       }, 4000);
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
 };
 </script>

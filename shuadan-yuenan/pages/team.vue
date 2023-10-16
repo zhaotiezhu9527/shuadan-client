@@ -17,43 +17,53 @@
     <view class="scroll">
       <view class="rows">
         <view class="item">
-          <view class="txt">{{$t('teamBalance') }}({{ $t('currency') }})</view>
+          <view class="txt">{{ $t("teamBalance") }}({{ $t("currency") }})</view>
           <view class="moeny">{{ FormatAmount(items.teamBalance) || 0 }}</view>
         </view>
         <view class="item right">
-          <view class="txt">{{$t('teamFlow') }}({{ $t('currency') }})</view>
-          <view class="moeny green">{{ FormatAmount(items.teamWithdraw) || 0 }}</view>
+          <view class="txt">{{ $t("teamFlow") }}({{ $t("currency") }})</view>
+          <view class="moeny green">{{
+            FormatAmount(items.teamWithdraw) || 0
+          }}</view>
         </view>
         <view class="item">
-          <view class="txt">{{$t('totalTeamRecharge') }}({{ $t('currency') }})</view>
+          <view class="txt"
+            >{{ $t("totalTeamRecharge") }}({{ $t("currency") }})</view
+          >
           <view class="moeny">{{ FormatAmount(items.teamBet) || 0 }}</view>
         </view>
         <view class="item right">
-          <view class="txt">{{$t('totalTeamWithdraw') }}({{ $t('currency') }})</view>
-          <view class="moeny green">{{ FormatAmount(items.teamDeposit) || 0 }}</view>
+          <view class="txt"
+            >{{ $t("totalTeamWithdraw") }}({{ $t("currency") }})</view
+          >
+          <view class="moeny green">{{
+            FormatAmount(items.teamDeposit) || 0
+          }}</view>
         </view>
         <view class="item">
-          <view class="txt">{{$t('teamOrderCommission') }}({{ $t('currency') }})</view>
+          <view class="txt"
+            >{{ $t("teamOrderCommission") }}({{ $t("currency") }})</view
+          >
           <view class="moeny">{{ FormatAmount(items.teamIncome) || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">{{$t('pushNo') }}</view>
+          <view class="txt">{{ $t("pushNo") }}</view>
           <view class="moeny">{{ items.inviteCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">{{$t('teamNo') }}</view>
+          <view class="txt">{{ $t("teamNo") }}</view>
           <view class="moeny">{{ items.teamMemberCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">{{$t('firstNo') }}</view>
+          <view class="txt">{{ $t("firstNo") }}</view>
           <view class="moeny">{{ items.depositCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">{{$t('addNo') }}</view>
+          <view class="txt">{{ $t("addNo") }}</view>
           <view class="moeny">{{ items.newRegisterCount || 0 }}</view>
         </view>
         <view class="item red">
-          <view class="txt">{{$t('activeNo') }}</view>
+          <view class="txt">{{ $t("activeNo") }}</view>
           <view class="moeny">{{ items.activeCount || 0 }}</view>
         </view>
       </view>
@@ -74,16 +84,24 @@
             <image class="image" src="@/static/img/head.png" mode="widthFix" />
             <view class="text">
               <view class="li">
-                <text>{{$t('nickName') }}：{{ item.nickName }}</text>
-                <text class="blur">{{$t('phoneNo') }}：{{ item.phone || 'xxxx'}}</text>
+                <text>{{ $t("nickName") }}：{{ item.nickName }}</text>
+                <text class="blur"
+                  >{{ $t("phoneNo") }}：{{ item.phone || "xxxx" }}</text
+                >
               </view>
               <view class="li">
-                <text clas="blur">{{$t('recharge') }}：{{ FormatAmount(item.deposit) }}</text>
-                <text class="green">{{$t('agentNo') }}: {{ item.inviteCount }}</text>
+                <text clas="blur"
+                  >{{ $t("recharge") }}：{{ FormatAmount(item.deposit) }}</text
+                >
+                <text class="green"
+                  >{{ $t("agentNo") }}: {{ item.inviteCount }}</text
+                >
               </view>
               <view class="li">
-                <text class="blur">{{$t('withdraw') }}：{{ FormatAmount(item.withdraw) }}</text>
-                <text>{{$t('teamTime')}}：{{ item.registerTime }}</text>
+                <text class="blur"
+                  >{{ $t("withdraw") }}：{{ FormatAmount(item.withdraw) }}</text
+                >
+                <text>{{ $t("teamTime") }}：{{ item.registerTime }}</text>
               </view>
             </view>
           </view>
@@ -94,15 +112,21 @@
   </view>
 </template>
 <script>
+import { FormatAmount } from "@/plugins/util";
 export default {
   data() {
     return {
+      FormatAmount,
       list: [], //列表数据
       loading: false,
       active: 0,
       datetime: Number(new Date()),
       items: {},
-      nav: [{ name: this.$t('level1')}, { name: this.$t('level2')}, { name: this.$t('level3') }],
+      nav: [
+        { name: this.$t("level1") },
+        { name: this.$t("level2") },
+        { name: this.$t("level3") },
+      ],
     };
   },
   onShow() {
@@ -127,22 +151,6 @@ export default {
         }
       });
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
 };
 </script>

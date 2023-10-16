@@ -12,11 +12,12 @@
               <label class="name">{{ userData.nickName }}</label>
               <!-- <label class="grade">{{ userData.levelName }}</label> -->
               <image class="level-img" :src="userData.levelIcon" />
-             
             </view>
-            <view class="code"> 
-              <text>{{$t('referralCode') }}: {{ userData.inviteCode }}</text>
-              <label class="credit">{{$t('credit') }}:{{ userData.creditValue }}</label>
+            <view class="code">
+              <text>{{ $t("referralCode") }}: {{ userData.inviteCode }}</text>
+              <label class="credit"
+                >{{ $t("credit") }}:{{ userData.creditValue }}</label
+              >
             </view>
           </view>
           <!-- <view class="customer-box">
@@ -25,34 +26,38 @@
         </view>
         <view class="money">
           <view class="balance">
-            <view>{{$t('accountBalance') }}</view>
-            <view class="money-color"
-              >
+            <view>{{ $t("accountBalance") }}</view>
+            <view class="money-color">
               <!-- ¥ -->
-              <label class="money-number">{{ FormatAmount(userData.balance) }}</label>
+              <label class="money-number">{{
+                FormatAmount(userData.balance)
+              }}</label>
             </view>
           </view>
-          <view class="withdrawal" @click="goDeposit('/pages/deposit')"
-            >{{$t('withdraw') }}</view
-          >
-          <view class="recharge" @click="goDeposit('/pages/recharge')"
-            >{{$t('recharge') }}</view
-          >
+          <view class="withdrawal" @click="goDeposit('/pages/deposit')">{{
+            $t("withdraw")
+          }}</view>
+          <view class="recharge" @click="goDeposit('/pages/recharge')">{{
+            $t("recharge")
+          }}</view>
           <view class="clear-float"></view>
           <view class="income">
             <view class="income-item">
               <view class="income-item-text">{{ $t("userYesterday") }}</view>
-              <view class="income-item-number">{{ FormatAmount(infos.yesterdayIncome) }}
+              <view class="income-item-number"
+                >{{ FormatAmount(infos.yesterdayIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
-              <view class="income-item-number">{{ FormatAmount(infos.totalIncome) }}
+              <view class="income-item-number"
+                >{{ FormatAmount(infos.totalIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("todayEarnings") }}</view>
-              <view class="income-item-number">{{ FormatAmount(infos.todayIncome) }}
+              <view class="income-item-number"
+                >{{ FormatAmount(infos.todayIncome) }}
               </view>
             </view>
           </view>
@@ -79,7 +84,7 @@
           @click="loginoutShow = true"
           :loading="loading"
         >
-        {{$t('logout') }}
+          {{ $t("logout") }}
         </u-button>
       </view>
       <u-modal
@@ -94,7 +99,7 @@
         :confirmText="$t('logout')"
         :cancelText="$t('quxiao')"
       >
-        <view class="content">{{$t('confirmLogout') }}</view>
+        <view class="content">{{ $t("confirmLogout") }}</view>
       </u-modal>
     </view>
   </view>
@@ -105,10 +110,11 @@ import { FormatAmount } from "@/plugins/util";
 export default {
   data() {
     return {
+      FormatAmount,
       loading: false, //加载状态
       list: [
         {
-          label: this.$t('personalInformation'),
+          label: this.$t("personalInformation"),
           icon: "user.png",
           url: "/pages/set",
         },
@@ -118,22 +124,22 @@ export default {
         //   url: "/pages/index?tabs=1",
         // },
         {
-          label: this.$t('accountDetails'),
+          label: this.$t("accountDetails"),
           icon: "list.png",
           url: "/pages/accountDetails",
         },
         {
-          label: this.$t('teamReports'),
+          label: this.$t("teamReports"),
           icon: "team.png",
           url: "/pages/team",
         },
         {
-          label: this.$t('rechargeRecord'),
+          label: this.$t("rechargeRecord"),
           icon: "recharge.png",
           url: "/pages/rechargeRecord",
         },
         {
-          label: this.$t('withdrawalsRecord'),
+          label: this.$t("withdrawalsRecord"),
           icon: "withdrawal.png",
           url: "/pages/withdrawalRecords",
         },
@@ -147,7 +153,6 @@ export default {
         //   icon: "message.png",
         //   url: "/pages/message",
         // },
-        
       ],
       userData: {
         nickName: "", //昵称
@@ -161,7 +166,7 @@ export default {
       },
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
-      infos: {},//收益数据
+      infos: {}, //收益数据
     };
   },
   methods: {
@@ -181,7 +186,7 @@ export default {
       });
     },
     goPage({ label, url }) {
-      if (label === this.$t('financialHistory')) {
+      if (label === this.$t("financialHistory")) {
         uni.reLaunch({
           url: url,
         });
@@ -197,7 +202,7 @@ export default {
           url,
         });
       } else {
-        this.$base.show(this.$t('cardMsg'));
+        this.$base.show(this.$t("cardMsg"));
       }
     },
     //用户列表数据
@@ -221,22 +226,6 @@ export default {
         }
       });
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
 };
 </script>
@@ -310,13 +299,12 @@ export default {
           margin-left: 12rpx;
           margin-top: 8rpx;
         }
-       
       }
       .code {
         margin-top: 14rpx;
         font-size: 26rpx;
         .credit {
-          background: #D8E4F9;
+          background: #d8e4f9;
           height: 37.5rpx;
           line-height: 35.5rpx;
           margin-left: 12rpx;
@@ -329,9 +317,9 @@ export default {
         }
       }
     }
-    .customer-box{
+    .customer-box {
       float: right;
-      .customer-img{
+      .customer-img {
         width: 52rpx;
         height: 52rpx;
         margin-right: 44rpx;
@@ -343,7 +331,7 @@ export default {
     width: 90%;
     height: 336rpx;
     margin: 20rpx auto auto;
-    background-color: rgba(98,176,233,0.5);
+    background-color: rgba(98, 176, 233, 0.5);
     backdrop-filter: blur(5px);
     padding: 0 32rpx;
     border-radius: 10rpx;
@@ -368,8 +356,8 @@ export default {
       height: 56rpx;
       text-align: center;
       line-height: 56rpx;
-      background-color: #D8E4F9;
-      color: #2E68F2;
+      background-color: #d8e4f9;
+      color: #2e68f2;
       border-radius: 28rpx;
       margin: 54rpx 0 0 32rpx;
       font-size: 28rpx;
@@ -380,25 +368,25 @@ export default {
       height: 56rpx;
       text-align: center;
       line-height: 56rpx;
-      background-color: #D8E4F9;
-      color: #2E68F2;
+      background-color: #d8e4f9;
+      color: #2e68f2;
       border-radius: 28rpx;
       margin: 54rpx 0 0 20rpx;
       font-size: 28rpx;
     }
-    .income{
+    .income {
       display: flex;
       margin-top: 40rpx;
-      .income-item{
+      .income-item {
         width: 33.33%;
         text-align: center;
-        .income-item-text{
+        .income-item-text {
           font-size: 24rpx;
         }
-        .income-item-number{
-          text-shadow: 0 0 6rpx #2E68F2;
+        .income-item-number {
+          text-shadow: 0 0 6rpx #2e68f2;
           font-size: 24rpx;
-          margin-top: 30rpx
+          margin-top: 30rpx;
         }
       }
     }

@@ -50,8 +50,8 @@
             </view>
           </view>
         </u-list-item>
-        <view class="loading" v-if="loading">{{$t('loading') }}...</view>
-        <view class="nomore" v-if="finished">{{$t('noMore') }}</view>
+        <view class="loading" v-if="loading">{{ $t("loading") }}...</view>
+        <view class="nomore" v-if="finished">{{ $t("noMore") }}</view>
       </u-list>
       <u-empty class="empty" :text="$t('noData')" v-else />
     </view>
@@ -59,9 +59,11 @@
 </template>
 
 <script>
+import { FormatAmount } from "@/plugins/util";
 export default {
   data() {
     return {
+      FormatAmount,
       list: [], //列表数据
       loading: false,
       finished: false,
@@ -70,13 +72,13 @@ export default {
       page: 0,
       nav: [
         {
-          name: this.$t('allType'),
+          name: this.$t("allType"),
         },
         {
-          name: this.$t('withdrawalsRecord'),
+          name: this.$t("withdrawalsRecord"),
         },
         {
-          name: this.$t('rechargeRecord'),
+          name: this.$t("rechargeRecord"),
         },
       ],
     };
@@ -114,22 +116,6 @@ export default {
           this.loading = false;
         });
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
 };
 </script>

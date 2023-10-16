@@ -18,11 +18,12 @@
             <view class="gray">{{ $t("commissionToday") }}</view>
             <view class="blue">
               {{ FormatAmount(infos.todayIncome) }}
-            </view
-            >
+            </view>
           </view>
         </view>
-        <view style="width: 30%" class="gray">{{ $t("updateCommissionToday") }}</view>
+        <view style="width: 30%" class="gray">{{
+          $t("updateCommissionToday")
+        }}</view>
       </view>
       <view class="li">
         <view class="flex">
@@ -31,11 +32,12 @@
             <view class="gray">{{ $t("myAssets") }}</view>
             <view class="blue">
               {{ FormatAmount(infos.balance) }}
-              </view
-            >
+            </view>
           </view>
         </view>
-        <view style="width: 30%" class="gray">{{ $t("addedTotalBalance") }}</view>
+        <view style="width: 30%" class="gray">{{
+          $t("addedTotalBalance")
+        }}</view>
       </view>
     </view>
     <view class="list">
@@ -123,10 +125,12 @@
 </template>
 <script>
 import success from "@/components/success.vue";
+import { FormatAmount } from "@/plugins/util";
 export default {
   components: { success },
   data() {
     return {
+      FormatAmount,
       items: {},
       infos: {},
       animation: [
@@ -230,22 +234,6 @@ export default {
         return "" + val;
       }
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
 };
 </script>

@@ -29,15 +29,15 @@
               <!-- {{ $t("grabOrder") }} -->
               {{ $t("number") }}：{{ item.orderNo }}
               <text class="ml-10">{{ item.dayOrderCount }}</text>
-              <text v-if="item.status === 0" class="static loading"
-                >{{ $t("pending") }}</text
-              >
-              <text v-else-if="item.status === 1" class="static success"
-                >{{ $t("completed") }}</text
-              >
-              <text v-else-if="item.status === 2" class="static error"
-                >{{ $t("freezing") }}</text
-              >
+              <text v-if="item.status === 0" class="static loading">{{
+                $t("pending")
+              }}</text>
+              <text v-else-if="item.status === 1" class="static success">{{
+                $t("completed")
+              }}</text>
+              <text v-else-if="item.status === 2" class="static error">{{
+                $t("freezing")
+              }}</text>
             </view>
             <view class="goodsstyle">
               <view class="goods">
@@ -48,7 +48,7 @@
                   </view>
                   <view class="text">
                     <view>
-                       {{ FormatAmount(item.goodsPrice) }}
+                      {{ FormatAmount(item.goodsPrice) }}
                     </view>
                     <view>x {{ item.goodsCount }}</view>
                   </view>
@@ -76,8 +76,8 @@
               </view> -->
               <view class="li">
                 <text>{{ $t("expectedReturn") }}：</text>
-                <text class="moeny"
-                  > {{ FormatAmount(item.returnAmount) }}</text
+                <text class="moeny">
+                  {{ FormatAmount(item.returnAmount) }}</text
                 >
               </view>
               <view class="li flex" v-if="item.status === 0">
@@ -96,9 +96,11 @@
 </template>
 <script>
 import success from "@/components/success.vue";
+import { FormatAmount } from "@/plugins/util";
 export default {
   data() {
     return {
+      FormatAmount,
       current: 0,
       nav: [
         { name: this.$t("all"), status: undefined },
@@ -173,22 +175,6 @@ export default {
       this.current = e.index;
       this.ok();
     },
-    FormatAmount(num) {
-      var result = [],
-      counter = 0;
-      num = (Math.floor(num) || 0).toString().split('');
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-            result.unshift('.');
-        }
-      }
-      if(result[0] == '-' && result[1] == '.'){
-        result.splice(1,1)
-      }
-      return result.join('');
-    }
   },
   components: { success },
 };
@@ -397,5 +383,4 @@ export default {
   position: relative;
   z-index: 5;
 }
-
 </style>

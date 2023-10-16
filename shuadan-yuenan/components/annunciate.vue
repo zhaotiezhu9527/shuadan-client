@@ -47,11 +47,19 @@ export default {
       content: "",
     };
   },
-  async mounted() {
-    await this.$onLaunched;
-    this.content = uni.getStorageSync("config").homeMsg;
+  mounted() {
+    this.getConfig();
   },
-  methods: {},
+  methods: {
+    getConfig() {
+      this.$api.system_config().then(({ data }) => {
+        if (data.code == 0) {
+          this.content = data.data.homeMsg;
+          console.log(data.data.homeMsg);
+        }
+      });
+    },
+  },
 };
 </script>
 
