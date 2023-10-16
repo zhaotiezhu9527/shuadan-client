@@ -194,7 +194,7 @@ public class OrderController {
             List<Goods> goodsList = goodsService.list(
                     new LambdaQueryWrapper<Goods>()
                             .eq(Goods::getStatus, 0)
-                            .eq(Goods::getAreaId, area.getId())
+//                            .eq(Goods::getAreaId, area.getId())
             );
             // 随机取得一个商品
             Collections.shuffle(goodsList);
