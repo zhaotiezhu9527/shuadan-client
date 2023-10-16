@@ -94,22 +94,6 @@ export default {
           this.loading = false;
         });
     },
-    FormatAmount(num) {
-      var result = [],
-        counter = 0;
-      num = (Math.floor(num) || 0).toString().split("");
-      for (var i = num.length - 1; i >= 0; i--) {
-        counter++;
-        result.unshift(num[i]);
-        if (!(counter % 3) && i != 0) {
-          result.unshift(".");
-        }
-      }
-      if (result[0] == "-" && result[1] == ".") {
-        result.splice(1, 1);
-      }
-      return result.join("");
-    },
   },
 };
 </script>
