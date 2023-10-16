@@ -4,7 +4,7 @@ spring:
 # jackson时间格式化
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+    time-zone: GMT+7
     default-property-inclusion: always
   messages:
     basename: i18n/messages
