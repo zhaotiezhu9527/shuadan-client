@@ -167,13 +167,13 @@ export default {
     float: left;
   }
   .table-number {
-    float: left;
+    float: right;
     background-color: #f44336;
     color: #fff;
     border-radius: 12rpx;
     font-size: 24rpx;
     padding: 2rpx 8rpx;
-    margin-left: 120rpx;
+    // margin-left: 120rpx;
   }
 }
 .scroll {

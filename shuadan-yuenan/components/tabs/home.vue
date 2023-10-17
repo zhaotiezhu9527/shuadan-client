@@ -358,8 +358,8 @@ export default {
   image {
     width: 212rpx;
     height: 140rpx;
-    padding: 10rpx 0;
-    border-radius: 30rpx;
+    margin: 10rpx 0;
+    border-radius: 10rpx;
   }
 }
 .ranking {
