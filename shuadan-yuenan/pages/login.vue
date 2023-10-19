@@ -91,7 +91,7 @@
       ></u-button>
     </view>
     <view class="other">
-      <view @click="routePage('/pages/onlineService')">Đăng ký</view>
+      <view @click="routePage('/pages/register')">Đăng ký</view>
       <view @click="routePage('/pages/onlineService')">Đăng nhập bằng SMS</view>
     </view>
   </view>

@@ -6,11 +6,33 @@ export default {
 };
 </script>
 <style lang="scss">
-page {
+/*  #ifdef  H5  */
+html,
+body,
+.u-modal,
+.width818 {
+  max-width: 818rpx; //最大宽度自己可以调整
+  margin: auto !important;
+}
+.u-navbar--fixed {
+  max-width: 818rpx;
+  transform: translateX(-50%);
+  left: 50% !important;
+  width: 100%;
+}
+.maxwidth {
+  max-width: 818rpx;
+  margin: auto !important;
+  transform: translateX(-50%);
+  left: 50% !important;
+}
+/*  #endif  */
+.uni-app--maxwidth {
   background: linear-gradient(#000, #2d154d);
+}
+page {
   background-repeat: no-repeat;
   background-attachment: fixed;
-  min-height: 100%;
 }
 /*每个页面公共css */
 @import "./static/utils.scss";

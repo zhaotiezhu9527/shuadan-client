@@ -6,7 +6,7 @@
     <task v-show="active === 2" ref="main2" />
     <service v-show="active === 3" ref="main3" />
     <user v-show="active === 4" ref="main4" />
-    <view class="tabs">
+    <view class="tabs maxwidth">
       <template v-for="(item, index) in list">
         <view
           class="item"

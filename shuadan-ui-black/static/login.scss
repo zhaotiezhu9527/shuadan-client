@@ -8,6 +8,8 @@
     margin: 0 auto;
     padding-top: 150rpx;
     padding-bottom: 128rpx;
+    position: relative;
+    z-index: 10;
   }
 
   padding-top: var(--status-bar-height);
