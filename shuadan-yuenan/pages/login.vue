@@ -1,85 +1,99 @@
 <template>
   <view class="main">
-    <view class="register" @click="routePage('/pages/register')">
-      <view class="name">{{ $t("register") }}</view>
-      <image mode="widthFix" class="image" src="@/static/img/10002.png" />
+    <u-navbar
+      placeholder
+      title="Đăng nhập"
+      fixed
+      safe-area-inset-top
+      bgColor="#fff"
+      leftIconColor="#666"
+      height="50px"
+      leftIconSize="0"
+      titleStyle="color:#000;font-weight:500;font-size:32rpx;"
+    >
+    </u-navbar>
+    <view class="logo">
+      <image class="img" mode="widthFix" src="@/static/img/picodi.png"></image>
     </view>
-    <!-- <lang /> -->
-    <view class="postion">
-      <view class="form">
-        <view class="title"> {{ $t("login") }} </view>
-        <view class="input">
-          <u-input
-            border="none"
-            :placeholder="$t('enterAccount')"
-            placeholderClass="placeholder"
-            v-model="userName"
-          >
-            <view class="icon" slot="prefix">
-              <image mode="widthFix" src="@/static/img/icon01.png" />
-            </view>
-          </u-input>
+    <view class="input">
+      <u-input
+        :placeholder="$t('enterAccount')"
+        border="bottom"
+        v-model="userName"
+      >
+        <view class="icon" slot="prefix">
+          <image mode="widthFix" src="@/static/img/10003.png" />
         </view>
-        <view class="input">
-          <u-input
-            border="none"
-            :placeholder="$t('enterPassword')"
-            placeholderClass="placeholder"
-            password
-            v-show="passicon1"
-            v-model="loginPwd"
-          >
-            <view class="icon" slot="prefix">
-              <image mode="widthFix" src="@/static/img/icon02.png" />
-            </view>
-            <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye" color="#4e995c" size="46rpx"></u-icon>
-            </view>
-          </u-input>
-          <u-input
-            border="none"
-            :placeholder="$t('enterPassword')"
-            placeholderClass="placeholder"
-            v-model="loginPwd"
-            v-show="!passicon1"
-          >
-            <view class="icon" slot="prefix">
-              <image mode="widthFix" src="@/static/img/icon02.png" />
-            </view>
-            <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye-off" color="#4e995c" size="46rpx"></u-icon>
-            </view>
-          </u-input>
-        </view>
-        <view class="btn">
-          <!-- <u-checkbox-group v-model="checked">
-            <u-checkbox
-              activeColor="#4e995c"
-              :label="$t('rememberPassword')"
-              name="1"
-            ></u-checkbox>
-          </u-checkbox-group> -->
-          <u-button
-            class="button"
-            @click="login"
-            :text="$t('login')"
-            color="#4e995c"
-            :loading="loading"
-            shape="circle"
-          ></u-button>
-          <!-- <view class="nopass" @click="routePage('/pages/password')">
-            {{ $t("forgetPassword") }}
-          </view> -->
-        </view>
-      </view>
-      <view class="other">
-        <!-- <view class="link" @click="routePage('/pages/onlineService')">
-          {{ $t("contactService") }} 
-        </view> -->
-        <!-- <view class="link">{{ $t("appDownload") }}</view> -->
-      </view>
+      </u-input>
     </view>
-    <service />
+    <view class="input">
+      <u-input
+        placeholder="Mật khẩu"
+        password
+        border="bottom"
+        v-model="loginPwd"
+        v-show="passicon1"
+      >
+        <view class="icon" slot="prefix">
+          <image mode="widthFix" src="@/static/img/10004.png" />
+        </view>
+        <view class="pas" slot="suffix">
+          <u-icon
+            name="eye"
+            color="#467AF6"
+            size="46rpx"
+            @click="pwdChange"
+          ></u-icon>
+          <view class="link-con" @click="routePage('/pages/onlineService')">
+            <view class="link">Quên tài khoản</view>
+            <view class="link">và mật khẩu?</view>
+          </view>
+        </view>
+      </u-input>
+      <u-input
+        placeholder="Mật khẩu"
+        border="bottom"
+        v-model="loginPwd"
+        v-show="!passicon1"
+      >
+        <view class="icon" slot="prefix">
+          <image mode="widthFix" src="@/static/img/10004.png" />
+        </view>
+        <view class="pas" slot="suffix">
+          <u-icon
+            name="eye-off"
+            color="#467AF6"
+            size="46rpx"
+            @click="pwdChange"
+          ></u-icon>
+          <view class="link-con" @click="routePage('/pages/onlineService')">
+            <view class="link">Quên tài khoản</view>
+            <view class="link">và mật khẩu?</view>
+          </view>
+        </view>
+      </u-input>
+    </view>
+    <view class="btn">
+      <u-button
+        v-show="loginPwd && userName"
+        class="button"
+        @click="login"
+        :text="$t('login')"
+        color="#ee4d2d"
+        :loading="loading"
+      ></u-button>
+      <u-button
+        v-show="!loginPwd || !userName"
+        class="button"
+        :text="$t('login')"
+        color="#E8E8E8"
+        :loading="loading"
+      ></u-button>
+    </view>
+    <view class="other">
+      <view @click="routePage('/pages/onlineService')">Đăng ký</view>
+      <view @click="routePage('/pages/onlineService')">Đăng nhập bằng SMS</view>
+    </view>
   </view>
 </template>
 
@@ -97,13 +111,7 @@ export default {
       config: {},
     };
   },
-  onShow() {
-    if (uni.getStorageSync("userName")) {
-      this.userName = uni.getStorageSync("userName");
-      this.loginPwd = uni.getStorageSync("loginPwd");
-      this.checked["1"];
-    }
-  },
+  onShow() {},
   methods: {
     routePage(url) {
       uni.navigateTo({
@@ -162,91 +170,62 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .nopass {
-    font-size: 26rpx;
-    color: #4e995c;
-  }
-  /deep/.u-checkbox__icon-wrap {
-    width: 30rpx !important;
-    height: 30rpx !important;
+.main {
+  padding: 0 30rpx;
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100rpx 0;
+    .img {
+      width: 120rpx;
+    }
   }
 }
-.register {
-  position: absolute;
-  right: 40rpx;
-  top: 100rpx;
-  .image {
-    width: 50rpx;
+.input {
+  padding-bottom: 20rpx;
+  .icon {
+    filter: grayscale(1);
+    padding-right: 20rpx;
   }
-  .name {
-    padding-bottom: 16rpx;
-    color: #fff;
+  image {
+    width: 42rpx;
+    max-height: 48rpx;
   }
+  .pas {
+    display: flex;
+    align-items: center;
+  }
+  .link-con {
+    margin-left: 50rpx;
+    position: relative;
+    color: #467cf6;
+    &::before {
+      content: "";
+      height: 30rpx;
+      width: 1rpx;
+      background-color: #999;
+      position: absolute;
+      left: -35rpx;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .link {
+    font-size: 24rpx;
+  }
+}
+.btn {
+  padding-top: 30rpx;
 }
 .other {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 40rpx;
-  .link {
-    color: #ffffff;
-    font-size: 26rpx;
-    padding: 0 30rpx;
+  padding-top: 10rpx;
+  view {
+    font-size: 28rpx;
+    color: #467cf6;
   }
-}
-.main {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-repeat: no-repeat;
-  background: url("@/static/img/login-bg-green.png");
-  background-size: 100% auto;
-  padding-top: var(--status-bar-height);
-  .postion {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    transform: translateY(-40%);
-    .title {
-      color: #4e995c;
-      font-size: 55rpx;
-      font-weight: 600;
-      padding: 0 40rpx 60rpx;
-    }
-  }
-  .form {
-    padding: 80rpx 30rpx;
-    border-radius: 50rpx;
-    background-color: #ffffff;
-    /deep/.u-input {
-      background-color: #f4f4f4;
-      padding: 32rpx 40rpx !important;
-      border-radius: 100rpx;
-    }
-    .input {
-      padding-bottom: 60rpx;
-      .icon {
-        padding-right: 20rpx;
-      }
-      image {
-        width: 42rpx;
-        max-height: 48rpx;
-      }
-    }
-    .placeholder {
-      color: #4e995c !important;
-      font-size: 30rpx;
-    }
-  }
-}
-.button {
-  width: 300rpx;
-  height: 88rpx;
-  line-height: 88rpx;
 }
 </style>
