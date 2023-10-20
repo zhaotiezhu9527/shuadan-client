@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Api(value = "订单相关", tags = "订单相关")
@@ -82,7 +83,16 @@ public class OrderController {
     public R match(HttpServletRequest httpServletRequest, @PathVariable(value = "areaId") String areaId) throws Exception {
         Date now = new Date();
         String userName = JwtUtils.getUserName(httpServletRequest);
+
         // 防止频繁提交
+        // TODO: 2023/10/20 频率控制
+        String lockKey = "order:match:lock:" + userName;
+        Boolean hasKey = redisTemplate.hasKey(lockKey);
+        if (hasKey) {
+            return R.error();
+        }
+        redisTemplate.opsForValue().set(lockKey, "1", 2, TimeUnit.SECONDS);
+
         Map<String, String> paramsMap = paramterService.getAllParamByMap();
         // 验证时间段
         String orderTimeStr = paramsMap.get("order_time");
@@ -102,9 +112,10 @@ public class OrderController {
         User user = userService.joinGetOne(wrapper, User.class);
         Level userLevel = user.getLevel();
 
-        if (StringUtils.isEmpty(user.getBankNo())) {
-            return R.error(MsgUtil.get("system.withdraw.nobank"));
-        }
+        // TODO: 2023/10/20 阿楠匹配订单不需要验证银行卡
+//        if (StringUtils.isEmpty(user.getBankNo())) {
+//            return R.error(MsgUtil.get("system.withdraw.nobank"));
+//        }
 
         // 获取专区信息
         JoinLambdaWrapper<Area> areaWrapper = new JoinLambdaWrapper<>(Area.class);
@@ -202,7 +213,7 @@ public class OrderController {
                 account.setUserAgentLevel(user.getUserAgentLevel());
                 account.setRefNo(order.getOrderNo());
                 account.setOptTime(new Date());
-                account.setRemark("支付订单部分金额");
+                account.setRemark("订单支付冻结");
                 accountService.save(account);
             }
         } else {
@@ -261,6 +272,9 @@ public class OrderController {
         incOrderCount(user.getUserName(), now);
 
         object.put("orderNo", order.getOrderNo());
+
+        // 删除锁
+        redisTemplate.delete(lockKey);
         return R.ok(MsgUtil.get("system.order.success")).put("data", object);
     }
 
@@ -285,6 +299,16 @@ public class OrderController {
     @GetMapping("/pay/{orderNo}")
     public R pay(HttpServletRequest httpServletRequest, @PathVariable(value = "orderNo") String orderNo) throws Exception {
         Date now = new Date();
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        // 防止频繁提交
+        // TODO: 2023/10/20 频率控制
+        String lockKey = "order:pay:lock:" + userName;
+        Boolean hasKey = redisTemplate.hasKey(lockKey);
+        if (hasKey) {
+            return R.error();
+        }
+        redisTemplate.opsForValue().set(lockKey, "1", 2, TimeUnit.SECONDS);
 
         Map<String, String> paramsMap = paramterService.getAllParamByMap();
         // 验证时间段
@@ -299,7 +323,6 @@ public class OrderController {
             }
         }
 
-        String userName = JwtUtils.getUserName(httpServletRequest);
         JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
         wrapper.eq(User::getUserName, userName);
         wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
@@ -320,10 +343,14 @@ public class OrderController {
 
         if (order.getOrderType().intValue() == 1 ) {
             // 普通订单 增加用户金额
-            return payOrder1(user, order, now, paramsMap);
+            R r = payOrder1(user, order, now, paramsMap);
+            redisTemplate.delete(lockKey);
+            return r;
         } else {
             // 加急订单  冻结金额
-            return payOrder2(user, order, now, paramsMap);
+            R r = payOrder2(user, order, now, paramsMap);
+            redisTemplate.delete(lockKey);
+            return r;
         }
     }
 
@@ -940,7 +967,7 @@ public class OrderController {
                 account.setUserAgentLevel(user.getUserAgentLevel());
                 account.setRefNo(order.getOrderNo());
                 account.setOptTime(new Date());
-                account.setRemark("支付订单部分金额");
+                account.setRemark("订单支付冻结");
                 accountService.save(account);
                 return R.error(MsgUtil.get("system.payorder.jebg"));
             }
@@ -1066,6 +1093,7 @@ public class OrderController {
 
         JSONObject object = new JSONObject();
         object.put("orderNo", "");
+
         return R.ok(MsgUtil.get("system.payorder.ddtiwc")).put("data", object);
     }
 
