@@ -13,27 +13,19 @@
     >
     </u-navbar>
     <view class="container">
-      <view class="title">
-        <view class="sub_title">{{ $t("help") }}</view>
-        <view class="sub_title">{{ $t("relation_service") }}</view>
-      </view>
-      <image class="image" src="@/static/img/bg_02.png" mode="widthFix" />
-    </view>
-    <view class="customer_type">
-      <view class="list">
-        <view
-          class="item"
-          v-for="(item, index) in list"
-          :key="index"
-          @click="route(item)"
-        >
-          <view class="name">{{ item.serviceName }}</view>
-          <image class="img" src="@/static/img/bg_03.png" mode="widthFix" />
-          <view class="txt">{{ item.remark || "客服" }}</view>
-          <view class="time">
-            <image class="icon" src="@/static/img/kefu.png" mode="widthFix" />
-            <text>{{ item.workTime }}</text>
-          </view>
+      <view class="main">
+        <view class="container">
+          <view class="title">{{$t('help') }}</view>
+          <view class="sub_title">{{$t('relation_service') }}</view>
+        </view>
+        <view class="customer_type">
+          <image class="image" src="@/static/img/kefu-service.png" mode="widthFix" />
+        </view>
+        <!-- <view class="support-hours">
+          {{$t('supportHours') }}
+        </view> -->
+        <view class="service-btn" @click="goService">
+          {{$t('service') }}
         </view>
       </view>
     </view>
@@ -47,18 +39,9 @@ export default {
     };
   },
   methods: {
-    open() {
-      this.$api.system_customerService_list().then(({ data }) => {
-        if (data.code == 0) {
-          this.list = data.data;
-        } else {
-          this.$base.show(data.msg);
-        }
-      });
-    },
-    route(item) {
+    goService() {
       uni.navigateTo({
-        url: "/pages/onlineService?path=" + item.link,
+        url: "/pages/onlineService",
       });
     },
   },
@@ -66,93 +49,52 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  color: #fff;
   .container {
+    height: 280rpx;
+    padding: calc(var(--status-bar-height) + 40rpx) 30rpx 0;
+    // background: #bac3d2;
     position: relative;
-    display: flex;
-    justify-content: flex-end;
+    z-index: 2;
     .title {
-      position: absolute;
-      left: 32rpx;
-      top: 50%;
-      transform: translateY(-60%);
+      font-size: 34rpx;
+      font-weight: 600;
     }
     .sub_title {
-      font-size: 28rpx;
-      color: #ffffffd9;
-      padding-bottom: 16rpx;
-    }
-    .image {
-      width: 450rpx;
+      font-size: 24rpx;
+      padding-top: 40rpx;
     }
   }
   .customer_type {
-    position: relative;
-    z-index: 3;
+    .image {
+      width: 524rpx;
+      margin: 60rpx auto 0 auto;
+      display: block;
+    }
+    .list {
+      padding-top: 120rpx;
+    }
   }
-  .list {
-    display: flex;
-    gap: 16rpx;
-    padding: 0 30rpx;
-    position: relative;
-    z-index: 4;
-    flex-wrap: wrap;
-    padding-bottom: calc(220rpx + constant(safe-area-inset-bottom));
-    padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
-    .item {
-      border-radius: 16rpx;
-      width: calc(50% - 10rpx);
-      padding: 32rpx;
-      background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
-        conic-gradient(
-          from 180deg at 50% 50%,
-          rgba(245, 211, 172, 0) 0deg,
-          rgba(245, 211, 172, 0.38) 45deg,
-          rgba(245, 211, 172, 0) 84.38deg,
-          rgba(245, 211, 172, 0) 133.12deg,
-          rgba(245, 211, 172, 0.37) 187.5deg,
-          rgba(245, 211, 172, 0) 230.62deg,
-          rgba(245, 211, 172, 0) 360deg
-        );
-      box-sizing: border-box;
-      border: 1rpx solid;
-
-      border-image-source: conic-gradient(
-        from 180deg at 50% 50%,
-        rgba(245, 211, 172, 0) 0deg,
-        rgba(245, 211, 172, 0.38) 45deg,
-        rgba(245, 211, 172, 0) 84.38deg,
-        rgba(245, 211, 172, 0) 133.12deg,
-        rgba(245, 211, 172, 0.37) 187.5deg,
-        rgba(245, 211, 172, 0) 230.62deg,
-        rgba(245, 211, 172, 0) 360deg
-      );
-    }
-    .name {
-      font-size: 28rpx;
-      font-weight: 600;
-      color: #ffffffd9;
-    }
-    .img {
-      margin: 16rpx 0;
-      width: 100%;
-    }
-    .txt {
-      font-size: 24rpx;
-      color: #ffffffd9;
-    }
-    .time {
-      display: flex;
-      align-items: center;
-      padding-top: 16rpx;
-      .icon {
-        width: 32rpx;
-        margin-right: 8rpx;
-      }
-      text {
-        font-size: 24rpx;
-        color: #ffffffa6;
-      }
-    }
+  .support-hours{
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 24rpx;
+    margin-top: -60rpx;
+  }
+  .service-btn{
+    width: 260rpx;
+    height: 84rpx;
+    text-align: center;
+    color: #fff;
+    background-color: #2E68F2;
+    border-radius: 42rpx;
+    line-height: 84rpx;
+    font-size: 28rpx;
+    margin: 0rpx auto 0 auto;
   }
 }
 </style>
