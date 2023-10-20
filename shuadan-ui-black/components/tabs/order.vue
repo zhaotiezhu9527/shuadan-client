@@ -86,12 +86,12 @@
                     >x{{ item.commissionMul }}</text
                   ></text
                 >
-                <text>{{ $t("rmb_icon") }} {{ item.commission }}</text>
+                <text>{{ $t("rmb_icon") }} {{ Math.floor(item.commission * 100 ) / 100 }}</text>
               </view>
               <view class="li">
                 <text>{{ $t("return_amount") }}</text>
                 <text class="moeny">
-                  {{ $t("rmb_icon") }} {{ item.returnAmount }}
+                  {{ $t("rmb_icon") }} {{ Math.floor(item.returnAmount * 100 ) / 100 }}
                 </text>
               </view>
               <view class="li right" v-if="item.status === 0">
