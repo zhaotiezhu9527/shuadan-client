@@ -509,6 +509,7 @@ public class UserController {
             typeMap.put(4, MsgUtil.get("system.account.type4"));
             typeMap.put(5, MsgUtil.get("system.account.type5"));
             typeMap.put(6, MsgUtil.get("system.account.type6"));
+            typeMap.put(8, MsgUtil.get("system.account.type8"));
             JSONArray arr = new JSONArray();
             for (Account temp : list) {
                 JSONObject obj = new JSONObject();

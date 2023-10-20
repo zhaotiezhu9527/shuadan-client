@@ -1,4 +1,5 @@
 package com.juhai.api.controller;
+import java.util.Date;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
@@ -188,6 +189,21 @@ public class OrderController {
                         .setSql(sql)
                         .eq("user_name", order.getUserName())
                 );
+                // TODO: 2023/10/20  缺少扣除流水
+                Account account = new Account();
+                String accountNo = IdUtil.getSnowflakeNextIdStr();
+                account.setAccountNo(accountNo);
+                account.setUserName(userName);
+                account.setOptAmount(order.getOrderAmount());
+                account.setType(2);
+                account.setOptType(8);
+                account.setUserAgent(user.getUserAgent());
+                account.setUserAgentNode(user.getUserAgentNode());
+                account.setUserAgentLevel(user.getUserAgentLevel());
+                account.setRefNo(order.getOrderNo());
+                account.setOptTime(new Date());
+                account.setRemark("支付订单部分金额");
+                accountService.save(account);
             }
         } else {
             // 取得商品(金额范围) 预派送业务 预派送订单用户金额不足 直接扣负数
@@ -910,10 +926,26 @@ public class OrderController {
                                 .eq(Order::getStatus, 0)
                                 .set(Order::getStatus, 4)
                 );
+
+                // TODO: 2023/10/20  缺少扣除流水
+                Account account = new Account();
+                String accountNo = IdUtil.getSnowflakeNextIdStr();
+                account.setAccountNo(accountNo);
+                account.setUserName(user.getUserName());
+                account.setOptAmount(order.getOrderAmount());
+                account.setType(2);
+                account.setOptType(8);
+                account.setUserAgent(user.getUserAgent());
+                account.setUserAgentNode(user.getUserAgentNode());
+                account.setUserAgentLevel(user.getUserAgentLevel());
+                account.setRefNo(order.getOrderNo());
+                account.setOptTime(new Date());
+                account.setRemark("支付订单部分金额");
+                accountService.save(account);
                 return R.error(MsgUtil.get("system.payorder.jebg"));
             }
         }
-        return R.error("订单已完成");
+        return R.error(MsgUtil.get("system.payorder.orderfinish"));
     }
 
 
@@ -925,7 +957,7 @@ public class OrderController {
      */
     private R payOrder1(User user, Order order, Date now, Map<String, String> paramsMap) throws Exception {
         if (order.getOrderAmount().doubleValue() > user.getBalance().doubleValue()) {
-            return R.error("您的余额不足");
+            return R.error(MsgUtil.get("system.order.balance"));
         }
 
         // 修改订单状态
