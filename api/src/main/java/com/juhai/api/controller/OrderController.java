@@ -207,7 +207,7 @@ public class OrderController {
                 account.setUserName(userName);
                 account.setOptAmount(order.getOrderAmount());
                 account.setType(2);
-                account.setOptType(8);
+                account.setOptType(3);
                 account.setUserAgent(user.getUserAgent());
                 account.setUserAgentNode(user.getUserAgentNode());
                 account.setUserAgentLevel(user.getUserAgentLevel());
@@ -961,7 +961,7 @@ public class OrderController {
                 account.setUserName(user.getUserName());
                 account.setOptAmount(order.getOrderAmount());
                 account.setType(2);
-                account.setOptType(8);
+                account.setOptType(3);
                 account.setUserAgent(user.getUserAgent());
                 account.setUserAgentNode(user.getUserAgentNode());
                 account.setUserAgentLevel(user.getUserAgentLevel());
