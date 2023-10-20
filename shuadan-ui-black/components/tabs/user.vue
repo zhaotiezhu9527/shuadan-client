@@ -219,13 +219,13 @@ export default {
       }
     },
     goDeposit(url) {
-      if (this.bindStatus) {
+      // if (this.bindStatus) {
         uni.navigateTo({
           url,
         });
-      } else {
-        this.$base.show(this.$t("input_bind"));
-      }
+      // } else {
+      //   this.$base.show(this.$t("input_bind"));
+      // }
     },
     //用户列表数据
     getInfo() {

@@ -15,7 +15,7 @@
       <image class="bg" mode="widthFix" src="/static/img/bg-016.png" />
       <view class="box">
         <view class="con">
-          <image class="img" :src="vim.levelImg" mode="widthFix" />
+          <image class="img" :src="items.levelIcon" mode="widthFix" />
           <view class="title">{{ vim.areaName }}</view>
           <view class="text">
             {{ vim.remark }} {{ $t("commission") }}{{ vim.commission }}%

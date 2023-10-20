@@ -12,7 +12,7 @@
           ></u-icon>
           <text class="name">{{ $t("register") }}</text>
         </view>
-        <view class="input">
+        <!-- <view class="input">
           <u-input
             shape="circle"
             :placeholder="$t('nickname')"
@@ -20,7 +20,7 @@
             placeholderClass="placeholder"
             v-model="nickName"
           ></u-input>
-        </view>
+        </view> -->
         <view class="input">
           <u-input
             shape="circle"
@@ -135,7 +135,7 @@ export default {
       const DATA_OBJ = {
         userName: this.userName,
         loginPwd: this.loginPwd,
-        nickName: this.nickName,
+        nickName: this.userName,
         payPwd: this.payPwd,
         inviteCode: this.inviteCode,
       };
