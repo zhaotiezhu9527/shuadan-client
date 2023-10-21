@@ -461,6 +461,9 @@ public class OrderController {
                             User userAgent = userAgents.get(i);
                             // 获取返点比例
                             BigDecimal rate = rateMap.get(i + 1);
+                            if (rate.doubleValue() <= 0) {
+                                continue;
+                            }
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                             // 上级代理加钱
@@ -578,6 +581,9 @@ public class OrderController {
                             User userAgent = userAgents.get(i);
                             // 获取返点比例
                             BigDecimal rate = rateMap.get(i + 1);
+                            if (rate.doubleValue() <= 0) {
+                                continue;
+                            }
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                             // 上级代理加钱
@@ -1050,6 +1056,9 @@ public class OrderController {
                 User userAgent = userAgents.get(i);
                 // 获取返点比例
                 BigDecimal rate = rateMap.get(i + 1);
+                if (rate.doubleValue() <= 0) {
+                    continue;
+                }
                 // 计算返点
                 BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                 // 上级代理加钱
