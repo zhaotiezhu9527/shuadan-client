@@ -112,7 +112,8 @@ public class UserController {
         }
 
         Date now = new Date();
-        String clientIP = ServletUtil.getClientIP(httpServletRequest);
+//        String clientIP = ServletUtil.getClientIP(httpServletRequest);
+        String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
 
         // 获取头像列表
         List<Avatar> avatars = avatarService.list(
@@ -189,7 +190,8 @@ public class UserController {
     @ApiOperation(value = "登录")
     @PostMapping("/login")
     public R login(@Validated LoginRequest request, HttpServletRequest httpServletRequest) {
-        String clientIP = ServletUtil.getClientIP(httpServletRequest);
+//        String clientIP = ServletUtil.getClientIP(httpServletRequest);
+        String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
 
         // 查询用户信息
         User user = userService.getUserByName(request.getUserName());
