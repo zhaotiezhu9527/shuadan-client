@@ -20,11 +20,13 @@ body,
   left: 50% !important;
   width: 100%;
 }
-.maxwidth {
-  max-width: 818rpx;
-  margin: auto !important;
-  transform: translateX(-50%);
-  left: 50% !important;
+@media screen and(min-width: 1100px) {
+  .maxwidth {
+    max-width: 818rpx;
+    margin: auto !important;
+    transform: translateX(-50%);
+    left: 50% !important;
+  }
 }
 /*  #endif  */
 .uni-app--maxwidth {
