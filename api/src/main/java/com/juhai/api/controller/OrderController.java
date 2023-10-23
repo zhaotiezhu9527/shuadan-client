@@ -181,7 +181,8 @@ public class OrderController {
             order.setOrderAmount(NumberUtil.mul(goods.getGoodsPrice(), order.getGoodsCount()));
             order.setCommissionRate(areaLevel.getCommissionRate());
             order.setCommissionMul(prePare.getCommissionMul());
-            order.setCommission(NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100)));
+            BigDecimal commission = NumberUtil.mul(order.getCommissionMul(), order.getOrderAmount(), NumberUtil.div(order.getCommissionRate(), 100));
+            order.setCommission(commission);
             order.setStatus(0);
             order.setOrderTime(now);
             order.setPayTime(null);
@@ -461,8 +462,15 @@ public class OrderController {
                             User userAgent = userAgents.get(i);
                             // 获取返点比例
                             BigDecimal rate = rateMap.get(i + 1);
+                            if (rate.doubleValue() <= 0) {
+                                continue;
+                            }
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            String pankou = paramsMap.get("pankou");
+                            if (StringUtils.equals(pankou, "anan")) {
+                                agentCommission = NumberUtil.mul(commission, rate);
+                            }
                             // 上级代理加钱
                             User userReport1 = new User();
                             userReport1.setUserName(userAgent.getUserName());
@@ -578,8 +586,15 @@ public class OrderController {
                             User userAgent = userAgents.get(i);
                             // 获取返点比例
                             BigDecimal rate = rateMap.get(i + 1);
+                            if (rate.doubleValue() <= 0) {
+                                continue;
+                            }
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            String pankou = paramsMap.get("pankou");
+                            if (StringUtils.equals(pankou, "anan")) {
+                                agentCommission = NumberUtil.mul(commission, rate);
+                            }
                             // 上级代理加钱
                             User userReport1 = new User();
                             userReport1.setUserName(userAgent.getUserName());
@@ -747,6 +762,10 @@ public class OrderController {
                             BigDecimal rate = rateMap.get(i + 1);
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            String pankou = paramsMap.get("pankou");
+                            if (StringUtils.equals(pankou, "anan")) {
+                                agentCommission = NumberUtil.mul(commission, rate);
+                            }
                             // 上级代理加钱
                             User userReport1 = new User();
                             userReport1.setUserName(userAgent.getUserName());
@@ -864,6 +883,10 @@ public class OrderController {
                             BigDecimal rate = rateMap.get(i + 1);
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                            String pankou = paramsMap.get("pankou");
+                            if (StringUtils.equals(pankou, "anan")) {
+                                agentCommission = NumberUtil.mul(commission, rate);
+                            }
                             // 上级代理加钱
                             User userReport1 = new User();
                             userReport1.setUserName(userAgent.getUserName());
@@ -1050,8 +1073,15 @@ public class OrderController {
                 User userAgent = userAgents.get(i);
                 // 获取返点比例
                 BigDecimal rate = rateMap.get(i + 1);
+                if (rate.doubleValue() <= 0) {
+                    continue;
+                }
                 // 计算返点
                 BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
+                String pankou = paramsMap.get("pankou");
+                if (StringUtils.equals(pankou, "anan")) {
+                    agentCommission = NumberUtil.mul(commission, rate);
+                }
                 // 上级代理加钱
                 User userReport1 = new User();
                 userReport1.setUserName(userAgent.getUserName());
