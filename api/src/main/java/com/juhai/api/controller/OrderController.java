@@ -113,9 +113,12 @@ public class OrderController {
         Level userLevel = user.getLevel();
 
         // TODO: 2023/10/20 阿楠匹配订单不需要验证银行卡
-//        if (StringUtils.isEmpty(user.getBankNo())) {
-//            return R.error(MsgUtil.get("system.withdraw.nobank"));
-//        }
+        String pankou = paramsMap.get("pankou");
+        if (StringUtils.equals(pankou, "paopao")) {
+            if (StringUtils.isEmpty(user.getBankNo())) {
+                return R.error(MsgUtil.get("system.withdraw.nobank"));
+            }
+        }
 
         // 获取专区信息
         JoinLambdaWrapper<Area> areaWrapper = new JoinLambdaWrapper<>(Area.class);
