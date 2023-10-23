@@ -256,6 +256,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.main{
+  background-color: #24043b;
+}
 .title {
   .user {
     display: flex;

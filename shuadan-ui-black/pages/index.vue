@@ -123,7 +123,7 @@ export default {
   bottom: 0;
   width: 100%;
   color: #757575;
-  background: url("@/static/img/footer.png");
+  background: url("@/static/img/footer.png") #290c44;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: bottom;

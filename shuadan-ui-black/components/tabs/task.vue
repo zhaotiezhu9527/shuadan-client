@@ -248,6 +248,7 @@ export default {
 .main {
   padding-bottom: calc(220rpx + constant(safe-area-inset-bottom));
   padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
+  background-color: #24043b;
 }
 .list {
   position: relative;
