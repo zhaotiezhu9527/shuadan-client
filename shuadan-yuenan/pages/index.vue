@@ -60,11 +60,9 @@ export default {
     this.route = e;
   },
   onShow() {
-    // #ifdef H5
     this.$nextTick(() => {
       this.$refs.main.open(this.route);
     });
-    // #endif
   },
   methods: {
     change(index) {
