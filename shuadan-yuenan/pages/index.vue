@@ -1,6 +1,11 @@
 <template>
   <view>
-    <component :is="list[active].route" ref="main" />
+    <!-- <view :is="list[active].route" ref="main"></view> -->
+    <home v-if="active === 0" ref="main" />
+    <order v-else-if="active === 1" ref="main" />
+    <task v-else-if="active === 2" ref="main" />
+    <service v-else-if="active === 3" ref="main" />
+    <user v-else-if="active === 4" ref="main" />
     <view class="tabs">
       <template v-for="(item, index) in list">
         <view
@@ -60,9 +65,11 @@ export default {
     this.route = e;
   },
   onShow() {
+    // #ifdef H5
     this.$nextTick(() => {
       this.$refs.main.open(this.route);
     });
+    // #endif
   },
   methods: {
     change(index) {

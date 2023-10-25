@@ -1,7 +1,15 @@
 const home = [
   {
     path: "/pages/index",
+    // #ifdef H5
     aliasPath: "/",
+    // #endif
+  },
+  {
+    path: "/pages/login",
+    // #ifdef APP-PLUS
+    aliasPath: "/",
+    // #endif
   },
   {
     path: "/pages/team",
@@ -11,9 +19,6 @@ const home = [
   },
   {
     path: "/pages/onlineService",
-  },
-  {
-    path: "/pages/login",
   },
   {
     path: "/pages/register",

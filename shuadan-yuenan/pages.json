@@ -3,9 +3,22 @@
     "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
   },
   "pages": [
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/login"
+    },
     {
       "path": "pages/index"
     },
+    // #endif
+    // #ifdef H5
+    {
+      "path": "pages/index"
+    },
+    {
+      "path": "pages/login"
+    },
+    // #endif
     {
       "path": "pages/team"
     },
@@ -62,9 +75,6 @@
     },
     {
       "path": "pages/register"
-    },
-    {
-      "path": "pages/login"
     }
   ],
   "globalStyle": {
