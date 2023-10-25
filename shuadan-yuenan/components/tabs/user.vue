@@ -108,6 +108,7 @@
 <script>
 import { FormatAmount } from "@/plugins/util";
 export default {
+  props:['userData','infos'],
   data() {
     return {
       FormatAmount,
@@ -154,24 +155,24 @@ export default {
         //   url: "/pages/message",
         // },
       ],
-      userData: {
-        nickName: "", //昵称
-        avatarUrl: "", //头像
-        balance: "", //余额
-        creditValue: "", //信用分
-        inviteCode: "", //邀请码
-        userName: "", //用户名
-        levelName: "", //会员名称
-        levelIcon: "", //
-      },
+      // userData: {
+      //   nickName: "", //昵称
+      //   avatarUrl: "", //头像
+      //   balance: "", //余额
+      //   creditValue: "", //信用分
+      //   inviteCode: "", //邀请码
+      //   userName: "", //用户名
+      //   levelName: "", //会员名称
+      //   levelIcon: "", //
+      // },
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
-      infos: {}, //收益数据
+      // infos: {}, //收益数据
     };
   },
   methods: {
     open() {
-      this.getInfo();
+      // this.getInfo();
     },
     loginOut() {
       this.$api.user_logout().then((res) => {
@@ -205,27 +206,7 @@ export default {
         this.$base.show(this.$t("cardMsg"));
       }
     },
-    //用户列表数据
-    getInfo() {
-      this.$api.user_info().then((res) => {
-        if (res.data.code == 0) {
-          this.userData = res.data.data;
-          if (this.userData.bankNo === null || !this.userData.bankNo) {
-            this.bindStatus = false;
-          } else {
-            this.bindStatus = true;
-          }
-        }
-      });
-      // 用户收益详情
-      this.$api.user_income_detail().then(({ data }) => {
-        if (data.code == 0) {
-          this.infos = data.data;
-        } else {
-          this.$base.show(data.msg);
-        }
-      });
-    },
+    
   },
 };
 </script>

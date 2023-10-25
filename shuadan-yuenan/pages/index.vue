@@ -5,7 +5,7 @@
     <order v-else-if="active === 1" ref="main" />
     <task v-else-if="active === 2" ref="main" />
     <service v-else-if="active === 3" ref="main" />
-    <user v-else-if="active === 4" ref="main" />
+    <user v-else-if="active === 4" :userData="userData" :infos="infos" ref="main" />
     <view class="tabs">
       <template v-for="(item, index) in list">
         <view
@@ -53,6 +53,8 @@ export default {
         { image: kefu, route: service, name: this.$t("service")},
         { image: userimg, route: user, name: this.$t("personal")},
       ],
+      userData: {},
+      infos: {},
     };
   },
   onLoad(e) {
@@ -70,6 +72,7 @@ export default {
       this.$refs.main.open(this.route);
     });
     // #endif
+    this.getInfo();
   },
   methods: {
     change(index) {
@@ -85,6 +88,20 @@ export default {
         this.$refs.main.open({ tabs: index });
       });
       // #endif
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+        }
+      });
+      // 用户收益详情
+      this.$api.user_income_detail().then(({ data }) => {
+        if (data.code == 0) {
+          this.infos = data.data;
+        } 
+      });
     },
   },
   components: {
