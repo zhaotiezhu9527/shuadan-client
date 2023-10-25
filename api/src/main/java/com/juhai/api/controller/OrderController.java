@@ -112,6 +112,11 @@ public class OrderController {
         User user = userService.joinGetOne(wrapper, User.class);
         Level userLevel = user.getLevel();
 
+        // 验证资金冻结
+        if (user.getFundsStatus().intValue() == 1) {
+            return R.error(MsgUtil.get("system.user.enable"));
+        }
+
         // TODO: 2023/10/20 阿楠匹配订单不需要验证银行卡
         String pankou = paramsMap.get("pankou");
         if (StringUtils.equals(pankou, "paopao")) {
