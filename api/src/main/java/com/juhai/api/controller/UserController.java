@@ -130,6 +130,7 @@ public class UserController {
         user.setLoginPwd(SecureUtil.md5(request.getLoginPwd()));
         user.setPayPwd(SecureUtil.md5(request.getPayPwd()));
         user.setStatus(0);
+        user.setFundsStatus(0);
         user.setRealName(null);
         user.setPhone(null);
         user.setBankName(null);
@@ -774,6 +775,11 @@ public class UserController {
         wrapper.eq(User::getUserName, userName);
         wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
         User user = userService.joinGetOne(wrapper, User.class);
+
+        // 验证资金冻结
+        if (user.getFundsStatus().intValue() == 1) {
+            return R.error(MsgUtil.get("system.user.enable"));
+        }
 
         // 验证提现金额
         BigDecimal amount = new BigDecimal(request.getAmount());

@@ -13,6 +13,7 @@
             <result property="loginPwd" column="login_pwd" jdbcType="VARCHAR"/>
             <result property="payPwd" column="pay_pwd" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="fundsStatus" column="funds_status" jdbcType="INTEGER"/>
             <result property="realName" column="real_name" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
@@ -53,7 +54,7 @@
         register_ip,last_time,last_ip,
         create_time,create_by,update_time,
         update_by,remake,update_order,
-        deposit,withdraw,bet,income,invite_count
+        deposit,withdraw,bet,income,invite_count,funds_status
     </sql>
 
     <!-- 修改用户余额 -->

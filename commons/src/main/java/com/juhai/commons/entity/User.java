@@ -65,6 +65,12 @@ public class User implements Serializable {
     private Integer status;
 
     /**
+     * 资金状态(0:正常 1:冻结)
+     */
+    @TableField(value = "funds_status")
+    private Integer fundsStatus;
+
+    /**
      * 真实姓名
      */
     @TableField(value = "real_name")
