@@ -800,7 +800,7 @@ public class UserController {
 
         // 验证资金冻结
         if (user.getFundsStatus().intValue() == 1) {
-            return R.error(MsgUtil.get("system.user.enable"));
+            return R.error(MsgUtil.get("system.user.funds.enable"));
         }
 
         // 验证提现金额

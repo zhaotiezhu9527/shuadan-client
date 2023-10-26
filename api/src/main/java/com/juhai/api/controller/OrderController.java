@@ -114,7 +114,7 @@ public class OrderController {
 
         // 验证资金冻结
         if (user.getFundsStatus().intValue() == 1) {
-            return R.error(MsgUtil.get("system.user.enable"));
+            return R.error(MsgUtil.get("system.user.funds.enable"));
         }
 
         // TODO: 2023/10/20 阿楠匹配订单不需要验证银行卡
@@ -336,6 +336,11 @@ public class OrderController {
         wrapper.eq(User::getUserName, userName);
         wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
         User user = userService.joinGetOne(wrapper, User.class);
+
+        // 验证资金冻结
+        if (user.getFundsStatus().intValue() == 1) {
+            return R.error(MsgUtil.get("system.user.funds.enable"));
+        }
 
         // 查询订单
         Order order = orderService.getOne(
