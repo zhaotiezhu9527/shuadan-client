@@ -1,4 +1,5 @@
 package com.juhai.api.controller;
+import java.util.Date;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DatePattern;
@@ -92,7 +93,7 @@ public class UserController {
 
     @ApiOperation(value = "注册")
     @PostMapping("/register")
-    public R register(@Validated UserRegisterRequest request, HttpServletRequest httpServletRequest) {
+    public R register(@Validated UserRegisterRequest request, HttpServletRequest httpServletRequest) throws Exception {
         // 查询用户名是否存在
         long exist = userService.count(
                 new LambdaQueryWrapper<User>()
@@ -167,6 +168,27 @@ public class UserController {
 //                        .set(User::getInviteCount, agent.getInviteCount() + 1)
 //        );
         userService.update(new UpdateWrapper<User>().lambda().setSql("invite_count = invite_count + " + 1).eq(User::getUserName, agent.getUserName()));
+
+        // 注册赠送彩金
+        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
+        String zengsongStr = allParamByMap.getOrDefault("zengsong", "0");
+        BigDecimal caijin = NumberUtil.toBigDecimal(zengsongStr);
+        if (caijin.doubleValue() > 0) {
+            userService.updateUserBalance(user.getUserName(), caijin);
+            Account account = new Account();
+            account.setAccountNo(IdUtil.getSnowflakeNextIdStr());
+            account.setUserName(user.getUserName());
+            account.setOptAmount(caijin);
+            account.setType(1);
+            account.setOptType(1);
+            account.setUserAgent(user.getUserAgent());
+            account.setUserAgentNode(user.getUserAgentNode());
+            account.setUserAgentLevel(user.getUserAgentLevel());
+            account.setRefNo(null);
+            account.setOptTime(new Date());
+            account.setRemark("注册彩金");
+            accountService.save(account);
+        }
 
         // 登录日志
         UserLog log = new UserLog();
@@ -778,7 +800,7 @@ public class UserController {
 
         // 验证资金冻结
         if (user.getFundsStatus().intValue() == 1) {
-            return R.error(MsgUtil.get("system.user.enable"));
+            return R.error(MsgUtil.get("system.user.funds.enable"));
         }
 
         // 验证提现金额

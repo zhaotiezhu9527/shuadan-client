@@ -114,12 +114,12 @@ public class OrderController {
 
         // 验证资金冻结
         if (user.getFundsStatus().intValue() == 1) {
-            return R.error(MsgUtil.get("system.user.enable"));
+            return R.error(MsgUtil.get("system.user.funds.enable"));
         }
 
         // TODO: 2023/10/20 阿楠匹配订单不需要验证银行卡
         String pankou = paramsMap.get("pankou");
-        if (StringUtils.equals(pankou, "paopao")) {
+        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo")) {
             if (StringUtils.isEmpty(user.getBankNo())) {
                 return R.error(MsgUtil.get("system.withdraw.nobank"));
             }
@@ -278,7 +278,7 @@ public class OrderController {
 
         orderService.save(order);
         // 累计今日订单
-        incOrderCount(user.getUserName(), now);
+        // incOrderCount(user.getUserName(), now);
 
         object.put("orderNo", order.getOrderNo());
 
@@ -336,6 +336,11 @@ public class OrderController {
         wrapper.eq(User::getUserName, userName);
         wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
         User user = userService.joinGetOne(wrapper, User.class);
+
+        // 验证资金冻结
+        if (user.getFundsStatus().intValue() == 1) {
+            return R.error(MsgUtil.get("system.user.funds.enable"));
+        }
 
         // 查询订单
         Order order = orderService.getOne(
@@ -512,6 +517,9 @@ public class OrderController {
                             dayReports.add(agentDayReport);
                         }
                     }
+
+                    // 累计今日订单
+                    incOrderCount(user.getUserName(), now);
                     userService.batchUpdateReport(users);
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
@@ -640,7 +648,7 @@ public class OrderController {
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
                     // 累计今日订单
-                    // incOrderCount(user.getUserName(), now);
+                    incOrderCount(user.getUserName(), now);
 
                     // 添加一个新的预派送订单
                     // Goods goods = goodsService.getById(prePare.getGoodsId());
@@ -671,7 +679,7 @@ public class OrderController {
                     orderService.save(newOrder);
 
                     // 累计今日订单
-                    incOrderCount(user.getUserName(), now);
+//                    incOrderCount(user.getUserName(), now);
                     JSONObject object = new JSONObject();
                     object.put("orderNo", newOrder.getOrderNo());
                     return R.ok(MsgUtil.get("system.payorder.ddtjcg")).put("data", object);
@@ -807,6 +815,8 @@ public class OrderController {
                             dayReports.add(agentDayReport);
                         }
                     }
+                    // 累计今日订单
+                    incOrderCount(user.getUserName(), now);
                     userService.batchUpdateReport(users);
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
@@ -932,7 +942,7 @@ public class OrderController {
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
                     // 累计今日订单
-                    // incOrderCount(user.getUserName(), now);
+                     incOrderCount(user.getUserName(), now);
 
                     // 添加一个新的预派送订单
                     // Goods goods = goodsService.getById(prePare.getGoodsId());
@@ -963,7 +973,7 @@ public class OrderController {
                     orderService.save(newOrder);
 
                     // 累计今日订单
-                    incOrderCount(user.getUserName(), now);
+//                    incOrderCount(user.getUserName(), now);
                     JSONObject object = new JSONObject();
                     object.put("orderNo", newOrder.getOrderNo());
                     return R.ok(MsgUtil.get("system.payorder.ddtjcg")).put("data", object);
@@ -1127,7 +1137,7 @@ public class OrderController {
         accountService.saveBatch(accounts);
         dayReportService.batchInsertOrUpdate(dayReports);
         // 累计今日订单
-//        incOrderCount(user.getUserName(), now);
+        incOrderCount(user.getUserName(), now);
 
         JSONObject object = new JSONObject();
         object.put("orderNo", "");
