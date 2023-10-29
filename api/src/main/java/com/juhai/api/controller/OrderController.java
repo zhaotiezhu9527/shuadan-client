@@ -289,15 +289,24 @@ public class OrderController {
 
     /**
      * 累计订单
-     * @param userName
      * @param now
      * @throws Exception
      */
-    private void incOrderCount(String userName, Date now) throws Exception {
+//    private void incOrderCount(String userName, Date now, Integer orderCount) throws Exception {
+//        OrderCount orderCount1 = new OrderCount();
+//        orderCount1.setUserName(userName);
+//        orderCount1.setToday(DateUtil.formatDate(now));
+//        orderCount1.setOrderCount(orderCount);
+//        orderCount1.setCreateTime(now);
+//        orderCount1.setUpdateTime(now);
+//        orderCountService.insertOrUpdate(orderCount1);
+//    }
+
+    private void incOrderCount(User user, Order order, Date now) throws Exception {
         OrderCount orderCount1 = new OrderCount();
-        orderCount1.setUserName(userName);
-        orderCount1.setToday(DateUtil.formatDate(now));
-        orderCount1.setOrderCount(1);
+        orderCount1.setUserName(user.getUserName());
+        orderCount1.setToday(DateUtil.formatDate(order.getOrderTime()));
+        orderCount1.setOrderCount(order.getCountNum());
         orderCount1.setCreateTime(now);
         orderCount1.setUpdateTime(now);
         orderCountService.insertOrUpdate(orderCount1);
@@ -519,7 +528,7 @@ public class OrderController {
                     }
 
                     // 累计今日订单
-                    incOrderCount(user.getUserName(), now);
+                    incOrderCount(user, order, now);
                     userService.batchUpdateReport(users);
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
@@ -648,7 +657,7 @@ public class OrderController {
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
                     // 累计今日订单
-                    incOrderCount(user.getUserName(), now);
+                    incOrderCount(user, order, now);
 
                     // 添加一个新的预派送订单
                     // Goods goods = goodsService.getById(prePare.getGoodsId());
@@ -816,7 +825,7 @@ public class OrderController {
                         }
                     }
                     // 累计今日订单
-                    incOrderCount(user.getUserName(), now);
+                    incOrderCount(user, order, now);
                     userService.batchUpdateReport(users);
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
@@ -942,7 +951,7 @@ public class OrderController {
                     accountService.saveBatch(accounts);
                     dayReportService.batchInsertOrUpdate(dayReports);
                     // 累计今日订单
-                     incOrderCount(user.getUserName(), now);
+                    incOrderCount(user, order, now);
 
                     // 添加一个新的预派送订单
                     // Goods goods = goodsService.getById(prePare.getGoodsId());
@@ -1137,7 +1146,7 @@ public class OrderController {
         accountService.saveBatch(accounts);
         dayReportService.batchInsertOrUpdate(dayReports);
         // 累计今日订单
-        incOrderCount(user.getUserName(), now);
+        incOrderCount(user, order, now);
 
         JSONObject object = new JSONObject();
         object.put("orderNo", "");

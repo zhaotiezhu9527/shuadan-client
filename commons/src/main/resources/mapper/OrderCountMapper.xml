@@ -28,7 +28,7 @@
         #{report.createTime},
         #{report.updateTime}
         ) ON DUPLICATE KEY
-        UPDATE order_count = order_count + #{report.orderCount},
+        UPDATE order_count = #{report.orderCount},
         update_time = #{report.updateTime}
     </insert>
 </mapper>
