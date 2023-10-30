@@ -160,7 +160,18 @@ public class OrderController {
                         .eq(user.getUpdateOrder().intValue() == 1, OrderCount::getToday, DateUtil.formatDate(now))
                         .orderByDesc(OrderCount::getCreateTime)
         );
-        int countNum = CollUtil.isEmpty(orderCounts) ? 0 : orderCounts.get(0).getOrderCount();
+        int countNum = 0;
+        if (CollUtil.isNotEmpty(orderCounts)) {
+            OrderCount orderCount = orderCounts.get(0);
+            countNum = orderCount.getOrderCount();
+            // 判断是否是往日次数
+            if (!StringUtils.equals(orderCount.getToday(), DateUtil.formatDate(now))) {
+                // 如果往日已经做满次数，重新开始计算
+                if (countNum >= userLevel.getDayOrderCount()) {
+                    countNum = 0;
+                }
+            }
+        }
 
         if (countNum >= userLevel.getDayOrderCount()) {
             return R.error(MsgUtil.get("system.order.dayfinish"));
