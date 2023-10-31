@@ -15,8 +15,8 @@
     >
     </u-navbar>
     <view class="wrap">
-      <view v-if="path">
-        <iframe :src="path" class="online"> </iframe>
+      <view v-if="config.onlineService">
+        <iframe :src="config.onlineService" class="online"> </iframe>
       </view>
     </view>
   </view>
@@ -30,12 +30,18 @@ export default {
       path: "",
     };
   },
-  async onLoad(e) {
-    await this.$onLaunched;
-    this.config = uni.getStorageSync("config");
-    this.path = e.path || this.config.onlineService;
+  onShow() {
+    this.getConfig()
   },
-  methods: {},
+  methods: {
+    getConfig(){
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+        } 
+      });
+    },
+  },
 };
 </script>
 
