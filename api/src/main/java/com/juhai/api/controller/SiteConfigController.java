@@ -7,11 +7,14 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.juhai.api.utils.JwtUtils;
 import com.juhai.commons.entity.CustomerService;
 import com.juhai.commons.entity.MessageText;
+import com.juhai.commons.entity.User;
 import com.juhai.commons.service.CustomerServiceService;
 import com.juhai.commons.service.MessageTextService;
 import com.juhai.commons.service.ParamterService;
+import com.juhai.commons.service.UserService;
 import com.juhai.commons.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,15 +48,29 @@ public class SiteConfigController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @Autowired
+    private UserService userService;
+
     @ApiOperation(value = "获取系统配置")
     @GetMapping("/config")
     public R config(HttpServletRequest httpServletRequest) {
         Map<String, String> allParamByMap = paramterService.getAllParamByMap();
         Map<String, MessageText> allMessageMap = messageTextService.getAllMessageMap();
 
+        String onlineService = allParamByMap.get("online_service");
+
+        String pankou = allParamByMap.get("pankou");
+        if (StringUtils.equals(pankou, "liehuo")) {
+            String userName = JwtUtils.getUserName(httpServletRequest);
+            if (StringUtils.isNotBlank(userName)) {
+                User userByName = userService.getUserByName(userName);
+                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
+            }
+        }
+
         JSONObject obj = new JSONObject();
         // 在线客服
-        obj.put("onlineService", allParamByMap.get("online_service"));
+        obj.put("onlineService", onlineService);
         // 首页弹窗
         obj.put("homeMsg", allMessageMap.get("home_msg").getContent());
         // 首页轮播
