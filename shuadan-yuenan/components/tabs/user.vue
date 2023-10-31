@@ -198,7 +198,7 @@ export default {
       }
     },
     goDeposit(url) {
-      if (this.bindStatus) {
+      if (this.userData.bankNo) {
         uni.navigateTo({
           url,
         });
