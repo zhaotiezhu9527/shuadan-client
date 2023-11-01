@@ -30,6 +30,9 @@
               <view class="table-left">
                 <view>
                   {{ item.statusStr }}
+                  <label v-if="item.remark">
+                    ({{ item.remark }})
+                  </label>
                 </view>
                 <view class="table-money">
                   {{ item.orderNo }}
