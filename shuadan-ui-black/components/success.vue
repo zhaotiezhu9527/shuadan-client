@@ -11,15 +11,15 @@
           <view class="message_info_content">
             <view class="boxstyle">
               <view class="box">
-                <view class="header">
+                <!-- <view class="header">
                   <image
                     style="width: 96rpx"
                     src="/static/img/bg-006.png"
                     mode="widthFix"
                   />
                   <view class="text">{{ $t("congratulation") }}</view>
-                </view>
-                <view class="flex items-center justify-between">
+                </view> -->
+                <!-- <view class="flex items-center justify-between">
                   <view class="uid flex items-center mb-16">
                     {{ $t("order_no") }}：{{ items.orderNo }}
                     <text class="num mx-8">{{ items.countNum }}</text
@@ -27,10 +27,10 @@
                       {{ items.promptText }}
                     </text>
                   </view>
-                </view>
-                <view class="time mb-24">
+                </view> -->
+                <!-- <view class="time mb-24">
                   {{ $t("ordertime") }}：{{ items.orderTime }}
-                </view>
+                </view> -->
 
                 <view class="goodsstyle">
                   <view class="goods">
@@ -39,10 +39,10 @@
                       <view class="name">
                         {{ items.goodsName }}
                       </view>
-                      <view class="text">
+                      <!-- <view class="text">
                         <view>{{ $t("rmb_icon") }} {{ items.goodsPrice }}</view>
                         <view>x {{ items.goodsCount }}</view>
-                      </view>
+                      </view> -->
                     </view>
                   </view>
                 </view>

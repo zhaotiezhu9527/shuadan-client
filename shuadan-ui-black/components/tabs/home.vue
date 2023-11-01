@@ -51,7 +51,7 @@
     <view class="notice">
       <view class="tips">
         <view class="image">
-          <image class="img" src="@/static/img/icon12.png" mode="widthFix" />
+          <image class="img" src="@/static/img/bg-004.png" mode="widthFix" />
         </view>
         <marquee class="marquee">
           <div v-html="homeNotice"></div>
@@ -76,12 +76,12 @@
           <view class="txt">{{ $t("unlock") }}</view>
         </view>
         <view class="reactive">
-          <image :src="item.areaImg" class="img" mode="widthFix" />
+          <image :src="item.levelImg" class="img" mode="widthFix" />
         </view>
-        <view class="content">
+        <!-- <view class="content">
           <view>{{ item.areaName }}</view>
           <view>{{ item.remark }}</view>
-        </view>
+        </view> -->
       </view>
     </view>
     <view class="rich">
@@ -111,7 +111,7 @@
         ></u-icon>
       </view>
     </view>
-    <annunciate ref="annunciateRef" />
+    <!-- <annunciate ref="annunciateRef" /> -->
   </view>
 </template>
 
@@ -419,6 +419,7 @@ export default {
   gap: 16rpx;
   .reactive {
     position: relative;
+    margin: auto;
   }
   .no {
     position: absolute;
@@ -475,10 +476,10 @@ export default {
     }
   }
   .img {
-    width: 72rpx;
+    width: 240rpx;
     z-index: 2;
     position: relative;
-    margin-right: 16rpx;
+    // margin-right: 16rpx;
   }
 }
 .notice {

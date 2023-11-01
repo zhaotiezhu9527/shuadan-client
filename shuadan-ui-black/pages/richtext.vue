@@ -52,6 +52,7 @@ export default {
   width: 100%;
   .helpstyle {
     padding: 30rpx 20rpx;
+    background-color: #030105;
   }
   .helps {
     background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
