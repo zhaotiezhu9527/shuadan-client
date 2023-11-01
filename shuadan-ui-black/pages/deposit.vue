@@ -15,7 +15,8 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="link">
+      <!-- 银行卡信息 -->
+      <!-- <view class="link">
         <view class="flex">
           <image
             class="image"
@@ -30,6 +31,20 @@
         <view class="name">
           <view>{{ realName }}</view>
           <view>{{ phone }}</view>
+        </view>
+      </view> -->
+      <!-- 钱包地址 -->
+      <view class="link">
+        <view class="flex">
+          <image
+            class="image"
+            src="@/static/img/usdt.png"
+            mode="widthFix"
+          />
+          <view class="box">
+            <view>{{ $t("USDTAddr") }}</view>
+            <view>{{ walletAddr }}</view>
+          </view>
         </view>
       </view>
       <view class="content">
@@ -88,6 +103,7 @@ export default {
       pwd: "", //支付密码
       balance: 0, //余额
       withdrawFee: 0, //提款手续费
+      walletAddr: "",//usdt钱包地址
     };
   },
   onShow() {
@@ -119,6 +135,7 @@ export default {
           this.realName = res.data.data.realName;
           this.balance = res.data.data.balance;
           this.withdrawFee = res.data.data.withdrawFee;
+          this.walletAddr = res.data.data.walletAddr;
         }
       });
     },

@@ -198,4 +198,7 @@ export default {
   depositCount: "首充人数",
   newRegisterCount: "新增人数",
   activeCount: "活跃人数",
+  USDTAddr: "USDT钱包地址",
+  bindUSDTAddr: "请先绑定USDT钱包地址",
+  enterUsdt: "请输入USDT钱包地址",
 };

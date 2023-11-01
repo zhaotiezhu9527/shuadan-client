@@ -122,6 +122,12 @@
       "style": {
         "navigationBarTextStyle": "white"
       }
+    },
+    {
+      "path": "pages/bindUSDT",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
     }
   ],
   "globalStyle": {

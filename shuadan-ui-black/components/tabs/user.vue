@@ -184,6 +184,7 @@ export default {
         userName: "", //用户名
         levelName: "", //会员名称
         levelIcon: "", //
+        walletAddr: "",//usdt 地址
       },
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
@@ -219,13 +220,13 @@ export default {
       }
     },
     goDeposit(url) {
-      // if (this.bindStatus) {
+      if (this.userData.walletAddr) {
         uni.navigateTo({
           url,
         });
-      // } else {
-      //   this.$base.show(this.$t("input_bind"));
-      // }
+      } else {
+        this.$base.show(this.$t("bindUSDTAddr"));
+      }
     },
     //用户列表数据
     getInfo() {

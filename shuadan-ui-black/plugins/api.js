@@ -409,3 +409,18 @@ export const order_detail = (data) => {
       });
   });
 };
+
+//绑定usdt
+export const bindUsdt = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/bindUsdt",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

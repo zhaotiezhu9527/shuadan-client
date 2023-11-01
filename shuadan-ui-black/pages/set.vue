@@ -34,9 +34,15 @@
         <view class="icon"></view>
       </view>
     </view>
-    <view class="list margin-top10 margin-bottom10">
+    <!-- <view class="list margin-top10 margin-bottom10">
       <view class="list-item" @click="goBindBank">
         <label>{{ $t("bindBank_all") }}</label>
+        <view class="icon"></view>
+      </view>
+    </view> -->
+    <view class="list margin-top10 margin-bottom10">
+      <view class="list-item" @click="goUSDT">
+        <label>{{ $t("USDTAddr") }}</label>
         <view class="icon"></view>
       </view>
     </view>
@@ -86,6 +92,11 @@ export default {
     goBindBank() {
       uni.navigateTo({
         url: "/pages/bindBank",
+      });
+    },
+    goUSDT(){
+      uni.navigateTo({
+        url: "/pages/bindUSDT",
       });
     },
     goPassword() {
