@@ -24,6 +24,7 @@
             <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
             <result property="userAgentNode" column="user_agent_node" jdbcType="VARCHAR"/>
             <result property="userAgentLevel" column="user_agent_level" jdbcType="INTEGER"/>
+            <result property="walletAddr" column="wallet_addr" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -33,6 +34,6 @@
         bank_no,phone,order_time,
         check_time,status,update_by,
         remark,user_agent,user_agent_node,
-        user_agent_level
+        user_agent_level,wallet_addr
     </sql>
 </mapper>

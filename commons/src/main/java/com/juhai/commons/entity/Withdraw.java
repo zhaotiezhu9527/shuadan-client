@@ -130,6 +130,12 @@ public class Withdraw implements Serializable {
     @TableField(value = "user_agent_level")
     private Integer userAgentLevel;
 
+    /**
+     * 钱包地址
+     */
+    @TableField(value = "wallet_addr")
+    private String walletAddr;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

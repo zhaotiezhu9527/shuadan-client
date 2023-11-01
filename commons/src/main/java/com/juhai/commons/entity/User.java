@@ -197,6 +197,12 @@ public class User implements Serializable {
     private String remake;
 
     /**
+     * 钱包地址
+     */
+    @TableField(value = "wallet_addr")
+    private String walletAddr;
+
+    /**
      * 是否累加订单(0:是 1:否)
      */
     @TableField(value = "update_order")

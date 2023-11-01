@@ -15,6 +15,7 @@
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="fundsStatus" column="funds_status" jdbcType="INTEGER"/>
             <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+            <result property="walletAddr" column="wallet_addr" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
             <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
@@ -54,7 +55,7 @@
         register_ip,last_time,last_ip,
         create_time,create_by,update_time,
         update_by,remake,update_order,
-        deposit,withdraw,bet,income,invite_count,funds_status
+        deposit,withdraw,bet,income,invite_count,funds_status,wallet_addr
     </sql>
 
     <!-- 修改用户余额 -->
