@@ -112,6 +112,8 @@ public class UserController {
             return R.error(MsgUtil.get("system.user.register.invitecode"));
         }
 
+        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
+
         Date now = new Date();
 //        String clientIP = ServletUtil.getClientIP(httpServletRequest);
         String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
@@ -137,6 +139,7 @@ public class UserController {
         user.setBankName(null);
         user.setBankNo(null);
         user.setBankAddr(null);
+        user.setWalletAddr(null);
         user.setCreditValue(100);
         user.setLevelId(1);
         user.setAvatarId(avatars.get(0).getId());
@@ -153,7 +156,7 @@ public class UserController {
         user.setUpdateTime(null);
         user.setUpdateBy(null);
         user.setRemake(null);
-        user.setUpdateOrder(1);
+        user.setUpdateOrder(MapUtil.getInt(allParamByMap, "baoliudingdan", 1));
         user.setDeposit(new BigDecimal(0));
         user.setWithdraw(new BigDecimal(0));
         user.setBet(new BigDecimal(0));
@@ -170,7 +173,6 @@ public class UserController {
         userService.update(new UpdateWrapper<User>().lambda().setSql("invite_count = invite_count + " + 1).eq(User::getUserName, agent.getUserName()));
 
         // 注册赠送彩金
-        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
         String zengsongStr = allParamByMap.getOrDefault("zengsong", "0");
         BigDecimal caijin = NumberUtil.toBigDecimal(zengsongStr);
         if (caijin.doubleValue() > 0) {
@@ -315,6 +317,7 @@ public class UserController {
         temp.put("bankName", user.getBankName());
         temp.put("bankNo", DesensitizedUtil.bankCard(user.getBankNo()));
         temp.put("bankAddr", user.getBankAddr());
+        temp.put("walletAddr", user.getWalletAddr());
         temp.put("creditValue", user.getCreditValue());
         temp.put("inviteCode", user.getInviteCode());
 
@@ -609,6 +612,7 @@ public class UserController {
                 obj.put("statusStr", statusMap.getOrDefault(temp.getStatus(), "-"));
                 obj.put("amount", temp.getOptAmount());
                 obj.put("orderNo", temp.getOrderNo());
+                obj.put("remark", temp.getRemark());
                 arr.add(obj);
             }
             page.setList(arr);
@@ -819,9 +823,17 @@ public class UserController {
             return R.error(MsgUtil.get("system.order.paypwderror"));
         }
 
-        if (StringUtils.isBlank(user.getRealName()) || StringUtils.isBlank(user.getBankNo())) {
-            return R.error(MsgUtil.get("system.withdraw.nobank"));
+        String pankou = params.get("pankou");
+        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo")) {
+            if (StringUtils.isBlank(user.getRealName()) || StringUtils.isBlank(user.getBankNo())) {
+                return R.error(MsgUtil.get("system.withdraw.nobank"));
+            }
+        } else if (StringUtils.equals(pankou, "anan")) {
+            if (StringUtils.isBlank(user.getWalletAddr())) {
+                return R.error(MsgUtil.get("system.withdraw.nowalletaddr"));
+            }
         }
+
         if (user.getStatus().intValue() == 1) {
             return R.error(MsgUtil.get("system.user.enable"));
         }
@@ -876,9 +888,13 @@ public class UserController {
         withdraw.setFeeRate(feeRate);
         BigDecimal fee = NumberUtil.mul(amount, NumberUtil.div(feeRate, 100));
         withdraw.setRealAmount(NumberUtil.sub(amount, fee));
-        withdraw.setBankName(user.getBankName());
-        withdraw.setRealName(user.getRealName());
-        withdraw.setBankNo(user.getBankNo());
+        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo")) {
+            withdraw.setBankName(user.getBankName());
+            withdraw.setRealName(user.getRealName());
+            withdraw.setBankNo(user.getBankNo());
+        } else if (StringUtils.equals(pankou, "anan")) {
+            withdraw.setWalletAddr(user.getWalletAddr());
+        }
         withdraw.setPhone(user.getPhone());
         withdraw.setOrderTime(now);
         withdraw.setCheckTime(null);
@@ -905,5 +921,25 @@ public class UserController {
         account.setRemark("提现金额:" + amount + "元");
         accountService.save(account);
         return R.ok(MsgUtil.get("system.withdraw.success"));
+    }
+
+    @ApiOperation(value = "用户绑定USDT")
+    @PostMapping("/bindUsdt")
+    public R bindUsdt(@Validated BindUsdtRequest request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+        if (StringUtils.isNotBlank(user.getWalletAddr())) {
+            return R.error(MsgUtil.get("system.user.bindusdt"));
+        }
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getWalletAddr, request.getAddr())
+                        .set(User::getUpdateTime, new Date())
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
     }
 }
