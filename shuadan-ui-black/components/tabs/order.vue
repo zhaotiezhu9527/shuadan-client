@@ -65,10 +65,10 @@
                   <view class="name">
                     {{ item.goodsName }}
                   </view>
-                  <view class="text">
+                  <!-- <view class="text">
                     <view>{{ $t("rmb_icon") }} {{ item.goodsPrice }}</view>
                     <view>x {{ item.goodsCount }}</view>
-                  </view>
+                  </view> -->
                 </view>
               </view>
             </view>
