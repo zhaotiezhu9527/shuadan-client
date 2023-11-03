@@ -160,13 +160,13 @@ export default {
           url: "/pages/message",
           width: "40",
         },
-        {
-          label: this.$t("team"),
-          icon: "bg-028.png",
-          url: "/pages/team",
-          className: "mb",
-          width: "42",
-        },
+        // {
+        //   label: this.$t("team"),
+        //   icon: "bg-028.png",
+        //   url: "/pages/team",
+        //   className: "mb",
+        //   width: "42",
+        // },
         {
           label: this.$t("renturn_login"),
           icon: "bg-029.png",
@@ -425,7 +425,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 104rpx;
+          // width: 104rpx;
           height: 64rpx;
           padding: 0 24rpx;
           border-radius: 16rpx;

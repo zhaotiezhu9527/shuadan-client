@@ -2,14 +2,16 @@ import Vue from "vue";
 // 引入 多语言包
 import VueI18n from "vue-i18n";
 import zh from "./zh.js";
+import en from "./en.js";
 
 Vue.use(VueI18n);
 
 // 创建实例这里设置语言
 const i18n = new VueI18n({
-  locale: uni.getStorageSync("lang") ? uni.getStorageSync("lang") : "zh",
+  locale: uni.getStorageSync("lang") ? uni.getStorageSync("lang") : "en",
   messages: {
     zh,
+    en,
   },
 });
 

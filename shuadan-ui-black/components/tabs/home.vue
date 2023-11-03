@@ -259,6 +259,7 @@ export default {
 }
 .main {
   padding-top: 32rpx;
+  background-color: #280c43;
   .header {
     width: 90%;
     font-weight: bold;
@@ -297,11 +298,12 @@ export default {
       align-items: center;
       gap: 8rpx;
       justify-content: space-between;
+      flex-direction: column;
       view {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 104rpx;
+        // width: 104rpx;
         height: 64rpx;
         padding: 0 24rpx;
         border-radius: 16rpx;
