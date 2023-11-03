@@ -13,10 +13,10 @@
         titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
       >
       </u-navbar>
-      <view class="title">
+      <!-- <view class="title">
         <view>{{ $t("residue_balance") }}（{{ $t("rmb") }}）</view>
         <view>{{ userData.balance }}</view>
-      </view>
+      </view> -->
       <view class="tabs">
         <u-tabs
           :list="nav"
@@ -78,7 +78,7 @@
             <view class="ul">
               <view class="li">
                 <text>{{ $t("order_amount") }}</text>
-                <text>{{ $t("rmb_icon") }} {{ item.orderAmount }}</text>
+                <text> {{ item.orderAmount }} {{ $t("rmb_icon") }}</text>
               </view>
               <view class="li">
                 <text
@@ -89,14 +89,16 @@
                     >x{{ item.commissionMul }}</text
                   ></text
                 >
-                <text>{{ $t("rmb_icon") }} {{ Math.floor(item.commission * 100 ) / 100 }}</text>
+                <text> {{ Math.floor(item.commission * 100 ) / 100 }} {{ $t("rmb_icon") }}</text>
               </view>
-              <view class="li">
-                <text>{{ $t("return_amount") }}</text>
+              <!-- <view class="li">
+                <text>
+                  {{ $t("return_amount") }}
+                </text>
                 <text class="moeny">
                   {{ $t("rmb_icon") }} {{ Math.floor(item.returnAmount * 100 ) / 100 }}
                 </text>
-              </view>
+              </view> -->
               <view class="li right" v-if="item.status === 0">
                 <view class="submit" @click="change(item)">
                   {{ $t("oredr_submit") }}
@@ -198,7 +200,7 @@ export default {
 .main {
   .container {
     .title {
-      font-size: 46rpx;
+      font-size: 40rpx;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
@@ -234,7 +236,7 @@ export default {
   z-index: 3;
 
   .box {
-    padding: 30rpx;
+    padding: 20rpx 30rpx;
     background-color: #1e1e1e;
     border-radius: 16rpx;
     background-size: 100% 100%;
@@ -343,7 +345,7 @@ export default {
       justify-content: space-between;
       font-size: 24rpx;
       align-items: center;
-      padding-bottom: 24rpx;
+      padding-bottom: 10rpx;
       &:nth-child(3) {
         padding-bottom: 10rpx;
       }
@@ -355,16 +357,17 @@ export default {
       }
     }
     .submit {
-      margin-top: 30rpx;
+      background-color: #7000ed;
+      margin-top: 10rpx;
       color: $white;
-      font-size: 30rpx;
-      height: 64rpx;
+      font-size: 28rpx;
+      height: 50rpx;
       width: 176rpx;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 100rpx;
-      border: 1rpx solid $white;
+      // border: 1rpx solid $white;
     }
     text {
       font-size: 28rpx;
