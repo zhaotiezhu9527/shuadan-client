@@ -3,7 +3,7 @@
     <u-navbar
       placeholder
       :border="false"
-      title="客服中心"
+      :title="$t('service')"
       fixed
       bgColor="#000000"
       leftIconSize="0"

@@ -16,9 +16,10 @@
       <view class="box">
         <view class="con">
           <image class="img" :src="items.levelIcon" mode="widthFix" />
-          <view class="title">{{ vim.areaName }}</view>
+          <!-- <view class="title">{{ vim.areaName }}</view> -->
           <view class="text">
-            {{ vim.remark }} {{ $t("commission") }}{{ vim.commission }}%
+            <!-- {{ vim.remark }}  -->
+            {{ $t("commission") }} : {{ vim.commission }}%
           </view>
         </view>
         <view class="btn">
@@ -80,7 +81,7 @@
           <view>{{ $t("next") }}</view>
         </view>
       </view>
-      <view class="task">{{ $t("order_tips") }}</view>
+      <!-- <view class="task">{{ $t("order_tips") }}</view>
       <view class="info">
         <view>{{ $t("user") }}</view>
         <view> {{ $t("tips") }} </view>
@@ -88,7 +89,7 @@
         <view>
           {{ $t("reputation") }}
         </view>
-      </view>
+      </view> -->
     </view>
     <success ref="sucRef" @ok="getInfo(that)" />
     <view class="maskLoading" v-if="loading">
@@ -269,6 +270,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   .con {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -283,8 +285,9 @@ export default {
     font-size: 32rpx;
   }
   .text {
-    font-size: 20rpx;
+    font-size: 28rpx;
     color: #ffffffa6;
+    margin-top:20rpx;
   }
 }
 .task {

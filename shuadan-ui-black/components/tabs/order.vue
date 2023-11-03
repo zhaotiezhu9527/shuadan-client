@@ -39,7 +39,9 @@
                 style="width: 26rpx"
                 class="mr-4"
               />
-              {{ $t("ordertime") }}：{{ item.orderTime }}</view
+              {{ $t("ordertime") }}：{{ item.orderTime }}
+              <label class="red-text" v-if="item.promptText">{{item.promptText}}</label>
+              </view
             >
             <view class="flex items-center justify-between">
               <view class="uid">
@@ -51,6 +53,7 @@
                   loading: item.status === 0,
                   success: item.status === 1,
                   dongjie: item.status === 2,
+                  loading: item.status === 4,
                 }"
                 class="static"
               >
@@ -254,6 +257,10 @@ export default {
         font-size: 20rpx;
         text-align: center;
         margin-left: 10rpx;
+      }
+      .red-text{
+        margin-left: 20rpx;
+        color: #f56c6c;
       }
     }
     .uid {

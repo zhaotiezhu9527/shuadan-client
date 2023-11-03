@@ -17,16 +17,16 @@
     <view class="content" v-if="!active">
       <view class="title">{{ $t("recharge_acc") }}</view>
       <u-input
-        :placeholder="$t('input_recharge_acc')"
+        placeholder="USDT"
         border="bottom"
         placeholderClass="placeholder"
         v-model="value"
         clearable
         type="number"
       >
-        <template #prefix>
+        <!-- <template #prefix>
           <view class="rmb">{{ $t("rmb_icon") }}</view>
-        </template>
+        </template> -->
       </u-input>
       <view class="list">
         <view
@@ -35,7 +35,8 @@
           v-for="(item, index) in list"
           :key="index"
         >
-          {{ item }}{{ $t("rmb") }}
+          {{ item }}
+          <!-- {{ $t("rmb") }} -->
         </view>
       </view>
     </view>

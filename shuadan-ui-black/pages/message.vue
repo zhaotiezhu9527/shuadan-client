@@ -15,8 +15,8 @@
     >
     </u-navbar>
     <view class="main">
-      <view>
-        <image class="bg-img" src="../static/img/msg.jpg" />
+      <view class="bg-box">
+        <img class="bg-img" src="../static/img/msg.jpg" />
       </view>
       <view class="content">
         <!-- <view class="list-item">
@@ -33,8 +33,8 @@
           <view class="time">{{ item.pushTime }}</view>
         </view> -->
       </view>
-      <view>
-        <image class="bg-img" src="../static/img/chongzhi.jpg" />
+      <view class="bg-box">
+        <img class="bg-img" src="../static/img/chongzhi.jpg" />
       </view>
     </view>
   </view>
@@ -67,9 +67,11 @@ export default {
 .main {
   min-height: calc(100vh - 100rpx);
   background: linear-gradient(#000, #2d154d);
-  .bg-img{
-    width: 750rpx;
-    height: 1100rpx;
+  .bg-box{
+    width:100%;
+    .bg-img{
+      width: 100%;
+    }
   }
   .notice {
     padding-bottom: 10rpx;

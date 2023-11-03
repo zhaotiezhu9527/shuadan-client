@@ -55,7 +55,7 @@
           >
         </view>
         <u-input
-          :placeholder="$t('input_balance')"
+          placeholder="USDT"
           border="bottom"
           placeholderClass="placeholder"
           v-model="amount"
@@ -63,12 +63,14 @@
           type="number"
           @blur="update"
         >
-          <template #prefix>
+          <!-- <template #prefix>
             <view class="rmb">{{ $t("rmb_icon") }}</view>
-          </template>
+          </template> -->
         </u-input>
         <view class="text">
-          <text>{{ $t("usable") }}：{{ $t("rmb_icon") }}{{ balance }}</text>
+          <text>{{ $t("usable") }}：
+            <!-- {{ $t("rmb_icon") }} -->
+            {{ balance }}</text>
           <text @click="amount = balance">{{ $t("all_deposit") }}</text>
         </view>
       </view>

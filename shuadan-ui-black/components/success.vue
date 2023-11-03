@@ -75,13 +75,13 @@
               </view>
             </view>
             <view class="btn">
-              <u-button
+              <!-- <u-button
                 shape="circle"
                 color="#fff"
                 plain
                 @click="show = false"
                 :text="$t('no_submit')"
-              ></u-button>
+              ></u-button> -->
               <u-button
                 shape="circle"
                 color="#ffffff"

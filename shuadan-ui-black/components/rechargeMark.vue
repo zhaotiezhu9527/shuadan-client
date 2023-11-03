@@ -11,7 +11,7 @@
           <view class="message_info_content">
             <image
               class="image"
-              src="@/static/img/unionpay.png"
+              src="@/static/img/usdt.png"
               mode="widthFix"
             />
             <view class="box"> {{ $t("input_consult") }} </view>

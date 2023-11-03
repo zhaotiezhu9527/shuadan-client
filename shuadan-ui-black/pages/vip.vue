@@ -14,58 +14,80 @@
       titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
-    <view class="carstyle">
-      <view class="car">
-        <image class="user" :src="infos.avatarUrl" mode="widthFix" />
-        <view class="txt">
-          <view>{{ $t("vip") }}：{{ items.currLevelName }}</view>
-          <view
-            >{{ $t("dayOrderCount") }}：{{ items.dayOrderCount
-            }}{{ $t("unit") }}</view
-          >
+    <view class="main">
+      <view class="carstyle">
+        <view class="car">
+          <image class="user" :src="infos.avatarUrl" mode="widthFix" />
+          <view class="txt">
+            <view>{{ $t("vip") }}：{{ items.currLevelName }}</view>
+            <view
+              >{{ $t("dayOrderCount") }}：{{ items.dayOrderCount
+              }}{{ $t("unit") }}</view
+            >
+          </view>
+          <!-- <view class="link" @click="change">{{ $t("vip_info") }}</view> -->
         </view>
-        <view class="link" @click="change">{{ $t("vip_info") }}</view>
       </view>
-    </view>
-    <view class="list">
-      <view class="item">
-        <image class="img" src="@/static/img/bg-009.png" mode="widthFix" />
-        <view class="txt">{{ $t("addition") }}</view>
-      </view>
-      <view class="item">
-        <image class="img" src="@/static/img/bg-010.png" mode="widthFix" />
-        <view class="txt">{{ $t("task_limit") }}</view>
-      </view>
-      <view class="item">
-        <image class="img" src="@/static/img/bg-011.png" mode="widthFix" />
-        <view class="txt">{{ $t("exclusive") }}</view>
-      </view>
-    </view>
-    <view class="row">
-      <view class="item" v-for="(item, index) in items.levels" :key="index">
-        <view class="header">
-          <view class="title"
-            >{{ item.levelName }}
-            <text class="tips">{{ $t("perpetual") }}</text>
-          </view>
-          <view class="money">{{ item.levelPrice }}{{ $t("rmb") }}</view>
+      <view class="list">
+        <view class="item">
+          <image class="img" src="@/static/img/bg-009.png" mode="widthFix" />
+          <view class="txt">{{ $t("addition") }}</view>
         </view>
-        <view class="view">
-          <view class="txt">
-            <text>{{ $t("frequency") }}:</text>
-            <text>{{ item.dayWithdrawCount }}/{{ $t("day") }}</text>
+        <view class="item">
+          <image class="img" src="@/static/img/bg-010.png" mode="widthFix" />
+          <view class="txt">{{ $t("task_limit") }}</view>
+        </view>
+        <view class="item">
+          <image class="img" src="@/static/img/bg-011.png" mode="widthFix" />
+          <view class="txt">{{ $t("exclusive") }}</view>
+        </view>
+      </view>
+      <view class="row">
+        <view class="item" v-for="(item, index) in items.levels" :key="index">
+          <view class="header">
+            
+            <view>
+              <image class="level-img" :src="item.levelImg" />
+            </view>
+            <view class="title"
+              >
+              <!-- {{ item.levelName }} -->
+              <text class="tips">{{ $t("perpetual") }}</text>
+            </view>
+            <view class="money">
+              <!-- {{ item.levelPrice }}{{ $t("rmb") }} -->
+            </view>
           </view>
-          <view class="txt">
-            <text>{{ $t("limit") }}:</text>
-            <text>{{ item.maxWithdrawAmount }}/{{ $t("day") }}</text>
-          </view>
-          <view class="txt">
-            <text>{{ $t("dayOrderCount") }}:</text>
-            <text>{{ item.dayOrderCount }}/{{ $t("day") }}</text>
-          </view>
-          <view class="txt">
-            <text>{{ $t("commissionRate") }}:</text>
-            <text>{{ item.commissionRate }}/{{ $t("day") }}</text>
+          <view class="view">
+            <!-- <view class="txt">
+              <text>{{ $t("frequency") }}:</text>
+              <text>{{ item.dayWithdrawCount }}/{{ $t("day") }}</text>
+            </view>
+            <view class="txt">
+              <text>{{ $t("limit") }}:</text>
+              <text>{{ item.maxWithdrawAmount }}/{{ $t("day") }}</text>
+            </view>
+            <view class="txt">
+              <text>{{ $t("dayOrderCount") }}:</text>
+              <text>{{ item.dayOrderCount }}/{{ $t("day") }}</text>
+            </view>
+            <view class="txt">
+              <text>{{ $t("commissionRate") }}:</text>
+              <text>{{ item.commissionRate }}/{{ $t("day") }}</text>
+            </view> -->
+            <view class="text-item">
+              · Receive a set of 
+              {{ item.dayOrderCount}}
+               apps data tasks
+            </view>
+            <view class="text-item">
+              · Profit of {{ item.commissionRate}}% per application 
+            </view>
+            <view class="text-item">
+              · Activate with a 
+              {{ item.levelPrice}}
+              USDT
+            </view>
           </view>
         </view>
       </view>
@@ -110,6 +132,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.main{
+  background-color: #290d44;
+}
 .carstyle {
   width: 100%;
   height: 240rpx;
@@ -225,16 +250,24 @@ export default {
   }
   .view {
     border-top: 1rpx solid #ffffff1f;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    text-align: left;
+    color: #fff;
+    .text-item{
+      margin-top:20rpx;
+    }
   }
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 32rpx 0;
+    .level-img {
+      float: left;
+      color: #fff;
+      height: 36rpx;
+      width: 96rpx;
+      margin: 0 16rpx;
+    }
     .title {
       color: #e3e6f3;
       font-size: 28rpx;
@@ -246,6 +279,8 @@ export default {
       font-weight: 600;
       color: $white;
       font-size: 28rpx;
+      flex: 1;
+      text-align: right;
     }
     .tips {
       padding: 4rpx 8rpx;
