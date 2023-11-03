@@ -201,4 +201,6 @@ export default {
   USDTAddr: "USDT钱包地址",
   bindUSDTAddr: "请先绑定USDT钱包地址",
   enterUsdt: "请输入USDT钱包地址",
+  noticeTitle: "公告信息",
+  certificate: "证书",
 };

@@ -53,9 +53,12 @@
         <view class="image">
           <image class="img" src="@/static/img/bg-004.png" mode="widthFix" />
         </view>
-        <marquee class="marquee">
+        <!-- <marquee class="marquee">
           <div v-html="homeNotice"></div>
-        </marquee>
+        </marquee> -->
+        <div class="marquee">
+          {{ $t("noticeTitle") }}
+        </div>
         <view class="btn" @click="goDeposit('/pages/message')">
           {{ $t("message") }}
         </view>
@@ -101,7 +104,7 @@
       >
         <view class="con">
           <view class="name">{{ item.name }}</view>
-          <view class="txt">{{ item.txt }}</view>
+          <!-- <view class="txt">{{ item.txt }}</view> -->
         </view>
         <u-icon
           size="20"
@@ -135,13 +138,13 @@ export default {
         {
           img: img14,
           name: this.$t("instructions"),
-          en: "gzsm",
+          en: "dlhz",
           txt: "instructions",
         },
         {
           img: img15,
           name: this.$t("cooperation"),
-          en: "dlhz",
+          en: "gzsm",
           txt: "cooperation",
         },
         {
@@ -177,9 +180,15 @@ export default {
       });
     },
     change(en) {
-      uni.navigateTo({
-        url: `/pages/richtext?en=${en}`,
-      });
+      if(en != "dlhz"){
+        uni.navigateTo({
+          url: `/pages/richtext?en=${en}`,
+        });
+      }else{
+        uni.navigateTo({
+          url: `/pages/zhengshu`,
+        });
+      }
     },
     routechange2(unlock, url) {
       if (!unlock) return false;
@@ -520,7 +529,7 @@ export default {
   }
 }
 .marquee {
-  display: flex;
+  flex:1;
   align-items: center;
   padding: 20rpx 0 20rpx 34rpx;
   font-size: 28rpx;

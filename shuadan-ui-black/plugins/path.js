@@ -60,5 +60,8 @@ const home = [
   {
     path: "/pages/bindUSDT",
   },
+  {
+    path: "/pages/zhengshu",
+  },
 ];
 export default home;
