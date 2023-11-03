@@ -27,19 +27,22 @@ export default {
   data() {
     return {
       config: {}, //配置
+      loading: true,
     };
   },
-  onShow() {
+  onLoad() {
     this.getConfig()
   },
   methods: {
     getConfig(){
+      uni.showLoading();
       this.$api.system_config().then(({ data }) => {
       if (data.code == 0) {
           this.config = data.data;
+          uni.hideLoading();
         } 
       });
-    },
+    }
   },
 };
 </script>
