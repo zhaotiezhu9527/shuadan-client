@@ -15,21 +15,26 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="head"> </view>
+      <view>
+        <image class="bg-img" src="../static/img/msg.jpg" />
+      </view>
       <view class="content">
-        <view class="list-item">
+        <!-- <view class="list-item">
           <image class="icon-img" src="../static/img/msg_notice.png" />
           <label>{{ $t("sys_notice") }}</label>
           <view class="icon"></view>
-        </view>
-        <view class="text" v-for="(item, index) in list" :key="index">
+        </view> -->
+        <!-- <view class="text" v-for="(item, index) in list" :key="index">
           <view class="notice">{{ item.title }}</view>
           <view class="text-content">
             <view class="prompt">{{ $t("hint") }}</view>
             <view class="details" v-html="item.content"> </view>
           </view>
-          <!-- <view class="time">{{ item.pushTime }}</view> -->
-        </view>
+          <view class="time">{{ item.pushTime }}</view>
+        </view> -->
+      </view>
+      <view>
+        <image class="bg-img" src="../static/img/chongzhi.jpg" />
       </view>
     </view>
   </view>
@@ -62,12 +67,9 @@ export default {
 .main {
   min-height: calc(100vh - 100rpx);
   background: linear-gradient(#000, #2d154d);
-  .head {
-    width: 100%;
-    height: 372rpx;
-    background: url(../static/img/msg.png) no-repeat;
-    background-size: 100% 100%;
-    overflow: hidden;
+  .bg-img{
+    width: 750rpx;
+    height: 1100rpx;
   }
   .notice {
     padding-bottom: 10rpx;
