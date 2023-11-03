@@ -139,7 +139,7 @@ export default {
   avatar: "avatar set", 
   avatar_name: "avatar set", 
   add_set: "set right now", 
-  log: "record", 
+  log: "Record", 
   my: "Profile", 
   service_name: "CS", 
   hint: "kind tips", 
