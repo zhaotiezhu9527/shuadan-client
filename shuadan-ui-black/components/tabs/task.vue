@@ -47,33 +47,33 @@
           </view>
           <view class="txt">{{ $t("my_balance") }}</view>
         </view>
-        <view class="item">
+        <!-- <view class="item">
           <view class="moeny">
             {{ moenyFn(infos.yesterdayIncome) }}
           </view>
           <view class="txt">{{ $t("yesterday") }}</view>
-        </view>
+        </view> -->
         <view class="item">
           <view class="moeny"> {{ moenyFn(infos.todayIncome) }}</view>
           <view class="txt">{{ $t("todayIncome") }}</view>
         </view>
-        <view class="item">
+        <!-- <view class="item">
           <view class="moeny">
             <template v-if="infos.freezeBalance"></template>
             {{ infos.freezeBalance }}
           </view>
           <view class="txt">{{ $t("freezeBalance") }}</view>
-        </view>
+        </view> -->
         <view class="item">
           <view class="moeny">
             {{ infos.todayOrderCount }} / {{ items.dayOrderCount }}
           </view>
           <view class="txt">{{ $t("todayOrderCount") }}</view>
         </view>
-        <view class="item">
-          <view class="moeny"> {{ moenyFn(infos.yesterdayTeamIncome) }}</view>
-          <view class="txt">{{ $t("yesterdayTeamIncome") }}</view>
-        </view>
+        <!-- <view class="item">
+          <view class="moeny"> - </view>
+          <view class="txt">Stay tuned</view>
+        </view> -->
       </view>
       <view class="passStyle">
         <view class="pass">
