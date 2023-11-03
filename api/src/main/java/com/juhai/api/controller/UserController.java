@@ -368,6 +368,7 @@ public class UserController {
             obj.put("dayOrderCount", level.getDayOrderCount());
             obj.put("commissionRate", level.getCommissionRate());
             obj.put("levelPrice", level.getLevelPrice());
+            obj.put("levelImg", resourceDomain + level.getLevelIcon());
             levelArr.add(obj);
         }
         temp.put("levels", levelArr);
