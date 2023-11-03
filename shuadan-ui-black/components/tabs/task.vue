@@ -65,7 +65,7 @@
         </view>
         <view class="item">
           <view class="moeny">
-            {{ infos.todayOrderCount }} {{ $t("unit") }}
+            {{ infos.todayOrderCount }} / {{ items.dayOrderCount }}
           </view>
           <view class="txt">{{ $t("todayOrderCount") }}</view>
         </view>

@@ -27,7 +27,6 @@ export default {
   data() {
     return {
       config: {}, //配置
-      loading: true,
     };
   },
   onLoad() {

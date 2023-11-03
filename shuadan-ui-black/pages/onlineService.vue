@@ -15,8 +15,8 @@
     >
     </u-navbar>
     <view class="wrap">
-      <view v-if="path">
-        <iframe :src="path" class="online"> </iframe>
+      <view v-if="config.onlineService">
+        <iframe :src="config.onlineService" class="online"> </iframe>
       </view>
     </view>
   </view>
@@ -26,24 +26,22 @@
 export default {
   data() {
     return {
-      path: "",
+      config: {}, //配置
     };
   },
-  onLoad(e) {
-    if (e?.path) {
-      this.path = e.path;
-    } else {
-      dataFn();
-    }
+  onLoad() {
+    this.getConfig()
   },
   methods: {
-    dataFn() {
+    getConfig(){
+      uni.showLoading();
       this.$api.system_config().then(({ data }) => {
-        if (data.code == 0) {
-          this.path = data.data.onlineService;
-        }
+      if (data.code == 0) {
+          this.config = data.data;
+          uni.hideLoading();
+        } 
       });
-    },
+    }
   },
 };
 </script>
