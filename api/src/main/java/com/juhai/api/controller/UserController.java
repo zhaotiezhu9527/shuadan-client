@@ -328,6 +328,7 @@ public class UserController {
         temp.put("levelName", level == null ? "" : level.getLevelName());
         temp.put("levelIcon", level == null ? "" : resourceDomain + level.getLevelIcon());
         temp.put("withdrawFee", level == null ? 0 : level.getWithdrawFee());
+        temp.put("dayOrderCount", level == null ? 0 : level.getDayOrderCount());
 
         // 头像
         Avatar avatar = user.getAvatar();
