@@ -36,9 +36,9 @@
     </u-button>
     <image class="back maxwidth" src="/static/img/bg-001.png" mode="widthFix" />
     <view class="flex items-center ul justify-center">
-      <view class="li" @click="nopass('/pages/onlineService')">
+      <!-- <view class="li" @click="nopass('/pages/onlineService')">
         {{ $t("forget_pwd") }}
-      </view>
+      </view> -->
       <view class="li" @click="$refs.registerRef.open(inviteCode)">
         {{ $t("free_reg") }}
       </view>

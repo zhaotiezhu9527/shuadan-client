@@ -34,7 +34,7 @@
           <image class="head-img" mode="whiteFix" :src="userData.avatarUrl" />
           <view class="information">
             <view class="flex items-center">
-              <view class="name">{{ userData.nickName }}</view>
+              <view class="name">{{ userData.userName }}</view>
               <image class="level-img" :src="userData.levelIcon" />
               <label class="credit"
                 >{{ $t("creditValue") }}:{{ userData.creditValue }}</label
@@ -144,6 +144,13 @@ export default {
           label: this.$t("deposit_log"),
           icon: "bg-025.png",
           url: "/pages/withdrawalRecords",
+          className: "mb",
+          width: "40",
+        },
+        {
+          label: this.$t("USDTAddr"),
+          icon: "bg-025.png",
+          url: "/pages/bindUSDT",
           className: "mb",
           width: "40",
         },

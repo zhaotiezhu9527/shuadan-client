@@ -15,22 +15,27 @@
     >
     </u-navbar>
     <view class="list">
-      <view class="list-item" @click="goHeadimg">
+      <view class="list-item border-bottom393939" @click="goHeadimg">
         <label>{{ $t("avatar_name") }}</label>
         <image class="user-img" :src="userData.avatarUrl" />
         <view class="icon"></view>
       </view>
-      <view
+      <!-- <view
         class="list-item margin-top10 border-bottom393939"
         @click="goRealName"
       >
         <label>{{ $t("nickName_all") }}</label>
-        <span class="item-text">{{ userData.nickName }}</span>
+        <span class="item-text">{{ userData.realName || '- -' }}</span>
         <view class="icon"></view>
-      </view>
-      <view class="list-item">
+      </view> -->
+      <view class="list-item border-bottom393939">
         <label>{{ $t("userName_all") }}</label>
         <span class="item-text">{{ userData.userName }}</span>
+        <view class="icon"></view>
+      </view>
+      <view class="list-item border-bottom393939">
+        <label>{{ $t("phone") }}</label>
+        <span class="item-text">{{ userData.phone }}</span>
         <view class="icon"></view>
       </view>
     </view>
@@ -40,12 +45,12 @@
         <view class="icon"></view>
       </view>
     </view> -->
-    <view class="list margin-top10 margin-bottom10">
+    <!-- <view class="list margin-top10 margin-bottom10">
       <view class="list-item" @click="goUSDT">
         <label>{{ $t("USDTAddr") }}</label>
         <view class="icon"></view>
       </view>
-    </view>
+    </view> -->
     <view class="list">
       <view class="list-item border-bottom393939" @click="goPassword">
         <label>{{ $t("pwd") }}</label>
@@ -72,6 +77,8 @@ export default {
         userName: "", //用户名
         levelName: "", //会员名称
         levelIcon: "", //
+        realName: "",//全名
+        phone: "",//手机号码
       },
     };
   },
@@ -94,11 +101,11 @@ export default {
         url: "/pages/bindBank",
       });
     },
-    goUSDT(){
-      uni.navigateTo({
-        url: "/pages/bindUSDT",
-      });
-    },
+    // goUSDT(){
+    //   uni.navigateTo({
+    //     url: "/pages/bindUSDT",
+    //   });
+    // },
     goPassword() {
       uni.navigateTo({
         url: "/pages/password",

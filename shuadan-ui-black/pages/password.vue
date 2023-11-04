@@ -115,15 +115,17 @@ export default {
   height: 90rpx;
   line-height: 90rpx;
   label {
-    width: 160rpx;
+    width: 230rpx;
     margin-right: 20rpx;
     color: #ddd;
     text-align: right;
+    font-size: 24rpx;
   }
   .input-text {
     flex: 1;
     height: 90rpx;
     line-height: 90rpx;
+    font-size: 28rpx;
   }
 }
 </style>
