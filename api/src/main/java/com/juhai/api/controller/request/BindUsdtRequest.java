@@ -13,4 +13,8 @@ public class BindUsdtRequest {
     @NotNull(message = "system.param.err")
     @ApiModelProperty(value = "地址", example = "465465421354645", required = true)
     private String addr;
+
+    @NotNull(message = "system.param.err")
+    @ApiModelProperty(value = "真实姓名", example = "赵铁柱", required = true)
+    private String realName;
 }
