@@ -94,6 +94,15 @@ public class UserController {
     @ApiOperation(value = "注册")
     @PostMapping("/register")
     public R register(@Validated UserRegisterRequest request, HttpServletRequest httpServletRequest) throws Exception {
+        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
+
+        String pankou = allParamByMap.get("pankou");
+        if (StringUtils.equals(pankou, "anan")) {
+            // 阿楠盘口需要填写手机号
+            if (StringUtils.isBlank(request.getPhone())) {
+                return R.error(MsgUtil.get("system.param.err"));
+            }
+        }
         // 查询用户名是否存在
         long exist = userService.count(
                 new LambdaQueryWrapper<User>()
@@ -111,8 +120,6 @@ public class UserController {
         if (agent == null) {
             return R.error(MsgUtil.get("system.user.register.invitecode"));
         }
-
-        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
 
         Date now = new Date();
 //        String clientIP = ServletUtil.getClientIP(httpServletRequest);
@@ -135,7 +142,7 @@ public class UserController {
         user.setStatus(0);
         user.setFundsStatus(0);
         user.setRealName(null);
-        user.setPhone(null);
+        user.setPhone(request.getPhone());
         user.setBankName(null);
         user.setBankNo(null);
         user.setBankAddr(null);

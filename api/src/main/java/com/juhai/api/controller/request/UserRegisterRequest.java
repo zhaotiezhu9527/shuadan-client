@@ -35,4 +35,7 @@ public class UserRegisterRequest {
     @Pattern(regexp = RegConstant.WITHDRAW_PWD_REG, message = "validation.user.register.paypwd")
     @ApiModelProperty(value = "支付密码", example = "123456", required = true)
     private String payPwd;
+
+    @ApiModelProperty(value = "手机号", example = "15152033333", required = true)
+    private String phone;
 }
