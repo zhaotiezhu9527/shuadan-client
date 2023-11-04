@@ -945,6 +945,7 @@ public class UserController {
         userService.update(
                 new UpdateWrapper<User>().lambda()
                         .set(User::getWalletAddr, request.getAddr())
+                        .set(User::getRealName, request.getRealName())
                         .set(User::getUpdateTime, new Date())
                         .eq(User::getUserName, userName)
         );
