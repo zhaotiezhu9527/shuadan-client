@@ -16,17 +16,6 @@
     </u-navbar>
     <view class="main">
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
-        <!-- <view class="title">
-          <view
-            class="tab"
-            :class="{ active: active === index }"
-            @click="change(index)"
-            v-for="(item, index) in nav"
-            :key="index"
-          >
-            {{ item.name }}
-          </view>
-        </view> -->
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
             <view class="table-content">
@@ -62,19 +51,7 @@ export default {
       loading: false,
       finished: false,
       isArray: true,
-      active: 0,
       page: 0,
-      nav: [
-        {
-          name: this.$t("all_type"),
-        },
-        {
-          name: this.$t("deposit_log"),
-        },
-        {
-          name: this.$t("account_log"),
-        },
-      ],
     };
   },
   onLoad() {
@@ -84,10 +61,8 @@ export default {
     this.dataFn();
   },
   methods: {
-    change(index) {
-      this.active = index;
-    },
     load() {
+      console.log(1111)
       if (this.loading || this.finished) return false;
       this.page++;
       this.dataFn(this.page);
@@ -133,11 +108,6 @@ export default {
     box-shadow: 0 0 1rpx #b8bbbf;
     font-size: 28rpx;
     transition: all 0.5s;
-    &.active {
-      color: #be1204;
-      border-bottom: 4rpx solid #be1204;
-      transition: all 0.5s;
-    }
   }
 }
 .content {

@@ -34,13 +34,13 @@
               <view class="name">{{ infos.todayIncome }}</view>
               <view class="txt">{{ $t("todayIncome") }}({{ $t("rmb") }})</view>
             </view>
-            <view class="li">
+            <!-- <view class="li">
               <view class="name">{{ infos.yesterdayIncome }}</view>
               <view class="txt"
                 >{{ $t("yesterdayIncome") }}({{ $t("rmb") }})</view
               >
-            </view>
-            <view class="li">
+            </view> -->
+            <view class="li flex1">
               <view class="name">{{ infos.totalIncome }}</view>
               <view class="txt">{{ $t("totalIncome") }}({{ $t("rmb") }})</view>
             </view>

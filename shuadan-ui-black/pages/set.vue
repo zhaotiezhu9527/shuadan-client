@@ -28,20 +28,20 @@
         <span class="item-text">{{ userData.realName || '- -' }}</span>
         <view class="icon"></view>
       </view> -->
-      <view class="list-item border-bottom393939">
+      <view class="list-item margin-top30 border-bottom393939">
         <label>{{ $t("userName_all") }}</label>
         <span class="item-text">{{ userData.userName }}</span>
-        <view class="icon"></view>
+        <!-- <view class="icon"></view> -->
       </view>
       <view class="list-item border-bottom393939">
-        <label>{{ $t("userName_all") }}</label>
+        <label>{{ $t("realName") }}</label>
         <span class="item-text">{{ userData.realName }}</span>
-        <view class="icon"></view>
+        <!-- <view class="icon"></view> -->
       </view>
       <view class="list-item border-bottom393939">
-        <label>{{ $t("phone") }}</label>
+        <label>{{ $t("phoneNumber") }}</label>
         <span class="item-text">{{ userData.phone }}</span>
-        <view class="icon"></view>
+        <!-- <view class="icon"></view> -->
       </view>
     </view>
     <!-- <view class="list margin-top10 margin-bottom10">
@@ -57,7 +57,7 @@
       </view>
     </view> -->
     <view class="list">
-      <view class="list-item border-bottom393939" @click="goPassword">
+      <view class="list-item margin-top30 border-bottom393939" @click="goPassword">
         <label>{{ $t("pwd") }}</label>
         <view class="icon"></view>
       </view>

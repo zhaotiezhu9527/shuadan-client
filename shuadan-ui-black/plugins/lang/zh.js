@@ -203,4 +203,5 @@ export default {
   enterUsdt: "请输入USDT钱包地址",
   noticeTitle: "公告信息",
   certificate: "证书",
+  phoneNumber: "手机号码",
 };

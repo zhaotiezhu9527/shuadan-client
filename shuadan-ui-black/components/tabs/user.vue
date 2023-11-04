@@ -138,8 +138,15 @@ export default {
           label: this.$t("deposit_log"),
           icon: "bg-025.png",
           url: "/pages/withdrawalRecords",
-          className: "mb",
           width: "40",
+        },
+
+        {
+          label: this.$t("order_log"),
+          icon: "bg-022.png",
+          url: "/pages/accountDetails",
+          className: "mb",
+          width: "36",
         },
         // {
         //   label: this.$t("order_log"),
@@ -160,12 +167,7 @@ export default {
           url: "/pages/message",
           width: "40",
         },
-        {
-          label: this.$t("order_log"),
-          icon: "bg-022.png",
-          url: "/pages/accountDetails",
-          width: "36",
-        },
+        
         {
           label: this.$t("invitation"),
           icon: "bg-026.png",
@@ -221,11 +223,7 @@ export default {
       });
     },
     goPage({ label, url }) {
-      if (label === this.$t("order_log")) {
-        uni.reLaunch({
-          url: url,
-        });
-      } else if (label === this.$t("renturn_login")) {
+      if (label === this.$t("renturn_login")) {
         this.loginoutShow = true;
       } else {
         uni.navigateTo({

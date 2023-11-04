@@ -20,26 +20,8 @@
           <image class="user" :src="infos.avatarUrl" mode="widthFix" />
           <view class="txt">
             <view>{{ $t("vip") }}：{{ items.currLevelName }}</view>
-            <view
-              >{{ $t("dayOrderCount") }}：{{ items.dayOrderCount
-              }}{{ $t("unit") }}</view
-            >
           </view>
           <!-- <view class="link" @click="change">{{ $t("vip_info") }}</view> -->
-        </view>
-      </view>
-      <view class="list">
-        <view class="item">
-          <image class="img" src="@/static/img/bg-009.png" mode="widthFix" />
-          <view class="txt">{{ $t("addition") }}</view>
-        </view>
-        <view class="item">
-          <image class="img" src="@/static/img/bg-010.png" mode="widthFix" />
-          <view class="txt">{{ $t("task_limit") }}</view>
-        </view>
-        <view class="item">
-          <image class="img" src="@/static/img/bg-011.png" mode="widthFix" />
-          <view class="txt">{{ $t("exclusive") }}</view>
         </view>
       </view>
       <view class="row">
