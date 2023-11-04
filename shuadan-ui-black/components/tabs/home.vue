@@ -409,7 +409,7 @@ export default {
     .name {
       padding-bottom: 10rpx;
       color: rgba($white, 0.85);
-      font-size: 16rpx;
+      font-size: 24rpx;
     }
     .txt {
       color: rgba($white, 0.65);
