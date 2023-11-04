@@ -139,7 +139,7 @@ export default {
             this.loading = false;
           }
         });
-      }, 4000);
+      }, 1000);
     },
   },
 };
