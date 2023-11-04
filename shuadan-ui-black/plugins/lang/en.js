@@ -75,7 +75,7 @@ export default {
   matching: "Matching,please wait.",
   myriad: "10k+", 
   strive: "We are working hard to grab orders, and the results will be released below.。", 
-  account_balance: "Account amount",
+  account_balance: "Total Balance",
   loginout: "Are you sure to quit?",
   renturn_login: "Log out",
   notice: "Announcement",
