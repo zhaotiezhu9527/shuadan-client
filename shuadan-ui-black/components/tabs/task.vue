@@ -17,10 +17,10 @@
         <view class="con">
           <image class="img" :src="items.levelIcon" mode="widthFix" />
           <!-- <view class="title">{{ vim.areaName }}</view> -->
-          <view class="text">
-            <!-- {{ vim.remark }}  -->
+          <!-- <view class="text">
+            {{ vim.remark }} 
             {{ $t("commission") }} : {{ vim.commission }}%
-          </view>
+          </view> -->
         </view>
         <view class="btn">
           <u-button

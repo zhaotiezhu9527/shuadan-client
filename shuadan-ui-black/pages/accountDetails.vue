@@ -62,12 +62,11 @@ export default {
   },
   methods: {
     load() {
-      console.log(1111)
       if (this.loading || this.finished) return false;
       this.page++;
       this.dataFn(this.page);
     },
-    dataFn(page = 1, limit = 20) {
+    dataFn(page = 1, limit = 100) {
       this.loading = true;
       this.$api
         .user_account_list({ page, limit })
