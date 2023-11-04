@@ -15,9 +15,10 @@
     >
     </u-navbar>
     <view class="wrap">
-      <view v-if="config.onlineService">
+      <!-- <view v-if="config.onlineService">
         <iframe :src="config.onlineService" class="online"> </iframe>
-      </view>
+      </view> -->
+      <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
     </view>
   </view>
 </template>
@@ -27,6 +28,11 @@ export default {
   data() {
     return {
       config: {}, //配置
+      webviewStyles: {
+        progress: {
+          color: '#00FF00'
+        }
+      }
     };
   },
   onLoad() {
@@ -34,11 +40,11 @@ export default {
   },
   methods: {
     getConfig(){
-      uni.showLoading();
+      // uni.showLoading();
       this.$api.system_config().then(({ data }) => {
       if (data.code == 0) {
           this.config = data.data;
-          uni.hideLoading();
+          // uni.hideLoading();
         } 
       });
     }
@@ -50,6 +56,7 @@ export default {
 .online {
   width: 100%;
   height: calc(100vh - 100rpx + var(--status-bar-height));
+  // margin-top: 100rpx;
   border: none;
 }
 </style>
