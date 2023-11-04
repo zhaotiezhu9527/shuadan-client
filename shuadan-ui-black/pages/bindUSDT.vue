@@ -20,6 +20,16 @@
         <!-- <label>{{ $t("realName") }}</label> -->
         <input
           type="text"
+          v-model="userData.realName"
+          :disabled="bindStatus"
+          class="input-text"
+          :placeholder="$t('realName')"
+        />
+      </view>
+      <view class="from-input border-bottom393939">
+        <!-- <label>{{ $t("realName") }}</label> -->
+        <input
+          type="text"
           v-model="userData.addr"
           :disabled="bindStatus"
           class="input-text"
@@ -43,6 +53,7 @@ export default {
       loading: false, //
       userData: {
         addr: "", //usdt地址
+        realName: "",//真实姓名
       },
       bindStatus: true, //绑定状态
     };
@@ -55,10 +66,13 @@ export default {
     submit() {
       if (!this.userData.addr) {
         return this.$base.show(this.$t("enterUsdt"));
+      } else if(!this.userData.realName) {
+        return this.$base.show(this.$t("enterUsdt"));
       } 
       this.loading = true;
       const DATA_OBJ = {
         addr: this.userData.addr, //真实姓名
+        realName: this.userData.realName, //真实姓名
       };
       this.$api
         .bindUsdt(DATA_OBJ)

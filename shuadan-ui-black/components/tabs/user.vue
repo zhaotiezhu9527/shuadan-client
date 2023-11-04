@@ -122,17 +122,11 @@ export default {
           width: "36",
         },
         {
-          label: this.$t("order_log"),
-          icon: "bg-022.png",
-          url: "/pages/index?tabs=1",
+          label: this.$t("USDTAddr"),
+          icon: "bg-025.png",
+          url: "/pages/bindUSDT",
           className: "mb",
-          width: "36",
-        },
-        {
-          label: this.$t("account_log"),
-          icon: "bg-023.png",
-          url: "/pages/accountDetails",
-          width: "36",
+          width: "40",
         },
         {
           label: this.$t("recharge_log"),
@@ -147,12 +141,30 @@ export default {
           className: "mb",
           width: "40",
         },
+        // {
+        //   label: this.$t("order_log"),
+        //   icon: "bg-022.png",
+        //   url: "/pages/index?tabs=1",
+        //   className: "mb",
+        //   width: "36",
+        // },
         {
-          label: this.$t("USDTAddr"),
-          icon: "bg-025.png",
-          url: "/pages/bindUSDT",
-          className: "mb",
+          label: this.$t("service"),
+          icon: "bg-023.png",
+          url: "/pages/onlineService",
+          width: "36",
+        },
+        {
+          label: this.$t("notice"),
+          icon: "bg-027.png",
+          url: "/pages/message",
           width: "40",
+        },
+        {
+          label: this.$t("order_log"),
+          icon: "bg-022.png",
+          url: "/pages/accountDetails",
+          width: "36",
         },
         {
           label: this.$t("invitation"),
@@ -161,12 +173,7 @@ export default {
           className: "mb",
           width: "40",
         },
-        {
-          label: this.$t("notice"),
-          icon: "bg-027.png",
-          url: "/pages/message",
-          width: "40",
-        },
+       
         // {
         //   label: this.$t("team"),
         //   icon: "bg-028.png",

@@ -4,7 +4,7 @@
       placeholder
       :border="false"
       autoBack
-      :title="$t('account_log')"
+      :title="$t('order_log')"
       fixed
       leftIconColor="#ffffff"
       leftIconSize="32"

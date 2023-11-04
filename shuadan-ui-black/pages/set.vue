@@ -34,6 +34,11 @@
         <view class="icon"></view>
       </view>
       <view class="list-item border-bottom393939">
+        <label>{{ $t("userName_all") }}</label>
+        <span class="item-text">{{ userData.realName }}</span>
+        <view class="icon"></view>
+      </view>
+      <view class="list-item border-bottom393939">
         <label>{{ $t("phone") }}</label>
         <span class="item-text">{{ userData.phone }}</span>
         <view class="icon"></view>
