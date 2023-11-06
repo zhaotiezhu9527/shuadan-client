@@ -80,6 +80,9 @@
       </view>
     </view>
     <service />
+    <view class="display-hidden">
+      <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
+    </view>
   </view>
 </template>
 
@@ -95,6 +98,11 @@ export default {
       userName: "",
       loading: false,
       config: {},
+      webviewStyles: {
+        progress: {
+          color: '#00FF00'
+        }
+      }
     };
   },
   onShow() {
@@ -103,6 +111,7 @@ export default {
       this.loginPwd = uni.getStorageSync("loginPwd");
       this.checked["1"];
     }
+    this.getConfig()
   },
   methods: {
     routePage(url) {
@@ -153,6 +162,15 @@ export default {
         url,
       });
     },
+    getConfig(){
+      // uni.showLoading();
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+          // uni.hideLoading();
+        } 
+      });
+    }
   },
   components: {
     service,
