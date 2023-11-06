@@ -83,12 +83,13 @@
               <view class="li">
                 <text
                   >{{ $t("commission")
-                  }}<text
+                  }}
+                  <!-- <text
                     v-if="item.commissionMul >= 2"
                     class="tip-bubble tip-bubble-left"
                     >x{{ item.commissionMul }}</text
-                  ></text
-                >
+                  > -->
+                  </text>
                 <text> {{ Math.floor(item.commission * 100 ) / 100 }} {{ $t("rmb_icon") }}</text>
               </view>
               <!-- <view class="li">

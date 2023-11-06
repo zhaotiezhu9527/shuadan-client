@@ -57,12 +57,13 @@
                   <view class="li">
                     <text
                       >{{ $t("commission")
-                      }}<text
+                      }}
+                      <!-- <text
                         v-if="items.commissionMul >= 2"
                         class="tip-bubble tip-bubble-left"
                         >x{{ items.commissionMul }}</text
-                      ></text
-                    >
+                      > -->
+                      </text>
                     <text>{{ $t("rmb_icon") }} {{ items.commission }}</text>
                   </view>
                   <view class="li">
