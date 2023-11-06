@@ -200,7 +200,7 @@ export default {
   activeCount: "Number of activity people",
   USDTAddr: "Bind wallet address",
   bindUSDTAddr: "Please bind the USDT wallet address first",
-  enterUsdt: "Please enter the USDT wallet address",
+  enterUsdt: "Wallet address",
   noticeTitle: "Latest Event",
   certificate: "Certificate",
   phoneNumber: "Phone number",

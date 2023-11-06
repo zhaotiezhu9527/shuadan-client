@@ -39,7 +39,7 @@
       <view class="btn">
         <view v-if="bindStatus" class="bank-btn"> {{ $t("edit_info") }} </view>
         <view v-else-if="!bindStatus" @click="submit">
-          {{ $t("set_info") }}
+          {{ $t("confirmText") }}
         </view>
       </view>
     </view>

@@ -18,7 +18,11 @@
       <!-- <view v-if="config.onlineService">
         <iframe :src="config.onlineService" class="online"> </iframe>
       </view> -->
-      <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
+      <view class="progress-bar-background">
+        <view class="progress-bar" :style="{ width: progressBarWidth + '%' }"></view>
+      </view>
+      <web-view 
+      v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
     </view>
   </view>
 </template>
@@ -32,11 +36,24 @@ export default {
         progress: {
           color: '#00FF00'
         }
-      }
+      },
+      progressBarWidth: 0, // 控制进度条宽度的数据
     };
   },
   onLoad() {
     this.getConfig()
+  },
+  onReady() {
+    // 页面准备好之后，开始加载
+    let self = this;
+    let interval = setInterval(() => {
+      // 假设每个时间间隔进度条增加10%
+      if (self.progressBarWidth >= 100) {
+        clearInterval(interval);
+      } else {
+        self.progressBarWidth += 10;
+      }
+    }, 300);
   },
   methods: {
     getConfig(){
@@ -47,7 +64,7 @@ export default {
           // uni.hideLoading();
         } 
       });
-    }
+    },
   },
 };
 </script>
@@ -58,5 +75,15 @@ export default {
   height: calc(100vh - 100rpx + var(--status-bar-height));
   // margin-top: 100rpx;
   border: none;
+}
+.progress-bar-background {
+  width: 100%;
+  height: 5px;
+  background-color: #e0e0e0;
+}
+.progress-bar {
+  height: 5px;
+  background-color: #03a9f4;
+  width: 0; /* 初始化进度条宽度为0 */
 }
 </style>

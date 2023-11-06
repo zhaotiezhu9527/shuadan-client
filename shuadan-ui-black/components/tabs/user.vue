@@ -232,12 +232,12 @@ export default {
       }
     },
     goDeposit(url) {
-      if (this.userData.walletAddr) {
+      if (!this.userData.walletAddr && url == "/pages/deposit") {
+        this.$base.show(this.$t("bindUSDTAddr"));
+      } else {
         uni.navigateTo({
           url,
         });
-      } else {
-        this.$base.show(this.$t("bindUSDTAddr"));
       }
     },
     //用户列表数据
