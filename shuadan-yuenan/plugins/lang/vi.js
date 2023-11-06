@@ -67,7 +67,7 @@ export default {
   noPhone: "Vui lòng thiết lập số điện thoại",
   bankName: "Tên ngân hàng",
   noBankName: "Vui lòng thiết lập thẻ ngân hàng ",
-  bankNo: "Số thẻ",
+  bankNo: "Số tài khoản",
   noBankNo: "Vui lòng thiết lập tài khoản ngân hàng",
   addr: "Chi nhánh",
   noAddr: "Vui lòng thiết lập tên ngân hàng",
