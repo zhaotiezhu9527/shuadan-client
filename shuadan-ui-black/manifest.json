@@ -1,5 +1,5 @@
 {
-    "name" : "全民任务",
+    "name" : "Cognizant",
     "appid" : "__UNI__B27C69D",
     "description" : "",
     "versionName" : "1.0.1",
@@ -108,7 +108,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "安科生物",
+        "title" : "Cognizant",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",
