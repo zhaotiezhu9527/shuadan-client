@@ -33,7 +33,7 @@
         <view class="input">
           <u-input
             shape="circle"
-            :placeholder="$t('phone')"
+            :placeholder="$t('phoneNumber')"
             border="none"
             placeholderClass="placeholder"
             v-model="phone"
@@ -179,6 +179,9 @@ export default {
 
 <style scoped lang="scss">
 @import "@/static/login.scss";
+.main{
+  width: 100%;
+}
 .form2 {
   width: 90% !important;
 }
@@ -206,6 +209,12 @@ export default {
     /deep/.u-icon__icon {
       font-weight: 600 !important;
     }
+  }
+}
+@media screen and(min-width: 1100px) {
+  /deep/ .u-popup__content {
+    width: 818rpx;
+    margin: auto !important;
   }
 }
 /deep/ .u-popup__content {
