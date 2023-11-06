@@ -65,7 +65,7 @@ export default {
   yesterdayTeamIncome: "Yesterday’s team commission",
   unit: "Order",
   unlocking: "Unlock",
-  next: "Next level exclusive channel to get higher commissions",
+  next: "Upgrade to the next membership level to get more commissions",
   order_tips: "Order tips",
   user: "Hello dear user", 
   tips: "In order to prevent someone from maliciously laundering money or cashing out a series of illegal activities, the platform requires members to complete 70 orders before applying for withdrawal. After the withdrawal review is successful, the payment time will be T+0 (within 2 hours). The specific payment time will be determined by the bank.  ", 
