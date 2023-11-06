@@ -79,6 +79,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
+  background-color: #280c43;
   .boxStyle {
     padding: 48rpx 0;
   }
