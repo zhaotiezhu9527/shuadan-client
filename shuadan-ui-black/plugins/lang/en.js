@@ -1,5 +1,5 @@
 export default { 
-  title: "National mission",
+  title: "Cognizant",
   account: "Username",
   password: "Password",
   forget_pwd: "Forget password",
