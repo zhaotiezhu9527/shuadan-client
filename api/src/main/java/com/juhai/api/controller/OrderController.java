@@ -132,6 +132,10 @@ public class OrderController {
         areaWrapper.leftJoin(Level.class,Level::getId,Area::getLevelId).oneToOneSelect(Area::getLevel, Level.class).end();
         areaWrapper.orderByDesc(Area::getPxh);
         Area area = areaService.joinGetOne(areaWrapper, Area.class);
+        if (area == null || area.getLevel() == null) {
+            log.error("未查询到ID[{}]的专区", areaId);
+            return R.error();
+        }
         Level areaLevel = area.getLevel();
         // 校验当前用户是否解锁该区域
         if (areaLevel.getLevelValue().intValue() > userLevel.getLevelValue().intValue()) {
