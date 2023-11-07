@@ -115,7 +115,7 @@ export default {
   height: 90rpx;
   line-height: 90rpx;
   label {
-    width: 230rpx;
+    width: 250rpx;
     margin-right: 20rpx;
     color: #ddd;
     text-align: right;
