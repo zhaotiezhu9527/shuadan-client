@@ -388,8 +388,16 @@ public class UserController {
     public R incomeDetail(HttpServletRequest httpServletRequest) {
         String userName = JwtUtils.getUserName(httpServletRequest);
 
-        User user = userService.getUserByName(userName);
+//        User user = userService.getUserByName(userName);
 
+        // 获取用户信息
+        JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
+        wrapper.eq(User::getUserName, userName);
+        wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
+        User user = userService.joinGetOne(wrapper, User.class);
+        Level userLevel = user.getLevel();
+
+        Date now = new Date();
         JSONObject temp = new JSONObject();
         // 用户余额
         temp.put("balance", user.getBalance());
@@ -417,12 +425,33 @@ public class UserController {
 
         // 今日订单量
         CompletableFuture<Void> orderCountFuture = CompletableFuture.runAsync(() -> {
-            OrderCount orderCount = orderCountService.getOne(
+            // 获取今日订单数
+            List<OrderCount> orderCounts = orderCountService.list(
                     new LambdaQueryWrapper<OrderCount>()
                             .eq(OrderCount::getUserName, userName)
-                            .eq(OrderCount::getToday, DateUtil.formatDate(new Date()))
+                            .eq(user.getUpdateOrder().intValue() == 1, OrderCount::getToday, DateUtil.formatDate(now))
+                            .orderByDesc(OrderCount::getCreateTime)
             );
-            temp.put("todayOrderCount", orderCount == null ? 0 : orderCount.getOrderCount());
+            int countNum = 0;
+            if (CollUtil.isNotEmpty(orderCounts)) {
+                OrderCount orderCount = orderCounts.get(0);
+                countNum = orderCount.getOrderCount();
+                // 判断是否是往日次数
+                if (!StringUtils.equals(orderCount.getToday(), DateUtil.formatDate(now))) {
+                    // 如果往日已经做满次数，重新开始计算
+                    if (countNum >= userLevel.getDayOrderCount()) {
+                        countNum = 0;
+                    }
+                }
+            }
+
+//            OrderCount orderCount = orderCountService.getOne(
+//                    new LambdaQueryWrapper<OrderCount>()
+//                            .eq(OrderCount::getUserName, userName)
+//                            .eq(OrderCount::getToday, DateUtil.formatDate(new Date()))
+//            );
+//            temp.put("todayOrderCount", orderCount == null ? 0 : orderCount.getOrderCount());
+            temp.put("todayOrderCount", countNum);
         }, threadPoolExecutor);
         // 团队报表
         CompletableFuture<Void> yesterdayTeamIncomeFuture = CompletableFuture.runAsync(() -> {
