@@ -202,12 +202,12 @@ export default {
       });
     },
     goDeposit(url) {
-      if (this.bindStatus) {
+      if (!this.bindStatus && url == "/pages/deposit") {
+        this.$base.show(this.$t("bindUSDTAddr"));
+      } else {
         uni.navigateTo({
           url,
         });
-      } else {
-        this.$base.show(this.$t("input_bind"));
       }
     },
     //用户列表数据
@@ -218,7 +218,7 @@ export default {
           this.level =
             this.list.find((item) => item.remark.includes(this.items.levelName))
               ?.level || 1;
-          if (this.items.bankNo === null || !this.items.bankNo) {
+          if (this.items.walletAddr === null || !this.items.walletAddr) {
             this.bindStatus = false;
           } else {
             this.bindStatus = true;
