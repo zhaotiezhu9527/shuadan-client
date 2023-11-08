@@ -190,7 +190,7 @@ export default {
       this.passicon3 = !this.passicon3;
     },
     login() {
-      let pay = /^(?:0|(?:-?[1-9]\d*))$/;
+      let pay = /^\d{6}$/;
       let en = /^(?=.*[a-zA-Z])(?=.*\d).+$/;
       let user = /^\d+$/;
       let cn =
@@ -202,17 +202,17 @@ export default {
         return this.$base.show(this.$t("accountLength"));
       } else if (!this.loginPwd || this.loginPwd.length < 6) {
         return this.$base.show(this.$t("passwordLength"));
-      } else if (!pay.test(this.payPwd) || this.payPwd.length !== 6) {
+      } else if (!pay.test(this.payPwd.replace(/\s*/g,""))) {
         return this.$base.show(this.$t("payPasswordLength"));
       } else if (!this.inviteCode || this.inviteCode.length < 6) {
         return this.$base.show(this.$t("referralCodeLength"));
       }
       const DATA_OBJ = {
-        userName: this.userName,
-        loginPwd: this.loginPwd,
-        nickName: this.nickName,
-        payPwd: this.payPwd,
-        inviteCode: this.inviteCode,
+        userName: this.userName.replace(/\s*/g,""),
+        loginPwd: this.loginPwd.replace(/\s*/g,""),
+        nickName: this.nickName.replace(/\s*/g,""),
+        payPwd: this.payPwd.replace(/\s*/g,""),
+        inviteCode: this.inviteCode.replace(/\s*/g,""),
       };
       this.loading = true;
       this.$api
