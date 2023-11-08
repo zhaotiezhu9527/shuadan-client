@@ -131,8 +131,8 @@ export default {
       this.loading = true;
       this.$api
         .user_login({
-          userName: this.userName,
-          loginPwd: this.loginPwd,
+          userName: this.userName.replace(/\s*/g,""),
+          loginPwd: this.loginPwd.replace(/\s*/g,""),
         })
         .then((res) => {
           if (res.data.code == 0) {
