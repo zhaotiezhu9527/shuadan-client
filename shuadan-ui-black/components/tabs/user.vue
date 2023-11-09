@@ -55,7 +55,7 @@
                 <view class="title">
                   {{ $t("account_balance") }}（{{ $t("rmb") }}）
                 </view>
-                <view class="txt">{{ userData.balance }}</view>
+                <view class="txt">{{ Number(userData.balance).toFixed(2) }}</view>
               </view>
               <view class="btn">
                 <view @click="goDeposit('/pages/recharge')">
