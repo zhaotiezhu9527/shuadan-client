@@ -1,5 +1,5 @@
 <template>
-  <view class="main">
+  <view class="main3">
     <u-navbar
       placeholder
       :border="false"
@@ -36,14 +36,37 @@ export default {
   data() {
     return {
       list: [],
+      config: {},
     };
+  },
+  onShow() {
   },
   methods: {
     goService() {
-      uni.navigateTo({
-        url: "/pages/onlineService",
+      if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))
+      {
+        uni.navigateTo({
+          url: "/pages/onlineService"
+        });
+      }else{
+        // #ifdef APP-PLUS
+        plus.runtime.openURL(this.config.onlineService);
+        // #endif
+        // #ifdef H5
+        window.open(this.config.onlineService);
+        // #endif
+      }
+    },
+    getConfig(){
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+        } 
       });
     },
+    open(){
+      this.getConfig()
+    }
   },
 };
 </script>

@@ -63,7 +63,11 @@ export default {
       list: [100, 300, 500, 1000, 3000, 5000, 10000, 50000],
       active: 0,
       value: "",
+      config: {},
     };
+  },
+  onShow() {
+    this.getConfig();
   },
   methods: {
     change() {
@@ -76,8 +80,25 @@ export default {
       }
     },
     submit() {
-      uni.navigateTo({
-        url: "/pages/onlineService",
+      if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))
+      {
+        uni.navigateTo({
+          url: "/pages/onlineService"
+        });
+      }else{
+        // #ifdef APP-PLUS
+        plus.runtime.openURL(this.config.onlineService);
+        // #endif
+        // #ifdef H5
+        window.open(this.config.onlineService);
+        // #endif
+      }
+    },
+    getConfig(){
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+        } 
       });
     },
   },

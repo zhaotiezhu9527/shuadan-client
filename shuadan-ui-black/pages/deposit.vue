@@ -70,7 +70,7 @@
         <view class="text">
           <text>{{ $t("usable") }}：
             <!-- {{ $t("rmb_icon") }} -->
-            {{ balance }}</text>
+            {{ Number(balance).toFixed(2) }}</text>
           <text @click="amount = balance">{{ $t("all_deposit") }}</text>
         </view>
       </view>

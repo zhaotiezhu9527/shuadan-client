@@ -52,7 +52,7 @@
                 <view class="ul">
                   <view class="li">
                     <text>{{ $t("order_amount") }}</text>
-                    <text>{{ $t("rmb_icon") }} {{ items.orderAmount }}</text>
+                    <text>{{ $t("rmb_icon") }} {{ Number(items.orderAmount).toFixed(2) }}</text>
                   </view>
                   <view class="li">
                     <text
@@ -64,12 +64,12 @@
                         >x{{ items.commissionMul }}</text
                       > -->
                       </text>
-                    <text>{{ $t("rmb_icon") }} {{ items.commission }}</text>
+                    <text>{{ $t("rmb_icon") }} {{ Number(items.commission).toFixed(2) }}</text>
                   </view>
                   <view class="li">
                     <text>{{ $t("return_amount") }}</text>
                     <text class="moeny"
-                      >{{ $t("rmb_icon") }} {{ items.forecastReturn }}</text
+                      >{{ $t("rmb_icon") }} {{ Number(items.forecastReturn).toFixed(2) }}</text
                     >
                   </view>
                 </view>

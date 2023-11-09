@@ -17,7 +17,7 @@
         <view class="flex">
           <view class="money">
             <view class="title">{{ $t("balance") }}（{{ $t("rmb") }}）</view>
-            <view class="txt">{{ infos.balance }}</view>
+            <view class="txt">{{ Number(infos.balance).toFixed(2) }}</view>
           </view>
           <view class="btn">
             <view @click="goDeposit('/pages/recharge')">
@@ -31,7 +31,7 @@
         <view class="ulStyle">
           <view class="ul">
             <view class="li">
-              <view class="name">{{ infos.todayIncome }}</view>
+              <view class="name">{{ Number(infos.todayIncome).toFixed(2) }}</view>
               <view class="txt">{{ $t("todayIncome") }}({{ $t("rmb") }})</view>
             </view>
             <!-- <view class="li">
@@ -41,7 +41,7 @@
               >
             </view> -->
             <view class="li flex1">
-              <view class="name">{{ infos.totalIncome }}</view>
+              <view class="name">{{ Number(infos.totalIncome).toFixed(2) }}</view>
               <view class="txt">{{ $t("totalIncome") }}({{ $t("rmb") }})</view>
             </view>
           </view>

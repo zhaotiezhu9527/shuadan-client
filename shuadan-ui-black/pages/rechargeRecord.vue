@@ -39,7 +39,7 @@
               <view class="table-foot">
                 <view class="table-title">
                   <label>
-                    {{ item.amount }}
+                    {{ Number(item.amount).toFixed(2) }}
                   </label>
                 </view>
                 <view class="table-number">

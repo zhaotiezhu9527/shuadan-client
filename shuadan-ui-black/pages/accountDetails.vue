@@ -29,7 +29,7 @@
                   </label>
                 </view>
                 <view class="table-number">
-                  {{ item.amount }}
+                  {{ Number(item.amount).toFixed(2) }}
                 </view>
               </view>
             </view>

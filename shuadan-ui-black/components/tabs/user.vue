@@ -204,11 +204,13 @@ export default {
       },
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
+      config: {},
     };
   },
   methods: {
     open() {
       this.getInfo();
+      this.getConfig()
     },
     loginOut() {
       this.$api.user_logout().then((res) => {
@@ -225,7 +227,22 @@ export default {
     goPage({ label, url }) {
       if (label === this.$t("renturn_login")) {
         this.loginoutShow = true;
-      } else {
+      } else if (label === this.$t("service")) {
+        if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))
+        {
+          uni.navigateTo({
+            url: "/pages/onlineService"
+          });
+        }else{
+          // #ifdef APP-PLUS
+          plus.runtime.openURL(this.config.onlineService);
+          // #endif
+          // #ifdef H5
+          window.open(this.config.onlineService);
+          // #endif
+        }
+      }
+      else {
         uni.navigateTo({
           url: url,
         });
@@ -262,6 +279,13 @@ export default {
             title: this.$t("copy_success"),
           });
         },
+      });
+    },
+    getConfig(){
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+        } 
       });
     },
   },

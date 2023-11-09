@@ -43,7 +43,7 @@
       <view class="report">
         <view class="item">
           <view class="moeny gray">
-            {{ moenyFn(infos.balance) }}
+            {{ Number(infos.balance).toFixed(2) }}
           </view>
           <view class="txt">{{ $t("my_balance") }}</view>
         </view>
@@ -54,7 +54,7 @@
           <view class="txt">{{ $t("yesterday") }}</view>
         </view> -->
         <view class="item">
-          <view class="moeny"> {{ moenyFn(infos.todayIncome) }}</view>
+          <view class="moeny"> {{ Number(infos.todayIncome).toFixed(2) }}</view>
           <view class="txt">{{ $t("todayIncome") }}</view>
         </view>
         <!-- <view class="item">

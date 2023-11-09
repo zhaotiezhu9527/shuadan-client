@@ -78,7 +78,7 @@
             <view class="ul">
               <view class="li">
                 <text>{{ $t("order_amount") }}</text>
-                <text> {{ item.orderAmount }} {{ $t("rmb_icon") }}</text>
+                <text> {{ Number(item.orderAmount).toFixed(2) }} {{ $t("rmb_icon") }}</text>
               </view>
               <view class="li">
                 <text
