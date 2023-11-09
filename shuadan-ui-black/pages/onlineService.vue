@@ -16,7 +16,7 @@
     </u-navbar>
     <view class="wrap">
       <view v-if="config.onlineService">
-        <iframe :src="config.onlineService" class="online"> </iframe>
+        <iframe :src="config.onlineService + '&metadata=' + JSON.stringify(userInfo)" class="online"> </iframe>
       </view>
     </view>
   </view>
@@ -27,10 +27,14 @@ export default {
   data() {
     return {
       config: {}, //配置
+      userData: {}, //用户信息
     };
   },
   onLoad() {
     this.getConfig()
+    if(uni.getStorageSync("token")){
+      this.getInfo()
+    }
   },
   methods: {
     getConfig(){
@@ -41,7 +45,19 @@ export default {
           uni.hideLoading();
         } 
       });
-    }
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+          this.userInfo = {
+            name: this.userData.realName,
+            tel: this.userData.userName,
+          }
+        }
+      });
+    },
   },
 };
 </script>
