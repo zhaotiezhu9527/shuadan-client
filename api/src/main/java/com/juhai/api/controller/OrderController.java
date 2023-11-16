@@ -245,18 +245,22 @@ public class OrderController {
             List<Goods> goodsList = goodsService.list(
                     new LambdaQueryWrapper<Goods>()
                             .eq(Goods::getStatus, 0)
+                            .le(Goods::getGoodsPrice, user.getBalance())
 //                            .eq(Goods::getAreaId, area.getId())
             );
+            if (CollUtil.isEmpty(goodsList)) {
+                return R.error("No Products.");
+            }
             // 随机取得一个商品
             Collections.shuffle(goodsList);
             goods = goodsList.get(0);
             //
-            for (Goods goods1 : goodsList) {
-                if (user.getBalance().doubleValue() >= goods1.getGoodsPrice().doubleValue()) {
-                    goods = goods1;
-                    break;
-                }
-            }
+//            for (Goods goods1 : goodsList) {
+//                if (user.getBalance().doubleValue() >= goods1.getGoodsPrice().doubleValue()) {
+//                    goods = goods1;
+//                    break;
+//                }
+//            }
 
             // 计算用户余额可以买多少个商品
             int goodsCount = 1;
@@ -268,12 +272,12 @@ public class OrderController {
             BigDecimal randomGoodsPrice = RandomUtil.randomBigDecimal(minBalance, maxBalance);
             // 订单价格可以购买多少个商品
             for (Goods temp : goodsList) {
-                if (temp.getGoodsPrice().doubleValue() > randomGoodsPrice.doubleValue()) {
-                    continue;
-                }
+//                if (temp.getGoodsPrice().doubleValue() > randomGoodsPrice.doubleValue()) {
+//                    continue;
+//                }
                 BigDecimal div = NumberUtil.div(randomGoodsPrice, temp.getGoodsPrice());
-                if (div.doubleValue() > 1) {
-                    goodsCount = (int) div.doubleValue();
+                if (div.intValue() >= 1) {
+                    goodsCount = div.intValue();
                     goods = temp;
                     break;
                 }
