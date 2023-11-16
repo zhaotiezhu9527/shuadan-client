@@ -78,7 +78,6 @@ export default {
       this.active = this.$store.tabs;
     }
     this.route = e;
-    console.log(this.$refs[`main${this.active}`])
     // #ifdef APP-PLUS
     this.$nextTick(() => {
       this.$refs[`main${this.active}`].open(this.route);
