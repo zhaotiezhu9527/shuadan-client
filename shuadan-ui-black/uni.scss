@@ -48,7 +48,9 @@ $red: #ff0000;
 $orange: #ffa361;
 $blue: #449beb;
 //项目主题色end
-
+html{
+  background-color: #1c1c1c;
+}
 view,
 text {
   box-sizing: border-box;
