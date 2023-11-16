@@ -162,7 +162,7 @@ public class OrderController {
                 new LambdaQueryWrapper<OrderCount>()
                         .eq(OrderCount::getUserName, userName)
                         .eq(user.getUpdateOrder().intValue() == 1, OrderCount::getToday, DateUtil.formatDate(now))
-                        .orderByDesc(OrderCount::getCreateTime)
+                        .orderByDesc(OrderCount::getUpdateTime)
         );
         int countNum = 0;
         if (CollUtil.isNotEmpty(orderCounts)) {
@@ -322,7 +322,7 @@ public class OrderController {
         orderCount1.setUserName(user.getUserName());
         orderCount1.setToday(DateUtil.formatDate(order.getOrderTime()));
         orderCount1.setOrderCount(order.getCountNum());
-        orderCount1.setCreateTime(now);
+        orderCount1.setCreateTime(order.getOrderTime());
         orderCount1.setUpdateTime(now);
         orderCountService.insertOrUpdate(orderCount1);
     }
