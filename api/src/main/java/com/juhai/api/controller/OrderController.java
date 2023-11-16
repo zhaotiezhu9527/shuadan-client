@@ -250,6 +250,14 @@ public class OrderController {
             // 随机取得一个商品
             Collections.shuffle(goodsList);
             goods = goodsList.get(0);
+            //
+            for (Goods goods1 : goodsList) {
+                if (user.getBalance().doubleValue() >= goods1.getGoodsPrice().doubleValue()) {
+                    goods = goods1;
+                    break;
+                }
+            }
+
             // 计算用户余额可以买多少个商品
             int goodsCount = 1;
             // 取得订单价格区间
@@ -260,8 +268,8 @@ public class OrderController {
             BigDecimal randomGoodsPrice = RandomUtil.randomBigDecimal(minBalance, maxBalance);
             // 订单价格可以购买多少个商品
             for (Goods temp : goodsList) {
-                if (temp.getGoodsPrice().doubleValue() < user.getBalance().doubleValue()) {
-                    goods = temp;
+                if (temp.getGoodsPrice().doubleValue() > randomGoodsPrice.doubleValue()) {
+                    continue;
                 }
                 BigDecimal div = NumberUtil.div(randomGoodsPrice, temp.getGoodsPrice());
                 if (div.doubleValue() > 1) {
