@@ -204,4 +204,5 @@ export default {
   noticeTitle: "公告信息",
   certificate: "证书",
   phoneNumber: "手机号码",
+  edit: "修改",
 };

@@ -204,4 +204,5 @@ export default {
   noticeTitle: "Latest Event",
   certificate: "Certificate",
   phoneNumber: "Phone number",
+  edit: "Alter",
 }
