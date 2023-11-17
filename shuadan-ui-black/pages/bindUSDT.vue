@@ -67,7 +67,7 @@ export default {
       if (!this.userData.addr) {
         return this.$base.show(this.$t("enterUsdt"));
       } else if(!this.userData.realName) {
-        return this.$base.show(this.$t("enterUsdt"));
+        return this.$base.show(this.$t("input_realName"));
       } 
       this.loading = true;
       const DATA_OBJ = {
