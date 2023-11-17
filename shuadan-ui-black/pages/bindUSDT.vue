@@ -95,6 +95,7 @@ export default {
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.userData.addr = res.data.data.walletAddr;
+          this.userData.realName = res.data.data.realName;
           if (this.userData.addr === null || !this.userData.addr) {
             this.bindStatus = false;
           } else {
