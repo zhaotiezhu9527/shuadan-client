@@ -87,7 +87,7 @@ export const request = (params) => {
           show(res.data.msg);
         } else if (res.data.code != 0) {
           uni.showToast({
-            title: res?.data?.msg || "存在网络异常",
+            title: res?.data?.msg || that.notNetwork,
             duration: 2000,
             icon: "none",
           });
@@ -95,7 +95,7 @@ export const request = (params) => {
         resolve(res);
       },
       fail: (e) => {
-        show("存在网络异常");
+        show(that.notNetwork);
       },
       complete: () => {
         uni.hideLoading();

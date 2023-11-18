@@ -205,4 +205,5 @@ export default {
   certificate: "Certificate",
   phoneNumber: "Phone number",
   edit: "Alter",
+  notNetwork: "Network connection abnormality",
 }

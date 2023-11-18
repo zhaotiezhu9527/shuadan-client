@@ -205,4 +205,5 @@ export default {
   certificate: "证书",
   phoneNumber: "手机号码",
   edit: "修改",
+  notNetwork: "存在网络异常",
 };
