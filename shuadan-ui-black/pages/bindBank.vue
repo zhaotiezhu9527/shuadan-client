@@ -132,9 +132,6 @@ export default {
     },
     //用户列表数据
     getInfo() {
-      uni.showLoading({
-        title: "加载中",
-      });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.userData = res.data.data;

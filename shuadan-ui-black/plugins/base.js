@@ -70,10 +70,6 @@ export const request = (params) => {
     };
   }
   if (params.loading) {
-    uni.showLoading({
-      title: "加载中",
-      mask: true,
-    });
   }
   return new Promise((resolve, reject) => {
     uni.request({
