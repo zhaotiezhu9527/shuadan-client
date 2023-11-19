@@ -437,12 +437,12 @@ public class UserController {
                 OrderCount orderCount = orderCounts.get(0);
                 countNum = orderCount.getOrderCount();
                 // 判断是否是往日次数
-                if (!StringUtils.equals(orderCount.getToday(), DateUtil.formatDate(now))) {
-                    // 如果往日已经做满次数，重新开始计算
-                    if (countNum >= userLevel.getDayOrderCount()) {
-                        countNum = 0;
-                    }
-                }
+//                if (!StringUtils.equals(orderCount.getToday(), DateUtil.formatDate(now))) {
+//                    // 如果往日已经做满次数，重新开始计算
+//                    if (countNum >= userLevel.getDayOrderCount()) {
+//                        countNum = 0;
+//                    }
+//                }
             }
 
 //            OrderCount orderCount = orderCountService.getOne(
