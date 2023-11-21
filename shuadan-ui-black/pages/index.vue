@@ -5,7 +5,7 @@
     <order v-show="active === 1" ref="main1" />
     <task v-show="active === 2" ref="main2" />
     <service v-show="active === 3" ref="main3" />
-    <user v-show="active === 4" ref="main4" />
+    <user v-show="active === 4" ref="main4" :userData="userData"/>
     <view class="tabs maxwidth">
       <template v-for="(item, index) in list">
         <view
@@ -68,6 +68,7 @@ export default {
           name: this.$t("my"),
         },
       ],
+      userData: {},
     };
   },
   onLoad(e) {
@@ -85,6 +86,7 @@ export default {
     // #endif
   },
   onShow() {
+    this.getInfo();
     // #ifdef H5
     this.$nextTick(() => {
       this.$refs[`main${this.active}`].open(this.route);
@@ -105,6 +107,14 @@ export default {
         this.$refs[`main${this.active}`].open({ tabs: index });
       });
       // #endif
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+        }
+      });
     },
   },
   components: {

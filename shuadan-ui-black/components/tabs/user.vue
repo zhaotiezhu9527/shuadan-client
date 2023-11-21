@@ -111,6 +111,7 @@
 
 <script>
 export default {
+  props:['userData'],
   data() {
     return {
       loading: false, //加载状态
@@ -191,19 +192,18 @@ export default {
           className: "mb",
         },
       ],
-      userData: {
-        nickName: "", //昵称
-        avatarUrl: "", //头像
-        balance: "", //余额
-        creditValue: "", //信用分
-        inviteCode: "", //邀请码
-        userName: "", //用户名
-        levelName: "", //会员名称
-        levelIcon: "", //
-        walletAddr: "",//usdt 地址
-      },
+      // userData: {
+      //   nickName: "", //昵称
+      //   avatarUrl: "", //头像
+      //   balance: "", //余额
+      //   creditValue: "", //信用分
+      //   inviteCode: "", //邀请码
+      //   userName: "", //用户名
+      //   levelName: "", //会员名称
+      //   levelIcon: "", //
+      //   walletAddr: "",//usdt 地址
+      // },
       loginoutShow: false,
-      bindStatus: false, //银行卡绑定状态
       config: {},
     };
   },
@@ -256,19 +256,6 @@ export default {
           url,
         });
       }
-    },
-    //用户列表数据
-    getInfo() {
-      this.$api.user_info().then((res) => {
-        if (res.data.code == 0) {
-          this.userData = res.data.data;
-          if (this.userData.bankNo === null || !this.userData.bankNo) {
-            this.bindStatus = false;
-          } else {
-            this.bindStatus = true;
-          }
-        }
-      });
     },
     // 复制功能
     copy(value) {
