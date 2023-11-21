@@ -198,7 +198,7 @@ export default {
   appDownload: "APP下载",
   vipLevel: "VIP等级",
   quxiao: "取消",
-  userYesterday: "Hôm qua",
-  userNameNo: "Tài khoản của tôi",
-  teamTime: "Thời gian đăng kí",
+  userYesterday: "昨日收益",
+  userNameNo: "账号",
+  teamTime: "时间",
 };

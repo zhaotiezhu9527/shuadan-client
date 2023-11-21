@@ -2,7 +2,7 @@
   <view class="main">
     <u-navbar
       placeholder
-      title="Đăng nhập"
+      :title="$t('userLogin')"
       fixed
       safe-area-inset-top
       bgColor="#fff"
@@ -28,7 +28,7 @@
     </view>
     <view class="input">
       <u-input
-        placeholder="Mật khẩu"
+        :placeholder="$t('password')"
         password
         border="bottom"
         v-model="loginPwd"
@@ -45,13 +45,12 @@
             @click="pwdChange"
           ></u-icon>
           <view class="link-con" @click="routePage('/pages/onlineService')">
-            <view class="link">Quên tài khoản</view>
-            <view class="link">và mật khẩu?</view>
+            <view class="link">{{$t('forgetPassword')}}</view>
           </view>
         </view>
       </u-input>
       <u-input
-        placeholder="Mật khẩu"
+        :placeholder="$t('password')"
         border="bottom"
         v-model="loginPwd"
         v-show="!passicon1"
@@ -67,8 +66,7 @@
             @click="pwdChange"
           ></u-icon>
           <view class="link-con" @click="routePage('/pages/onlineService')">
-            <view class="link">Quên tài khoản</view>
-            <view class="link">và mật khẩu?</view>
+            <view class="link">{{$t('forgetPassword')}}</view>
           </view>
         </view>
       </u-input>
@@ -91,8 +89,7 @@
       ></u-button>
     </view>
     <view class="other">
-      <view @click="routePage('/pages/register')">Đăng ký</view>
-      <!-- <view @click="routePage('/pages/onlineService')">Đăng nhập bằng SMS</view> -->
+      <view @click="routePage('/pages/register')">{{$t('register')}}</view>
     </view>
   </view>
 </template>
