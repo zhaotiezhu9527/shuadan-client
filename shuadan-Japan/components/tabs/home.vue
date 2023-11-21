@@ -24,7 +24,7 @@
         </view>
       </template>
     </u-navbar>
-    <u-swiper :list="swiper" height="300"></u-swiper>
+    <u-swiper :list="swiper" height="400"></u-swiper>
     <view class="nav">
       <view
         class="item"
@@ -107,18 +107,16 @@
       <view class="txt white">{{ $t("partner") }}</view>
     </view>
     <view class="partners">
-      <image src="@/static/img/100028.jpg" />
-      <image src="@/static/img/100029.jpg" />
-      <image src="@/static/img/100030.jpg" />
-      <image src="@/static/img/100031.jpg" />
-      <image src="@/static/img/100032.jpg" />
-      <image src="@/static/img/100033.jpg" />
+      <image src="@/static/img/shop1.png" />
+      <image src="@/static/img/shop2.png" />
+      <image src="@/static/img/shop3.png" />
+      <image src="@/static/img/shop4.jpg" />
     </view>
   </view>
 </template>
 
 <script>
-import img014 from "@/static/img/100014.jpg";
+import img014 from "@/static/img/banner1.jpeg";
 import img015 from "@/static/img/100015.png";
 import img017 from "@/static/img/100017.png";
 import img018 from "@/static/img/100018.png";
@@ -356,10 +354,10 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   image {
-    width: 212rpx;
-    height: 140rpx;
+    width: 300rpx;
+    height: 200rpx;
     margin: 10rpx 0;
-    border-radius: 10rpx;
+    border-radius: 30rpx;
   }
 }
 .ranking {

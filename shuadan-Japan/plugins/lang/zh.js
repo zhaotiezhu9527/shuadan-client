@@ -1,5 +1,5 @@
 export default {
-  companyName: "天下商城",
+  companyName: "乐天商城",
   version: "版本号",
   userLogin: "用户登录",
   enterAccount: "请输入账户",
