@@ -1,0 +1,86 @@
+{
+  "easycom": {
+    "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+  },
+  "pages": [
+    // #ifdef APP-PLUS
+    {
+      "path": "pages/login"
+    },
+    {
+      "path": "pages/index"
+    },
+    // #endif
+    // #ifdef H5
+    {
+      "path": "pages/index"
+    },
+    {
+      "path": "pages/login"
+    },
+    // #endif
+    {
+      "path": "pages/team"
+    },
+    {
+      "path": "pages/onlineService"
+    },
+    {
+      "path": "pages/promotion"
+    },
+    {
+      "path": "pages/accountDetails"
+    },
+    {
+      "path": "pages/recharge"
+    },
+    {
+      "path": "pages/rechargeRecord"
+    },
+    {
+      "path": "pages/deposit"
+    },
+    {
+      "path": "pages/message"
+    },
+    {
+      "path": "pages/withdrawalRecords"
+    },
+    {
+      "path": "pages/rechargeRecord"
+    },
+    {
+      "path": "pages/realName"
+    },
+    {
+      "path": "pages/headimg"
+    },
+    {
+      "path": "pages/vip"
+    },
+    {
+      "path": "pages/set"
+    },
+    {
+      "path": "pages/bindBank"
+    },
+    {
+      "path": "pages/password"
+    },
+    {
+      "path": "pages/payPassword"
+    },
+    {
+      "path": "pages/richtext"
+    },
+    {
+      "path": "pages/register"
+    }
+  ],
+  "globalStyle": {
+    "navigationStyle": "custom"
+  },
+  "networkTimeout": {
+    "request": 10000
+  }
+}
