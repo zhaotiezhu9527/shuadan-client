@@ -207,9 +207,11 @@ export default {
       config: {},
     };
   },
+  onShow() {
+    this.getConfig();
+  },
   methods: {
     open() {
-      this.getInfo();
       this.getConfig()
     },
     loginOut() {
