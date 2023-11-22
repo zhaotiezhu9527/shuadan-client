@@ -430,7 +430,7 @@ public class UserController {
                     new LambdaQueryWrapper<OrderCount>()
                             .eq(OrderCount::getUserName, userName)
                             .eq(user.getUpdateOrder().intValue() == 1, OrderCount::getToday, DateUtil.formatDate(now))
-                            .orderByDesc(OrderCount::getUpdateTime)
+                            .orderByDesc(OrderCount::getId)
             );
             int countNum = 0;
             if (CollUtil.isNotEmpty(orderCounts)) {
