@@ -39,12 +39,13 @@
                 style="width: 26rpx"
                 class="mr-4"
               />
-              {{ $t("ordertime") }}：{{ item.orderTime }}
+              <!-- {{ $t("ordertime") }}：{{ item.orderTime }} -->
               <label class="red-text" v-if="item.promptText">{{item.promptText}}</label>
               </view
             >
             <view class="flex items-center justify-between">
               <view class="uid">
+                
                 {{ $t("order_no") }}：{{ item.orderNo }}
                 <text>{{ item.dayOrderCount }}</text>
               </view>

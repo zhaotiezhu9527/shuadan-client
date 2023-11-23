@@ -168,7 +168,7 @@ export default {
       this.$api.system_config().then(({ data }) => {
         if (data.code == 0) {
           this.homeNotice = data.data.homeNotice;
-          this.$refs.annunciateRef.open(data.data);
+          // this.$refs.annunciateRef.open(data.data);
         }
       });
       this.$api.area_list().then(({ data }) => {
