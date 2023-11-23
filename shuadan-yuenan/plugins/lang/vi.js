@@ -172,7 +172,7 @@ export default {
   remoteHost: "Đơn hàng đang được gửi đi",
   networkAnomaly: "Mạng bất thường",
   mine: "Tôi",
-  supportHours: "Thời gian làm việc: 9:00-22:00",
+  supportHours: "Thời gian làm việc: 10:00-23:00",
   connect: "Liên hệ",
   paymentChannel: "Vui lòng chọn phương thức thanh toán",
   bankCardTransfer: "Thanh toán bằng thẻ ngân hàng",
