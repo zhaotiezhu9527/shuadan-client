@@ -1,6 +1,7 @@
 package com.juhai.api.controller;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.DesensitizedUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson2.JSON;
@@ -77,6 +78,9 @@ public class SiteConfigController {
         obj.put("homeNotice", allMessageMap.get("home_notice").getContent());
 
         obj.put("webDomain", allParamByMap.get("web_domain"));
+
+        // 汇率
+        obj.put("huilv", MapUtil.getInt(allParamByMap, "huilv", 1));
 
         return R.ok().put("data", obj);
     }
