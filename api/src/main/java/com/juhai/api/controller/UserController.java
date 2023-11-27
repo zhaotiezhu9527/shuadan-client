@@ -477,7 +477,7 @@ public class UserController {
 
     @ApiOperation(value = "用户修改昵称")
     @PostMapping("/update/nickName")
-    public R bindUsdt(@Validated UpdNickNameRequest request, HttpServletRequest httpServletRequest) {
+    public R updateNickName(@Validated UpdNickNameRequest request, HttpServletRequest httpServletRequest) {
         String userName = JwtUtils.getUserName(httpServletRequest);
 
         userService.update(
@@ -948,10 +948,195 @@ public class UserController {
             withdraw.setRealName(user.getRealName());
             withdraw.setBankNo(user.getBankNo());
             withdraw.setWalletType(1);
+            withdraw.setUsdtAmount(null);
         } else if (StringUtils.equals(pankou, "anan")) {
             withdraw.setWalletAddr(user.getWalletAddr());
             withdraw.setWalletType(2);
+            withdraw.setUsdtAmount(withdraw.getOptAmount());
         }
+        withdraw.setPhone(user.getPhone());
+        withdraw.setOrderTime(now);
+        withdraw.setCheckTime(null);
+        withdraw.setStatus(0);
+        withdraw.setUpdateBy(null);
+        withdraw.setRemark(null);
+        withdraw.setUserAgent(user.getUserAgent());
+        withdraw.setUserAgentNode(user.getUserAgentNode());
+        withdraw.setUserAgentLevel(user.getUserAgentLevel());
+        withdrawService.save(withdraw);
+
+        // 添加流水记录
+        Account account = new Account();
+        account.setAccountNo(IdUtil.getSnowflakeNextIdStr());
+        account.setUserName(userName);
+        account.setOptAmount(amount.negate());
+        account.setType(2);
+        account.setOptType(2);
+        account.setUserAgent(user.getUserAgent());
+        account.setUserAgentNode(user.getUserAgentNode());
+        account.setUserAgentLevel(user.getUserAgentLevel());
+        account.setRefNo(orderNo);
+        account.setOptTime(now);
+        account.setRemark("提现金额:" + amount + "元");
+        accountService.save(account);
+        return R.ok(MsgUtil.get("system.withdraw.success"));
+    }
+
+    @Transactional
+    @ApiOperation(value = "用户提现(虾米盘)")
+    @PostMapping("/withdraw2")
+    public R withdraw2(@Validated Withdraw2Request request, HttpServletRequest httpServletRequest) throws Exception {
+
+        Date now = new Date();
+        Map<String, String> params = paramterService.getAllParamByMap();
+        // 验证时间段
+        String withdrawTimeStr = params.get("withdraw_time");
+        if (StringUtils.isNotBlank(withdrawTimeStr)) {
+            String today = DateUtil.formatDate(now);
+            String[] timeArr = withdrawTimeStr.split("-");
+            Date beginTime = DateUtil.parse(today + " " + timeArr[0]);
+            Date endTime = DateUtil.parse(today + " " + timeArr[1]);
+            if (!DateUtil.isIn(now, beginTime, endTime)) {
+                return R.error(MsgUtil.get("system.withdraw.time") + ":" + withdrawTimeStr);
+            }
+        }
+
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        // 用户信息
+        JoinLambdaWrapper<User> wrapper = new JoinLambdaWrapper<>(User.class);
+        wrapper.eq(User::getUserName, userName);
+        wrapper.leftJoin(Level.class,Level::getId,User::getLevelId).oneToOneSelect(User::getLevel, Level.class).end();
+        User user = userService.joinGetOne(wrapper, User.class);
+
+        // 验证资金冻结
+        if (user.getFundsStatus().intValue() == 1) {
+            return R.error(MsgUtil.get("system.user.funds.enable"));
+        }
+
+        // 验证提现金额
+        BigDecimal amount = new BigDecimal(request.getAmount());
+
+        Double leastWithdrawAmount = user.getLevel().getMinWithdrawAmount().doubleValue();
+        Double largestWithdrawAmount = user.getLevel().getMaxWithdrawAmount().doubleValue();
+        if ((leastWithdrawAmount != 0 && amount.doubleValue() < leastWithdrawAmount)
+                || (largestWithdrawAmount != 0 && amount.doubleValue() > largestWithdrawAmount)) {
+            return R.error(StrUtil.format(MsgUtil.get("system.withdraw.limitamount"), leastWithdrawAmount, largestWithdrawAmount));
+        }
+
+        // 验证支付密码
+        String pwd = SecureUtil.md5(request.getPwd());
+        if (!StringUtils.equals(pwd, user.getPayPwd())) {
+            return R.error(MsgUtil.get("system.order.paypwderror"));
+        }
+
+        if (StringUtils.equals(request.getType(), "1")) {
+            if (StringUtils.isBlank(user.getRealName()) || StringUtils.isBlank(user.getBankNo())) {
+                return R.error(MsgUtil.get("system.withdraw.nobank"));
+            }
+        } else if (StringUtils.equals(request.getType(), "2")) {
+            if (StringUtils.isBlank(user.getWalletAddr())) {
+                return R.error(MsgUtil.get("system.withdraw.nowalletaddr"));
+            }
+        } else {
+            return R.error();
+        }
+
+
+        if (user.getStatus().intValue() == 1) {
+            return R.error(MsgUtil.get("system.user.enable"));
+        }
+        if (user.getBalance().doubleValue() < amount.doubleValue()) {
+            return R.error(MsgUtil.get("system.order.balance"));
+        }
+
+        // 查询是否还有待审核的订单
+        long noFinish = withdrawService.count(
+                new LambdaQueryWrapper<Withdraw>()
+                        .eq(Withdraw::getUserName, user.getUserName())
+                        .eq(Withdraw::getStatus, 0)
+        );
+        if (noFinish > 0) {
+            return R.error(MsgUtil.get("system.withdraw.hasorder"));
+        }
+
+        // 校验今日订单量是否满足
+//        OrderCount orderCount = orderCountService.getOne(
+//                new LambdaQueryWrapper<OrderCount>()
+//                        .eq(OrderCount::getUserName, userName)
+//                        .eq(OrderCount::getToday, DateUtil.formatDate(now))
+//        );
+//        int countNum = orderCount == null ? 0 : orderCount.getOrderCount();
+//        if (user.getLevel().getWithdrawOrderCount() > countNum) {
+//            String msg = StrUtil.format(MsgUtil.get("system.withdraw.ordercount"), user.getLevel().getWithdrawOrderCount() - countNum);
+//            return R.error(msg);
+//        }
+
+        // 获取今日订单数
+        List<OrderCount> orderCounts = orderCountService.list(
+                new LambdaQueryWrapper<OrderCount>()
+                        .eq(OrderCount::getUserName, userName)
+                        .eq(user.getUpdateOrder().intValue() == 1, OrderCount::getToday, DateUtil.formatDate(now))
+                        .orderByDesc(OrderCount::getId)
+        );
+        int countNum = 0;
+        if (CollUtil.isNotEmpty(orderCounts)) {
+            OrderCount orderCount = orderCounts.get(0);
+            countNum = orderCount.getOrderCount();
+        }
+        if (user.getLevel().getWithdrawOrderCount() > countNum) {
+            String msg = StrUtil.format(MsgUtil.get("system.withdraw.ordercount"), user.getLevel().getWithdrawOrderCount() - countNum);
+            return R.error(msg);
+        }
+
+        // 校验今日提现次数
+        long finish = withdrawService.count(
+                new LambdaQueryWrapper<Withdraw>()
+                        .eq(Withdraw::getUserName, user.getUserName())
+                        .eq(Withdraw::getStatus, 1)
+                        .between(Withdraw::getOrderTime, DateUtil.beginOfDay(now), DateUtil.endOfDay(now))
+        );
+        if (finish >= user.getLevel().getDayWithdrawCount()) {
+            return R.error(MsgUtil.get("system.withdraw.maxorder"));
+        }
+
+        // 扣钱
+        userService.updateUserBalance(userName, amount.negate());
+
+        String orderNo = IdUtil.getSnowflakeNextIdStr();
+        // 提现记录
+        Withdraw withdraw = new Withdraw();
+        withdraw.setOrderNo(orderNo);
+        withdraw.setUserName(user.getUserName());
+        withdraw.setNickName(user.getNickName());
+        withdraw.setOptAmount(amount);
+        BigDecimal feeRate = user.getLevel().getWithdrawFee();
+        withdraw.setFeeRate(feeRate);
+        BigDecimal fee = NumberUtil.mul(amount, NumberUtil.div(feeRate, 100));
+        withdraw.setRealAmount(NumberUtil.sub(amount, fee));
+//        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo")) {
+//            withdraw.setBankName(user.getBankName());
+//            withdraw.setRealName(user.getRealName());
+//            withdraw.setBankNo(user.getBankNo());
+//            withdraw.setWalletType(1);
+//        } else if (StringUtils.equals(pankou, "anan")) {
+//            withdraw.setWalletAddr(user.getWalletAddr());
+//            withdraw.setWalletType(2);
+//        }
+
+        if (StringUtils.equals(request.getType(), "1")) {
+            withdraw.setBankName(user.getBankName());
+            withdraw.setRealName(user.getRealName());
+            withdraw.setBankNo(user.getBankNo());
+            withdraw.setUsdtAmount(null);
+            withdraw.setWalletType(1);
+        } else if (StringUtils.equals(request.getType(), "2")) {
+            withdraw.setWalletAddr(user.getWalletAddr());
+            Double huilv = MapUtil.getDouble(params, "huilv", 1.0);
+            withdraw.setUsdtAmount(NumberUtil.mul(withdraw.getOptAmount(), huilv));
+            withdraw.setWalletType(2);
+        }
+
         withdraw.setPhone(user.getPhone());
         withdraw.setOrderTime(now);
         withdraw.setCheckTime(null);
@@ -994,6 +1179,26 @@ public class UserController {
                 new UpdateWrapper<User>().lambda()
                         .set(User::getWalletAddr, request.getAddr())
                         .set(User::getRealName, request.getRealName())
+                        .set(User::getUpdateTime, new Date())
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
+    }
+
+    @ApiOperation(value = "用户绑定USDT(虾米盘)")
+    @PostMapping("/bindUsdt2")
+    public R bindUsdt2(@Validated BindUsdt2Request request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+        User user = userService.getUserByName(userName);
+        if (StringUtils.isNotBlank(user.getWalletAddr())) {
+            return R.error(MsgUtil.get("system.user.bindusdt"));
+        }
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getWalletAddr, request.getAddr())
                         .set(User::getUpdateTime, new Date())
                         .eq(User::getUserName, userName)
         );
