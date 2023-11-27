@@ -65,5 +65,8 @@ const home = [
   {
     path: "/pages/promotion",
   },
+  {
+    path: "/pages/bindUSDT",
+  },
 ];
 export default home;

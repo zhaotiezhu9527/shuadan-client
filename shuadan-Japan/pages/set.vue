@@ -49,6 +49,15 @@
         <label>{{$t('bankCard') }}</label>
         <view class="icon"></view>
       </view>
+      <!-- 绑定usdt -->
+      <view
+        class="list-item"
+        @click="goUSDT"
+      >
+        <image class="icon-img" src="../static/img/my_card.png" />
+        <label>{{$t('USDTAddr') }}</label>
+        <view class="icon"></view>
+      </view>
       <view
         class="list-item"
         @click="goPassword"
@@ -102,6 +111,11 @@ export default {
     goBindBank(){
       uni.navigateTo({
         url: "/pages/bindBank",
+      });
+    },
+    goUSDT(){
+      uni.navigateTo({
+        url: "/pages/bindUSDT",
       });
     },
     goPassword(){

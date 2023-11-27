@@ -198,7 +198,7 @@ export default {
       // if (!cn.test(this.nickName) || this.nickName.length < 2) {
       //   return this.$base.show("请输入中文昵称且长度大于2~");
       // } else
-      if (!user.test(this.userName)) {
+      if (!this.userName) {
         return this.$base.show(this.$t("accountLength"));
       } else if (!this.loginPwd || this.loginPwd.length < 6) {
         return this.$base.show(this.$t("passwordLength"));

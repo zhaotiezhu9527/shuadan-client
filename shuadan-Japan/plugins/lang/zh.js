@@ -201,4 +201,6 @@ export default {
   userYesterday: "昨日收益",
   userNameNo: "账号",
   teamTime: "时间",
+  USDTAddr: "USDT钱包地址",
+  enterUsdt: "请输入USDT钱包地址",
 };

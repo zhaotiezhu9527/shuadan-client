@@ -201,5 +201,8 @@ export default {
   userYesterday: "昨日の収益",
   userNameNo: "アカウント",
   teamTime: "時間",
+  USDTAddr: "USDTウォレットアドレス",
+  enterUsdt: "USDTウォレットアドレスを入力してください",
+  edit: "改訂",
 };
   
