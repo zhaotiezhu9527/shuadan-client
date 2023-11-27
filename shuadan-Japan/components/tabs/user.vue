@@ -327,13 +327,12 @@ export default {
         margin-top: 15rpx;
         .money-number {
           font-weight: 700;
-          font-size: 44rpx;
+          font-size: 36rpx;
         }
       }
     }
     .recharge {
       float: right;
-      width: 116rpx;
       height: 56rpx;
       text-align: center;
       line-height: 56rpx;
@@ -342,10 +341,10 @@ export default {
       border-radius: 28rpx;
       margin: 54rpx 0 0 32rpx;
       font-size: 28rpx;
+      padding: 0 10rpx;
     }
     .withdrawal {
       float: right;
-      width: 116rpx;
       height: 56rpx;
       text-align: center;
       line-height: 56rpx;
@@ -354,6 +353,7 @@ export default {
       border-radius: 28rpx;
       margin: 54rpx 0 0 20rpx;
       font-size: 28rpx;
+      padding: 0 10rpx;
     }
     .income {
       display: flex;
