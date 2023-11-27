@@ -947,8 +947,10 @@ public class UserController {
             withdraw.setBankName(user.getBankName());
             withdraw.setRealName(user.getRealName());
             withdraw.setBankNo(user.getBankNo());
+            withdraw.setWalletType(1);
         } else if (StringUtils.equals(pankou, "anan")) {
             withdraw.setWalletAddr(user.getWalletAddr());
+            withdraw.setWalletType(2);
         }
         withdraw.setPhone(user.getPhone());
         withdraw.setOrderTime(now);
