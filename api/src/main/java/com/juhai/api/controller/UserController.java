@@ -890,12 +890,29 @@ public class UserController {
         }
 
         // 校验今日订单量是否满足
-        OrderCount orderCount = orderCountService.getOne(
+//        OrderCount orderCount = orderCountService.getOne(
+//                new LambdaQueryWrapper<OrderCount>()
+//                        .eq(OrderCount::getUserName, userName)
+//                        .eq(OrderCount::getToday, DateUtil.formatDate(now))
+//        );
+//        int countNum = orderCount == null ? 0 : orderCount.getOrderCount();
+//        if (user.getLevel().getWithdrawOrderCount() > countNum) {
+//            String msg = StrUtil.format(MsgUtil.get("system.withdraw.ordercount"), user.getLevel().getWithdrawOrderCount() - countNum);
+//            return R.error(msg);
+//        }
+
+        // 获取今日订单数
+        List<OrderCount> orderCounts = orderCountService.list(
                 new LambdaQueryWrapper<OrderCount>()
                         .eq(OrderCount::getUserName, userName)
-                        .eq(OrderCount::getToday, DateUtil.formatDate(now))
+                        .eq(user.getUpdateOrder().intValue() == 1, OrderCount::getToday, DateUtil.formatDate(now))
+                        .orderByDesc(OrderCount::getId)
         );
-        int countNum = orderCount == null ? 0 : orderCount.getOrderCount();
+        int countNum = 0;
+        if (CollUtil.isNotEmpty(orderCounts)) {
+            OrderCount orderCount = orderCounts.get(0);
+            countNum = orderCount.getOrderCount();
+        }
         if (user.getLevel().getWithdrawOrderCount() > countNum) {
             String msg = StrUtil.format(MsgUtil.get("system.withdraw.ordercount"), user.getLevel().getWithdrawOrderCount() - countNum);
             return R.error(msg);
