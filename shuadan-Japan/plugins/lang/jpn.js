@@ -204,5 +204,7 @@ export default {
   USDTAddr: "USDTウォレットアドレス",
   enterUsdt: "USDTウォレットアドレスを入力してください",
   edit: "改訂",
+  USDT: "USDT",
+  bankWithdrawal: "バンクカード",
 };
   

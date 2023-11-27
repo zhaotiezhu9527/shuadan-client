@@ -439,3 +439,18 @@ export const bindUsdt = (data) => {
       });
   });
 };
+
+//用户提现 日本盘专属
+export const user_withdraw_jp = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/withdraw2",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

@@ -15,6 +15,14 @@
     >
     </u-navbar>
     <view class="main">
+      <view class="main-type">
+        <view class="type-item type-item-left"
+              :class="typeActive === 1 ? 'active' : ''" @click="typeActive = 1">{{ $t('bankWithdrawal') }}</view>
+        <view class="type-item"
+              :class="typeActive === 2 ? 'active' : ''"
+              @click="typeActive = 2"
+        >{{ $t('USDT') }}</view>
+      </view>
       <view class="title">
         <view class="title-text">
           <span>{{ $t("withdrawalAmount") }}</span>
@@ -32,7 +40,7 @@
             />
           </view>
           <view class="text">
-            <span>{{ $t("balance") }}：{{ FormatAmount(balance) }}</span>
+            <span>{{ $t("balance") }}：{{ FormatAmount(balance) }}  ≈ {{ FormatAmount(Number(balance) * Number(huilv))}}</span>
             <label @click="amount = balance">{{ $t("withdrawAll") }}</label>
           </view>
         </view>
@@ -43,13 +51,17 @@
             <label>{{$t('phoneNo') }}</label>
             <span>{{ phone }}</span>
           </view> -->
-          <view class="detail">
+          <view class="detail" v-if="typeActive === 1">
             <label>{{ $t("bankNo") }}</label>
             <span>{{ bankNo }}</span>
           </view>
-          <view class="detail">
+          <view class="detail" v-if="typeActive === 1">
             <label>{{ $t("bankName") }}</label>
             <span>{{ bankName }}</span>
+          </view>
+          <view class="detail" v-if="typeActive === 2">
+            <label>{{ $t("USDT") }}</label>
+            <span>{{ walletAddr }}</span>
           </view>
           <view class="detail">
             <label>{{ $t("realName") }}</label>
@@ -97,10 +109,14 @@ export default {
       pwd: "", //支付密码
       balance: 0, //余额
       withdrawFee: 0, //提款手续费
+      typeActive: 1,
+      walletAddr: "",//钱包地址
+      huilv: 0,//汇率
     };
   },
   onShow() {
     this.getInfo();
+    this.getConfig();
   },
   methods: {
     submit() {
@@ -115,9 +131,10 @@ export default {
       const DATA_OBJ = {
         amount: this.amount, //提现金额
         pwd: this.pwd, //密码
+        type: this.typeActive,
       };
       this.$api
-        .user_withdraw(DATA_OBJ)
+        .user_withdraw_jp(DATA_OBJ)
         .then((res) => {
           if (res.data.code == 0) {
             this.$base.show(res.data.msg);
@@ -138,6 +155,7 @@ export default {
           this.realName = res.data.data.realName;
           this.balance = res.data.data.balance;
           this.withdrawFee = res.data.data.withdrawFee;
+          this.walletAddr = res.data.data.walletAddr;
         }
       });
     },
@@ -149,6 +167,13 @@ export default {
         this.amount = 0;
       }
     },
+    getConfig() {
+      this.$api.system_config().then(({ data }) => {
+        if (data.code == 0) {
+          this.huilv = data.data.huilv;
+        }
+      });
+    },
   },
 };
 </script>
@@ -158,6 +183,26 @@ export default {
   background-color: #f2f2f2;
   height: calc(100vh - 52px + var(--status-bar-height));
   overflow: hidden;
+  .main-type{
+    display: flex;
+    width: 92%;
+    margin: 30rpx auto 0 auto;
+    .type-item{
+      width: 45%;
+      height: 80rpx;
+      text-align:center;
+      line-height: 80rpx;
+      background-color: #fff;
+      border-radius: 20rpx;
+      &.active{
+        background-color: #443ca7;
+        color: #fff;
+      }
+    }
+    .type-item-left{
+      margin-right: 10%;
+    }
+  }
   .title,
   .content {
     width: 92%;
@@ -223,7 +268,7 @@ export default {
       width: 200rpx;
       margin-right: 20rpx;
       color: #8799a3;
-      font-size: 26rpx;
+      font-size: 24rpx;
     }
     .title-input {
       flex: 1;
@@ -234,7 +279,7 @@ export default {
     span {
       flex: 1;
       text-align: right;
-      font-size: 30rpx;
+      font-size: 24rpx;
     }
   }
   .foot-text {

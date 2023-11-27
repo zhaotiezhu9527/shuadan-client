@@ -203,4 +203,7 @@ export default {
   teamTime: "时间",
   USDTAddr: "USDT钱包地址",
   enterUsdt: "请输入USDT钱包地址",
+  edit: "修改",
+  USDT: "USDT",
+  bankWithdrawal: "银行卡提现",
 };
