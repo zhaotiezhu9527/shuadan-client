@@ -113,7 +113,7 @@ export default {
   display: flex;
   height: 90rpx;
   line-height: 90rpx;
-  font-size: 28rpx;
+  font-size: 24rpx;
   label {
     width: 220rpx;
     margin-right: 20rpx;
