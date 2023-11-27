@@ -206,4 +206,5 @@ export default {
   edit: "修改",
   USDT: "USDT",
   bankWithdrawal: "银行卡提现",
+  canAmount: "可提现金额",
 };

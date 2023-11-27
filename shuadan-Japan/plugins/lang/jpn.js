@@ -206,5 +206,6 @@ export default {
   edit: "改訂",
   USDT: "USDT",
   bankWithdrawal: "バンクカード",
+  canAmount: "利用可能な現金の量",
 };
   
