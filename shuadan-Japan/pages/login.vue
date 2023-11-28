@@ -13,7 +13,7 @@
     >
     </u-navbar>
     <view class="logo">
-      <image class="img" mode="widthFix" src="@/static/img/picodi.png"></image>
+      <image class="img" mode="widthFix" src="@/static/img/logo.png"></image>
     </view>
     <view class="input">
       <u-input
@@ -175,7 +175,7 @@ export default {
     align-items: center;
     padding: 100rpx 0;
     .img {
-      width: 120rpx;
+      width: 200rpx;
     }
   }
 }

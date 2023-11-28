@@ -1,5 +1,5 @@
 {
-    "name" : "Picodi",
+    "name" : "イオンです",
     "appid" : "__UNI__80AC7D2",
     "description" : "",
     "versionName" : "104",
@@ -108,7 +108,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "Picodi",
+        "title" : "イオンです",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",

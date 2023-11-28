@@ -1,5 +1,5 @@
 export default {
-  companyName: "ロッテモール",
+  companyName: "イオンです",
   version: "バージョンナンバー",
   userLogin: "ユーザーログイン",
   enterAccount: "口座を入力してください",
