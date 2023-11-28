@@ -80,7 +80,7 @@ public class SiteConfigController {
         obj.put("webDomain", allParamByMap.get("web_domain"));
 
         // 汇率
-        obj.put("huilv", MapUtil.getInt(allParamByMap, "huilv", 1));
+        obj.put("huilv", MapUtil.getDouble(allParamByMap, "huilv", 1.0));
 
         return R.ok().put("data", obj);
     }
