@@ -1,5 +1,5 @@
 export default {
-  companyName: "イオンです",
+  companyName: "イオン匯",
   version: "バージョンナンバー",
   userLogin: "ユーザーログイン",
   enterAccount: "口座を入力してください",

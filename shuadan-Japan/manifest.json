@@ -1,5 +1,5 @@
 {
-    "name" : "イオンです",
+    "name" : "イオン匯",
     "appid" : "__UNI__80AC7D2",
     "description" : "",
     "versionName" : "104",
@@ -108,7 +108,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "イオンです",
+        "title" : "イオン匯",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",
