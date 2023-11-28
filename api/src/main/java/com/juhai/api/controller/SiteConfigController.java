@@ -80,7 +80,7 @@ public class SiteConfigController {
         obj.put("webDomain", allParamByMap.get("web_domain"));
 
         // 汇率
-        obj.put("huilv", MapUtil.getInt(allParamByMap, "huilv", 1));
+        obj.put("huilv", MapUtil.getDouble(allParamByMap, "huilv", 1.0));
 
         return R.ok().put("data", obj);
     }
@@ -99,6 +99,7 @@ public class SiteConfigController {
         List<JSONObject> arr = new ArrayList<>();
         List<String> zhphones = Arrays.asList("130", "131", "132", "155", "156", "186", "185", "134", "135", "136", "137", "138", "139", "150", "151", "152", "157", "158", "159", "182", "183", "187", "188", "");
         List<String> ynphones = Arrays.asList("0984", "0982","0985","0903","8986","0901");
+        List<String> rbphones = Arrays.asList("080", "090");
         if (StringUtils.equals(lang, "vi_VN")) {
             for (int i = 0; i < 20; i++) {
                 JSONObject obj = new JSONObject();
@@ -108,7 +109,16 @@ public class SiteConfigController {
                 obj.put("date", DateUtil.format(new Date(), "dd-MM-yyyy"));
                 arr.add(obj);
             }
-        } else {
+        } else if (StringUtils.equals(lang, "ja_JP")) {
+            for (int i = 0; i < 20; i++) {
+                JSONObject obj = new JSONObject();
+                Collections.shuffle(rbphones);
+                obj.put("phone", rbphones.get(0) + "****" + RandomUtil.randomNumbers(4));
+                obj.put("price", RandomUtil.randomLong(100, 10000) * 100);
+                obj.put("date", DateUtil.formatDate(new Date()));
+                arr.add(obj);
+            }
+        }else {
             for (int i = 0; i < 20; i++) {
                 JSONObject obj = new JSONObject();
                 String s = zhphones.get(RandomUtil.randomInt(0, zhphones.size() - 1));
