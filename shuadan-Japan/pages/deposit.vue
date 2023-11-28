@@ -46,7 +46,7 @@
             />
           </view>
           <view class="text">
-            <span v-if="typeActive === 2"> ≈ {{ FormatAmount(Number(balance) * Number(huilv))}} USDT</span>
+            <span v-if="typeActive === 2"> ≈ {{ FormatAmount(Number(amount) * Number(huilv))}} USDT</span>
           </view>
           <view class="text">
             <span v-if="typeActive === 1">{{ $t("canAmount") }}：{{ FormatAmount(balance) }}</span>
