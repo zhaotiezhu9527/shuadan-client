@@ -207,4 +207,5 @@ export default {
   USDT: "USDT",
   bankWithdrawal: "银行卡提现",
   canAmount: "可提现金额",
+  withdrawalMethod: "请选择提现方式",
 };

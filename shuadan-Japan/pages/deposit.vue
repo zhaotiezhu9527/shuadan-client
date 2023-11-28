@@ -15,13 +15,19 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="main-type">
+      <!-- <view class="main-type">
         <view class="type-item type-item-left"
               :class="typeActive === 1 ? 'active' : ''" @click="typeActive = 1">{{ $t('bankWithdrawal') }}</view>
         <view class="type-item"
               :class="typeActive === 2 ? 'active' : ''"
               @click="typeActive = 2"
         >{{ $t('USDT') }}</view>
+      </view> -->
+      <view class="card-num" @click="show = true">
+        <view class="flex">
+          {{ title }}
+          <u-icon class="icon" color="#000" size="14" name="arrow-down-fill" />
+        </view>
       </view>
       <view class="title">
         <view class="title-text">
@@ -92,6 +98,19 @@
         </u-button>
       </view>
     </view>
+    <u-picker
+      :title="$t('withdrawalMethod')"
+      :show="show"
+      show-toolbar
+      :style="{ height: '50%' }"
+      :columns="columns"
+      itemHeight="90"
+      confirmColor="#4b80af"
+      @confirm="onConfirm"
+      @cancel="show = false"
+      :confirmText="$t('confirm')"
+      :cancelText="$t('quxiao')"
+    />
   </view>
 </template>
 
@@ -113,6 +132,14 @@ export default {
       typeActive: 1,
       walletAddr: "",//钱包地址
       huilv: 0,//汇率
+      title: this.$t('bankWithdrawal'),
+      show: false,
+      columns: [
+        [
+          { text: this.$t('bankWithdrawal'), value: 1 },
+          { text: this.$t('USDT'), value: 2 },
+        ],
+      ],
     };
   },
   onShow() {
@@ -174,6 +201,11 @@ export default {
           this.huilv = data.data.huilv;
         }
       });
+    },
+    onConfirm(e) {
+      this.title = e.value[0].text;
+      this.typeActive = e.value[0].value;
+      this.show = false;
     },
   },
 };
@@ -296,4 +328,25 @@ export default {
     margin: 40rpx auto;
   }
 }
+.card-num {
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+    padding-left: 15rpx;
+    background-color: #fff;
+    margin-top: 20rpx;
+    box-sizing: border-box;
+    label {
+      margin-left: 20rpx;
+      width: calc(100% - 180rpx);
+    }
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .icon {
+      padding-right: 30rpx;
+    }
+  }
 </style>
