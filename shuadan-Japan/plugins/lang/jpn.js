@@ -174,7 +174,7 @@ export default {
   remoteHost: "リモートホストは割り当て中です",
   networkAnomaly: "ネットワーク異常がある",
   mine: "私の",
-  supportHours: "サポートサービスの稼働時間:09:00-22:00",
+  supportHours: "サポートサービスの稼働時間:09:30-23:30",
   connect: "連絡する",
   paymentChannel: "支払いチャネルを選択してください",
   douBinRecharge: "DouBinリチャージ",
