@@ -68,11 +68,10 @@ public class SiteConfigController {
                 User userByName = userService.getUserByName(userName);
                 onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
             }
-        } else if (StringUtils.equals(pankou, "facai")) {
+        } else if (StringUtils.equals(pankou, "facai") || StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "anan")) {
             String userName = JwtUtils.getUserName(httpServletRequest);
             if (StringUtils.isNotBlank(userName)) {
                 User userByName = userService.getUserByName(userName);
-//                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
                 mate = new JSONObject();
                 mate.put("tel", userByName.getUserName());
                 String name = userByName.getRealName();
