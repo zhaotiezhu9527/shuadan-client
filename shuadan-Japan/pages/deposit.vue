@@ -133,15 +133,15 @@ export default {
       pwd: "", //支付密码
       balance: 0, //余额
       withdrawFee: 0, //提款手续费
-      typeActive: 1,
+      typeActive: 2,
       walletAddr: "",//钱包地址
       huilv: 0,//汇率
-      title: this.$t('bankWithdrawal'),
+      title: this.$t('USDT'),
       show: false,
       columns: [
         [
-          { text: this.$t('bankWithdrawal'), value: 1 },
           { text: this.$t('USDT'), value: 2 },
+          { text: this.$t('bankWithdrawal'), value: 1 },
         ],
       ],
     };
