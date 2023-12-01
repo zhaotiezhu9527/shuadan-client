@@ -60,7 +60,7 @@ public class SiteConfigController {
 
         String onlineService = allParamByMap.get("online_service");
 
-        JSONObject mate = new JSONObject();
+        JSONObject mate = null;
         String pankou = allParamByMap.get("pankou");
         if (StringUtils.equals(pankou, "liehuo")) {
             String userName = JwtUtils.getUserName(httpServletRequest);
@@ -73,6 +73,7 @@ public class SiteConfigController {
             if (StringUtils.isNotBlank(userName)) {
                 User userByName = userService.getUserByName(userName);
 //                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
+                mate = new JSONObject();
                 mate.put("tel", userByName.getUserName());
                 mate.put("name", userByName.getRealName());
             }
