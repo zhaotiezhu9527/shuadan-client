@@ -18,8 +18,8 @@
       <view class="progress-bar-background" v-show="lineStatus">
           <view class="progress-bar" :style="{ width: progressBarWidth + '%' }"></view>
         </view>
-      <view v-if="config.onlineService">
-        <iframe :src="config.onlineService + '&metadata=' + JSON.stringify(userInfo)" class="online"> </iframe>
+      <view v-if="config">
+        <iframe :src="config" class="online"> </iframe>
       </view>
     </view>
   </view>
@@ -32,18 +32,13 @@ export default {
       config: {}, //配置
       userData: {},
       userInfo: {},
-      webviewStyles: {
-        progress: {
-          color: '#00FF00'
-        }
-      },
       progressBarWidth: 0, // 控制进度条宽度的数据
       lineStatus: true,
     };
   },
   onShow() {
+    
     this.getConfig()
-    this.getInfo()
   },
   onReady() {
     // 页面准备好之后，开始加载
@@ -62,20 +57,8 @@ export default {
     getConfig(){
       this.$api.system_config().then(({ data }) => {
       if (data.code == 0) {
-          this.config = data.data;
+          this.config = encodeURI(data.data.onlineService);
         } 
-      });
-    },
-    //用户列表数据
-    getInfo() {
-      this.$api.user_info().then((res) => {
-        if (res.data.code == 0) {
-          this.userData = res.data.data;
-          this.userInfo = {
-            name: this.userData.realName,
-            tel: this.userData.userName,
-          }
-        }
       });
     },
   },
