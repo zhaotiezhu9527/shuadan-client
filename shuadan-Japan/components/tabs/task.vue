@@ -84,9 +84,9 @@
     </view>
     <view class="report">
       <view class="item">
-        <view class="txt">{{ $t("yesterdayTeamCommission") }}</view>
+        <view class="txt">{{ $t("todayIncome") }}</view>
         <view class="moeny">
-          {{ FormatAmount(infos.yesterdayTeamIncome) }}</view
+          {{ FormatAmount(infos.todayIncome) }}</view
         >
       </view>
       <view class="item">

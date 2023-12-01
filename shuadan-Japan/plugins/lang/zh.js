@@ -209,4 +209,5 @@ export default {
   canAmount: "可提现金额",
   withdrawalMethod: "请选择提现方式",
   enterUsdtText: "请输入USDT-TRC20钱包地址",
+  todayIncome: "今日收益",
 };
