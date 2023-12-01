@@ -16,7 +16,7 @@
     </u-navbar>
     <view class="wrap">
       <view v-if="config.onlineService">
-        <view class="progress-bar-background">
+        <view class="progress-bar-background" v-show="lineStatus">
           <view class="progress-bar" :style="{ width: progressBarWidth + '%' }"></view>
         </view>
         <iframe :src="config.onlineService + '&metadata=' + JSON.stringify(userInfo)" class="online"> </iframe>
@@ -38,6 +38,7 @@ export default {
         }
       },
       progressBarWidth: 0, // 控制进度条宽度的数据
+      lineStatus: true,
     };
   },
   onShow() {
@@ -50,6 +51,7 @@ export default {
     let interval = setInterval(() => {
       // 假设每个时间间隔进度条增加10%
       if (self.progressBarWidth >= 100) {
+        this.lineStatus = false
         clearInterval(interval);
       } else {
         self.progressBarWidth += 10;
