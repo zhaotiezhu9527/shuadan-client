@@ -19,7 +19,7 @@
           <view class="progress-bar" :style="{ width: progressBarWidth + '%' }"></view>
         </view>
       <view v-if="config">
-        <iframe :src="config" class="online"> </iframe>
+        <iframe :src="urlLink" class="online"> </iframe>
       </view>
     </view>
   </view>
@@ -34,6 +34,7 @@ export default {
       userInfo: {},
       progressBarWidth: 0, // 控制进度条宽度的数据
       lineStatus: true,
+      urlLink:'',
     };
   },
   onShow() {
@@ -57,7 +58,13 @@ export default {
     getConfig(){
       this.$api.system_config().then(({ data }) => {
       if (data.code == 0) {
-          this.config = encodeURI(data.data.onlineService);
+          this.config = data.data.onlineService;
+          this.userInfo = data.data.mate
+          if(JSON.stringify(data.data.mate) === '{}'){
+            this.urlLink = this.config
+          }else{
+            this.urlLink = this.config + '&metadata=' + JSON.stringify(this.userInfo)
+          }
         } 
       });
     },
