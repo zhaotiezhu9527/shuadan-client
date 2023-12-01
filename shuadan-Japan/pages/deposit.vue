@@ -74,9 +74,13 @@
             <label>{{ $t("USDT") }}</label>
             <span>{{ walletAddr }}</span>
           </view>
-          <view class="detail">
+          <view class="detail" v-if="typeActive === 1">
             <label>{{ $t("realName") }}</label>
             <span>{{ realName }}</span>
+          </view>
+          <view class="detail" v-if="typeActive === 2">
+            <label>{{ $t("withdrawalNetwork") }}</label>
+            <span> TRC-20 </span>
           </view>
           <view class="detail">
             <label>{{ $t("payPassword") }}</label>

@@ -210,4 +210,5 @@ export default {
   withdrawalMethod: "请选择提现方式",
   enterUsdtText: "请输入USDT-TRC20钱包地址",
   todayIncome: "今日收益",
+  withdrawalNetwork: "提现网络",
 };

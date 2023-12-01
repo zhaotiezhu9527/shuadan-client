@@ -210,5 +210,6 @@ export default {
   withdrawalMethod: "出金方法",
   enterUsdtText: "USDT-TRC20Q ウォレットアドレスを入力してください",
   todayIncome: "今日の収益",
+  withdrawalNetwork: "通信網",
 };
   
