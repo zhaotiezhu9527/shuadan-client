@@ -60,6 +60,7 @@ public class SiteConfigController {
 
         String onlineService = allParamByMap.get("online_service");
 
+        JSONObject mate = null;
         String pankou = allParamByMap.get("pankou");
         if (StringUtils.equals(pankou, "liehuo")) {
             String userName = JwtUtils.getUserName(httpServletRequest);
@@ -67,21 +68,23 @@ public class SiteConfigController {
                 User userByName = userService.getUserByName(userName);
                 onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
             }
-        } else if (StringUtils.equals(pankou, "facai")) {
+        } else {
             String userName = JwtUtils.getUserName(httpServletRequest);
             if (StringUtils.isNotBlank(userName)) {
                 User userByName = userService.getUserByName(userName);
-//                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
-                JSONObject obj = new JSONObject();
-                obj.put("tel", userByName.getUserName());
-                if (StringUtils.isNotBlank(userByName.getRealName())) {
-                    obj.put("name", userByName.getRealName());
+                mate = new JSONObject();
+                mate.put("tel", userByName.getUserName());
+                String name = userByName.getRealName();
+                if (StringUtils.isBlank(name)) {
+                    name = userByName.getUserName();
                 }
-                onlineService += "&metadata=" + obj;
+                mate.put("name", name);
             }
         }
 
         JSONObject obj = new JSONObject();
+        // mate
+        obj.put("mate", mate);
         // 在线客服
         obj.put("onlineService", onlineService);
         // 首页弹窗
