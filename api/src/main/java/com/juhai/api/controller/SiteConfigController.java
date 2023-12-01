@@ -75,7 +75,11 @@ public class SiteConfigController {
 //                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
                 mate = new JSONObject();
                 mate.put("tel", userByName.getUserName());
-                mate.put("name", userByName.getRealName());
+                String name = userByName.getRealName();
+                if (StringUtils.isBlank(name)) {
+                    name = userByName.getUserName();
+                }
+                mate.put("name", name);
             }
         }
 
