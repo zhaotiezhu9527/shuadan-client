@@ -16,6 +16,9 @@
     </u-navbar>
     <view class="wrap">
       <view v-if="config.onlineService">
+        <view class="progress-bar-background">
+          <view class="progress-bar" :style="{ width: progressBarWidth + '%' }"></view>
+        </view>
         <iframe :src="config.onlineService + '&metadata=' + JSON.stringify(userInfo)" class="online"> </iframe>
       </view>
     </view>
@@ -29,11 +32,29 @@ export default {
       config: {}, //配置
       userData: {},
       userInfo: "",
+      webviewStyles: {
+        progress: {
+          color: '#00FF00'
+        }
+      },
+      progressBarWidth: 0, // 控制进度条宽度的数据
     };
   },
   onShow() {
     this.getConfig()
     this.getInfo()
+  },
+  onReady() {
+    // 页面准备好之后，开始加载
+    let self = this;
+    let interval = setInterval(() => {
+      // 假设每个时间间隔进度条增加10%
+      if (self.progressBarWidth >= 100) {
+        clearInterval(interval);
+      } else {
+        self.progressBarWidth += 10;
+      }
+    }, 300);
   },
   methods: {
     getConfig(){
@@ -64,5 +85,15 @@ export default {
   width: 100%;
   height: calc(100vh - 100rpx + var(--status-bar-height));
   border: none;
+}
+.progress-bar-background {
+  width: 100%;
+  height: 5px;
+  background-color: #e0e0e0;
+}
+.progress-bar {
+  height: 5px;
+  background-color: #03a9f4;
+  width: 0; /* 初始化进度条宽度为0 */
 }
 </style>
