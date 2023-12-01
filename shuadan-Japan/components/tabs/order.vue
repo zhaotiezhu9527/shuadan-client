@@ -98,6 +98,7 @@
 import success from "@/components/success.vue";
 import { FormatAmount } from "@/plugins/util";
 export default {
+  props:['userData'],
   data() {
     return {
       FormatAmount,
@@ -118,7 +119,7 @@ export default {
   },
   methods: {
     open() {
-      this.getInfo();
+      // this.getInfo();
       this.list = [];
       uni.showLoading();
       this.page = 1;

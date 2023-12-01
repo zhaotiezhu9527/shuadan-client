@@ -1,8 +1,8 @@
 <template>
   <view>
     <!-- <view :is="list[active].route" ref="main"></view> -->
-    <home v-if="active === 0" ref="main" />
-    <order v-else-if="active === 1" ref="main" />
+    <home v-if="active === 0" ref="main" :userData="userData"/>
+    <order v-else-if="active === 1" ref="main" :userData="userData"/>
     <task v-else-if="active === 2" ref="main" />
     <service v-else-if="active === 3" ref="main" />
     <user v-else-if="active === 4" :userData="userData" :infos="infos" ref="main" />

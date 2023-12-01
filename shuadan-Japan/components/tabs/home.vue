@@ -127,6 +127,7 @@ export default {
   components: {
     lang,
   },
+  props:['userData'],
   data() {
     return {
       FormatAmount,
@@ -157,16 +158,12 @@ export default {
         // { name: "186****1590", money: Math.ceil(Math.random()*(300000-10000) + 10000), time: dateFormat("YYYY-mm-dd",new Date()) },
       ],
       list: [],
-      items: {},
-      infos: {},
       homeNotice: "",
-      bindStatus: false, //银行卡绑定状态
     };
   },
   methods: {
     open() {
       this.getConfig();
-      this.getInfo();
       this.getList();
       this.$api.area_list().then(({ data }) => {
         if (data.code == 0) {
@@ -195,39 +192,20 @@ export default {
       });
     },
     routechange(url) {
-      uni.navigateTo({
-        url,
-      });
-    },
-    goDeposit(url) {
-      if (this.bindStatus) {
+      console.log(url)
+      if(url === '/pages/deposit'){
+        if(this.userData.bankNo || this.userData.walletAddr){
+          uni.navigateTo({
+            url,
+          });
+        }else{
+          this.$base.show(this.$t("cardMsg"));
+        }
+      }else{
         uni.navigateTo({
           url,
         });
-      } else {
-        this.$base.show(this.$t("cardMsg"));
       }
-    },
-    //用户列表数据
-    getInfo() {
-      this.$api.user_info().then((res) => {
-        if (res.data.code == 0) {
-          this.items = res.data.data;
-          if (this.items.bankNo === null || !this.items.bankNo) {
-            this.bindStatus = false;
-          } else {
-            this.bindStatus = true;
-          }
-        }
-      });
-      // 用户收益详情
-      this.$api.user_income_detail().then(({ data }) => {
-        if (data.code == 0) {
-          this.infos = data.data;
-        } else {
-          this.$base.show(data.msg);
-        }
-      });
     },
     //  获取滚动列表数据
     getList() {
