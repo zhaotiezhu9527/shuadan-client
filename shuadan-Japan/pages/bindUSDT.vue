@@ -15,7 +15,7 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">{{ $t("enterUsdt") }}</view>
+      <view class="title">{{ $t("enterUsdtText") }}</view>
       <view class="from-input border-bottom393939">
         <!-- <label>{{ $t("realName") }}</label> -->
         <input
@@ -23,13 +23,13 @@
           v-model="userData.addr"
           :disabled="bindStatus"
           class="input-text"
-          :placeholder="$t('enterUsdt')"
+          :placeholder="$t('enterUsdtText')"
         />
       </view>
       <view class="btn">
         <view v-if="bindStatus" class="bank-btn"> {{ $t("edit") }} </view>
         <view v-else-if="!bindStatus" @click="submit">
-          {{ $t("confirmText") }}
+          {{ $t("confirm") }}
         </view>
       </view>
     </view>
@@ -115,7 +115,7 @@ export default {
       flex: 1;
       height: 112rpx;
       line-height: 112rpx;
-      font-size: 32rpx;
+      font-size: 24rpx;
       text-align: left;
     }
   }
