@@ -77,7 +77,7 @@ public class SiteConfigController {
                 if (StringUtils.isNotBlank(userByName.getRealName())) {
                     obj.put("name", userByName.getRealName());
                 }
-                onlineService += "&metadata=" + JSON.toJSONString(obj);
+                onlineService += "&metadata=" + obj;
             }
         }
 
