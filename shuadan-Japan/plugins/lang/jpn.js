@@ -29,7 +29,7 @@ export default {
   referralCodeLength: "推奨コードIDを入力してください。長さは6以上です~",
   myAssets: "総資産",
   currency: "元", //对应币种
-  withdraw: "出金",
+  withdraw: "金を出す",
   recharge: "チャージ",
   yesterdayEarnings: "昨日の収益",
   CumulativeIncome: "累計の収益",
