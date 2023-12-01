@@ -123,6 +123,10 @@ public class OrderController {
             if (StringUtils.isEmpty(user.getBankNo())) {
                 return R.error(MsgUtil.get("system.withdraw.nobank"));
             }
+        } else if (StringUtils.equals(pankou, "facai")) {
+            if (StringUtils.isEmpty(user.getBankNo()) && StringUtils.isEmpty(user.getWalletAddr())) {
+                return R.error(MsgUtil.get("system.withdraw.nobank"));
+            }
         }
 
         // 获取专区信息
