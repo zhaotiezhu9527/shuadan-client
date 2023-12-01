@@ -208,5 +208,6 @@ export default {
   bankWithdrawal: "バンクカード",
   canAmount: "利用可能な現金の量",
   withdrawalMethod: "出金方法",
+  enterUsdtText: "USDT-TRC20Q ウォレットアドレスを入力してください",
 };
   
