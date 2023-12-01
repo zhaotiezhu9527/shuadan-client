@@ -28,7 +28,7 @@ export default {
     return {
       config: {}, //配置
       userData: {},
-      userInfo: "",
+      userInfo: {},
     };
   },
   onShow() {

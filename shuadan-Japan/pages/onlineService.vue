@@ -15,10 +15,10 @@
     >
     </u-navbar>
     <view class="wrap">
-      <view v-if="config.onlineService">
-        <view class="progress-bar-background" v-show="lineStatus">
+      <view class="progress-bar-background" v-show="lineStatus">
           <view class="progress-bar" :style="{ width: progressBarWidth + '%' }"></view>
         </view>
+      <view v-if="config.onlineService">
         <iframe :src="config.onlineService + '&metadata=' + JSON.stringify(userInfo)" class="online"> </iframe>
       </view>
     </view>
@@ -31,7 +31,7 @@ export default {
     return {
       config: {}, //配置
       userData: {},
-      userInfo: "",
+      userInfo: {},
       webviewStyles: {
         progress: {
           color: '#00FF00'
