@@ -119,7 +119,7 @@ public class OrderController {
 
         // TODO: 2023/10/20 阿楠匹配订单不需要验证银行卡
         String pankou = paramsMap.get("pankou");
-        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo") || StringUtils.equals(pankou, "xiami")) {
+        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo")) {
             if (StringUtils.isEmpty(user.getBankNo())) {
                 return R.error(MsgUtil.get("system.withdraw.nobank"));
             }
