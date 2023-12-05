@@ -169,13 +169,13 @@ export default {
           width: "40",
         },
         
-        {
-          label: this.$t("invitation"),
-          icon: "bg-026.png",
-          url: "/pages/promotion",
-          className: "mb",
-          width: "40",
-        },
+        // {
+        //   label: this.$t("invitation"),
+        //   icon: "bg-026.png",
+        //   url: "/pages/promotion",
+        //   className: "mb",
+        //   width: "40",
+        // },
        
         // {
         //   label: this.$t("team"),
