@@ -1,8 +1,8 @@
 import Vue from "vue";
 // 引入 多语言包
 import VueI18n from "vue-i18n";
-import zh from "./zh.js";
-import Thai from "./Thai.js";
+// import zh from "./zh.js";
+// import Thai from "./Thai.js";
 import vi from "./vi.js";
 
 Vue.use(VueI18n);
@@ -11,8 +11,8 @@ Vue.use(VueI18n);
 const i18n = new VueI18n({
   locale: uni.getStorageSync("lang") ? uni.getStorageSync("lang") : "vi",
   messages: {
-    zh,
-    Thai,
+    // zh,
+    // Thai,
     vi,
   },
 });
