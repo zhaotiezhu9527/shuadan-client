@@ -213,7 +213,7 @@ export default {
       let height = 19 * 180;
       this.animation.forEach((item) => {
         let animation = uni.createAnimation({
-          duration: 2000,
+          duration: 4000,
           timingFunction: "ease",
           delay: item.time,
         });
@@ -222,7 +222,7 @@ export default {
       });
       setTimeout(() => {
         this.endCallBack();
-      }, 2000);
+      }, 4000);
     },
     // 重置
     endCallBack() {
