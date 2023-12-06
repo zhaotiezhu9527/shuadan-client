@@ -66,7 +66,9 @@ public class SiteConfigController {
             String userName = JwtUtils.getUserName(httpServletRequest);
             if (StringUtils.isNotBlank(userName)) {
                 User userByName = userService.getUserByName(userName);
-                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + userByName.getPhone() + "&realName=" + userByName.getRealName();
+                String phone = StringUtils.isBlank(userByName.getPhone()) ? userByName.getUserName() : userByName.getPhone();
+                String realName = StringUtils.isBlank(userByName.getRealName()) ? userByName.getUserName() : userByName.getRealName();
+                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + phone + "&realName=" + realName;
             }
         } else {
             String userName = JwtUtils.getUserName(httpServletRequest);
