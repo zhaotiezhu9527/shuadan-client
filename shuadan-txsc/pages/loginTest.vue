@@ -1,90 +1,94 @@
 <template>
-  <view class="main">
-    <view class="register" @click="routePage('/pages/register')">
-      <view class="name">{{ $t("register") }}</view>
-      <image mode="widthFix" class="image" src="@/static/img/10002.png" />
-    </view>
-    <!-- <lang /> -->
-    <view class="postion">
-      <view class="form">
-        <view class="title"> {{ $t("login") }} </view>
-        <view class="input">
-          <u-input
-            border="none"
-            :placeholder="$t('enterAccount')"
-            placeholderClass="placeholder"
-            v-model="userName"
-          >
-            <view class="icon" slot="prefix">
-              <image mode="widthFix" src="@/static/img/icon01.png" />
+  <view>
+    <view class="main" v-show="!serviceShow">
+      <view class="register" @click="routePage('/pages/register')">
+        <view class="name">{{ $t("register") }}</view>
+        <image mode="widthFix" class="image" src="@/static/img/10002.png" />
+      </view>
+      <!-- <lang /> -->
+      <view class="postion">
+        <view class="form">
+          <view class="title"> {{ $t("login") }} </view>
+          <view class="input">
+            <u-input
+              border="none"
+              :placeholder="$t('enterAccount')"
+              placeholderClass="placeholder"
+              v-model="userName"
+            >
+              <view class="icon" slot="prefix">
+                <image mode="widthFix" src="@/static/img/icon01.png" />
+              </view>
+            </u-input>
+          </view>
+          <view class="input">
+            <u-input
+              border="none"
+              :placeholder="$t('enterPassword')"
+              placeholderClass="placeholder"
+              password
+              v-show="passicon1"
+              v-model="loginPwd"
+            >
+              <view class="icon" slot="prefix">
+                <image mode="widthFix" src="@/static/img/icon02.png" />
+              </view>
+              <view slot="suffix" @click="pwdChange">
+                <u-icon name="eye" color="#4e995c" size="46rpx"></u-icon>
+              </view>
+            </u-input>
+            <u-input
+              border="none"
+              :placeholder="$t('enterPassword')"
+              placeholderClass="placeholder"
+              v-model="loginPwd"
+              v-show="!passicon1"
+            >
+              <view class="icon" slot="prefix">
+                <image mode="widthFix" src="@/static/img/icon02.png" />
+              </view>
+              <view slot="suffix" @click="pwdChange">
+                <u-icon name="eye-off" color="#4e995c" size="46rpx"></u-icon>
+              </view>
+            </u-input>
+          </view>
+          <view class="btn">
+            <u-checkbox-group v-model="checked">
+              <u-checkbox
+                activeColor="#4e995c"
+                :label="$t('rememberPassword')"
+                name="1"
+              ></u-checkbox>
+            </u-checkbox-group>
+            <u-button
+              class="button"
+              @click="login"
+              :text="$t('login')"
+              color="#4e995c"
+              :loading="loading"
+              shape="circle"
+            ></u-button>
+            <view class="nopass" @click="routePage('/pages/password')">
+              {{ $t("forgetPassword") }}
             </view>
-          </u-input>
-        </view>
-        <view class="input">
-          <u-input
-            border="none"
-            :placeholder="$t('enterPassword')"
-            placeholderClass="placeholder"
-            password
-            v-show="passicon1"
-            v-model="loginPwd"
-          >
-            <view class="icon" slot="prefix">
-              <image mode="widthFix" src="@/static/img/icon02.png" />
-            </view>
-            <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye" color="#4e995c" size="46rpx"></u-icon>
-            </view>
-          </u-input>
-          <u-input
-            border="none"
-            :placeholder="$t('enterPassword')"
-            placeholderClass="placeholder"
-            v-model="loginPwd"
-            v-show="!passicon1"
-          >
-            <view class="icon" slot="prefix">
-              <image mode="widthFix" src="@/static/img/icon02.png" />
-            </view>
-            <view slot="suffix" @click="pwdChange">
-              <u-icon name="eye-off" color="#4e995c" size="46rpx"></u-icon>
-            </view>
-          </u-input>
-        </view>
-        <view class="btn">
-          <u-checkbox-group v-model="checked">
-            <u-checkbox
-              activeColor="#4e995c"
-              :label="$t('rememberPassword')"
-              name="1"
-            ></u-checkbox>
-          </u-checkbox-group>
-          <u-button
-            class="button"
-            @click="login"
-            :text="$t('login')"
-            color="#4e995c"
-            :loading="loading"
-            shape="circle"
-          ></u-button>
-          <view class="nopass" @click="routePage('/pages/password')">
-            {{ $t("forgetPassword") }}
           </view>
         </view>
-      </view>
-      <view class="other">
-        <view class="link" @click="routePage('/pages/onlineService')">
-          {{ $t("contactService") }} 
+        <view class="other">
+          <view class="link" @click="routePage('/pages/onlineService')">
+            {{ $t("contactService") }} 
+          </view>
+          <view class="link">{{ $t("appDownload") }}</view>
         </view>
-        <view class="link">{{ $t("appDownload") }}</view>
+      </view>
+      <!-- <service /> -->
+      <view class="sevice" @click="showAll">
+        <view class="bg"></view>
       </view>
     </view>
-    <view class="sevice" onclick="_MEIQIA('showPanel')">
-      <view class="bg"></view>
+    <view v-show="serviceShow">
+      <view class="seivice-title" @click="closeTwo">关闭</view>
+      <iframe v-if="serviceIf" v-show="serviceShow" :src="config.onlineService" class="online"></iframe>
     </view>
-    <!-- <view class="display-hidden">
-      <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
-    </view> -->
   </view>
 </template>
 
@@ -100,11 +104,9 @@ export default {
       userName: "",
       loading: false,
       config: {},
-      webviewStyles: {
-        progress: {
-          color: '#00FF00'
-        }
-      }
+      serviceIf: false, //客服div元素是否存在
+      serviceShow: false, //客服开始状态
+      serviceType: 'one'
     };
   },
   onShow() {
@@ -114,10 +116,6 @@ export default {
       this.checked["1"];
     }
     this.getConfig()
-    // this.readFn()
-  },
-  mounted (){
-    
   },
   methods: {
     routePage(url) {
@@ -174,27 +172,24 @@ export default {
       if (data.code == 0) {
           this.config = data.data;
           // uni.hideLoading();
-          this.readFn(this.config.kfid)
         } 
       });
     },
-    readFn(kfid){
-      (function(m, ei, q, i, a, j, s) {
-        m[i] = m[i] || function() {
-          (m[i].a = m[i].a || []).push(arguments)
-        };
-        j = ei.createElement(q),
-        s = ei.getElementsByTagName(q)[0];
-        j.async = true;
-        j.charset = 'UTF-8';
-        j.src = 'https://static.meiqia.com/dist/meiqia.js';
-        s.parentNode.insertBefore(j, s);
-      })(window, document, 'script', '_MEIQIA');
-      _MEIQIA('entId', kfid);
-      // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
-      _MEIQIA('init');
-      _MEIQIA('withoutBtn');
-    }
+    // 显示客服
+    showAll(){
+      if(this.serviceType === 'one'){
+        this.serviceIf = true
+        this.serviceShow = true
+      }else if(this.serviceType === 'two'){
+        this.serviceShow = true
+      }
+    },
+    // 隐藏客服但不删除元素
+    closeTwo(){
+      this.serviceType = 'two'
+      this.serviceIf = true
+      this.serviceShow = false
+    },
   },
   components: {
     service,
@@ -308,5 +303,21 @@ export default {
     width: 64rpx;
     height: 64rpx;
   }
+}
+.seivice-title{
+  width: 100%;
+  height: 100rpx;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  line-height: 100rpx;
+  text-align: center;
+  color: #333;
+}
+.online {
+  width: 100%;
+  height: calc(100vh - 100rpx + var(--status-bar-height));
+  margin-top: 100rpx;
+  border: none;
 }
 </style>

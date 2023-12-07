@@ -17,39 +17,38 @@
     <view class="contentStyle">
       <view class="content" v-if="!active">
         <view class="title">{{$t('paymentChannel') }}</view>
-        <view class="payment-item" @click="submit">
-          <image class="payment-img" src="../static/img/tiktok.png" />
-          <view class="payment-text">
-            <view class="payment-text-box">
-              <text class="payment-text-black">{{$t('douBinRecharge') }}</text>
-              <text class="payment-text-red">{{$t('recommend') }}</text>
+        <view class="payment-item" onclick="_MEIQIA('showPanel')">
+            <image class="payment-img" src="../static/img/tiktok.png" />
+            <view class="payment-text">
+              <view class="payment-text-box">
+                <text class="payment-text-black">{{$t('douBinRecharge') }}</text>
+                <text class="payment-text-red">{{$t('recommend') }}</text>
+              </view>
+              <view class="payment-text-grey">{{$t('douBinRecharge') }}</view>
             </view>
-            <view class="payment-text-grey">{{$t('douBinRecharge') }}</view>
-          </view>
         </view>
-        <view class="payment-item" @click="submit">
-          <image class="payment-img" src="../static/img/unionpay.png" />
-          <view class="payment-text">
-            <view class="payment-text-box">
-              <text class="payment-text-black">{{$t('bankCardTransfer') }}</text>
-              <text class="payment-text-red">{{$t('recommend') }}</text>
+        <view class="payment-item" onclick="_MEIQIA('showPanel')">
+            <image class="payment-img" src="../static/img/unionpay.png" />
+            <view class="payment-text">
+              <view class="payment-text-box">
+                <text class="payment-text-black">{{$t('bankCardTransfer') }}</text>
+                <text class="payment-text-red">{{$t('recommend') }}</text>
+              </view>
+              <view class="payment-text-grey">{{$t('bankCardTransfer') }}</view>
             </view>
-            <view class="payment-text-grey">{{$t('bankCardTransfer') }}</view>
-          </view>
         </view>
-        <view class="payment-item" @click="submit">
-          <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
-          <view class="payment-text">
-            <view class="payment-text-box">
-              <text class="payment-text-black">{{$t('USDTdeposit') }}</text>
-              <text class="payment-text-red">{{$t('recommend') }}</text>
+        <view class="payment-item" onclick="_MEIQIA('showPanel')">
+            <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
+            <view class="payment-text">
+              <view class="payment-text-box">
+                <text class="payment-text-black">{{$t('USDTdeposit') }}</text>
+                <text class="payment-text-red">{{$t('recommend') }}</text>
+              </view>
+              <view class="payment-text-grey">{{$t('USDTdeposit') }}</view>
             </view>
-            <view class="payment-text-grey">{{$t('USDTdeposit') }}</view>
-          </view>
         </view>
       </view>
     </view>
-    <service />
   </view>
 </template>
 
@@ -63,6 +62,9 @@ export default {
       value: "",
     };
   },
+  mounted (){
+    this.getConfig()
+  },
   methods: {
     change() {
       let num = /^\+?[1-9]\d*$/;
@@ -75,6 +77,40 @@ export default {
     submit() {
       uni.navigateTo({
         url: "/pages/onlineService",
+      });
+    },
+    readFn(kfid,mate){
+      (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+          (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+                s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = 'https://static.meiqia.com/dist/meiqia.js';
+        s.parentNode.insertBefore(j, s);
+      })(window, document, 'script', '_MEIQIA');
+      _MEIQIA('entId', kfid);
+      // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+      _MEIQIA('init');
+      _MEIQIA('withoutBtn');
+      if(mate != null){
+        _MEIQIA('metadata', {
+            comment: mate.account,
+            name: mate.name, // 美洽默认字段
+            tel: mate.tel, // 美洽默认字段
+        });
+      }
+    },
+    getConfig(){
+      // uni.showLoading();
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+          // uni.hideLoading();
+          this.readFn(this.config.kfid,this.config.mate)
+        } 
       });
     },
   },
