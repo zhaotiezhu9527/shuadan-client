@@ -61,27 +61,36 @@ public class SiteConfigController {
         String onlineService = allParamByMap.get("online_service");
 
         JSONObject mate = null;
-        String pankou = allParamByMap.get("pankou");
-        if (StringUtils.equals(pankou, "liehuo")) {
-            String userName = JwtUtils.getUserName(httpServletRequest);
-            if (StringUtils.isNotBlank(userName)) {
-                User userByName = userService.getUserByName(userName);
-                String phone = StringUtils.isBlank(userByName.getPhone()) ? userByName.getUserName() : userByName.getPhone();
-                String realName = StringUtils.isBlank(userByName.getRealName()) ? userByName.getUserName() : userByName.getRealName();
-                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + phone + "&realName=" + realName;
-            }
-        } else {
-            String userName = JwtUtils.getUserName(httpServletRequest);
-            if (StringUtils.isNotBlank(userName)) {
-                User userByName = userService.getUserByName(userName);
-                mate = new JSONObject();
-                mate.put("tel", userByName.getUserName());
-                String name = userByName.getRealName();
-                if (StringUtils.isBlank(name)) {
-                    name = userByName.getUserName();
-                }
-                mate.put("name", name);
-            }
+//        String pankou = allParamByMap.get("pankou");
+//        if (StringUtils.equals(pankou, "liehuo")) {
+//            String userName = JwtUtils.getUserName(httpServletRequest);
+//            if (StringUtils.isNotBlank(userName)) {
+//                User userByName = userService.getUserByName(userName);
+//                String phone = StringUtils.isBlank(userByName.getPhone()) ? userByName.getUserName() : userByName.getPhone();
+//                String realName = StringUtils.isBlank(userByName.getRealName()) ? userByName.getUserName() : userByName.getRealName();
+//                onlineService += "?userName=" + userByName.getUserName() + "&phone=" + phone + "&realName=" + realName;
+//            }
+//        } else {
+//            String userName = JwtUtils.getUserName(httpServletRequest);
+//            if (StringUtils.isNotBlank(userName)) {
+//                User userByName = userService.getUserByName(userName);
+//                mate = new JSONObject();
+//                mate.put("tel", userByName.getUserName());
+//                String name = userByName.getRealName();
+//                if (StringUtils.isBlank(name)) {
+//                    name = userByName.getUserName();
+//                }
+//                mate.put("name", name);
+//            }
+//        }
+
+        String userName = JwtUtils.getUserName(httpServletRequest);
+        if (StringUtils.isNotBlank(userName)) {
+            User user = userService.getUserByName(userName);
+            mate = new JSONObject();
+            mate.put("tel", StringUtils.isBlank(user.getPhone()) ? user.getUserName() : user.getPhone());
+            mate.put("name", StringUtils.isBlank(user.getRealName()) ? user.getUserName() : user.getRealName());
+            mate.put("account", user.getUserName());
         }
 
         JSONObject obj = new JSONObject();
