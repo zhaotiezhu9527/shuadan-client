@@ -95,10 +95,10 @@ public class SiteConfigController {
         obj.put("homeNotice", allMessageMap.get("home_notice").getContent());
 
         obj.put("webDomain", allParamByMap.get("web_domain"));
-
         // 汇率
         obj.put("huilv", MapUtil.getDouble(allParamByMap, "huilv", 1.0));
-
+        // 客服ID
+        obj.put("kfid", allParamByMap.getOrDefault("kfid", ""));
         return R.ok().put("data", obj);
     }
 
