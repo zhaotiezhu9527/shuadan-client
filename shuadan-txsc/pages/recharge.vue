@@ -60,6 +60,7 @@ export default {
       list: [100, 300, 500, 1000, 3000, 5000, 10000, 50000],
       active: 0,
       value: "",
+      config:{},
     };
   },
   mounted (){

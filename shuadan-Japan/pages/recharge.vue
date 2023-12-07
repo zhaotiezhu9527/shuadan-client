@@ -27,7 +27,7 @@
             <view class="payment-text-grey">{{$t('douBinRecharge') }}</view>
           </view>
         </view> -->
-        <view class="payment-item" @click="submit">
+        <view class="payment-item" onclick="_MEIQIA('showPanel')">
           <image class="payment-img" src="../static/img/unionpay.png" />
           <view class="payment-text">
             <view class="payment-text-box">
@@ -37,7 +37,7 @@
             <view class="payment-text-grey">{{$t('bankCardTransfer') }}</view>
           </view>
         </view>
-        <view class="payment-item" @click="submit">
+        <view class="payment-item" onclick="_MEIQIA('showPanel')">
           <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
           <view class="payment-text">
             <view class="payment-text-box">
@@ -49,7 +49,7 @@
         </view>
       </view>
     </view>
-    <service />
+    <!-- <service /> -->
   </view>
 </template>
 
@@ -61,7 +61,11 @@ export default {
       list: [100, 300, 500, 1000, 3000, 5000, 10000, 50000],
       active: 0,
       value: "",
+      config:{},
     };
+  },
+  mounted (){
+    this.getConfig()
   },
   methods: {
     change() {
@@ -72,11 +76,40 @@ export default {
         this.active = 1;
       }
     },
-    submit() {
-      uni.navigateTo({
-        url: "/pages/onlineService",
+    getConfig(){
+      // uni.showLoading();
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+          // uni.hideLoading();
+          this.readFn(this.config.kfid,this.config.mate)
+        } 
       });
     },
+    readFn(kfid,mate){
+      (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+          (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+                s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = 'https://static.meiqia.com/dist/meiqia.js';
+        s.parentNode.insertBefore(j, s);
+      })(window, document, 'script', '_MEIQIA');
+      _MEIQIA('entId', kfid);
+      // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+      _MEIQIA('init');
+      _MEIQIA('withoutBtn');
+      if(mate != null){
+        _MEIQIA('metadata', {
+            comment: mate.account,
+            name: mate.name, // 美洽默认字段
+            tel: mate.tel, // 美洽默认字段
+        });
+      }
+    }
   },
   components: {
     service,

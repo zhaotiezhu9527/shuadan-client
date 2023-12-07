@@ -29,9 +29,15 @@
             <view>{{ $t("accountBalance") }}</view>
             <view class="money-color">
               <!-- ¥ -->
-              <label class="money-number">{{
-                FormatAmount(userData.balance)
-              }}</label>
+              <label class="money-number">{{ userData.balance }}</label>
+              <view class="doubi-money">=
+                <image
+                  class="doubi-img"
+                  src="@/static/img/icon_usdt.jpeg"
+                  mode="widthFix"
+                />
+                {{ Number(userData.balance * config.huilv).toFixed(2) }} USDT
+              </view>
             </view>
           </view>
           <view class="withdrawal" @click="goDeposit('/pages/deposit')">{{
@@ -168,7 +174,11 @@ export default {
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
       // infos: {}, //收益数据
+      config: {},
     };
+  },
+  mounted (){
+    this.getConfig()
   },
   methods: {
     open() {
@@ -206,7 +216,15 @@ export default {
         this.$base.show(this.$t("cardMsg"));
       }
     },
-    
+    getConfig(){
+      // uni.showLoading();
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+          // uni.hideLoading();
+        } 
+      });
+    },
   },
 };
 </script>

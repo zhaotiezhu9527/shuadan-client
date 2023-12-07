@@ -25,17 +25,18 @@ export default {
   data() {
     return {
       list: [],
+      config:{},
     };
   },
   onShow() {
    
   },
   mounted (){
-    this.readFn()
+    this.getConfig()
   },
   methods: {
     open() {
-      this.getConfig()
+      
     },
     goService() {
       uni.navigateTo({

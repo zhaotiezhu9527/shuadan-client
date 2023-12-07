@@ -11,8 +11,10 @@
       <view class="support-hours">
         {{$t('supportHours') }}
       </view>
-      <view class="service-btn" @click="goService">
+      <view class="service-btn">
+        <div onclick="_MEIQIA('showPanel')">
         {{$t('service') }}
+        </div>
       </view>
     </view>
   </view>
@@ -22,16 +24,49 @@ export default {
   data() {
     return {
       list: [],
+      config:{},
     };
+  },
+  mounted (){
+    this.getConfig()
   },
   methods: {
     open() {
     },
-    goService() {
-      uni.navigateTo({
-        url: "/pages/onlineService",
+    getConfig(){
+      // uni.showLoading();
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+          // uni.hideLoading();
+          this.readFn(this.config.kfid,this.config.mate)
+        } 
       });
     },
+    readFn(kfid,mate){
+      (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+          (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+                s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = 'https://static.meiqia.com/dist/meiqia.js';
+        s.parentNode.insertBefore(j, s);
+      })(window, document, 'script', '_MEIQIA');
+      _MEIQIA('entId', kfid);
+      // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+      _MEIQIA('init');
+      _MEIQIA('withoutBtn');
+      if(mate != null){
+        _MEIQIA('metadata', {
+            comment: mate.account,
+            name: mate.name, // 美洽默认字段
+            tel: mate.tel, // 美洽默认字段
+        });
+      }
+    }
   },
 };
 </script>
