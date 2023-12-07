@@ -21,8 +21,8 @@
       <view class="progress-bar-background">
         <view class="progress-bar" :style="{ width: progressBarWidth + '%' }"></view>
       </view>
-      <web-view 
-      v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
+      <web-view :webview-styles="webviewStyles" :src="config.onlineService" class="online">
+      </web-view>
     </view>
   </view>
 </template>
@@ -72,6 +72,7 @@ export default {
 <style scoped lang="scss">
 .online {
   width: 100%;
+  margin-top: 100rpx;
   height: calc(100vh - 100rpx + var(--status-bar-height));
   // margin-top: 100rpx;
   border: none;
