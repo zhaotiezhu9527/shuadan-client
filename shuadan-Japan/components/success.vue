@@ -44,6 +44,8 @@
                 <view class="redb" v-if="items.balanceSub < 0">
                   {{ $t("insufficientBalance") }}：
                   {{ FormatAmount(items.balanceSub) }}
+                  ≈
+                  {{ Number(Number(items.balanceSub) * Number(config.huilv)).toFixed(2) }} USDT
                 </view>
                 <view class="ul">
                   <view class="li">
@@ -106,7 +108,11 @@ export default {
       loading: false,
       FormatAmount,
       items: {},
+      config: {},
     };
+  },
+  mounted (){
+    this.getConfig()
   },
   methods: {
     open(e) {
@@ -140,6 +146,13 @@ export default {
           }
         });
       }, 4000);
+    },
+    getConfig(){
+      this.$api.system_config().then(({ data }) => {
+      if (data.code == 0) {
+          this.config = data.data;
+        } 
+      });
     },
   },
 };

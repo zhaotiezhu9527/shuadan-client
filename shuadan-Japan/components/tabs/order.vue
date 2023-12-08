@@ -110,7 +110,6 @@ export default {
         { name: this.$t("freezing"), status: 2 },
       ],
       list: [],
-      userData: {},
       loading: false,
       finished: false,
       isArray: true,

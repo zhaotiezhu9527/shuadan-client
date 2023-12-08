@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0
+  }
+</style>
+<body id="kefu111">
+</body>
+<script type='text/javascript'>
+	// 获取UniApp传递的参数
+	const queryString = window.location.search;
+	const params = new URLSearchParams(queryString);
+
+	// 获取单个参数
+	const name = params.get('name');
+	const age = params.get('age');
+	console.log(name);
+	console.log(age);
+  (function(m, ei, q, i, a, j, s) {
+    m[i] = m[i] || function() {
+      (m[i].a = m[i].a || []).push(arguments)
+    };
+    j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+    j.async = true;
+    j.charset = 'UTF-8';
+    j.src = 'https://static.meiqia.com/dist/meiqia.js';
+    s.parentNode.insertBefore(j, s);
+  })(window, document, 'script', '_MEIQIA');
+  _MEIQIA('entId', 'b803cd51abb2f835a9c3483527bba46b');
+  // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+  _MEIQIA('init');
+  _MEIQIA('withoutBtn');
+  // _MEIQIA('allSet', function(){
+  _MEIQIA('showPanel');
+  _MEIQIA('beforeCloseWindow', handleBeforeCloseWindow);
+  // _MEIQIA('hidePanel');
+  // });
+  var handleBeforeCloseWindow =  function (){
+    _MEIQIA('hidePanel');
+  }
+</script>
+</html>

@@ -44,7 +44,7 @@
             size="46rpx"
             @click="pwdChange"
           ></u-icon>
-          <view class="link-con" onclick="_MEIQIA('showPanel')">
+          <view class="link-con" @click="routePage('/pages/onlineService')">
             <view class="link">{{$t('forgetPassword')}}</view>
           </view>
         </view>
@@ -65,7 +65,7 @@
             size="46rpx"
             @click="pwdChange"
           ></u-icon>
-          <view class="link-con" onclick="_MEIQIA('showPanel')">
+          <view class="link-con" @click="routePage('/pages/onlineService')">
             <view class="link">{{$t('forgetPassword')}}</view>
           </view>
         </view>
@@ -90,6 +90,9 @@
     </view>
     <view class="other">
       <view @click="routePage('/pages/register')">{{$t('register')}}</view>
+    </view>
+    <view class="display-hidden">
+      <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
     </view>
   </view>
 </template>
@@ -164,26 +167,8 @@ export default {
       this.$api.system_config().then(({ data }) => {
       if (data.code == 0) {
           this.config = data.data;
-          this.readFn(this.config.kfid)
         } 
       });
-    },
-    readFn(kfid){
-      (function(m, ei, q, i, a, j, s) {
-        m[i] = m[i] || function() {
-          (m[i].a = m[i].a || []).push(arguments)
-        };
-        j = ei.createElement(q),
-        s = ei.getElementsByTagName(q)[0];
-        j.async = true;
-        j.charset = 'UTF-8';
-        j.src = 'https://static.meiqia.com/dist/meiqia.js';
-        s.parentNode.insertBefore(j, s);
-      })(window, document, 'script', '_MEIQIA');
-      _MEIQIA('entId', kfid);
-      // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
-      _MEIQIA('init');
-      _MEIQIA('withoutBtn');
     }
   },
   components: {
