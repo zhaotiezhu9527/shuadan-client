@@ -80,9 +80,9 @@
       </view>
     </view>
     <service />
-    <view class="display-hidden">
+    <!-- <view class="display-hidden" style="display:none;">
       <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
-    </view>
+    </view> -->
   </view>
 </template>
 
