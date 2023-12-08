@@ -79,12 +79,10 @@
         <view class="link">{{ $t("appDownload") }}</view>
       </view>
     </view>
-    <view class="sevice" onclick="_MEIQIA('showPanel')">
-      <view class="bg"></view>
-    </view>
-    <!-- <view class="display-hidden">
+    <service />
+    <view class="display-hidden">
       <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
-    </view> -->
+    </view>
   </view>
 </template>
 
@@ -114,10 +112,6 @@ export default {
       this.checked["1"];
     }
     this.getConfig()
-    // this.readFn()
-  },
-  mounted (){
-    
   },
   methods: {
     routePage(url) {
@@ -174,26 +168,8 @@ export default {
       if (data.code == 0) {
           this.config = data.data;
           // uni.hideLoading();
-          this.readFn(this.config.kfid)
         } 
       });
-    },
-    readFn(kfid){
-      (function(m, ei, q, i, a, j, s) {
-        m[i] = m[i] || function() {
-          (m[i].a = m[i].a || []).push(arguments)
-        };
-        j = ei.createElement(q),
-        s = ei.getElementsByTagName(q)[0];
-        j.async = true;
-        j.charset = 'UTF-8';
-        j.src = 'https://static.meiqia.com/dist/meiqia.js';
-        s.parentNode.insertBefore(j, s);
-      })(window, document, 'script', '_MEIQIA');
-      _MEIQIA('entId', kfid);
-      // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
-      _MEIQIA('init');
-      _MEIQIA('withoutBtn');
     }
   },
   components: {
@@ -290,23 +266,5 @@ export default {
   width: 300rpx;
   height: 88rpx;
   line-height: 88rpx;
-}
-.sevice {
-  position: fixed;
-  bottom: 10rpx;
-  left: 10rpx;
-  border-radius: 50%;
-  width: 120rpx;
-  height: 120rpx;
-  z-index: 99;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #007aff;
-  .bg {
-    background: url(@/static/img/icon-mq-round@2x.png) 0 0 / 128rpx no-repeat;
-    width: 64rpx;
-    height: 64rpx;
-  }
 }
 </style>
