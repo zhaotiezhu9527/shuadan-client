@@ -91,9 +91,6 @@
     <view class="other">
       <view @click="routePage('/pages/register')">{{$t('register')}}</view>
     </view>
-    <view class="display-hidden">
-      <web-view v-show="config.onlineService" :webview-styles="webviewStyles"  :src="config.onlineService" class="online"></web-view>
-    </view>
   </view>
 </template>
 
@@ -108,11 +105,7 @@ export default {
       loginPwd: "",
       userName: "",
       loading: false,
-      config: {},
     };
-  },
-  onShow() {
-    this.getConfig()
   },
   methods: {
     routePage(url) {
@@ -163,13 +156,7 @@ export default {
         url,
       });
     },
-    getConfig(){
-      this.$api.system_config().then(({ data }) => {
-      if (data.code == 0) {
-          this.config = data.data;
-        } 
-      });
-    }
+
   },
   components: {
     service,
