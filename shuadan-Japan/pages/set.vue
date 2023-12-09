@@ -41,14 +41,14 @@
         <span class="item-text">{{ userData.userName }}</span>
         <view class="icon"></view>
       </view>
-      <view
+      <!-- <view
         class="list-item"
         @click="goBindBank"
       >
         <image class="icon-img" src="../static/img/my_card.png" />
         <label>{{$t('bankCard') }}</label>
         <view class="icon"></view>
-      </view>
+      </view> -->
       <!-- 绑定usdt -->
       <view
         class="list-item"

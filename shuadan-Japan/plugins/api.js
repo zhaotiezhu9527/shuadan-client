@@ -454,3 +454,18 @@ export const user_withdraw_jp = (data) => {
       });
   });
 };
+
+//绑定usdt 日本盘专属
+export const bind_usdt = (data) => {
+  return new Promise((resolve, reject) => {
+    base
+      .request({
+        url: "user/bindUsdt3",
+        method: "post",
+        data: data,
+      })
+      .then((res) => {
+        resolve(res);
+      });
+  });
+};

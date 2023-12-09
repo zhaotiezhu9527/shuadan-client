@@ -23,12 +23,12 @@
               @click="typeActive = 2"
         >{{ $t('USDT') }}</view>
       </view> -->
-      <view class="card-num" @click="show = true">
+      <!-- <view class="card-num" @click="show = true">
         <view class="flex">
           {{ title }}
           <u-icon class="icon" color="#000" size="14" name="arrow-down-fill" />
         </view>
-      </view>
+      </view> -->
       <view class="title">
         <view class="title-text">
           <span>{{ $t("withdrawalAmount") }}</span>
@@ -71,7 +71,7 @@
             <span>{{ bankName }}</span>
           </view>
           <view class="detail" v-if="typeActive === 2">
-            <label>{{ $t("USDT") }}</label>
+            <label>{{ $t("USDTaddress") }}</label>
             <span>{{ walletAddr }}</span>
           </view>
           <view class="detail" v-if="typeActive === 1">

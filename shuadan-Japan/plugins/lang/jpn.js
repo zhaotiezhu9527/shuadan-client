@@ -205,11 +205,17 @@ export default {
   enterUsdt: "USDTウォレットアドレスを入力してください",
   edit: "改訂",
   USDT: "USDT",
+  USDTaddress: "USDTアドレス",
   bankWithdrawal: "バンクカード",
   canAmount: "利用可能な現金の量",
   withdrawalMethod: "出金方法",
   enterUsdtText: "USDT-TRC20Q ウォレットアドレスを入力してください",
   todayIncome: "今日の収益",
   withdrawalNetwork: "通信網",
+  usdtAddress: "usdtアドレスを入力してください",
+  idCard: "IDカード",
+  enterIdCard: "IDカードを入力してください",
+  IDphoto: "証明写真",
+  enterIDphoto: "証明写真をアップロードしてください",
 };
   
