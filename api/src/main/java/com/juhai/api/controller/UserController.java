@@ -1,8 +1,6 @@
 package com.juhai.api.controller;
-import java.util.Date;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.*;
@@ -36,8 +34,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -327,9 +323,12 @@ public class UserController {
         temp.put("walletAddr", user.getWalletAddr());
         temp.put("creditValue", user.getCreditValue());
         temp.put("inviteCode", user.getInviteCode());
+        temp.put("idCard", user.getIdCard());
 
         Map<String, String> params = paramterService.getAllParamByMap();
         String resourceDomain = params.get("resource_domain");
+        String idCardImg = StringUtils.isBlank(user.getIdCardImg()) ? "" : resourceDomain + user.getIdCardImg();
+        temp.put("idCardImg", idCardImg);
         // 等级信息
         Level level = user.getLevel();
         temp.put("levelName", level == null ? "" : level.getLevelName());
@@ -1200,6 +1199,30 @@ public class UserController {
                 new UpdateWrapper<User>().lambda()
                         .set(User::getWalletAddr, request.getAddr())
                         .set(User::getUpdateTime, new Date())
+                        .eq(User::getUserName, userName)
+        );
+
+        return R.ok();
+    }
+
+    @ApiOperation(value = "用户绑定USDT(发财盘)")
+    @PostMapping("/bindUsdt3")
+    public R bindUsdt3(@Validated BindUsdt3Request request, HttpServletRequest httpServletRequest) {
+        String userName = JwtUtils.getUserName(httpServletRequest);
+
+//        User user = userService.getUserByName(userName);
+//        if (StringUtils.isNotBlank(user.getWalletAddr())) {
+//            return R.error(MsgUtil.get("system.user.bindusdt"));
+//        }
+
+        userService.update(
+                new UpdateWrapper<User>().lambda()
+                        .set(User::getWalletAddr, request.getAddr())
+                        .set(User::getIdCard, request.getIdCard())
+                        .set(User::getPhone, request.getPhone())
+                        .set(User::getRealName, request.getRealName())
+                        .set(User::getUpdateTime, new Date())
+                        .set(User::getIdCardImg, request.getIdCardImg())
                         .eq(User::getUserName, userName)
         );
 

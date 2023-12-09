@@ -49,6 +49,17 @@
             <version>${jwt.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.xuyanwu</groupId>
+            <artifactId>spring-file-storage</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.15.1</version>
+        </dependency>
+
         <!-- 注册中心 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
