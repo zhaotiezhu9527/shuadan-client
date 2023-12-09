@@ -9,6 +9,17 @@ spring:
   messages:
     basename: i18n/messages
     encoding: utf-8
+  file-storage:
+    default-platform: aliyun-oss
+    aliyun-oss:
+      - platform: aliyun-oss
+        enable-storage: true
+        access-key: LTAI5tB7AivgoqsHAnWiFUc9
+        secret-key: saIzSztG6c73ATXThx8dvxE87uAJhD
+        end-point: oss-ap-southeast-1.aliyuncs.com
+        bucket-name: juhaijituan
+        domain: https://juhaijituan.oss-ap-southeast-1.aliyuncs.com/
+        base-path: sd/
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml

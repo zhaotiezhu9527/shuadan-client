@@ -25,4 +25,8 @@ public class BindUsdt3Request {
     @NotNull(message = "system.param.err")
     @ApiModelProperty(value = "身份号码", example = "身份号码", required = true)
     private String idCard;
+
+    @NotNull(message = "system.param.err")
+    @ApiModelProperty(value = "身份证图片", example = "身份证图片", required = true)
+    private String idCardImg;
 }
