@@ -29,8 +29,8 @@ export const loading = (title) => {
 };
 const PATH_URL =
   process.env.NODE_ENV === "development"
-     ? "http://192.168.4.85:9544/" //本地环境
-    // ? "http://sdqt.juhai.xyz/sd-qtapi-test/" //测试环境
+    //  ? "http://192.168.4.85:9544/" //本地环境
+    ? "http://sdqt.juhai.xyz/sd-qtapi-test/" //测试环境
     :  "http://sdqt.juhai.xyz/sd-qtapi-test/"; //测试环境
     // :  "/api/"; //越南刷单正式接口
     // :  "https://sdpp1100.top/sdpp1/"; //越南app
@@ -44,9 +44,10 @@ export const upload = (params) => {
     uni.uploadFile({
       url: PATH_URL + "system/upload",
       filePath: params.filePath,
-      name: params.name,
       header: header,
       formData: params.formData,
+      fileType: 'image',
+      name: 'file',
       success: (uploadFileRes) => {
         resolve(uploadFileRes);
       },

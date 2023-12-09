@@ -71,7 +71,7 @@ export default {
   noBankNo: "銀行番号が入力されていません。設定してください",
   addr: "支店住所",
   noAddr: "銀行名が入力されていません。設定してください",
-  modifyService: "情報を編集してカスタマー サービスに連絡してください ",
+  modifyService: "カスタマーケア",
   loading: "ロード中",
   noMore: "これ以上ありません",
   noData: "データがありません",
