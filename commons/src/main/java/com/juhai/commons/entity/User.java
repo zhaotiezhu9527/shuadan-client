@@ -238,6 +238,12 @@ public class User implements Serializable {
     @TableField(value = "invite_count")
     private Integer inviteCount;
 
+    /**
+     * 身份证号码
+     */
+    @TableField(value = "id_card")
+    private String idCard;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

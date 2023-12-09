@@ -42,6 +42,7 @@
             <result property="bet" column="bet" jdbcType="DECIMAL"/>
             <result property="income" column="income" jdbcType="DECIMAL"/>
             <result property="inviteCount" column="invite_count" jdbcType="INTEGER"/>
+            <result property="idCard" column="id_card" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -55,7 +56,7 @@
         register_ip,last_time,last_ip,
         create_time,create_by,update_time,
         update_by,remake,update_order,
-        deposit,withdraw,bet,income,invite_count,funds_status,wallet_addr
+        deposit,withdraw,bet,income,invite_count,funds_status,wallet_addr,id_card
     </sql>
 
     <!-- 修改用户余额 -->
