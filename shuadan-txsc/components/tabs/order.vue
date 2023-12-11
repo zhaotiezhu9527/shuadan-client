@@ -137,7 +137,6 @@ export default {
     open() {
       this.getInfo();
       this.list = [];
-      uni.showLoading();
       this.page = 1;
       this.dataFn();
     },

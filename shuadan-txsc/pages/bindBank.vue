@@ -143,9 +143,6 @@ export default {
     },
     //用户列表数据
     getInfo() {
-      uni.showLoading({
-        title: this.$t('loading'),
-      });
       this.$api.user_info().then((res) => {
         if (res.data.code == 0) {
           this.userData = res.data.data;

@@ -167,11 +167,9 @@ export default {
       });
     },
     getConfig(){
-      // uni.showLoading();
       this.$api.system_config().then(({ data }) => {
       if (data.code == 0) {
           this.config = data.data;
-          // uni.hideLoading();
         } 
       });
     },
