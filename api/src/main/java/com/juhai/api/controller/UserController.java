@@ -1222,7 +1222,6 @@ public class UserController {
                         .set(User::getPhone, request.getPhone())
                         .set(User::getRealName, request.getRealName())
                         .set(User::getUpdateTime, new Date())
-                        .set(User::getIdCardImg, request.getIdCardImg())
                         .eq(User::getUserName, userName)
         );
 
