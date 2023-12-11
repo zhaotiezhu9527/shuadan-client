@@ -982,7 +982,7 @@ public class UserController {
     }
 
     @Transactional
-    @ApiOperation(value = "用户提现(虾米盘)")
+    @ApiOperation(value = "用户提现(发财盘)")
     @PostMapping("/withdraw2")
     public R withdraw2(@Validated Withdraw2Request request, HttpServletRequest httpServletRequest) throws Exception {
 
