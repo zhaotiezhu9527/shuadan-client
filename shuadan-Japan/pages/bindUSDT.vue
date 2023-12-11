@@ -57,7 +57,7 @@
           :placeholder="$t('enterIdCard')"
         />
       </view>
-      <view class="from-img">
+      <!-- <view class="from-img">
         <label> {{ $t("IDphoto") }} </label>
         <view class="id-img-box" @click="upImg">
           <view class="up-img">
@@ -66,7 +66,7 @@
           <img v-if="userData.idCardImg" :src="userData.idCardImg" class="id-img"/>
         </view>
 
-      </view>
+      </view> -->
       <view class="title">ショッピング センターでは本物の情報が必要ですが、偽の情報を提供した場合、センターは給料を支払いません。</view>
       <view class="btn">
         <u-button v-if="bindStatus" class="custom-style" color="#9d9d9c" block>
@@ -119,15 +119,16 @@ export default {
         return this.$base.show(this.$t("enterIdCard"));
       } else if (!this.userData.addr) {
         return this.$base.show(this.$t("usdtAddress"));
-      } else if (!this.userData.dataPath) {
-        return this.$base.show(this.$t("enterIDphoto"));
-      }
+      } 
+      // else if (!this.userData.dataPath) {
+      //   return this.$base.show(this.$t("enterIDphoto"));
+      // }
       this.loading = true;
       const DATA_OBJ = {
         realName: this.userData.realName, //真实姓名
         phone: this.userData.phone, //手机
         idCard: this.userData.idCard, //银行卡号
-        idCardImg: this.userData.dataPath, //银行名称
+        // idCardImg: this.userData.dataPath, //银行名称
         addr: this.userData.addr, //支行地址
       };
       this.$api
