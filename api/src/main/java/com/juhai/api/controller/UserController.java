@@ -123,7 +123,7 @@ public class UserController {
 
         // 查询IP注册量
         long count = userService.count(new LambdaQueryWrapper<User>().eq(User::getRegisterIp, clientIP));
-        Integer ipzc = MapUtil.getInt(allParamByMap, "ipzc", 5);
+        Integer ipzc = MapUtil.getInt(allParamByMap, "register_same_ip", 5);
         if (count >= ipzc) {
             System.out.println("同IP["+ clientIP +"]注册达到" + count + "个");
             return R.error();
