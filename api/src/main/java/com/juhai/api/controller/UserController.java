@@ -121,6 +121,14 @@ public class UserController {
 //        String clientIP = ServletUtil.getClientIP(httpServletRequest);
         String clientIP = ServletUtil.getClientIPByHeader(httpServletRequest, "x-original-forwarded-for");
 
+        // 查询IP注册量
+        long count = userService.count(new LambdaQueryWrapper<User>().eq(User::getRegisterIp, clientIP));
+        Integer ipzc = MapUtil.getInt(allParamByMap, "ipzc", 5);
+        if (count >= ipzc) {
+            System.out.println("同IP["+ clientIP +"]注册达到" + count + "个");
+            return R.error();
+        }
+
         // 获取头像列表
         List<Avatar> avatars = avatarService.list(
                 new LambdaQueryWrapper<Avatar>()
