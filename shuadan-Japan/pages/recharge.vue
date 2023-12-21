@@ -27,7 +27,7 @@
             <view class="payment-text-grey">{{$t('douBinRecharge') }}</view>
           </view>
         </view> -->
-        <view class="payment-item" @click="submit">
+        <!-- <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/unionpay.png" />
           <view class="payment-text">
             <view class="payment-text-box">
@@ -36,7 +36,7 @@
             </view>
             <view class="payment-text-grey">{{$t('bankCardTransfer') }}</view>
           </view>
-        </view>
+        </view> -->
         <view class="payment-item" @click="submit">
           <image class="payment-img" src="../static/img/icon_usdt.jpeg" />
           <view class="payment-text">
