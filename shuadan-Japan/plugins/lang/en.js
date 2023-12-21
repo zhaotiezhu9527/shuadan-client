@@ -153,7 +153,7 @@ export default {
   askService: "If you encounter problems and need help, please contact online customer service",
   service: "CS",
   workingOrders: "Exact match is in progress, order results will be announced below",
-  automaticMatching: "Automatic matching",
+  automaticMatching: "Start",
   todayResults: "Today's results",
   commissionToday: "Today's commission",
   AccountFrozenAmount: "Account frozen amount",
