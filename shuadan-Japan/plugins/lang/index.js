@@ -5,17 +5,19 @@ import zh from "./zh.js";
 import Thai from "./Thai.js";
 import vi from "./vi.js";
 import jpn from "./jpn.js";
+import en from "./en.js";
 
 Vue.use(VueI18n);
 
 // 创建实例这里设置语言
 const i18n = new VueI18n({
-  locale: uni.getStorageSync("lang") ? uni.getStorageSync("lang") : "jpn",
+  locale: uni.getStorageSync("lang") ? uni.getStorageSync("lang") : "en",
   messages: {
     zh,
     Thai,
     vi,
     jpn,
+    en,
   },
 });
 
