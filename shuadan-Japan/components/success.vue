@@ -39,7 +39,9 @@
                   </view>
                 </view>
                 <view class="time">
-                  {{ $t("time") }} {{ $t("grabOrder") }} {{ items.orderTime }}
+                  {{ $t("time") }} 
+                  <!-- {{ $t("grabOrder") }} -->
+                   {{ items.orderTime }}
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
                   {{ $t("insufficientBalance") }}：

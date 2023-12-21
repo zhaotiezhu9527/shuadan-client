@@ -64,7 +64,9 @@
             </view>
 
             <view class="time">
-              {{ $t("time") }} {{ $t("grabOrder") }}：{{ item.orderTime }}
+              {{ $t("time") }} 
+              <!-- {{ $t("grabOrder") }} -->
+              ：{{ item.orderTime }}
               <text class="txt" v-if="item.orderType == 0">
                 [{{ item.promptText }}]
               </text>

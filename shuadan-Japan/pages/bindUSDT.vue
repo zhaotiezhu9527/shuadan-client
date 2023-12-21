@@ -67,7 +67,7 @@
         </view>
 
       </view> -->
-      <view class="title">ショッピング センターでは本物の情報が必要ですが、偽の情報を提供した場合、センターは給料を支払いません。</view>
+      <!-- <view class="title">ショッピング センターでは本物の情報が必要ですが、偽の情報を提供した場合、センターは給料を支払いません。</view> -->
       <view class="btn">
         <u-button v-if="bindStatus" class="custom-style" color="#9d9d9c" block>
           {{ $t("confirm") }}
@@ -84,7 +84,7 @@
           {{ $t("confirm") }}
         </u-button>
       </view>
-      <view class="title" v-if="bindStatus">情報をカスタマーケアに交換していただいて欲しいですが</view>
+      <!-- <view class="title" v-if="bindStatus">情報をカスタマーケアに交換していただいて欲しいですが</view> -->
     </view>
   </view>
 </template>
