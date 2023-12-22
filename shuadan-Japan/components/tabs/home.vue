@@ -109,14 +109,14 @@
     <view class="partners">
       <image src="@/static/img/shop1.png" />
       <image src="@/static/img/shop2.png" />
-      <image src="@/static/img/shop3.png" />
+      <image src="@/static/img/shop3.jpg" />
       <image src="@/static/img/shop4.jpg" />
     </view>
   </view>
 </template>
 
 <script>
-import img014 from "@/static/img/banner1.jpeg";
+import img014 from "@/static/img/banner1.jpg";
 import img015 from "@/static/img/100015.png";
 import img017 from "@/static/img/100017.png";
 import img018 from "@/static/img/100018.png";

@@ -1,5 +1,5 @@
 export default {
-  companyName: "Anazon",
+  companyName: "ebay",
   version: "Version number",
   userLogin: " User login",
   enterAccount: "Enter account",
@@ -13,7 +13,7 @@ export default {
   nickName: "Nick name",
   enterNickName: "Please enter a nickname",
   userName: "Account",
-  enterUserName: "Please set up more than 4 digits + English account number",
+  enterUserName: "Enter account",
   password: "Password",
   payPassword: "Pay password",
   enterPayPassword: "Please set a transaction password",

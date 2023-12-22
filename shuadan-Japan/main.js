@@ -31,10 +31,10 @@ const app = new Vue({
 Vue.mixin({
   onShow() {
     uni.setNavigationBarTitle({
-      title: "イオン匯",
+      title: "ebay",
     });
     // #ifdef H5
-    document.title = "イオン匯";
+    document.title = "ebay";
     // #endif
   },
 });

@@ -1,5 +1,5 @@
 export default {
-  companyName: "イオン匯",
+  companyName: "ebay",
   version: "バージョンナンバー",
   userLogin: "ユーザーログイン",
   enterAccount: "口座を入力してください",
