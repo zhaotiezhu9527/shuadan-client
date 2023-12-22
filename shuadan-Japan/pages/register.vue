@@ -136,7 +136,7 @@
           ></u-button>
         </view>
       </view>
-      <view class="other">
+      <!-- <view class="other">
         <u-icon
           class="icon"
           color="#ffffff"
@@ -147,7 +147,7 @@
           <text>{{ $t("accountOpening") }} </text>
           {{ $t("termsContract") }}
         </view>
-      </view>
+      </view> -->
     </view>
   </view>
 </template>
