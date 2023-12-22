@@ -23,7 +23,7 @@
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
             <view class="table-money">
-              {{ $t("rechargeAmount") }}：{{ FormatAmount(item.amount) }}
+              {{ $t("rechargeAmount") }}：{{ keepTwoDecimalFull(item.amount) }}
             </view>
             <view class="table-title">
               {{ $t("orderNumber") }}：{{ item.orderNo }}
@@ -51,11 +51,11 @@
 </template>
 
 <script>
-import { FormatAmount } from "@/plugins/util";
+import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
   data() {
     return {
-      FormatAmount,
+      keepTwoDecimalFull,
       list: [], //列表数据
       loading: false,
       finished: false,

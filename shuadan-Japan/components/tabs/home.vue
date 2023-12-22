@@ -96,7 +96,7 @@
               <text>{{ item.phone }}</text>
             </view>
             <view class="txt">
-              <text class="blue-text">{{ FormatAmount(item.price) }}</text>
+              <text class="blue-text">{{ keepTwoDecimalFull(item.price) }}</text>
             </view>
             <view class="time">{{ item.date }}</view>
           </view>
@@ -122,7 +122,7 @@ import img017 from "@/static/img/100017.png";
 import img018 from "@/static/img/100018.png";
 import img019 from "@/static/img/100019.png";
 import lang from "@/components/lang.vue";
-import { dateFormat, FormatAmount } from "@/plugins/util";
+import { dateFormat, keepTwoDecimalFull } from "@/plugins/util";
 export default {
   components: {
     lang,
@@ -130,7 +130,7 @@ export default {
   props:['userData'],
   data() {
     return {
-      FormatAmount,
+      keepTwoDecimalFull,
       swiper: [img014],
       nav: [
         {

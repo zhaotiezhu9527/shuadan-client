@@ -29,15 +29,15 @@
             <view>{{ $t("accountBalance") }}</view>
             <view class="money-color">
               <!-- ¥ -->
-              <label class="money-number">{{ userData.balance }}</label>
-              <view class="doubi-money">=
+              <label class="money-number">{{ keepTwoDecimalFull(userData.balance) }}</label>
+              <!-- <view class="doubi-money">=
                 <image
                   class="doubi-img"
                   src="@/static/img/icon_usdt.jpeg"
                   mode="widthFix"
                 />
                 {{ Number(userData.balance * config.huilv).toFixed(2) }} USDT
-              </view>
+              </view> -->
             </view>
           </view>
           <view class="withdrawal" @click="goDeposit('/pages/deposit')">{{
@@ -51,19 +51,19 @@
             <view class="income-item">
               <view class="income-item-text">{{ $t("userYesterday") }}</view>
               <view class="income-item-number"
-                >{{ FormatAmount(infos.yesterdayIncome) }}
+                >{{ keepTwoDecimalFull(infos.yesterdayIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
               <view class="income-item-number"
-                >{{ FormatAmount(infos.totalIncome) }}
+                >{{ keepTwoDecimalFull(infos.totalIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("todayEarnings") }}</view>
               <view class="income-item-number"
-                >{{ FormatAmount(infos.todayIncome) }}
+                >{{ keepTwoDecimalFull(infos.todayIncome) }}
               </view>
             </view>
           </view>
@@ -112,12 +112,12 @@
 </template>
 
 <script>
-import { FormatAmount } from "@/plugins/util";
+import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
   props:['userData','infos'],
   data() {
     return {
-      FormatAmount,
+      keepTwoDecimalFull,
       loading: false, //加载状态
       list: [
         {

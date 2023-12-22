@@ -17,7 +17,7 @@
           <view class="con">
             <view class="gray">{{ $t("commissionToday") }}</view>
             <view class="blue">
-              {{ FormatAmount(infos.todayIncome) }}
+              {{ keepTwoDecimalFull(infos.todayIncome) }}
             </view>
           </view>
         </view>
@@ -31,7 +31,7 @@
           <view class="con">
             <view class="gray">{{ $t("myAssets") }}</view>
             <view class="blue">
-              {{ FormatAmount(infos.balance) }}
+              {{ keepTwoDecimalFull(infos.balance) }}
             </view>
           </view>
         </view>
@@ -86,13 +86,13 @@
       <view class="item">
         <view class="txt">{{ $t("todayIncome") }}</view>
         <view class="moeny">
-          {{ FormatAmount(infos.todayIncome) }}</view
+          {{ keepTwoDecimalFull(infos.todayIncome) }}</view
         >
       </view>
       <view class="item">
         <view class="txt">{{ $t("yesterdayEarnings") }}</view>
         <view class="moeny">
-          {{ FormatAmount(infos.yesterdayIncome) }}
+          {{ keepTwoDecimalFull(infos.yesterdayIncome) }}
         </view>
       </view>
       <view class="item">
@@ -103,7 +103,7 @@
         <view class="txt">{{ $t("AccountFrozenAmount") }}</view>
         <view class="moeny">
           <template v-if="infos.freezeBalance"></template>
-          {{ FormatAmount(infos.freezeBalance) }}
+          {{ keepTwoDecimalFull(infos.freezeBalance) }}
         </view>
       </view>
     </view>
@@ -125,12 +125,12 @@
 </template>
 <script>
 import success from "@/components/success.vue";
-import { FormatAmount } from "@/plugins/util";
+import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
   components: { success },
   data() {
     return {
-      FormatAmount,
+      keepTwoDecimalFull,
       items: {},
       infos: {},
       animation: [

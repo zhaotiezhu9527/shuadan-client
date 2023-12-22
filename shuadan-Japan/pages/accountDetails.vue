@@ -45,7 +45,7 @@
                 </label>
               </view>
               <view class="table-number">
-                {{ FormatAmount(item.amount) }}
+                {{ keepTwoDecimalFull(item.amount) }}
               </view>
             </view>
           </view>
@@ -59,11 +59,11 @@
 </template>
 
 <script>
-import { FormatAmount } from "@/plugins/util";
+import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
   data() {
     return {
-      FormatAmount,
+      keepTwoDecimalFull,
       list: [], //列表数据
       loading: false,
       finished: false,

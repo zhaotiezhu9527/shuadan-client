@@ -5,7 +5,7 @@
         <view>{{ $t("taskRecord") }}</view>
         <view class="sub_title">
           <view>{{ $t("remainingAssets") }}：</view>
-          <view>{{ FormatAmount(userData.balance) }}</view>
+          <view>{{ keepTwoDecimalFull(userData.balance) }}</view>
         </view>
       </view>
       <view class="tabstyle">
@@ -48,14 +48,14 @@
                   </view>
                   <view class="text">
                     <view>
-                      {{ FormatAmount(item.goodsPrice) }}
+                      {{ keepTwoDecimalFull(item.goodsPrice) }}
                     </view>
                     <view>x {{ item.goodsCount }}</view>
                   </view>
                   <view class="text yj">
                     <view>
                       {{ $t("commission") }}：
-                      {{ FormatAmount(item.commission) }}
+                      {{ keepTwoDecimalFull(item.commission) }}
                     </view>
                     <view class="num">x {{ item.commissionMul }}</view>
                   </view>
@@ -79,7 +79,7 @@
               <view class="li">
                 <text>{{ $t("expectedReturn") }}：</text>
                 <text class="moeny">
-                  {{ FormatAmount(item.returnAmount) }}</text
+                  {{ keepTwoDecimalFull(item.returnAmount) }}</text
                 >
               </view>
               <view class="li flex" v-if="item.status === 0">
@@ -98,12 +98,12 @@
 </template>
 <script>
 import success from "@/components/success.vue";
-import { FormatAmount } from "@/plugins/util";
+import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
   props:['userData'],
   data() {
     return {
-      FormatAmount,
+      keepTwoDecimalFull,
       current: 0,
       nav: [
         { name: this.$t("all"), status: undefined },

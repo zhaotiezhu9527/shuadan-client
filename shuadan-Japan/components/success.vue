@@ -27,13 +27,13 @@
                         {{ items.goodsName }}
                       </view>
                       <view class="text">
-                        <view> {{ FormatAmount(items.goodsPrice) }}</view>
+                        <view> {{ keepTwoDecimalFull(items.goodsPrice) }}</view>
                         <view>x {{ items.goodsCount }}</view>
                       </view>
                       <view class="text yj">
                         {{ $t("commission") }}
 
-                        {{ FormatAmount(items.commission) }}
+                        {{ keepTwoDecimalFull(items.commission) }}
                       </view>
                     </view>
                   </view>
@@ -45,21 +45,21 @@
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
                   {{ $t("insufficientBalance") }}：
-                  {{ FormatAmount(items.balanceSub) }}
-                  ≈
-                  {{ Number(Number(items.balanceSub) * Number(config.huilv)).toFixed(2) }} USDT
+                  {{ keepTwoDecimalFull(items.balanceSub) }}
+                  <!-- ≈
+                  {{ Number(Number(items.balanceSub) * Number(config.huilv)).toFixed(2) }} USDT -->
                 </view>
                 <view class="ul">
                   <view class="li">
                     <text class="label">{{ $t("orderTotal") }}</text>
                     <text class="value">
-                      {{ FormatAmount(items.orderAmount) }}</text
+                      {{ keepTwoDecimalFull(items.orderAmount) }}</text
                     >
                   </view>
                   <view class="li">
                     <text class="mr-10 label">{{ $t("expectedReturn") }}</text>
                     <text class="moeny">
-                      {{ FormatAmount(items.forecastReturn) }}
+                      {{ keepTwoDecimalFull(items.forecastReturn) }}
                     </text>
                   </view>
                 </view>
@@ -102,13 +102,13 @@
 </template>
 
 <script>
-import { FormatAmount } from "@/plugins/util";
+import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
   data() {
     return {
       show: false,
       loading: false,
-      FormatAmount,
+      keepTwoDecimalFull,
       items: {},
       config: {},
     };

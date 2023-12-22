@@ -18,33 +18,33 @@
       <view class="rows">
         <view class="item">
           <view class="txt">{{ $t("teamBalance") }}({{ $t("currency") }})</view>
-          <view class="moeny">{{ FormatAmount(items.teamBalance) || 0 }}</view>
+          <view class="moeny">{{ keepTwoDecimalFull(items.teamBalance) || 0 }}</view>
         </view>
         <view class="item right">
           <view class="txt">{{ $t("teamFlow") }}({{ $t("currency") }})</view>
           <view class="moeny green">{{
-            FormatAmount(items.teamWithdraw) || 0
+            keepTwoDecimalFull(items.teamWithdraw) || 0
           }}</view>
         </view>
         <view class="item">
           <view class="txt"
             >{{ $t("totalTeamRecharge") }}({{ $t("currency") }})</view
           >
-          <view class="moeny">{{ FormatAmount(items.teamBet) || 0 }}</view>
+          <view class="moeny">{{ keepTwoDecimalFull(items.teamBet) || 0 }}</view>
         </view>
         <view class="item right">
           <view class="txt"
             >{{ $t("totalTeamWithdraw") }}({{ $t("currency") }})</view
           >
           <view class="moeny green">{{
-            FormatAmount(items.teamDeposit) || 0
+            keepTwoDecimalFull(items.teamDeposit) || 0
           }}</view>
         </view>
         <view class="item">
           <view class="txt"
             >{{ $t("teamOrderCommission") }}({{ $t("currency") }})</view
           >
-          <view class="moeny">{{ FormatAmount(items.teamIncome) || 0 }}</view>
+          <view class="moeny">{{ keepTwoDecimalFull(items.teamIncome) || 0 }}</view>
         </view>
         <view class="item red">
           <view class="txt">{{ $t("pushNo") }}</view>
@@ -91,7 +91,7 @@
               </view>
               <view class="li">
                 <text clas="blur"
-                  >{{ $t("recharge") }}：{{ FormatAmount(item.deposit) }}</text
+                  >{{ $t("recharge") }}：{{ keepTwoDecimalFull(item.deposit) }}</text
                 >
                 <text class="green"
                   >{{ $t("agentNo") }}: {{ item.inviteCount }}</text
@@ -99,7 +99,7 @@
               </view>
               <view class="li">
                 <text class="blur"
-                  >{{ $t("withdraw") }}：{{ FormatAmount(item.withdraw) }}</text
+                  >{{ $t("withdraw") }}：{{ keepTwoDecimalFull(item.withdraw) }}</text
                 >
                 <text>{{ $t("teamTime") }}：{{ item.registerTime }}</text>
               </view>
@@ -112,11 +112,11 @@
   </view>
 </template>
 <script>
-import { FormatAmount } from "@/plugins/util";
+import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
   data() {
     return {
-      FormatAmount,
+      keepTwoDecimalFull,
       list: [], //列表数据
       loading: false,
       active: 0,
