@@ -1,7 +1,7 @@
 <template>
   <view>
     <!-- <component :is="list[active].route" ref="main" /> -->
-    <home v-show="active === 0" ref="main0" />
+    <home v-show="active === 0" ref="main0" :userData="userData"/>
     <order v-show="active === 1" ref="main1" />
     <task v-show="active === 2" ref="main2" />
     <service v-show="active === 3" ref="main3" />

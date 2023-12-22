@@ -126,6 +126,7 @@ import img15 from "@/static/img/icon15.png";
 import img16 from "@/static/img/icon16.png";
 
 export default {
+  props:['userData'],
   data() {
     return {
       nav: [
@@ -178,6 +179,14 @@ export default {
           this.$base.show(data.msg);
         }
       });
+      this.level =
+        this.list.find((item) => item.remark.includes(this.userData.levelName))
+          ?.level || 1;
+      if (this.userData.walletAddr === null || !this.userData.walletAddr) {
+        this.bindStatus = false;
+      } else {
+        this.bindStatus = true;
+      }
     },
     change(en) {
       if(en != "dlhz"){
@@ -212,19 +221,19 @@ export default {
     },
     //用户列表数据
     getInfo() {
-      this.$api.user_info().then((res) => {
-        if (res.data.code == 0) {
-          this.items = res.data.data;
-          this.level =
-            this.list.find((item) => item.remark.includes(this.items.levelName))
-              ?.level || 1;
-          if (this.items.walletAddr === null || !this.items.walletAddr) {
-            this.bindStatus = false;
-          } else {
-            this.bindStatus = true;
-          }
-        }
-      });
+      // this.$api.user_info().then((res) => {
+      //   if (res.data.code == 0) {
+      //     this.items = res.data.data;
+      //     this.level =
+      //       this.list.find((item) => item.remark.includes(this.items.levelName))
+      //         ?.level || 1;
+      //     if (this.items.walletAddr === null || !this.items.walletAddr) {
+      //       this.bindStatus = false;
+      //     } else {
+      //       this.bindStatus = true;
+      //     }
+      //   }
+      // });
       // 用户收益详情
       this.$api.user_income_detail().then(({ data }) => {
         if (data.code == 0) {

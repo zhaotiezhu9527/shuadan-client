@@ -21,12 +21,12 @@
         <u-tabs
           :list="nav"
           lineColor="#fff"
-          lineWidth="180rpx"
+          lineWidth="80rpx"
           lineHeight="1rpx"
           :scrollable="false"
           :current="current"
           activeStyle="color:#fff;font-size:28rpx;"
-          @change="navChange"
+          @click="navChange"
         ></u-tabs>
       </view>
       <view class="list" v-if="isArray">
@@ -118,17 +118,18 @@
 <script>
 import success from "@/components/success.vue";
 export default {
+  props:['userData'],
   data() {
     return {
       current: 0,
       nav: [
-        { name: this.$t("all"), status: undefined },
+        { name: this.$t("all"), status: "" },
         { name: this.$t("loading"), status: 0 },
         { name: this.$t("success"), status: 1 },
         { name: this.$t("error"), status: 2 },
       ],
       list: [],
-      userData: {},
+      // userData: {},
       loading: false,
       finished: false,
       isArray: true,
@@ -138,7 +139,7 @@ export default {
   methods: {
     open() {
       uni.showLoading();
-      this.getInfo();
+      // this.getInfo();
       this.list = [];
       this.page = 1;
       this.dataFn();
