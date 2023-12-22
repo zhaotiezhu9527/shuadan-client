@@ -45,9 +45,9 @@
               @blur="update"
             />
           </view>
-          <view class="text">
+          <!-- <view class="text">
             <span v-if="typeActive === 2"> ≈ {{ Number((Number(amount) * Number(huilv))).toFixed(2)}} USDT</span>
-          </view>
+          </view> -->
           <view class="text">
             <span v-if="typeActive === 1">{{ $t("canAmount") }}：{{ keepTwoDecimalFull(balance) }}</span>
             <span v-if="typeActive === 2">{{ $t("canAmount") }}：{{ keepTwoDecimalFull(balance) }}</span>
