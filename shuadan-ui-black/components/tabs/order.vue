@@ -17,15 +17,17 @@
         <view>{{ $t("residue_balance") }}（{{ $t("rmb") }}）</view>
         <view>{{ userData.balance }}</view>
       </view> -->
-      <view class="tabs">
+      <view class="tabs"
+        v-if="showTap"
+        >
         <u-tabs
-          :list="nav"
+          :list="navList"
           lineColor="#fff"
           lineWidth="80rpx"
           lineHeight="1rpx"
           :scrollable="false"
           :current="current"
-          activeStyle="color:#fff;font-size:28rpx;"
+          activeStyle="color:#fff"
           @click="navChange"
         ></u-tabs>
       </view>
@@ -122,7 +124,7 @@ export default {
   data() {
     return {
       current: 0,
-      nav: [
+      navList: [
         { name: this.$t("all"), status: "" },
         { name: this.$t("loading"), status: 0 },
         { name: this.$t("success"), status: 1 },
@@ -134,6 +136,7 @@ export default {
       finished: false,
       isArray: true,
       page: 0,
+      showTap: false,
     };
   },
   methods: {
@@ -143,6 +146,9 @@ export default {
       this.list = [];
       this.page = 1;
       this.dataFn();
+      this.$nextTick(() => {
+        this.showTap = true
+      })
     },
     load() {
       if (this.loading || this.finished) return false;
@@ -150,19 +156,19 @@ export default {
       this.dataFn(this.page);
     },
     //用户列表数据
-    getInfo() {
-      this.$api.user_info().then((res) => {
-        if (res.data.code == 0) {
-          this.userData = res.data.data;
-        }
-      });
-    },
+    // getInfo() {
+    //   this.$api.user_info().then((res) => {
+    //     if (res.data.code == 0) {
+    //       this.userData = res.data.data;
+    //     }
+    //   });
+    // },
     dataFn(page = 1, type = 1) {
       this.loading = true;
       this.$api
         .user_order_list({
           page,
-          status: this.nav[this.current].status,
+          status: this.navList[this.current].status,
         })
         .then(({ data }) => {
           if (data.code == 0) {
@@ -183,7 +189,7 @@ export default {
         });
     },
     ok() {
-      this.getInfo();
+      // this.getInfo();
       this.dataFn(1, 0);
       this.page = 1;
       this.finished = false;
@@ -230,6 +236,7 @@ export default {
     z-index: 3;
   }
 }
+
 /deep/.u-tabs__wrapper__nav__line {
   bottom: 2rpx !important;
 }
