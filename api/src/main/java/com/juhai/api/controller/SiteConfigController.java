@@ -135,7 +135,8 @@ public class SiteConfigController {
         List<JSONObject> arr = new ArrayList<>();
         List<String> zhphones = Arrays.asList("130", "131", "132", "155", "156", "186", "185", "134", "135", "136", "137", "138", "139", "150", "151", "152", "157", "158", "159", "182", "183", "187", "188", "");
         List<String> ynphones = Arrays.asList("0984", "0982","0985","0903","8986","0901");
-        List<String> rbphones = Arrays.asList("080", "090");
+        List<String> rbphones = Arrays.asList("080", "090","04", "07");
+//        List<String> adlyphones = Arrays.asList("04", "07");
 
         // 通过盘口计算
         Map<String, String> allParamByMap = paramterService.getAllParamByMap();
