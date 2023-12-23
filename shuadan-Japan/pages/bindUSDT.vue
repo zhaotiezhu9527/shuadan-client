@@ -15,7 +15,7 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">{{ $t("personalInformation") }}</view>
+<!--      <view class="title">{{ $t("personalInformation") }}</view>-->
       <view class="from-input">
         <label>{{ $t("realName") }}</label>
         <input

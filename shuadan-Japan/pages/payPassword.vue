@@ -15,7 +15,7 @@
     >
     </u-navbar>
     <view class="main">
-      <view class="title">{{$t('enterNewPassword') }}</view>
+<!--      <view class="title">{{$t('enterNewPassword') }}</view>-->
       <view class="from-input">
         <label>{{$t('oldPassword') }}</label>
         <input
