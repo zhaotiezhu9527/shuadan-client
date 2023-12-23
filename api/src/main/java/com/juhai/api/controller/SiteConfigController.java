@@ -154,7 +154,7 @@ public class SiteConfigController {
             for (int i = 0; i < 10; i++) {
                 JSONObject obj = new JSONObject();
                 Collections.shuffle(adlyphones);
-                obj.put("phone", rbphones.get(0) + "****" + RandomUtil.randomNumbers(4));
+                obj.put("phone", adlyphones.get(0) + "****" + RandomUtil.randomNumbers(4));
                 obj.put("price", RandomUtil.randomLong(10, 1000));
                 obj.put("date", DateUtil.formatDate(new Date()));
                 arr.add(obj);
