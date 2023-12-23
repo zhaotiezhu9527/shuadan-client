@@ -211,7 +211,7 @@ export default {
   withdrawalMethod: "Please select a withdrawal method",
   enterUsdtText: "Please enter the USDT-TRC20 wallet address",
   todayIncome: "Today's Profit",
-  withdrawalNetwork: "Channel",
+  withdrawalNetwork: "Network",
   usdtAddress: "Fill in the usdt address",
   idCard: "Id number",
   enterIdCard: "Enter ID card",
