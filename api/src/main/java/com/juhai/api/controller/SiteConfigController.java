@@ -136,16 +136,11 @@ public class SiteConfigController {
         List<String> zhphones = Arrays.asList("130", "131", "132", "155", "156", "186", "185", "134", "135", "136", "137", "138", "139", "150", "151", "152", "157", "158", "159", "182", "183", "187", "188", "");
         List<String> ynphones = Arrays.asList("0984", "0982","0985","0903","8986","0901");
         List<String> rbphones = Arrays.asList("080", "090");
-        if (StringUtils.equals(lang, "vi_VN")) {
-            for (int i = 0; i < 20; i++) {
-                JSONObject obj = new JSONObject();
-                String s = ynphones.get(RandomUtil.randomInt(0, ynphones.size() - 1));
-                obj.put("phone", s + "****" + RandomUtil.randomNumbers(3));
-                obj.put("price", RandomUtil.randomLong(1000, 100000) * 100);
-                obj.put("date", DateUtil.format(new Date(), "dd-MM-yyyy"));
-                arr.add(obj);
-            }
-        } else if (StringUtils.equals(lang, "ja_JP")) {
+
+        // 通过盘口计算
+        Map<String, String> allParamByMap = paramterService.getAllParamByMap();
+        String pankou = allParamByMap.get("pankou");
+        if (StringUtils.equals(pankou, "facai")) {
             for (int i = 0; i < 20; i++) {
                 JSONObject obj = new JSONObject();
                 Collections.shuffle(rbphones);
@@ -154,6 +149,17 @@ public class SiteConfigController {
                 obj.put("date", DateUtil.formatDate(new Date()));
                 arr.add(obj);
             }
+        } else if (StringUtils.equals(pankou, "paopao")) {
+            for (int i = 0; i < 20; i++) {
+                JSONObject obj = new JSONObject();
+                String s = ynphones.get(RandomUtil.randomInt(0, ynphones.size() - 1));
+                obj.put("phone", s + "****" + RandomUtil.randomNumbers(3));
+                obj.put("price", RandomUtil.randomLong(1000, 100000) * 100);
+                obj.put("date", DateUtil.format(new Date(), "dd-MM-yyyy"));
+                arr.add(obj);
+            }
+        } else if (StringUtils.equals(pankou, "anan")) {
+
         }else {
             for (int i = 0; i < 20; i++) {
                 JSONObject obj = new JSONObject();
@@ -165,6 +171,36 @@ public class SiteConfigController {
                 arr.add(obj);
             }
         }
+
+//        if (StringUtils.equals(lang, "vi_VN")) {
+//            for (int i = 0; i < 20; i++) {
+//                JSONObject obj = new JSONObject();
+//                String s = ynphones.get(RandomUtil.randomInt(0, ynphones.size() - 1));
+//                obj.put("phone", s + "****" + RandomUtil.randomNumbers(3));
+//                obj.put("price", RandomUtil.randomLong(1000, 100000) * 100);
+//                obj.put("date", DateUtil.format(new Date(), "dd-MM-yyyy"));
+//                arr.add(obj);
+//            }
+//        } else if (StringUtils.equals(lang, "ja_JP")) {
+//            for (int i = 0; i < 20; i++) {
+//                JSONObject obj = new JSONObject();
+//                Collections.shuffle(rbphones);
+//                obj.put("phone", rbphones.get(0) + "****" + RandomUtil.randomNumbers(4));
+//                obj.put("price", RandomUtil.randomLong(100, 10000) * 100);
+//                obj.put("date", DateUtil.formatDate(new Date()));
+//                arr.add(obj);
+//            }
+//        }else {
+//            for (int i = 0; i < 20; i++) {
+//                JSONObject obj = new JSONObject();
+//                String s = zhphones.get(RandomUtil.randomInt(0, zhphones.size() - 1));
+//                String phone = s + RandomUtil.randomNumbers(8);
+//                obj.put("phone", DesensitizedUtil.mobilePhone(phone));
+//                obj.put("price", RandomUtil.randomLong(10, 1000) * 100);
+//                obj.put("date", DateUtil.formatDate(new Date()));
+//                arr.add(obj);
+//            }
+//        }
         redisTemplate.opsForValue().set(key, JSON.toJSONString(arr), 1, TimeUnit.HOURS);
         return R.ok().put("data", arr);
     }
