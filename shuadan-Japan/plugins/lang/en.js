@@ -46,7 +46,7 @@ export default {
   accountBalance: "Total Balance",
   logout: "Log out",
   confirmLogout: "Confirm exit？",
-  personalInformation: "Personal",
+  personalInformation: "Me",
   financialHistory: "Record", // 泰国盘翻译成金融历史
   accountDetails: "Transactions",
   rechargeRecord: "Deposits record",
@@ -192,7 +192,7 @@ export default {
   frontPage: "Home",
   record: "Record",
   task: "Task",
-  personal: "Personal",
+  personal: "Me",
   contactService: "Contact Customer Service",
   rememberPassword: "Remember password",
   appDownload: "APP Download",
