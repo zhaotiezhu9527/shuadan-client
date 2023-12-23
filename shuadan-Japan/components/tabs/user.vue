@@ -135,11 +135,11 @@ export default {
           icon: "list.png",
           url: "/pages/accountDetails",
         },
-        {
-          label: this.$t("teamReports"),
-          icon: "team.png",
-          url: "/pages/team",
-        },
+        // {
+        //   label: this.$t("teamReports"),
+        //   icon: "team.png",
+        //   url: "/pages/team",
+        // },
         {
           label: this.$t("rechargeRecord"),
           icon: "recharge.png",

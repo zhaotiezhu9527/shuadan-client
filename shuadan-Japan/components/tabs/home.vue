@@ -73,9 +73,9 @@
         </view>
       </view>
     </view>
-    <view class="sub_title">
+    <!-- <view class="sub_title">
       <view class="txt white">{{ $t("revenueList") }}</view>
-    </view>
+    </view> -->
     <view class="ranking">
       <view class="notice__inner">
         <view

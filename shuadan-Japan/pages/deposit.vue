@@ -32,7 +32,7 @@
       <view class="title">
         <view class="title-text">
           <span>{{ $t("withdrawalAmount") }}</span>
-          <label>{{ $t("withdrawalRate") }}{{ withdrawFee }}%</label>
+          <label>{{ $t("withdrawalRate") }}  {{ withdrawFee }}%</label>
         </view>
         <view class="title-content">
           <view class="money">
