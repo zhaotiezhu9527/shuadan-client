@@ -27,7 +27,7 @@ export default {
   passwordLength: "Please enter the password and the length is greater than 6~",
   payPasswordLength: "Please enter the 6-digit transaction password~",
   referralCodeLength: "Please enter the 6-digit invitation code~",
-  myAssets: "Total assets",
+  myAssets: "Total Balance",
   currency: "$", //对应币种 Dollar  $
   withdraw: "Withdraw",
   recharge: "Deposit",
@@ -155,7 +155,7 @@ export default {
   workingOrders: "Exact match is in progress, order results will be announced below",
   automaticMatching: "Start",
   todayResults: "Today's results",
-  commissionToday: "Today's commission",
+  commissionToday: "Today Profit",
   AccountFrozenAmount: "Username frozen amount",
   todayNo: "Tasks completed today",
   yesterdayTeamCommission: "Yesterday's team revenue“",
@@ -163,7 +163,7 @@ export default {
   nextLevel: "Next level exclusive channel to get higher commissions",
   respectUsers: "Hello dear user",
   rule1:
-    "In order to prevent malicious money laundering or cashing out of a series of illegal activities, the platform requires members to complete 70 transactions before applying for withdrawal. After successful withdrawal review, the arrival time is T+0 (within 2 hours). The specific arrival time is subject to the bank!",
+    "In order to prevent malicious money laundering or cashing out of a series of illegal activities, the platform requires members to complete 50 transactions before applying for withdrawal. After successful withdrawal review, the arrival time is T+0 (within 2 hours). The specific arrival time is subject to the bank!",
   rule2: "In order to ensure the authenticity of the merchant's transaction volume, all task orders are paid in advance and immediately refunded.",
   rule3:
     "After grabbing the task order, please submit the order in time to avoid the card order being stuck and reducing your credit score if it is not submitted for a long time.",
