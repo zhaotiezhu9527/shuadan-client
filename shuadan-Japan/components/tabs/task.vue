@@ -21,9 +21,9 @@
             </view>
           </view>
         </view>
-        <view style="width: 30%" class="gray">{{
+        <!-- <view style="width: 30%" class="gray">{{
           $t("updateCommissionToday")
-        }}</view>
+        }}</view> -->
       </view>
       <view class="li">
         <view class="flex">
@@ -35,9 +35,9 @@
             </view>
           </view>
         </view>
-        <view style="width: 30%" class="gray">{{
+        <!-- <view style="width: 30%" class="gray">{{
           $t("addedTotalBalance")
-        }}</view>
+        }}</view> -->
       </view>
     </view>
     <view class="list">
@@ -76,7 +76,7 @@
             :text="$t('automaticMatching')"
           ></u-button>
         </view>
-        <view class="txt">{{ $t("workingOrders") }}</view>
+        <!-- <view class="txt">{{ $t("workingOrders") }}</view> -->
       </view>
     </view>
     <view class="sub_title">
@@ -107,7 +107,7 @@
         </view>
       </view>
     </view>
-    <view class="sub_title">
+    <!-- <view class="sub_title">
       <view class="txt white">{{ $t("orderInfo") }}</view>
     </view>
     <view class="info">
@@ -119,7 +119,7 @@
       <view>
         {{ $t("rule3") }}
       </view>
-    </view>
+    </view> -->
     <success ref="sucRef" @ok="getInfo(that)" />
   </view>
 </template>

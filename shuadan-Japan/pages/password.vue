@@ -120,7 +120,7 @@ export default {
   line-height: 90rpx;
   font-size: 24rpx;
   label {
-    width: 200rpx;
+    width: 220rpx;
     margin-right: 20rpx;
     color: #999;
   }
