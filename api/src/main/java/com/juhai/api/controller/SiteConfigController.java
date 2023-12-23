@@ -135,14 +135,14 @@ public class SiteConfigController {
         List<JSONObject> arr = new ArrayList<>();
         List<String> zhphones = Arrays.asList("130", "131", "132", "155", "156", "186", "185", "134", "135", "136", "137", "138", "139", "150", "151", "152", "157", "158", "159", "182", "183", "187", "188", "");
         List<String> ynphones = Arrays.asList("0984", "0982","0985","0903","8986","0901");
-        List<String> rbphones = Arrays.asList("080", "090");
-        List<String> adlyphones = Arrays.asList("04", "07");
+        List<String> rbphones = Arrays.asList("080", "090","04", "07");
+//        List<String> adlyphones = Arrays.asList("04", "07");
 
         // 通过盘口计算
         Map<String, String> allParamByMap = paramterService.getAllParamByMap();
         String pankou = allParamByMap.get("pankou");
         if (StringUtils.equals(pankou, "facai")) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 20; i++) {
                 JSONObject obj = new JSONObject();
                 Collections.shuffle(rbphones);
                 obj.put("phone", rbphones.get(0) + "****" + RandomUtil.randomNumbers(4));
@@ -150,16 +150,6 @@ public class SiteConfigController {
                 obj.put("date", DateUtil.formatDate(new Date()));
                 arr.add(obj);
             }
-
-            for (int i = 0; i < 10; i++) {
-                JSONObject obj = new JSONObject();
-                Collections.shuffle(adlyphones);
-                obj.put("phone", adlyphones.get(0) + "****" + RandomUtil.randomNumbers(4));
-                obj.put("price", RandomUtil.randomLong(10, 1000));
-                obj.put("date", DateUtil.formatDate(new Date()));
-                arr.add(obj);
-            }
-            Collections.shuffle(arr);
         } else if (StringUtils.equals(pankou, "paopao")) {
             for (int i = 0; i < 20; i++) {
                 JSONObject obj = new JSONObject();
