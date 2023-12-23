@@ -31,8 +31,8 @@ const PATH_URL =
   process.env.NODE_ENV === "development"
     //  ? "http://192.168.4.85:9544/" //本地环境
     ? "http://sdqt.juhai.xyz/sd-qtapi-test/" //测试环境
-    :  "http://sdqt.juhai.xyz/sd-qtapi-test/"; //测试环境
-    // :  "/api/"; //日本刷单正式接口
+    // :  "http://sdqt.juhai.xyz/sd-qtapi-test/"; //测试环境
+    :  "/api/"; //日本刷单正式接口
     // :  "https://sdpp1100.top/sdpp1/"; //越南app
     
 

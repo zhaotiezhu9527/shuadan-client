@@ -8,9 +8,9 @@
       <view class="customer_type">
         <image class="image" src="@/static/img/kefu-service.png" mode="widthFix" />
       </view>
-      <view class="support-hours">
+      <!-- <view class="support-hours">
         {{$t('supportHours') }}
-      </view>
+      </view> -->
       <view class="service-btn" @click="goService">
         {{$t('service') }}
       </view>
