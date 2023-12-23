@@ -156,7 +156,7 @@ export default {
   automaticMatching: "Start",
   todayResults: "Today's results",
   commissionToday: "Today's Profit",
-  AccountFrozenAmount: "Frozen amount",
+  AccountFrozenAmount: "Amount frozen",
   todayNo: "Schedule",
   yesterdayTeamCommission: "Yesterday's team revenue“",
   unlock: "Unlock",
