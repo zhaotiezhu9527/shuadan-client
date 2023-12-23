@@ -217,4 +217,5 @@ export default {
   enterIdCard: "输入身份证",
   IDphoto: "身份证图片",
   enterIDphoto: "请上传身份证图片",
+  correctAmount: "请输入正确的金额",
 };

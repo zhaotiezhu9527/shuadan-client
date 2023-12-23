@@ -42,7 +42,6 @@
               v-model="amount"
               type="number"
               :placeholder="$t('enterWithdrawalAmount')"
-              @blur="update"
             />
           </view>
           <!-- <view class="text">
@@ -156,8 +155,8 @@ export default {
   },
   methods: {
     submit() {
-      if (!this.amount) {
-        return this.$base.show(this.$t("enterWithdrawalAmount"));
+      if (!this.amount || this.amount <= 0) {
+        return this.$base.show(this.$t("correctAmount"));
       } else if (!this.pwd) {
         return this.$base.show(this.$t("enterPayPassword"));
       } else if (this.amount > this.balance) {
@@ -196,13 +195,13 @@ export default {
       });
     },
     // 金额文本框点击事件
-    update() {
-      if (this.amount > this.balance) {
-        this.amount = this.balance;
-      } else if (this.amount <= 0) {
-        this.amount = 0;
-      }
-    },
+    // update() {
+    //   if (this.amount > this.balance) {
+    //     this.amount = this.balance;
+    //   } else if (this.amount <= 0) {
+    //     this.amount = 0;
+    //   }
+    // },
     getConfig() {
       this.$api.system_config().then(({ data }) => {
         if (data.code == 0) {

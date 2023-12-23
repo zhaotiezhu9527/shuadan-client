@@ -72,6 +72,12 @@ export default {
     change() {
       uni.setClipboardData({
         data: `${this.api}/#/pages/register?code=${this.infos.inviteCode}`,
+        success: function() {
+          uni.hideToast()
+          uni.showToast({
+            title: 'Copied!'
+          })
+        }
       });
     },
   },
