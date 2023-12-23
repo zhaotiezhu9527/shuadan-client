@@ -185,7 +185,7 @@ export default {
   revenueList: "Total revenue",
   partner: "Partners",
   invite: "Referral",
-  announcement: "Message",
+  announcement: "Messages",
   updateCommissionToday: "The system will automatically update the commission today",
   addedTotalBalance: "Each task commission will be added to the total balance",
   matchSuccessful: "Match successful",
