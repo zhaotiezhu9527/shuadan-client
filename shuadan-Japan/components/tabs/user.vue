@@ -208,12 +208,18 @@ export default {
       }
     },
     goDeposit(url) {
-      if (this.userData.bankNo || this.userData.walletAddr) {
+      if(url === '/pages/deposit'){
+        if(this.userData.bankNo || this.userData.walletAddr){
+          uni.navigateTo({
+            url,
+          });
+        }else{
+          this.$base.show(this.$t("cardMsg"));
+        }
+      }else{
         uni.navigateTo({
           url,
         });
-      } else {
-        this.$base.show(this.$t("cardMsg"));
       }
     },
     getConfig(){

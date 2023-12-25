@@ -41,7 +41,7 @@ export default {
   rule: "Rule description",
   agentCooperation: "Agency cooperation",
   companyQualification: "Company qualifications",
-  cardMsg: "Please bind your bank card first",
+  cardMsg: "Please bind your USDT wallet address first",
   credit: "Credit value",
   accountBalance: "Total Balance",
   logout: "Log out",

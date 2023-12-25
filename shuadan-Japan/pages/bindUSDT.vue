@@ -47,7 +47,7 @@
           :placeholder="$t('usdtAddress')"
         />
       </view>
-      <view class="from-input">
+      <!-- <view class="from-input">
         <label>{{ $t("idCard") }}</label>
         <input
           type="text"
@@ -56,7 +56,7 @@
           class="input-text"
           :placeholder="$t('enterIdCard')"
         />
-      </view>
+      </view> -->
       <!-- <view class="from-img">
         <label> {{ $t("IDphoto") }} </label>
         <view class="id-img-box" @click="upImg">
@@ -97,7 +97,7 @@ export default {
       userData: {
         realName: "", //真实姓名
         phone: "", //手机
-        idCard: "", //银行卡号
+        // idCard: "", //银行卡号
         addr: "", //USDt地址
         dataPath: "", //头像图片
         idCardImg: "", //展示的图片
@@ -115,9 +115,11 @@ export default {
         return this.$base.show(this.$t("noRealName"));
       } else if (!this.userData.phone) {
         return this.$base.show(this.$t("noPhone"));
-      } else if (!this.userData.idCard) {
-        return this.$base.show(this.$t("enterIdCard"));
-      } else if (!this.userData.addr) {
+      } 
+      // else if (!this.userData.idCard) {
+      //   return this.$base.show(this.$t("enterIdCard"));
+      // } 
+      else if (!this.userData.addr) {
         return this.$base.show(this.$t("usdtAddress"));
       } 
       // else if (!this.userData.dataPath) {
@@ -127,7 +129,7 @@ export default {
       const DATA_OBJ = {
         realName: this.userData.realName, //真实姓名
         phone: this.userData.phone, //手机
-        idCard: this.userData.idCard, //银行卡号
+        // idCard: this.userData.idCard, //银行卡号
         // idCardImg: this.userData.dataPath, //银行名称
         addr: this.userData.addr, //支行地址
       };
@@ -153,7 +155,7 @@ export default {
         if (res.data.code == 0) {
           this.userData.realName = res.data.data.realName;
           this.userData.phone = res.data.data.phone;
-          this.userData.idCard = res.data.data.idCard;
+          // this.userData.idCard = res.data.data.idCard;
           this.userData.addr = res.data.data.walletAddr;
           this.userData.idCardImg = res.data.data.idCardImg;
           if (this.userData.addr === null || !this.userData.addr) {

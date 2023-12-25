@@ -96,7 +96,7 @@
               <text>{{ item.phone }}</text>
             </view>
             <view class="txt">
-              <text class="blue-text">{{ keepTwoDecimalFull(item.price) }}</text>
+              <text class="blue-text">{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(item.price) }}</text>
             </view>
             <view class="time">{{ item.date }}</view>
           </view>
@@ -192,7 +192,6 @@ export default {
       });
     },
     routechange(url) {
-      console.log(url)
       if(url === '/pages/deposit'){
         if(this.userData.bankNo || this.userData.walletAddr){
           uni.navigateTo({

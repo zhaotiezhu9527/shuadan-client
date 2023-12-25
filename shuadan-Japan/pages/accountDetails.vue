@@ -45,7 +45,7 @@
                 </label>
               </view>
               <view class="table-number">
-                {{ keepTwoDecimalFull(item.amount) }}
+                {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(item.amount) }}
               </view>
             </view>
           </view>

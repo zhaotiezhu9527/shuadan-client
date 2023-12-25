@@ -48,8 +48,8 @@
             <span v-if="typeActive === 2"> ≈ {{ Number((Number(amount) * Number(huilv))).toFixed(2)}} USDT</span>
           </view> -->
           <view class="text">
-            <span v-if="typeActive === 1">{{ $t("canAmount") }}：{{ keepTwoDecimalFull(balance) }}</span>
-            <span v-if="typeActive === 2">{{ $t("canAmount") }}：{{ keepTwoDecimalFull(balance) }}</span>
+            <span v-if="typeActive === 1">{{ $t("canAmount") }}：{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(balance) }}</span>
+            <span v-if="typeActive === 2">{{ $t("canAmount") }}：{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(balance) }}</span>
             <!-- <span v-if="typeActive === 2">{{ $t("canAmount") }}：{{ FormatAmount(Number(balance) * Number(huilv))}} USDT</span> -->
             <!-- <label @click="amount = balance">{{ $t("withdrawAll") }}</label> -->
           </view>

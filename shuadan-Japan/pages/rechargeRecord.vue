@@ -23,7 +23,7 @@
         <u-list-item v-for="(item, index) in list" :key="index">
           <view class="content">
             <view class="table-money">
-              {{ $t("rechargeAmount") }}：{{ keepTwoDecimalFull(item.amount) }}
+              {{ $t("rechargeAmount") }}：{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(item.amount) }}
             </view>
             <view class="table-title">
               {{ $t("orderNumber") }}：{{ item.orderNo }}
