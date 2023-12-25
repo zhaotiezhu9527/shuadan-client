@@ -15,7 +15,7 @@ div.brick-mdl_62840 {
 }
 
 div.brick-mdl_62840 {
-    height: 100%;
+    height: 30%;
     background-size: cover;
     background-position: 50%;
     background-repeat: no-repeat;
@@ -3812,4 +3812,7 @@ input[type='number'].svelte-1n6ref1::-webkit-inner-spin-button {
 .submitbtn.bg-gray{
     background-color: #eee;
     color: #999;
+}
+.banner-img{
+    width: 100%;
 }
