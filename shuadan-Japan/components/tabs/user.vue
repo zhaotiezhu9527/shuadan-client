@@ -29,7 +29,7 @@
             <view>{{ $t("accountBalance") }}</view>
             <view class="money-color">
               <!-- ¥ -->
-              <label class="money-number">{{ keepTwoDecimalFull(userData.balance) }}</label>
+              <label class="money-number">{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(userData.balance) }}</label>
               <!-- <view class="doubi-money">=
                 <image
                   class="doubi-img"
@@ -51,19 +51,19 @@
             <view class="income-item">
               <view class="income-item-text">{{ $t("userYesterday") }}</view>
               <view class="income-item-number"
-                >{{ keepTwoDecimalFull(infos.yesterdayIncome) }}
+                >{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.yesterdayIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("CumulativeIncome") }}</view>
               <view class="income-item-number"
-                >{{ keepTwoDecimalFull(infos.totalIncome) }}
+                >{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.totalIncome) }}
               </view>
             </view>
             <view class="income-item">
               <view class="income-item-text">{{ $t("todayEarnings") }}</view>
               <view class="income-item-number"
-                >{{ keepTwoDecimalFull(infos.todayIncome) }}
+                >{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.todayIncome) }}
               </view>
             </view>
           </view>

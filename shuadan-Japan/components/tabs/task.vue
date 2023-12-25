@@ -17,7 +17,7 @@
           <view class="con">
             <view class="gray">{{ $t("commissionToday") }}</view>
             <view class="blue">
-              {{ keepTwoDecimalFull(infos.todayIncome) }}
+              {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.todayIncome) }}
             </view>
           </view>
         </view>
@@ -31,7 +31,7 @@
           <view class="con">
             <view class="gray">{{ $t("myAssets") }}</view>
             <view class="blue">
-              {{ keepTwoDecimalFull(infos.balance) }}
+              {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.balance) }}
             </view>
           </view>
         </view>
@@ -86,13 +86,13 @@
       <view class="item">
         <view class="txt">{{ $t("todayIncome") }}</view>
         <view class="moeny">
-          {{ keepTwoDecimalFull(infos.todayIncome) }}</view
+          {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.todayIncome) }}</view
         >
       </view>
       <view class="item">
         <view class="txt">{{ $t("yesterdayEarnings") }}</view>
         <view class="moeny">
-          {{ keepTwoDecimalFull(infos.yesterdayIncome) }}
+          {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.yesterdayIncome) }}
         </view>
       </view>
       <view class="item">
@@ -103,7 +103,7 @@
         <view class="txt">{{ $t("AccountFrozenAmount") }}</view>
         <view class="moeny">
           <template v-if="infos.freezeBalance"></template>
-          {{ keepTwoDecimalFull(infos.freezeBalance) }}
+          {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(infos.freezeBalance) }}
         </view>
       </view>
     </view>

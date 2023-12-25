@@ -148,7 +148,7 @@ export default {
   pending: "Pending",
   completed: "Completed",
   freezing: "Freezing",
-  currencySymbol: "¥", //泰国用 ฿
+  currencySymbol: "$", //泰国用 ฿
   customerService: "Customer Service",
   askService: "If you encounter problems and need help, please contact online customer service",
   service: "CS",

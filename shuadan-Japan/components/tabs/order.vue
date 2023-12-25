@@ -5,7 +5,7 @@
         <view>{{ $t("taskRecord") }}</view>
         <view class="sub_title">
           <view>{{ $t("remainingAssets") }}：</view>
-          <view>{{ keepTwoDecimalFull(userData.balance) }}</view>
+          <view>{{ $t("currencySymbol") }} {{ keepTwoDecimalFull(userData.balance) }}</view>
         </view>
       </view>
       <view class="tabstyle">
@@ -48,14 +48,14 @@
                   </view>
                   <view class="text">
                     <view>
-                      {{ keepTwoDecimalFull(item.goodsPrice) }}
+                      {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(item.goodsPrice) }}
                     </view>
                     <view>x {{ item.goodsCount }}</view>
                   </view>
                   <view class="text yj">
                     <view>
                       {{ $t("commission") }}：
-                      {{ keepTwoDecimalFull(item.commission) }}
+                      {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(item.commission) }}
                     </view>
                     <view class="num">x {{ item.commissionMul }}</view>
                   </view>
@@ -79,7 +79,7 @@
               <view class="li">
                 <text>{{ $t("expectedReturn") }}：</text>
                 <text class="moeny">
-                  {{ keepTwoDecimalFull(item.returnAmount) }}</text
+                  {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(item.returnAmount) }}</text
                 >
               </view>
               <view class="li flex" v-if="item.status === 0">

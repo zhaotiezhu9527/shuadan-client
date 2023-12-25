@@ -27,13 +27,13 @@
                         {{ items.goodsName }}
                       </view>
                       <view class="text">
-                        <view> {{ keepTwoDecimalFull(items.goodsPrice) }}</view>
+                        <view> {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(items.goodsPrice) }}</view>
                         <view>x {{ items.goodsCount }}</view>
                       </view>
                       <view class="text yj">
                         {{ $t("commission") }}
 
-                        {{ keepTwoDecimalFull(items.commission) }}
+                        {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(items.commission) }}
                       </view>
                     </view>
                   </view>
@@ -45,7 +45,7 @@
                 </view>
                 <view class="redb" v-if="items.balanceSub < 0">
                   {{ $t("insufficientBalance") }}：
-                  {{ keepTwoDecimalFull(items.balanceSub) }}
+                  {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(items.balanceSub) }}
                   <!-- ≈
                   {{ Number(Number(items.balanceSub) * Number(config.huilv)).toFixed(2) }} USDT -->
                 </view>
@@ -53,13 +53,13 @@
                   <view class="li">
                     <text class="label">{{ $t("orderTotal") }}</text>
                     <text class="value">
-                      {{ keepTwoDecimalFull(items.orderAmount) }}</text
+                      {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(items.orderAmount) }}</text
                     >
                   </view>
                   <view class="li">
                     <text class="mr-10 label">{{ $t("expectedReturn") }}</text>
                     <text class="moeny">
-                      {{ keepTwoDecimalFull(items.forecastReturn) }}
+                      {{ $t("currencySymbol") }} {{ keepTwoDecimalFull(items.forecastReturn) }}
                     </text>
                   </view>
                 </view>
