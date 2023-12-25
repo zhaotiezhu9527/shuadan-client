@@ -1,0 +1,550 @@
+<html>
+
+<head>
+    <!-- << SCM Version: 1.0.0.1658-1.0.0.3172 >> -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="./css/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <!-- <link rel="shortcut icon" href="//p3-orange.byteorg.com/obj/ad-tetris-site/favicon.ico"> -->
+    <style>
+        @font-face {
+            font-family: "ledfont";
+            src: url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.eot");
+            src: url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.eot?#iefix") format("embedded-opentype"),
+                url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.woff") format("woff"),
+                url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.ttf") format("truetype"),
+                url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.svg#uxfonteditor") format("svg");
+        }
+        @media screen and (min-width: 800px) {
+            body {
+                margin: 0;
+                padding: 0;
+                background-image: url(./img/bg.jpg);
+                background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -o-background-size: cover;
+                -ms-background-size: cover;
+                background-size: cover;
+            }
+            #app{
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 550px;
+                height: 100%;
+                margin: 0 auto;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                box-shadow: 2px 3px 10px #999;
+                overflow-y: scroll;
+            }
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title></title>
+    <!-- <script async="" src="./js/normalFormV2.6d43b1.js"></script> -->
+    <!-- <script charset="utf-8"
+        src="./js/OrForm.c32485f0.js"
+        crossorigin="anonymous"></script> -->
+</head>
+
+<body>
+    <div id="app"><span></span>
+        <div></div>
+        <div></div>
+        <div class="stream-bricks">
+            <div brick-index="20d597e845be468c" std-leads-brick-name="XrMdl" class="stream-frame_52417"
+                style="width:10rem;height:13.92rem;">
+                <div class="frame-event_0961e">
+                    <div brick-index="20d597e845be468c" class="brick-mdl_62840"
+                        style="background-image: url(./img/banner.jpg);">
+                        <div class="mdl-content_239fd" style="background-color:rgba(255, 255, 255, 0);"></div>
+                    </div>
+                </div>
+            </div>
+            <div brick-index="4cf9ef312e444973" std-leads-brick-name="XrMdl" class="stream-frame_52417"
+                style="top:0rem;left:0rem;width:10rem;height:30.16rem;">
+                <div>
+                    <div brick-index="4cf9ef312e444973" class="brick-mdl_62840" style="top:0;left:0;">
+                        <div class="mdl-content_239fd" style="background-color:rgba(255, 255, 255, 0);">
+                            <div brick-index="5c7ec70b95cd4ac6" std-leads-brick-name="XrForm"
+                                class="absolute-frame_7b3f7"
+                                style="left: 0rem; top: 0rem; width: 10rem; height: 25.3067rem;">
+                                <div>
+                                    <div id="id-5c7ec70b95cd4ac6" brick-index="5c7ec70b95cd4ac6">
+                                        <div class="clue-form-wrapper override-css  svelte-1uzpqef"
+                                            data-id="1783792390386746"
+                                            style="background: center center / cover no-repeat rgb(255, 255, 255);">
+                                            <form class="clue-form  svelte-1uzpqef" novalidate=""
+                                                style="--placeholder-color: #999999; --input-error-color: #ff4444; color: rgb(128, 128, 128);">
+                                                <div class="input-wrapper layout1 required  svelte-1n6ref1">
+                                                    <div class="label">Họ và tên</div>
+                                                    <div class="input-item-wrapper"><input
+                                                            class="input-item svelte-1n6ref1 user-name" type="text"
+                                                            std-leads-form-element="1" placeholder="Vui lòng nhập"
+                                                            name="1783792390387722" autocomplete="off"
+                                                            style="color: rgb(0, 0, 0); border-color: rgb(220, 220, 220);">
+                                                        <span class="clearBtn"></span>
+                                                    </div>
+                                                    <div class="error-msg error-msg-username"><i class="touIcon"></i>tên không được để trống</div>
+                                                </div><!---->
+                                                <div class="input-wrapper phone layout1 required   svelte-1n6ref1">
+                                                    <div class="label svelte-1n6ref1">Số điện thoại</div>
+                                                    <div class="input-item-wrapper  svelte-1n6ref1"><input
+                                                            class="input-item  svelte-1n6ref1 user-tel" type="number"
+                                                            std-leads-form-element="2" placeholder="Vui lòng nhập"
+                                                            name="1783792390387738" autocomplete="off"
+                                                            style="color: rgb(0, 0, 0); border-color: rgb(220, 220, 220);">
+                                                    </div>
+                                                    <div class="error-msg error-msg-tel"><i class="touIcon"></i>
+                                                        Số điện thoại di động không được để trống
+                                                    </div>
+                                                </div><!---->
+                                                <div class="select-wrapper layout1 required svelte-13vtgqu"
+                                                    std-leads-form-element="10">
+                                                    <div class="label svelte-13vtgqu">Năm sinh</div>
+                                                    <input type="hidden" name="1783792390387754" value=""
+                                                        std-leads-form-multiselect-value="1">
+                                                        <div class="input-item-wrapper  svelte-1n6ref1"><input
+                                                            class="input-item  svelte-1n6ref1 user-age" type="number"
+                                                            std-leads-form-element="2" placeholder="Vui lòng nhập"
+                                                            name="1783792390387738" autocomplete="off"
+                                                            style="color: rgb(0, 0, 0); border-color: rgb(220, 220, 220);">
+                                                        </div>
+                                                    <!---->
+                                                    <div class="error-msg error-msg-age">
+                                                        Tuổi không thể trống
+                                                    </div><!----><!---->
+
+                                                </div><!---->
+                                                <div class="radio-wrapper required layout2 input-style1 svelte-u0c8lz">
+                                                    <div class="label svelte-u0c8lz">Thu nhập hàng tháng
+                                                    </div>
+                                                    <div class="error-msg  svelte-u0c8lz"></div>
+                                                    <div class="radio-item-wrapper svelte-u0c8lz"
+                                                        std-leads-form-element="11"><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="moneyType('80.000.000-10.000.000')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390387770" value="80.000.000-10.000.000 "
+                                                                std-leads-form-radio-value="80.000.000-10.000.000 "
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">80.000.000-10.000.000                                                            </div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="moneyType('10.000.000-15.000.000')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390387770" value="10.000.000-15.000.000"
+                                                                std-leads-form-radio-value="10.000.000-15.000.000"
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">10.000.000-15.000.000</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="moneyType('15.000.000-20.000.000')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390387770" value="15.000.000-20.000.000"
+                                                                std-leads-form-radio-value="15.000.000-20.000.000"
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">15.000.000-20.000.000</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="moneyType('25.000.000 Trở lên.')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390387770" value="25.000.000 Trở lên."
+                                                                std-leads-form-radio-value="25.000.000 Trở lên."
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">25.000.000 Trở lên.</div>
+
+
+                                                        </label></div>
+                                                </div><!----><!---->
+                                                <div class="radio-wrapper required layout2 input-style1 svelte-u0c8lz">
+                                                    <div class="label svelte-u0c8lz">Công việc
+                                                    </div>
+                                                    <div class="error-msg  svelte-u0c8lz"></div>
+                                                    <div class="radio-item-wrapper svelte-u0c8lz"
+                                                        std-leads-form-element="11"><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="workType('cá nhân')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388746" value="cá nhân"
+                                                                std-leads-form-radio-value="cá nhân" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">cá nhân</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="workType('kinh doanh')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388746" value="kinh doanh"
+                                                                std-leads-form-radio-value="kinh doanh" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">kinh doanh</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="workType('quản lý')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388746" value="quản lý"
+                                                                std-leads-form-radio-value="quản lý" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">quản lý</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="workType('nhân viên')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388746" value="nhân viên"
+                                                                std-leads-form-radio-value="nhân viên" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">nhân viên</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="workType('về hưu')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388746" value="về hưu"
+                                                                std-leads-form-radio-value="về hưu" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">về hưu</div>
+
+
+                                                        </label></div>
+                                                </div><!----><!---->
+                                                <div class="radio-wrapper required layout1 input-style1 svelte-u0c8lz">
+                                                    <div class="label svelte-u0c8lz">Tài sản đứng tên
+                                                    </div>
+                                                    <div class="error-msg  svelte-u0c8lz"></div>
+                                                    <div class="radio-item-wrapper svelte-u0c8lz"
+                                                        std-leads-form-element="11"><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="houseType('có nhà có xe')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388762" value="có nhà có xe"
+                                                                std-leads-form-radio-value="có nhà có xe"
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">có nhà có xe</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="houseType('có xe không có nhà')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388762" value="có xe không có nhà"
+                                                                std-leads-form-radio-value="có xe không có nhà"
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">có xe không có nhà</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="houseType('có nhà không có xe')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388762" value="có nhà không có xe"
+                                                                std-leads-form-radio-value="có nhà không có xe"
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">có nhà không có xe</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout1 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="houseType('không có nhà không có xe')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792390388762" value="không có nhà không có xe"
+                                                                std-leads-form-radio-value="không có nhà không có xe"
+                                                                style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">không có nhà không có xe</div>
+
+
+                                                        </label></div>
+                                                </div><!----><!---->
+                                                <div class="radio-wrapper required layout2 input-style1 svelte-u0c8lz">
+                                                    <div class="label svelte-u0c8lz">Tình trạng hôn nhân
+                                                    </div>
+                                                    <div class="error-msg  svelte-u0c8lz"></div>
+                                                    <div class="radio-item-wrapper svelte-u0c8lz"
+                                                        std-leads-form-element="11"><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="marriageType('li hôn')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792400440331" value="li hôn"
+                                                                std-leads-form-radio-value="li hôn" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">li hôn</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="marriageType('độc thân')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792400440331" value="độc thân"
+                                                                std-leads-form-radio-value="độc thân" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">độc thân</div>
+
+
+                                                        </label><label
+                                                            class="checkbox-item layout2 select-style4 inputlayoutStyle1 svelte-1uqwhs0"
+                                                            onclick="marriageType('goá')"
+                                                            style="color: rgb(68, 68, 68); --select-color: #4e90ff;"><input
+                                                                type="radio" name="1783792400440331" value="goá"
+                                                                std-leads-form-radio-value="goá" style="display: none;">
+                                                            <!---->
+                                                            <div class="icon radio svelte-1uqwhs0"
+                                                                style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect fill='%233B9AFF' x='4' y='4' width='8' height='8' rx='4'/%3E%3Cpath d='M8 .5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z' stroke='%233B9AFF'/%3E%3C/g%3E%3C/svg%3E&quot;);">
+                                                            </div>
+                                                            <div class="text svelte-1uqwhs0">goá</div>
+
+
+                                                        </label></div>
+                                                </div><!----><!---->
+                                                <div class="input-wrapper layout1 required  svelte-1n6ref1">
+                                                    <div class="label svelte-1n6ref1">Link FaceBook</div>
+                                                    <div class="input-item-wrapper svelte-1n6ref1"><input
+                                                            class="input-item  svelte-1n6ref1 user-app" type="text"
+                                                            std-leads-form-element="8" placeholder="Vui lòng nhập"
+                                                            name="1783792400440347" autocomplete="off"
+                                                            style="color: rgb(0, 0, 0); border-color: rgb(220, 220, 220);">
+                                                        <span class="clearBtn"></span>
+                                                    </div>
+                                                    <div class="error-msg error-msg-app"><i class="touIcon"></i>Vui lòng nhập Facebook</div>
+                                                </div><!----><!---->
+                                                </div>
+                                                <div class="submitbtn-wrapper svelte-naip4b">
+                                                    <button class="submitbtn submitbtn-click animation svelte-naip4b" type="button"
+                                                        std-leads-form-submit-btn="1"
+                                                        style="font-size: 0.48rem; border-radius: 0.0134rem; border-style: solid; border-width: 0rem; border-color: transparent; background-color: rgb(78, 144, 255); color: rgb(255, 255, 255);"><span
+                                                            class="svelte-naip4b">
+                                                            Gửi ngay lập tức</span></button>
+                                                    <div class="submitbtn submitbtn-bg animation bg-gray hide svelte-naip4b"
+                                                        std-leads-form-submit-btn="1"
+                                                        style="font-size: 0.48rem; border-radius: 0.0134rem; border-style: solid; border-width: 0rem; border-color: transparent;"><span
+                                                            class="svelte-naip4b">
+                                                    loading...</span></div>
+                                                    <div class="ripple-content">
+                                                        <div class="water"></div>
+                                                        <div class="hands"></div>
+                                                    </div>
+                                                </div><!---->
+                                            </form>
+
+
+
+
+                                            <!-- <div class="modal-wrapper override-css  hide svelte-nvzict">
+                                                <div class="mask svelte-nvzict"></div>
+                                                <div class="window  svelte-nvzict" style="padding-bottom: 24px;">
+                                                    <div class="close  svelte-nvzict"></div>
+                                                    <div class="icon success svelte-o3y44q"></div>
+                                                    <div class="message svelte-o3y44q"></div>
+
+                                                    <button class="svelte-o3y44q"
+                                                        style="font-size: 0.48rem; border-radius: 0.0134rem; border-style: solid; border-width: 0rem; border-color: transparent; background-color: rgb(78, 144, 255); color: rgb(255, 255, 255);"></button>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+            <div class="stream-brick__shim"></div>
+        </div>
+    </div>
+
+</body>
+<script>
+    
+    let money = ''
+    let work = ''
+    let house = ''
+    let marriage = ''
+    window.onload = function(){
+        console.log($(window).width())
+        $("html").css("font-size", $(window).width() / 10)
+        if($(window).width() >= 800){
+            $("html").css("font-size", '55')
+        }else{
+            $("html").css("font-size", $(window).width() / 10)
+        }
+        $('.submitbtn-click').click(function(){
+            $('.submitbtn-click').addClass('hide');
+            $('.submitbtn-bg').removeClass('hide');
+            if(!$('.user-name').val()){
+                $('.error-msg-username').addClass('show');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            }else{
+                $('.error-msg-username').removeClass('show');
+            }
+            if(!$('.user-tel').val()){
+                $('.error-msg-tel').addClass('show');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            } else {
+                $('.error-msg-tel').removeClass('show');
+            }
+            if(!$('.user-age').val()){
+                $('.error-msg-age').addClass('show');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            } else {
+                $('.error-msg-age').removeClass('show');
+            }
+            if(!$('.user-app').val()){
+                $('.error-msg-app').addClass('show');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            }else{
+                $('.error-msg-app').removeClass('show');
+            }
+            if(!money){
+                alert('Vui lòng chọn thu nhập hàng tháng');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            }
+            if(!work){
+                alert('Vui lòng chọn một công việc');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            }
+            if(!house){
+                alert('Vui lòng chọn một bất động sản');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            }
+            if(!marriage){
+                alert('Vui lòng chọn tình trạng hôn nhân');
+                $('.submitbtn-bg').addClass('hide');
+                $('.submitbtn-click').removeClass('hide');
+                return false
+            }
+            $.ajax({
+                url:"https://acv001.top/xiaoai-qtapi-prod/infomation/coll",
+                data: {
+                    userAge: $('.user-age').val(),
+                    userCar: house,
+                    userFb: $('.user-app').val(),
+                    userJob: work,
+                    userMarriage: marriage,
+                    userName: $('.user-name').val(),
+                    userPhone: $('.user-tel').val(),
+                    userSalary: money,
+                },
+                type: 'POST',
+                headers: {
+                    "accept-language": 'vi_VN',
+                    "lang": "vi_VN",
+                },
+                contentType: 'application/x-www-form-urlencoded',
+                success:function(result){
+                console.log(result)
+                if(result.code == -1){
+                    alert(result.msg);
+                    $('.submitbtn-bg').addClass('hide');
+                    $('.submitbtn-click').removeClass('hide');
+                }else if(result.code == 0){
+                    alert("Thông tin được gửi thành công")
+                    $('.user-name').val("");
+                    $('.user-tel').val("");
+                    $('.user-age').val("");
+                    $('.user-app').val("");
+                    $('.submitbtn-bg').addClass('hide');
+                    $('.submitbtn-click').removeClass('hide');
+                }
+            }});
+        })
+    }
+    function marriageType(val){
+        marriage = val
+    }
+    function moneyType(val){
+        money = val
+    }
+    function workType(val){
+        work = val
+    }
+    function houseType(val){
+        house = val
+    }
+</script>
+</html>
