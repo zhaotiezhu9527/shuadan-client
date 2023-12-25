@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juhai.commons.mapper.InformationMapper">
+
+    <resultMap id="BaseResultMap" type="com.juhai.commons.entity.Information">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userPhone" column="user_phone" jdbcType="VARCHAR"/>
+            <result property="userAge" column="user_age" jdbcType="INTEGER"/>
+            <result property="userSalary" column="user_salary" jdbcType="VARCHAR"/>
+            <result property="userJob" column="user_job" jdbcType="VARCHAR"/>
+            <result property="userCar" column="user_car" jdbcType="VARCHAR"/>
+            <result property="userMarriage" column="user_marriage" jdbcType="VARCHAR"/>
+            <result property="userFb" column="user_fb" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="modify" column="modify" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_name,user_phone,
+        user_age,user_salary,user_job,
+        user_car,user_marriage,user_fb,
+        create_time,modify
+    </sql>
+</mapper>
