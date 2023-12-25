@@ -22,7 +22,7 @@ public class BindUsdt3Request {
     @ApiModelProperty(value = "真实姓名", example = "赵铁柱", required = true)
     private String realName;
 
-    @NotNull(message = "system.param.err")
+//    @NotNull(message = "system.param.err")
     @ApiModelProperty(value = "身份号码", example = "身份号码", required = true)
     private String idCard;
 }
