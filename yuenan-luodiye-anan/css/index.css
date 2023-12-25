@@ -1626,6 +1626,7 @@ body.preview * {
 #app {
     min-height: 100%;
     position: relative;
+    background-color: #15105a;
 }
 
 .float-bricks {
@@ -3306,14 +3307,13 @@ body.preview_a738e * {
     border-color: var(--input-error-color)
 }
 
-.clue-form.svelte-1uzpqef .error-msg {
+.error-msg {
     display: none;
     font-size: 0.34666667rem;
     line-height: 0.74666667rem;
-    color: var(--input-error-color)
+    color: red;
 }
-
-.clue-form.svelte-1uzpqef .error-msg.show {
+.error-msg.show {
     display: block
 }
 
@@ -3784,7 +3784,7 @@ input[type='number'].svelte-1n6ref1::-webkit-inner-spin-button {
     height: 1.28rem;
     line-height: 1.28rem;
     color: #fff;
-    background-color: #3B9AFF;
+    background-color: #e95d1f;
     border-radius: 0.74666667rem;
     font-family: PingFangSC-Regular;
     font-weight: bold;
@@ -3812,7 +3812,59 @@ input[type='number'].svelte-1n6ref1::-webkit-inner-spin-button {
 .submitbtn.bg-gray{
     background-color: #eee;
     color: #999;
+    text-align: center;
 }
 .banner-img{
     width: 100%;
+}
+.biaodan{
+    width: 100%;
+}
+.biaodan .content{
+    width: 90%;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 20px auto;
+}
+.input-content{
+    width: 80%;
+    margin: auto;
+}
+.input-box{
+    border-radius: 25px;
+    border: 1px solid #eee;
+    text-indent: 20px;
+    display: flex;
+    align-items: center;
+}
+.input-icon{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-left: 10px;
+}
+.user-tel{
+    width: 75%;
+    border: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+}
+.button-box{
+    width: 80%;
+    margin: 30px auto 0 auto;
+}
+.submitbtn {
+    padding: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    background-color: #c0592c;
+    border-radius: 25px;
+    font-family: PingFangSC-Regular;
+    font-weight: bold;
+    font-size: 0.48rem;
+    margin: auto;
+    border: none;
 }
