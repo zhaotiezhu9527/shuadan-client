@@ -1,5 +1,5 @@
 {
-    "name" : "イオン匯",
+    "name" : "ebay",
     "appid" : "__UNI__80AC7D2",
     "description" : "",
     "versionName" : "104",
@@ -108,7 +108,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "イオン匯",
+        "title" : "ebay",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",
