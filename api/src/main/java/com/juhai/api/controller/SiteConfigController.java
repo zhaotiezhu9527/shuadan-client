@@ -150,7 +150,7 @@ public class SiteConfigController {
                 obj.put("date", DateUtil.formatDate(new Date()));
                 arr.add(obj);
             }
-        } else if (StringUtils.equals(pankou, "paopao")) {
+        } else if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "guanzhang")) {
             for (int i = 0; i < 20; i++) {
                 JSONObject obj = new JSONObject();
                 String s = ynphones.get(RandomUtil.randomInt(0, ynphones.size() - 1));
