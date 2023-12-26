@@ -100,7 +100,6 @@
 import success from "@/components/success.vue";
 import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
-  props:['userData'],
   data() {
     return {
       keepTwoDecimalFull,
@@ -116,11 +115,12 @@ export default {
       finished: false,
       isArray: true,
       page: 0,
+      userData: {},
     };
   },
   methods: {
     open() {
-      // this.getInfo();
+      this.getInfo();
       this.list = [];
       uni.showLoading();
       this.page = 1;

@@ -1,11 +1,11 @@
 <template>
   <view>
     <!-- <view :is="list[active].route" ref="main"></view> -->
-    <home v-if="active === 0" ref="main" :userData="userData"/>
-    <order v-else-if="active === 1" ref="main" :userData="userData"/>
-    <task v-else-if="active === 2" ref="main" />
-    <service v-else-if="active === 3" ref="main" />
-    <user v-else-if="active === 4" :userData="userData" :infos="infos" ref="main" />
+    <home v-if="active === 0" ref="main0"/>
+    <order v-else-if="active === 1" ref="main1"/>
+    <task v-else-if="active === 2" ref="main2" />
+    <service v-else-if="active === 3" ref="main3" />
+    <user v-else-if="active === 4" ref="main4" />
     <view class="tabs">
       <template v-for="(item, index) in list">
         <view
@@ -69,10 +69,10 @@ export default {
   onShow() {
     // #ifdef H5
     this.$nextTick(() => {
-      this.$refs.main.open(this.route);
+      this.$refs[`main${this.active}`].open(this.route);
     });
     // #endif
-    this.getInfo();
+    // this.getInfo();
   },
   methods: {
     change(index) {
@@ -85,23 +85,9 @@ export default {
 
       // #ifdef APP-PLUS
       this.$nextTick(() => {
-        this.$refs.main.open({ tabs: index });
+        this.$refs[`main${this.active}`].open({ tabs: index });
       });
       // #endif
-    },
-    //用户列表数据
-    getInfo() {
-      this.$api.user_info().then((res) => {
-        if (res.data.code == 0) {
-          this.userData = res.data.data;
-        }
-      });
-      // 用户收益详情
-      this.$api.user_income_detail().then(({ data }) => {
-        if (data.code == 0) {
-          this.infos = data.data;
-        } 
-      });
     },
   },
   components: {

@@ -53,7 +53,7 @@
         v-for="(item, index) in list"
         :key="index"
         @click="
-          routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)
+          routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId,item.areaId)
         "
       >
         <view class="flex">
@@ -127,7 +127,6 @@ export default {
   components: {
     lang,
   },
-  props:['userData'],
   data() {
     return {
       keepTwoDecimalFull,
@@ -164,6 +163,7 @@ export default {
   methods: {
     open() {
       this.getConfig();
+      this.getInfo();
       this.getList();
       this.$api.area_list().then(({ data }) => {
         if (data.code == 0) {
@@ -185,8 +185,9 @@ export default {
         url: `/pages/richtext?en=${en}`,
       });
     },
-    routechange2(unlock, url) {
+    routechange2(unlock, url,level) {
       if (!unlock) return false;
+      this.$store.level = level
       uni.reLaunch({
         url,
       });
@@ -211,6 +212,27 @@ export default {
       this.$api.system_bounslist().then((res) => {
         if (res.data.code == 0) {
           this.ranking = res.data.data;
+        }
+      });
+    },
+    //用户列表数据
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.items = res.data.data;
+          if (this.items.bankNo === null || !this.items.bankNo) {
+            this.bindStatus = false;
+          } else {
+            this.bindStatus = true;
+          }
+        }
+      });
+      // 用户收益详情
+      this.$api.user_income_detail().then(({ data }) => {
+        if (data.code == 0) {
+          this.infos = data.data;
+        } else {
+          this.$base.show(data.msg);
         }
       });
     },

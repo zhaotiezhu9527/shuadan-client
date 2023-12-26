@@ -155,6 +155,11 @@ export default {
       that: {},
     };
   },
+  mounted(){
+    // #ifdef APP-PLUS
+    this.getInfo({'level': this.$store.level});
+    // #endif
+  },
   methods: {
     open(e) {
       this.that = e;
@@ -224,15 +229,6 @@ export default {
       this.animation.forEach((item) => {
         item.animationData = animation.translateY(0).step().export();
       });
-    },
-    moenyFn(val) {
-      if (!val) {
-        return 0;
-      } else if (val >= 10000) {
-        return parseInt(val / 10000) + "万+";
-      } else {
-        return "" + val;
-      }
     },
   },
 };

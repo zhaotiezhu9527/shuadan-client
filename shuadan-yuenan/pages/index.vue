@@ -103,18 +103,6 @@ export default {
     //     } 
     //   });
     // },
-    toTask(e){
-      console.log(e)
-      this.$router.push(`/pages/index?tabs=${e}`);
-      // #ifdef H5
-      this.$router.push(`/pages/index?tabs=${e}`);
-      // #endif
-      // #ifdef APP-PLUS
-      this.$nextTick(() => {
-        this.$refs[`main1`].open({ tabs: e });
-      });
-      // #endif
-    }
   },
   components: {
     home,

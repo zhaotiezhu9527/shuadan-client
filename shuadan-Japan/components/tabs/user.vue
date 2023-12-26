@@ -114,7 +114,6 @@
 <script>
 import { keepTwoDecimalFull } from "@/plugins/util";
 export default {
-  props:['userData','infos'],
   data() {
     return {
       keepTwoDecimalFull,
@@ -173,16 +172,19 @@ export default {
       // },
       loginoutShow: false,
       bindStatus: false, //银行卡绑定状态
-      // infos: {}, //收益数据
       config: {},
+      infos: {}, //收益数据
+      userData:{},
     };
   },
-  mounted (){
-    this.getConfig()
+  mounted(){
+    // #ifdef APP-PLUS
+    this.getInfo();
+    // #endif
   },
   methods: {
     open() {
-      // this.getInfo();
+      this.getInfo();
     },
     loginOut() {
       this.$api.user_logout().then((res) => {
@@ -228,6 +230,19 @@ export default {
       if (data.code == 0) {
           this.config = data.data;
           // uni.hideLoading();
+        } 
+      });
+    },
+    getInfo() {
+      this.$api.user_info().then((res) => {
+        if (res.data.code == 0) {
+          this.userData = res.data.data;
+        }
+      });
+      // 用户收益详情
+      this.$api.user_income_detail().then(({ data }) => {
+        if (data.code == 0) {
+          this.infos = data.data;
         } 
       });
     },
