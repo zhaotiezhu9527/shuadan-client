@@ -869,7 +869,7 @@ public class UserController {
         }
 
         String pankou = params.get("pankou");
-        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo")) {
+        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "guanzhang") || StringUtils.equals(pankou, "liehuo")) {
             if (StringUtils.isBlank(user.getRealName()) || StringUtils.isBlank(user.getBankNo())) {
                 return R.error(MsgUtil.get("system.withdraw.nobank"));
             }
@@ -950,7 +950,7 @@ public class UserController {
         withdraw.setFeeRate(feeRate);
         BigDecimal fee = NumberUtil.mul(amount, NumberUtil.div(feeRate, 100));
         withdraw.setRealAmount(NumberUtil.sub(amount, fee));
-        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "liehuo")) {
+        if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "guanzhang") || StringUtils.equals(pankou, "liehuo")) {
             withdraw.setBankName(user.getBankName());
             withdraw.setRealName(user.getRealName());
             withdraw.setBankNo(user.getBankNo());
