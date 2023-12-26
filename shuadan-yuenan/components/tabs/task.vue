@@ -155,6 +155,11 @@ export default {
       that: {},
     };
   },
+  mounted(){
+    // #ifdef APP-PLUS
+    this.getInfo({'level': this.$store.level});
+    // #endif
+  },
   methods: {
     open(e) {
       this.that = e;

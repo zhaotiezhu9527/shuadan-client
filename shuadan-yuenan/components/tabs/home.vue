@@ -53,7 +53,7 @@
         v-for="(item, index) in list"
         :key="index"
         @click="
-          routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)
+          routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId, item.areaId)
         "
       >
         <view class="flex">
@@ -190,8 +190,9 @@ export default {
         url: `/pages/richtext?en=${en}`,
       });
     },
-    routechange2(unlock, url) {
+    routechange2(unlock, url,level) {
       if (!unlock) return false;
+      this.$store.level = level
       uni.reLaunch({
         url,
       });
@@ -202,7 +203,7 @@ export default {
       });
     },
     goDeposit(url) {
-      if (this.bindStatus) {
+      if (this.items.bankNo === null || !this.items.bankNo) {
         uni.navigateTo({
           url,
         });
