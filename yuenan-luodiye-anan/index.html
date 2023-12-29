@@ -11,14 +11,6 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
     <!-- <link rel="shortcut icon" href="//p3-orange.byteorg.com/obj/ad-tetris-site/favicon.ico"> -->
     <style>
-        @font-face {
-            font-family: "ledfont";
-            src: url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.eot");
-            src: url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.eot?#iefix") format("embedded-opentype"),
-                url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.woff") format("woff"),
-                url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.ttf") format("truetype"),
-                url("https://p3-tt.byteimg.com/obj/ad-tetris-site/ledfont.svg#uxfonteditor") format("svg");
-        }
         @media screen and (min-width: 800px) {
             body {
                 margin: 0;
@@ -45,6 +37,21 @@
                 overflow-y: scroll;
             }
         }
+        input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+            color:#fff;
+        }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:#fff;
+        }
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:#fff;
+        }
+        input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color:#fff;
+        }
+        input::-ms-input-placeholder { /* Microsoft Edge */
+        color:#fff;
+        }
     </style>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title></title>
@@ -55,21 +62,53 @@
 </head>
 
 <body>
-    <div id="app"><span></span>
-        <div></div>
-        <div></div>
-        <div class="stream-bricks">
-            <div brick-index="20d597e845be468c" std-leads-brick-name="XrMdl" class="stream-frame_52417"
-                style="width:10rem;">
-                <!-- <div>
+    <div id="app">
+        <div>
+            <div>
+                <div class="top-img">
                     <img class="banner-img" src="./img/banner1.jpg">
+                    <label>IN RECRUITMENT</label>
+                    <span>
+                        <!-- <div>
+                            work from nome,
+                        </div> -->
+                        <div>
+                            full-time/part-time
+                        </div>
+                        <div>
+                            30-60 minutes a day 
+                        </div>
+                        <div>
+                            no experience, free training 
+                        </div>
+                    </span>
+                    <div class="top-text">
+                        <div class="text1">
+                            Cognizant
+                        </div>
+                        <div class="text2">
+                            Recruitment 2023
+                        </div>
+                        <div class="text3">
+                            Work From Home
+                        </div>
+                        <div class="text4">
+                            <!-- Graduate 5 Days Working
+                            No Fee | No Exam -->
+                            5 Days Working
+                            No Fee
+                        </div>
+                        <div class="text5">
+                            Fresher Eligible
+                        </div>
+                    </div>
                 </div>
-                <div>
+                <!-- <div>
                     <img class="banner-img" src="./img/banner2.jpg">
                 </div> -->
-                <div>
+                <!-- <div>
                     <img class="banner-img" src="./img/banner3.jpg">
-                </div>
+                </div> -->
             </div>
             <div class="biaodan">
                 <div class="content">
@@ -78,7 +117,7 @@
                             <div style="height:20px;"></div>
                             <div class="input-box">
                                 <img class="input-icon" src="./img/phone.png" />
-                                <input class="user-tel" placeholder="Please enter your phone no."/>
+                                <input class="user-tel" placeholder="Please enter your phone No."/>
                             </div>
                             <div class="error-msg error-msg-tel">
                                 Phone number can not be blank
@@ -94,9 +133,9 @@
                     </from>
                 </div>
             </div>
-            <div>
+            <!-- <div>
                 <img class="banner-img" src="./img/banner1.jpg">
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -148,6 +187,7 @@
                     $('.user-tel').val("");
                     $('.submitbtn-bg').addClass('hide');
                     $('.submitbtn-click').removeClass('hide');
+                    window.location.href = "https://b15ab4d1c60e1.ichatlink.net/widget/standalone.html?eid=a2e585617e9110f528fede4962e46e42&language=en"
                 }
             }});
         })
