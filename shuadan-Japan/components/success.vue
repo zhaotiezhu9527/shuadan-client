@@ -175,6 +175,9 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    background-color: #333;
+    border-radius: 10rpx;
+    padding: 20rpx;
   }
   .img {
     width: 150rpx;

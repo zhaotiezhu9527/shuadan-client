@@ -52,6 +52,48 @@
         input::-ms-input-placeholder { /* Microsoft Edge */
         color:#fff;
         }
+        /* #msg{
+            width:266px;
+            position: fixed;
+            z-index:999;
+            top: 49%;
+            margin-top:-80px;
+            left:50%;
+            margin-left:-133px;
+            background:#fff;
+            box-shadow:5px 5px 8px #999;
+            font-size:17px;
+            color:#666;
+            border:1px solid #f8f8f8;
+            text-align: center;
+            line-height: 30px;
+            display:inline-block;
+            border-radius:2px;
+        }
+        #msg_top{
+            padding:0px 20px;
+            text-align:left;
+        }
+        #msg_top span{
+            font-size:22px;
+            float:right;
+            cursor:pointer;
+        }
+        #msg_cont{
+            padding:15px 20px 20px;
+            text-align:left;
+        }
+        #msg_clear{
+            display:inline-block;
+            color:#fff;
+            padding:1px 15px;
+            background:#8fc31f;
+            border-radius:2px;
+            float:right;
+            margin-right:15px;
+            cursor:pointer;
+        } */
+
     </style>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title></title>
@@ -141,13 +183,18 @@
 
 </body>
 <script>
-    
+    // window.alert =alert;
+    // function alert(e){
+    //     $("body").append('<div id="msg"><div id="msg_top"><span class="msg_close">×</span></div><div id="msg_cont">'+e+'</div>');
+    //     $(".msg_close").click(function (){
+    //         $("#msg").remove();
+    //     });
+    // }
     let money = ''
     let work = ''
     let house = ''
     let marriage = ''
     window.onload = function(){
-        console.log($(window).width())
         $("html").css("font-size", $(window).width() / 10)
         if($(window).width() >= 800){
             $("html").css("font-size", '55')
@@ -183,11 +230,7 @@
                     $('.submitbtn-bg').addClass('hide');
                     $('.submitbtn-click').removeClass('hide');
                 }else if(result.code == 0){
-<<<<<<< HEAD
-                    alert("Submission successful, connecting to customer service")
-=======
                     alert("Submission successful, connecting to customer service.")
->>>>>>> bcabdb6ec8e4c8b15da76c61077bd0fb3ceb2bb5
                     $('.user-tel').val("");
                     $('.submitbtn-bg').addClass('hide');
                     $('.submitbtn-click').removeClass('hide');
