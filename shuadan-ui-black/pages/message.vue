@@ -18,24 +18,12 @@
       <view class="bg-box">
         <img class="bg-img" src="../static/img/msg.jpg" />
       </view>
-      <view class="content">
-        <!-- <view class="list-item">
-          <image class="icon-img" src="../static/img/msg_notice.png" />
-          <label>{{ $t("sys_notice") }}</label>
-          <view class="icon"></view>
-        </view> -->
-        <!-- <view class="text" v-for="(item, index) in list" :key="index">
-          <view class="notice">{{ item.title }}</view>
-          <view class="text-content">
-            <view class="prompt">{{ $t("hint") }}</view>
-            <view class="details" v-html="item.content"> </view>
-          </view>
-          <view class="time">{{ item.pushTime }}</view>
-        </view> -->
-      </view>
-      <view class="bg-box">
+      <!-- <view class="content">
+       
+      </view> -->
+      <!-- <view class="bg-box">
         <img class="bg-img" src="../static/img/chongzhi.jpg" />
-      </view>
+      </view> -->
     </view>
   </view>
 </template>
