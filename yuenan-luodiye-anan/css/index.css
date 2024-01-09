@@ -145,4 +145,8 @@ html,body{
     top: 3%;
     left: 2%;
     border-radius: 0.5333rem;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.0667rem;
 }
