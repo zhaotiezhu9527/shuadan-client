@@ -130,10 +130,19 @@ html,body{
 }
 .text3,.text5{
     background-color: #f5f34d;
-    font-size: 20px;
+    font-size: 16px;
     text-indent: 10px;
 }
 .text4{
     font-size: 14px;
     margin: 10px 0;
+}
+.none-logo{
+    position: absolute;
+    width: 3.5rem;
+    height: 1.0667rem;
+    background-color: #1d387a;
+    top: 3%;
+    left: 2%;
+    border-radius: 0.5333rem;
 }
