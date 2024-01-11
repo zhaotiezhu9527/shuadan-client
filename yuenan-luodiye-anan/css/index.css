@@ -125,7 +125,7 @@ html,body{
     font-weight: 800;
 }
 .text1,.text2{
-    font-size: 20px;
+    font-size: 18px;
     margin: 3px 0;
 }
 .text3,.text5{
@@ -149,4 +149,27 @@ html,body{
     text-align: center;
     color: #fff;
     line-height: 1.0667rem;
+}
+.app-icon{
+    display: block;
+    position: fixed;
+    right: 10px;
+    bottom: 5%;
+    animation-name: huxi_mini_kf;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes huxi_mini_kf{
+    0% {
+        transform: scale(1);
+    }
+    
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
