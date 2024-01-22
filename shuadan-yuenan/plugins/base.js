@@ -30,7 +30,7 @@ export const loading = (title) => {
 const PATH_URL =
   process.env.NODE_ENV === "development"
     //  ? "http://8.222.224.10:9544/" //本地环境
-    ? "https://picodi88.top/sdpp1/" //测试环境
+    ? "https://picodi88.top/api/" //测试环境
     // :  "/sd-qtapi-test/"; //测试环境
     :  "/api/"; //越南刷单正式接口
     // :  "https://sdpp1100.top/sdpp1/"; //越南app
