@@ -1,0 +1,145 @@
+{
+  "easycom": {
+    "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+  },
+  "pages": [
+    {
+      "path": "pages/index",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/team",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/onlineService",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/promotion",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/accountDetails",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/recharge",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/rechargeRecord",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/deposit",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/message",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/withdrawalRecords",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/rechargeRecord",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/realName",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/headimg",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/vip",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/set",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/bindBank",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/password",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/payPassword",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/richtext",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/login",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/bindUSDT",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/zhengshu",
+      "style": {
+        "navigationBarTextStyle": "white"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationStyle": "custom"
+  },
+  "networkTimeout": {
+    "request": 10000
+  }
+}
