@@ -30,7 +30,12 @@ body,
 }
 /*  #endif  */
 .uni-app--maxwidth {
-  background: linear-gradient(#000, #2d154d);
+  background-image: url("@/static/img/bg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 page {
   background-repeat: no-repeat;

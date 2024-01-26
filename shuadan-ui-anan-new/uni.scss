@@ -109,17 +109,18 @@ text {
   font-size: 24rpx;
 }
 .password-btn {
-  width: 90%;
-  height: 80rpx;
-  border-radius: 45rpx;
+  width: 95%;
+  height: 105rpx;
+  border-radius: 10rpx;
   opacity: 1;
-  line-height: 78rpx;
+  line-height: 105rpx;
   text-align: center;
   font-size: 36rpx;
   font-weight: 500;
-  color: #ddd;
+  color: #fff;
   margin: 40rpx auto 0 auto;
   border: 1px solid #666;
+  background-color: #575651;
 }
 .flex1{
   flex: 1;

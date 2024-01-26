@@ -6,12 +6,12 @@
       autoBack
       :title="$t('pwd')"
       fixed
-      leftIconColor="#ffffff"
-      bgColor="#1e1e1e"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
@@ -108,24 +108,29 @@ export default {
   color: #999;
 }
 .from-input {
-  padding: 0 40rpx;
-  background-color: #1e1e1e;
   color: #ddd;
   display: flex;
-  height: 90rpx;
-  line-height: 90rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 10rpx;
+  border: 1px solid #575651;
+  width: 95%;
+  margin: 14rpx auto;
+  background-color: #fff;
   label {
-    width: 250rpx;
+    width: 260rpx;
     margin-right: 20rpx;
-    color: #ddd;
-    text-align: right;
+    color: #353535;
     font-size: 24rpx;
+    text-indent: 20rpx;
+    font-weight: 600;
   }
   .input-text {
     flex: 1;
-    height: 90rpx;
-    line-height: 90rpx;
-    font-size: 28rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    font-size: 24rpx;
+    color: #696969;
   }
 }
 </style>
