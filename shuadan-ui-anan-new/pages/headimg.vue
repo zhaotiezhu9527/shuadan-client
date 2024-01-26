@@ -6,18 +6,19 @@
       autoBack
       :title="$t('avatar')"
       fixed
-      leftIconColor="#ffffff"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#1e1e1e"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
       <view class="head">
         <image class="head-img" :src="avatarUrl" />
         <view class="btn" @click="postHead">{{ $t("add_set") }}</view>
+        <view class="bottom-line"></view>
       </view>
       <view class="content">
         <view
@@ -87,27 +88,46 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.wapper{
+  background-image: url("@/static/img/bg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  .main{
+    width: 90%;
+    background-color: #fff;
+    margin: 40rpx auto;
+    padding-bottom: 40rpx;
+  }
+}
 .head {
   width: 100%;
-  height: 336rpx;
-  background: #1e1e1e;
+  height: 300rpx;
   overflow: hidden;
   .head-img {
     display: block;
-    width: 176rpx;
-    height: 176rpx;
+    width: 115rpx;
+    height: 115rpx;
     margin: 30rpx auto 20rpx auto;
   }
   .btn {
     font-size: 30rpx;
     color: #fff;
-    border-radius: 8rpx;
-    width: 176rpx;
-    height: 64rpx;
-    line-height: 60rpx;
+    border-radius: 10rpx;
+    width: 152rpx;
+    height: 70rpx;
+    line-height: 70rpx;
     text-align: center;
     margin: auto;
-    border: 1px solid #666;
+    background-color: #7d7d7d;
+  }
+  .bottom-line{
+    background-color: #7d7d7d;
+    width: 95%;
+    height: 2rpx;
+    margin: 23px auto;
   }
 }
 .content {
@@ -120,8 +140,8 @@ export default {
   }
   .item-img {
     display: block;
-    width: 120rpx;
-    height: 120rpx;
+    width: 88rpx;
+    height: 88rpx;
   }
 }
 </style>
