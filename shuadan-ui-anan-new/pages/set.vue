@@ -7,63 +7,47 @@
       :title="$t('userset')"
       fixed
       safe-area-inset-top
-      bgColor="#000000"
-      leftIconColor="#ffffff"
+      leftIconColor="#000"
       leftIconSize="32"
+      safe-area-inset-top
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="list">
-      <view class="list-item border-bottom393939" @click="goHeadimg">
-        <label>{{ $t("avatar_name") }}</label>
-        <image class="user-img" :src="userData.avatarUrl" />
-        <view class="icon"></view>
+      <view class="list-box">
+        <view class="list-item" @click="goHeadimg">
+          <label>{{ $t("avatar_name") }}</label>
+          <image class="user-img" :src="userData.avatarUrl" />
+          <view class="icon"></view>
+        </view>
       </view>
-      <!-- <view
-        class="list-item margin-top10 border-bottom393939"
-        @click="goRealName"
-      >
-        <label>{{ $t("nickName_all") }}</label>
-        <span class="item-text">{{ userData.realName || '- -' }}</span>
-        <view class="icon"></view>
-      </view> -->
-      <view class="list-item margin-top30 border-bottom393939">
-        <label>{{ $t("userName_all") }}</label>
-        <span class="item-text">{{ userData.userName }}</span>
-        <!-- <view class="icon"></view> -->
-      </view>
-      <view class="list-item border-bottom393939">
-        <label>{{ $t("realName") }}</label>
-        <span class="item-text">{{ userData.realName }}</span>
-        <!-- <view class="icon"></view> -->
-      </view>
-      <view class="list-item border-bottom393939">
-        <label>{{ $t("phoneNumber") }}</label>
-        <span class="item-text">{{ userData.phone }}</span>
-        <!-- <view class="icon"></view> -->
+      <view class="list-box margin-top30">
+        <view class="list-item border-bottom393939">
+          <label>{{ $t("userName_all") }}</label>
+          <span class="item-text">{{ userData.userName }}</span>
+        </view>
+        <view class="list-item border-bottom393939">
+          <label>{{ $t("realName") }}</label>
+          <span class="item-text">{{ userData.realName }}</span>
+        </view>
+        <view class="list-item">
+          <label>{{ $t("phoneNumber") }}</label>
+          <span class="item-text">{{ userData.phone }}</span>
+        </view>
       </view>
     </view>
-    <!-- <view class="list margin-top10 margin-bottom10">
-      <view class="list-item" @click="goBindBank">
-        <label>{{ $t("bindBank_all") }}</label>
-        <view class="icon"></view>
-      </view>
-    </view> -->
-    <!-- <view class="list margin-top10 margin-bottom10">
-      <view class="list-item" @click="goUSDT">
-        <label>{{ $t("USDTAddr") }}</label>
-        <view class="icon"></view>
-      </view>
-    </view> -->
     <view class="list">
-      <view class="list-item margin-top30 border-bottom393939" @click="goPassword">
-        <label>{{ $t("pwd") }}</label>
-        <view class="icon"></view>
-      </view>
-      <view class="list-item" @click="goPayPassword">
-        <label>{{ $t("pwd_acc_all") }}</label>
-        <view class="icon"></view>
+      <view class="list-box">
+        <view class="list-item margin-top30 border-bottom393939" @click="goPassword">
+          <label>{{ $t("pwd") }}</label>
+          <view class="icon"></view>
+        </view>
+        <view class="list-item" @click="goPayPassword">
+          <label>{{ $t("pwd_acc_all") }}</label>
+          <view class="icon"></view>
+        </view>
       </view>
     </view>
   </view>
@@ -106,11 +90,6 @@ export default {
         url: "/pages/bindBank",
       });
     },
-    // goUSDT(){
-    //   uni.navigateTo({
-    //     url: "/pages/bindUSDT",
-    //   });
-    // },
     goPassword() {
       uni.navigateTo({
         url: "/pages/password",
@@ -135,19 +114,23 @@ export default {
 
 <style scoped lang="scss">
 .list {
-  width: 100%;
+  width: 92%;
+  margin: auto;
   border-radius: 20rpx;
+  margin-top: 30rpx;
+  .list-box{
+    border-radius: 10rpx;
+    border: 1px solid #575651;
+    background-color: #fff;
+  }
   .list-item {
     display: flex;
     align-items: center;
     vertical-align: middle;
     font-size: 33rpx;
-    padding: 18rpx 44rpx;
-    background-color: #1e1e1e;
-    color: #dedede;
-    // &:last-child {
-    //   border: none;
-    // }
+    margin: 0 44rpx;
+    color: #353535;
+    padding: 18rpx 0;
     .icon-img {
       width: 40rpx;
       height: 40rpx;

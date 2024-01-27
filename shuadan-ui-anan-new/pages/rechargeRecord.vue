@@ -6,13 +6,12 @@
       autoBack
       :title="$t('recharge_log')"
       fixed
-      leftIconColor="#ffffff"
-      leftIconSize="32"
       safe-area-inset-top
-      bgColor="#1e1e1e"
+      leftIconColor="#000"
+      leftIconSize="32"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
-      :background="background"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
@@ -153,8 +152,8 @@ export default {
   padding: 20rpx 20rpx 0 20rpx;
   font-size: 24rpx;
   line-height: 40rpx;
-  background-color: #1e1e1e;
-  color: #b0b0b0;
+  background-color: #fff;
+  color: #4b4b4b;
   overflow: hidden;
   .table-content {
     width: 96%;

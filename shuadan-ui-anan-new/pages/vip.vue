@@ -7,21 +7,21 @@
       :title="$t('vip')"
       fixed
       safe-area-inset-top
-      bgColor="#1e1e1e"
-      leftIconColor="#fff"
+      leftIconColor="#000"
       leftIconSize="32"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
       <view class="carstyle">
         <view class="car">
+          <view class="vip-title">{{ $t("vip") }}</view>
           <image class="user" :src="infos.avatarUrl" mode="widthFix" />
           <view class="txt">
             <view>{{ $t("vip") }}：{{ items.currLevelName }}</view>
           </view>
-          <!-- <view class="link" @click="change">{{ $t("vip_info") }}</view> -->
         </view>
       </view>
       <view class="row">
@@ -33,30 +33,12 @@
             </view>
             <view class="title"
               >
-              <!-- {{ item.levelName }} -->
               <text class="tips">{{ $t("perpetual") }}</text>
             </view>
             <view class="money">
-              <!-- {{ item.levelPrice }}{{ $t("rmb") }} -->
             </view>
           </view>
           <view class="view">
-            <!-- <view class="txt">
-              <text>{{ $t("frequency") }}:</text>
-              <text>{{ item.dayWithdrawCount }}/{{ $t("day") }}</text>
-            </view>
-            <view class="txt">
-              <text>{{ $t("limit") }}:</text>
-              <text>{{ item.maxWithdrawAmount }}/{{ $t("day") }}</text>
-            </view>
-            <view class="txt">
-              <text>{{ $t("dayOrderCount") }}:</text>
-              <text>{{ item.dayOrderCount }}/{{ $t("day") }}</text>
-            </view>
-            <view class="txt">
-              <text>{{ $t("commissionRate") }}:</text>
-              <text>{{ item.commissionRate }}/{{ $t("day") }}</text>
-            </view> -->
             <view class="text-item">
               · Receive a set of 
               {{ item.dayOrderCount}}
@@ -115,37 +97,37 @@ export default {
 
 <style scoped lang="scss">
 .main{
-  background-color: #290d44;
 }
 .carstyle {
   width: 100%;
   height: 240rpx;
   padding: 30rpx 30rpx 0;
   overflow: hidden;
-  background: url("/static/img/bg-008.png") no-repeat;
-  background-size: 100% 100%;
-  background-position: 0px 100rpx;
   .car {
-    background: url(/static/img/vip_bg.png) no-repeat;
-    background-size: 100% 100%;
+    background-color: #fff;
     height: 250rpx;
     border-top-left-radius: 20rpx;
     border-top-right-radius: 20rpx;
-    display: flex;
-    align-items: center;
-    position: relative;
     z-index: 1;
+    .vip-title{
+      width: 100%;
+      text-align: center;
+      height: 40rpx;
+      line-height: 40rpx;
+      font-size: 28rpx;
+      color: #4b4b4b;
+    }
     .user {
       width: 80rpx;
       height: 80rpx;
-      margin-left: 30rpx;
-      margin-top: -30rpx;
+      display: block;
+      margin: 10rpx auto;
     }
     .txt {
-      margin-top: -30rpx;
-      margin-left: 20rpx;
+      width: 100%;
+      text-align: center;
       view {
-        color: $white;
+        color: #4b4b4b;
       }
       view:nth-child(1) {
         font-size: 32rpx;
@@ -200,40 +182,18 @@ export default {
   gap: 20rpx;
   padding: 10rpx 30rpx;
   .item {
-    border-radius: 32rpx;
+    border-radius: 10rpx;
     text-align: center;
     width: 100%;
     margin-bottom: 16rpx;
     padding: 32rpx 24rpx;
-    border: 1px solid;
-
-    border-image-source: conic-gradient(
-      from 180deg at 50% 50%,
-      rgba(245, 211, 172, 0) 0deg,
-      rgba(245, 211, 172, 0.38) 45deg,
-      rgba(245, 211, 172, 0) 84.38deg,
-      rgba(245, 211, 172, 0) 133.12deg,
-      rgba(245, 211, 172, 0.37) 187.5deg,
-      rgba(245, 211, 172, 0) 230.62deg,
-      rgba(245, 211, 172, 0) 360deg
-    );
-
-    background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
-      conic-gradient(
-        from 180deg at 50% 50%,
-        rgba(245, 211, 172, 0) 0deg,
-        rgba(245, 211, 172, 0.38) 45deg,
-        rgba(245, 211, 172, 0) 84.38deg,
-        rgba(245, 211, 172, 0) 133.12deg,
-        rgba(245, 211, 172, 0.37) 187.5deg,
-        rgba(245, 211, 172, 0) 230.62deg,
-        rgba(245, 211, 172, 0) 360deg
-      );
+    border: 1px solid #575651;
+    background: #fff;
   }
   .view {
     border-top: 1rpx solid #ffffff1f;
     text-align: left;
-    color: #fff;
+    color: #4b4b4b;
     .text-item{
       margin-top:20rpx;
     }
@@ -242,7 +202,8 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32rpx 0;
+    padding: 0 0 32rpx 0;
+    border-bottom: 1px solid #eee;
     .level-img {
       float: left;
       color: #fff;
@@ -267,14 +228,14 @@ export default {
     .tips {
       padding: 4rpx 8rpx;
       border-radius: 8rpx;
-      color: #121212;
+      color: #4b4b4b;
       display: flex;
       align-items: center;
       font-weight: 400;
       justify-content: center;
       margin-left: 10rpx;
-      font-size: 20rpx;
-      background: linear-gradient(134.61deg, #d8b88e 0.81%, #c49a68 97.27%);
+      font-size: 28rpx;
+      // background: linear-gradient(134.61deg, #d8b88e 0.81%, #c49a68 97.27%);
     }
   }
   .txt {

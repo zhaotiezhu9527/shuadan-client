@@ -7,11 +7,12 @@
       :title="$t('certificate')"
       fixed
       safe-area-inset-top
-      leftIconColor="#ffffff"
-      bgColor="#000000"
-      height="100rpx"
+      leftIconColor="#000"
       leftIconSize="32"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      safe-area-inset-top
+      bgColor="#fff"
+      height="100rpx"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">

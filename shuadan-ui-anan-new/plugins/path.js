@@ -25,9 +25,6 @@ const home = [
     path: "/pages/realName",
   },
   {
-    path: "/pages/bindBank",
-  },
-  {
     path: "/pages/password",
   },
   {

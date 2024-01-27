@@ -75,27 +75,11 @@
             v-model="inviteCode"
           ></u-input>
         </view>
-        <!-- <view class="other">
-          <u-radio-group v-model="radio">
-            <u-radio name="1" activeColor="#6c38ed" size="30rpx">
-              <view class="agr">
-                {{ $t("consent_left") }}
-                <text>“{{ $t("consent_middle") }}”</text>
-                {{ $t("consent_right") }}
-              </view>
-            </u-radio>
-          </u-radio-group>
-        </view> -->
+       
         <view class="register-btn"
           @click="login"
           >
-          <!-- <u-button
-            class="button-plain mt-20"
-            @click="close"
-            :text="$t('download')"
-            :loading="loading"
-            shape="circle"
-          ></u-button> -->
+     
           {{$t('register')}}
         </view>
       </view>

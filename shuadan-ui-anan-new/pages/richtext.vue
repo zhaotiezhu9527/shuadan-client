@@ -7,11 +7,12 @@
       :title="title"
       fixed
       safe-area-inset-top
-      leftIconColor="#ffffff"
-      bgColor="#000000"
-      height="100rpx"
+      leftIconColor="#000"
       leftIconSize="32"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      safe-area-inset-top
+      bgColor="#fff"
+      height="100rpx"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
@@ -52,7 +53,6 @@ export default {
   width: 100%;
   .helpstyle {
     padding: 30rpx 20rpx;
-    background-color: #030105;
   }
   .helps {
     background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),

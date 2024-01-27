@@ -6,35 +6,37 @@
       autoBack
       :title="$t('USDTAddr')"
       fixed
-      leftIconColor="#ffffff"
-      bgColor="#1e1e1e"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
       <view class="title">{{ $t("enterUsdt") }}</view>
-      <view class="from-input border-bottom393939">
-        <!-- <label>{{ $t("realName") }}</label> -->
-        <input
-          type="text"
-          v-model="userData.realName"
-          :disabled="bindStatus"
-          class="input-text"
-          :placeholder="$t('realName')"
-        />
-      </view>
-      <view class="from-input border-bottom393939">
-        <!-- <label>{{ $t("realName") }}</label> -->
-        <input
-          type="text"
-          v-model="userData.addr"
-          :disabled="bindStatus"
-          class="input-text"
-          :placeholder="$t('enterUsdt')"
-        />
+      <view class="input-box">
+        <view class="from-input border-bottom393939">
+          <!-- <label>{{ $t("realName") }}</label> -->
+          <input
+            type="text"
+            v-model="userData.realName"
+            :disabled="bindStatus"
+            class="input-text"
+            :placeholder="$t('realName')"
+          />
+        </view>
+        <view class="from-input">
+          <!-- <label>{{ $t("realName") }}</label> -->
+          <input
+            type="text"
+            v-model="userData.addr"
+            :disabled="bindStatus"
+            class="input-text"
+            :placeholder="$t('enterUsdt')"
+          />
+        </view>
       </view>
       <view class="btn">
         <view v-if="bindStatus" class="bank-btn"> {{ $t("edit") }} </view>
@@ -114,14 +116,19 @@ export default {
     line-height: 75rpx;
     color: #999;
   }
+  .input-box{
+    width: 92%;
+    margin: auto;
+    border-radius: 10rpx;
+    background-color: #fff;
+  }
   .from-input {
-    padding: 0 40rpx;
+    margin: 0 40rpx;
     display: flex;
     height: 112rpx;
     line-height: 112rpx;
     font-size: 32rpx;
-    background-color: #1e1e1e;
-    color: #ddd;
+    color: #353535;
     label {
       width: 200rpx;
       margin-right: 20rpx;
@@ -136,17 +143,15 @@ export default {
     }
   }
   .btn {
-    width: 90%;
-    height: 80rpx;
-    border-radius: 45rpx;
-    opacity: 1;
-    line-height: 78rpx;
+    width: 92%;
+    margin: auto;
+    height: 104rpx;
+    line-height: 104rpx;
+    background-color: #575651;
+    border-radius: 10rpx;
     text-align: center;
-    font-size: 36rpx;
-    font-weight: 500;
-    color: #ddd;
-    margin: 40rpx auto 0 auto;
-    border: 1px solid #666;
+    color: #fff;
+    margin-top: 36rpx;
   }
 }
 </style>

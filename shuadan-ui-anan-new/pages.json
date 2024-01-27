@@ -88,12 +88,6 @@
       }
     },
     {
-      "path": "pages/bindBank",
-      "style": {
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
       "path": "pages/password",
       "style": {
         "navigationBarTextStyle": "white"
