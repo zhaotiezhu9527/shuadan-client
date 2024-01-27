@@ -6,24 +6,18 @@
       autoBack
       :title="$t('notice')"
       fixed
-      leftIconColor="#ffffff"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#000000"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
       <view class="bg-box">
         <img class="bg-img" src="../static/img/msg.jpg" />
       </view>
-      <!-- <view class="content">
-       
-      </view> -->
-      <!-- <view class="bg-box">
-        <img class="bg-img" src="../static/img/chongzhi.jpg" />
-      </view> -->
     </view>
   </view>
 </template>
