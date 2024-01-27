@@ -6,12 +6,12 @@
       autoBack
       :title="$t('order_log')"
       fixed
-      leftIconColor="#ffffff"
-      leftIconSize="32"
       safe-area-inset-top
-      bgColor="#1e1e1e"
+      leftIconColor="#000"
+      leftIconSize="32"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
@@ -113,15 +113,16 @@ export default {
   padding: 20rpx 20rpx 0 20rpx;
   font-size: 24rpx;
   line-height: 40rpx;
-  background-color: #1e1e1e;
-  color: #b0b0b0;
+  color: #343434;
   overflow: hidden;
   .table-content {
     width: 96%;
     margin: auto;
-    border-bottom: 1px solid #393939;
+    background-color: #fff;
+    padding: 18rpx 24rpx;
+    border: 1px solid #575651;
+    border-radius: 10rpx;
     .table-foot {
-      padding-bottom: 20rpx;
       overflow: hidden;
     }
   }
@@ -142,6 +143,8 @@ export default {
   }
   .table-title {
     float: left;
+    height: 48rpx;
+    line-height: 48rpx;
   }
   .table-number {
     float: right;

@@ -16,9 +16,9 @@
       <view class="title">
         <view class="user">
           <image class="head-img" mode="whiteFix" :src="userData.avatarUrl" />
+          <view class="name">{{ userData.userName }}</view>
           <view class="information">
-            <view class="flex items-center">
-              <view class="name">{{ userData.userName }}</view>
+            <view class="flex items-center justify-center">
               <image class="level-img" :src="userData.levelIcon" />
               <label class="credit"
                 >{{ $t("creditValue") }}:{{ userData.creditValue }}</label
@@ -272,48 +272,46 @@ export default {
 }
 .title {
   .user {
-    display: flex;
-    align-items: center;
-    padding: 44rpx 32rpx;
-    background: #1e1e1e;
+    padding: 58rpx 32rpx 0 32rpx;
+    color: #000;
     .head-img {
-      width: 80rpx;
-      height: 80rpx;
+      width: 120rpx;
+      height: 120rpx;
       display: block;
       border-radius: 50%;
       border: 1rpx solid #fff;
       box-sizing: border-box;
+      margin: auto;
+    }
+    .name {
+      font-size: 36rpx;
+      font-weight: 500;
+      text-align: center;
     }
     .information {
       margin-left: 16rpx;
-      .name {
-        font-size: 36rpx;
-        color: #ffffffd9;
-        font-weight: 500;
-      }
+      
       .level-img {
         float: left;
-        color: #fff;
         height: 36rpx;
         width: 96rpx;
         margin: 0 16rpx;
       }
       .credit {
-        background: linear-gradient(130.74deg, #6c38ed 17.26%, #9167f2 91.1%);
+        background: #7d7d7d;
         height: 37.5rpx;
         line-height: 37.5rpx;
-        color: #fff;
         font-size: 24rpx;
         padding: 0rpx 8rpx;
         border-radius: 4rpx;
+        color: #fff;
       }
       .code {
         margin-top: 14rpx;
         font-size: 26rpx;
-        color: #ffffffa6;
+        text-align: center;
         .copy-text {
           font-size: 24rpx;
-          color: #ffb24e;
           padding-left: 16rpx;
         }
       }
@@ -382,46 +380,22 @@ export default {
 }
 .price {
   margin: 16rpx 0;
-  background: linear-gradient(134.61deg, #333333 0.81%, #1e1e1e 97.27%),
-    conic-gradient(
-      from 180deg at 50% 50%,
-      rgba(245, 211, 172, 0) 0deg,
-      rgba(245, 211, 172, 0.38) 45deg,
-      rgba(245, 211, 172, 0) 84.38deg,
-      rgba(245, 211, 172, 0) 133.12deg,
-      rgba(245, 211, 172, 0.37) 187.5deg,
-      rgba(245, 211, 172, 0) 230.62deg,
-      rgba(245, 211, 172, 0) 360deg
-    );
-  border: 1px solid;
-
-  border-image-source: conic-gradient(
-    from 180deg at 50% 50%,
-    rgba(245, 211, 172, 0) 0deg,
-    rgba(245, 211, 172, 0.38) 45deg,
-    rgba(245, 211, 172, 0) 84.38deg,
-    rgba(245, 211, 172, 0) 133.12deg,
-    rgba(245, 211, 172, 0.37) 187.5deg,
-    rgba(245, 211, 172, 0) 230.62deg,
-    rgba(245, 211, 172, 0) 360deg
-  );
-
+  border-bottom: 4rpx solid #eee;
+  color: #000;
   .money2 {
     .title {
       font-size: 24rpx;
       font-weight: 500;
-      color: #ffffff;
     }
     .txt {
       font-weight: 600;
-      font-size: 64rpx;
+      font-size: 58rpx;
       padding-top: 20rpx;
       font-weight: bold;
-      color: #ffffff;
     }
   }
   .price-box {
-    padding: 48rpx 32rpx;
+    padding: 40rpx 32rpx;
     .flex {
       display: flex;
       justify-content: space-between;
@@ -437,10 +411,11 @@ export default {
           justify-content: center;
           // width: 104rpx;
           height: 64rpx;
-          padding: 0 24rpx;
+          padding: 0 20rpx;
           border-radius: 16rpx;
-          background: rgba($white, 0.12);
+          background: #7d7d7d;
           color: $white;
+          font-size: 24rpx;
         }
       }
     }
@@ -452,10 +427,14 @@ export default {
   .item {
     display: flex;
     align-items: center;
-    padding: 24rpx 32rpx;
-    background-color: #1e1e1e;
+    padding: 20rpx 28rpx;
+    background-color: #fff;
     position: relative;
     margin-bottom: 0;
+    color: #000;
+    border: 2rpx solid #575651;
+    border-radius: 10rpx;
+    margin: 16rpx 0;
     &::before {
       content: "";
       background: rgba($white, 0.12);
@@ -494,7 +473,6 @@ export default {
   }
   .text {
     font-size: 32rpx;
-    color: #ffffffd9;
     margin-left: 16rpx;
   }
 }
