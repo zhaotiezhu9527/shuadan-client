@@ -5,11 +5,11 @@
       :border="false"
       :title="$t('service')"
       fixed
-      bgColor="#000000"
-      leftIconSize="0"
       safe-area-inset-top
+      leftIconSize="32"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="container">
@@ -74,10 +74,11 @@ export default {
 .main {
   padding: 0;
   width: 100%;
-  color: #fff;
+  color: #585858;
+  text-align: center;
   .container {
     height: 280rpx;
-    padding: calc(var(--status-bar-height) + 40rpx) 30rpx 0;
+    padding: 80rpx 30rpx 0;
     // background: #bac3d2;
     position: relative;
     z-index: 2;
@@ -87,7 +88,6 @@ export default {
     }
     .sub_title {
       font-size: 24rpx;
-      padding-top: 40rpx;
     }
   }
   .customer_type {
@@ -108,12 +108,12 @@ export default {
     margin-top: -60rpx;
   }
   .service-btn{
-    width: 260rpx;
+    width: 500rpx;
     height: 84rpx;
     text-align: center;
     color: #fff;
-    background-color: #2E68F2;
-    border-radius: 42rpx;
+    background-color: #575651;
+    border-radius: 10rpx;
     line-height: 84rpx;
     font-size: 28rpx;
     margin: 0rpx auto 0 auto;

@@ -16,12 +16,6 @@
       }
     },
     {
-      "path": "pages/promotion",
-      "style": {
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
       "path": "pages/accountDetails",
       "style": {
         "navigationBarTextStyle": "white"
@@ -59,12 +53,6 @@
     },
     {
       "path": "pages/rechargeRecord",
-      "style": {
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
-      "path": "pages/realName",
       "style": {
         "navigationBarTextStyle": "white"
       }

@@ -6,28 +6,12 @@
         :border="false"
         :title="$t('centre')"
         fixed
-        bgColor="#1e1e1e"
-        leftIconSize="0"
         safe-area-inset-top
+        leftIconSize="32"
+        bgColor="#fff"
         height="100rpx"
-        titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+        titleStyle="color:#000;font-weight:600;font-size:32rpx;"
       >
-        <template #left>
-          <image
-            style="width: 36rpx"
-            @click="goPage({ label: $t('notice'), url: '/pages/message' })"
-            src="/static/img/msg_notice.png"
-            mode="widthFix"
-          />
-        </template>
-        <template #right>
-          <image
-            style="width: 48rpx"
-            @click="goPage({ label: $t('userset'), url: '/pages/set' })"
-            src="/static/img/bg-020.png"
-            mode="widthFix"
-          />
-        </template>
       </u-navbar>
       <view class="title">
         <view class="user">
@@ -283,7 +267,8 @@ export default {
 
 <style scoped lang="scss">
 .main{
-  background-color: #24043b;
+  width: 90%;
+  margin: auto;
 }
 .title {
   .user {

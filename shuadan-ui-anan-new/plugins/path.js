@@ -22,9 +22,6 @@ const home = [
     path: "/pages/headimg",
   },
   {
-    path: "/pages/realName",
-  },
-  {
     path: "/pages/password",
   },
   {
@@ -47,9 +44,6 @@ const home = [
   },
   {
     path: "/pages/accountDetails",
-  },
-  {
-    path: "/pages/promotion",
   },
   {
     path: "/pages/bindUSDT",
