@@ -11,27 +11,6 @@
           <view class="message_info_content">
             <view class="boxstyle">
               <view class="box">
-                <!-- <view class="header">
-                  <image
-                    style="width: 96rpx"
-                    src="/static/img/bg-006.png"
-                    mode="widthFix"
-                  />
-                  <view class="text">{{ $t("congratulation") }}</view>
-                </view> -->
-                <!-- <view class="flex items-center justify-between">
-                  <view class="uid flex items-center mb-16">
-                    {{ $t("order_no") }}：{{ items.orderNo }}
-                    <text class="num mx-8">{{ items.countNum }}</text
-                    ><text class="txt" v-if="items.orderType == 0">
-                      {{ items.promptText }}
-                    </text>
-                  </view>
-                </view> -->
-                <!-- <view class="time mb-24">
-                  {{ $t("ordertime") }}：{{ items.orderTime }}
-                </view> -->
-
                 <view class="goodsstyle">
                   <view class="goods">
                     <image class="img" :src="items.goodsImg" mode="widthFix" />
@@ -39,10 +18,6 @@
                       <view class="name">
                         {{ items.goodsName }}
                       </view>
-                      <!-- <view class="text">
-                        <view>{{ $t("rmb_icon") }} {{ items.goodsPrice }}</view>
-                        <view>x {{ items.goodsCount }}</view>
-                      </view> -->
                     </view>
                   </view>
                 </view>
@@ -58,11 +33,6 @@
                     <text
                       >{{ $t("commission")
                       }}
-                      <!-- <text
-                        v-if="items.commissionMul >= 2"
-                        class="tip-bubble tip-bubble-left"
-                        >x{{ items.commissionMul }}</text
-                      > -->
                       </text>
                     <text>{{ $t("rmb_icon") }} {{ Number(items.commission).toFixed(2) }}</text>
                   </view>
@@ -75,22 +45,11 @@
                 </view>
               </view>
             </view>
-            <view class="btn">
-              <!-- <u-button
-                shape="circle"
-                color="#fff"
-                plain
-                @click="show = false"
-                :text="$t('no_submit')"
-              ></u-button> -->
-              <u-button
-                shape="circle"
-                color="#ffffff"
-                :text="$t('submit')"
-                :loading="loading"
-                style="color: #000"
-                @click="change"
-              ></u-button>
+            <view class="btn"
+            @click="change"
+            >
+              {{$t('submit')}}
+              
             </view>
           </view>
         </view>
@@ -196,19 +155,9 @@ export default {
   box-shadow: 0 0 16rpx 0 #ffb400b2;
   border-radius: 20rpx;
   width: 100%;
-  background-color: #1e1e1e;
+  background-color: #fff;
   position: relative;
   border: 1px solid;
-  border-image-source: conic-gradient(
-    from 180deg at 50% 50%,
-    rgba(245, 211, 172, 0) 0deg,
-    rgba(245, 211, 172, 0.38) 45deg,
-    rgba(245, 211, 172, 0) 84.38deg,
-    rgba(245, 211, 172, 0) 133.12deg,
-    rgba(245, 211, 172, 0.37) 187.5deg,
-    rgba(245, 211, 172, 0) 230.62deg,
-    rgba(245, 211, 172, 0) 360deg
-  );
 
   .message_info {
     position: relative;
@@ -228,6 +177,7 @@ export default {
     margin: 0 10rpx 0;
     position: relative;
     z-index: 2;
+    padding-bottom: 40rpx;
   }
   .rich {
     height: 100%;
@@ -251,12 +201,12 @@ export default {
   z-index: 3;
   .box {
     padding: 30rpx;
-    background-color: #1e1e1e;
+    background-color: #fff;
     border-radius: 16rpx;
     position: relative;
+    color: #343434;
     .uid,
     .time {
-      color: $white;
       font-size: 24rpx;
       padding-bottom: 10rpx;
       .num {
@@ -267,7 +217,6 @@ export default {
         width: 34rpx;
         height: 34rpx;
         line-height: 30rpx;
-        color: $white;
         font-size: 20rpx;
         text-align: center;
       }
@@ -279,6 +228,9 @@ export default {
     }
     .uid {
       padding-bottom: 0;
+      text{
+        color: #fff;
+      }
     }
   }
   .static {
@@ -335,7 +287,6 @@ export default {
       align-items: center;
       justify-content: space-between;
       width: calc(100% - 158rpx);
-      color: $white;
     }
     .name {
       display: -webkit-box;
@@ -386,15 +337,15 @@ export default {
   }
 }
 .btn {
-  padding: 40rpx 60rpx;
-  display: flex;
-  gap: 50rpx;
-  /deep/.u-button {
-    background-color: transparent;
-  }
-  /deep/.u-button__text {
-    font-size: 32rpx !important;
-  }
+  font-size: 32rpx;
+  text-align: center;
+  background-color: #7d7d7d;
+  border-radius: 10rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  color: #fff;
+  width: 92%;
+  margin: auto;
 }
 .tip-bubble {
   position: relative;

@@ -6,11 +6,11 @@
         :border="false"
         :title="$t('task_log')"
         fixed
-        bgColor="#1e1e1e"
-        leftIconSize="0"
         safe-area-inset-top
+        leftIconSize="0"
+        bgColor="#fff"
         height="100rpx"
-        titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+        titleStyle="color:#000;font-weight:600;font-size:32rpx;"
       >
       </u-navbar>
       <!-- <view class="title">
@@ -22,12 +22,12 @@
         >
         <u-tabs
           :list="navList"
-          lineColor="#fff"
+          lineColor="#000"
           lineWidth="80rpx"
           lineHeight="1rpx"
           :scrollable="false"
           :current="current"
-          activeStyle="color:#fff"
+          activeStyle="color:#000"
           @click="navChange"
         ></u-tabs>
       </view>
@@ -36,12 +36,11 @@
           <view class="box">
             <view class="time flex items-center">
               <image
-                src="/static/img/bg-007.png"
+                src="/static/img/order.png"
                 mode="widthFix"
                 style="width: 26rpx"
                 class="mr-4"
               />
-              <!-- {{ $t("ordertime") }}：{{ item.orderTime }} -->
               <label class="red-text" v-if="item.promptText">{{item.promptText}}</label>
               </view
             >
@@ -71,10 +70,7 @@
                   <view class="name">
                     {{ item.goodsName }}
                   </view>
-                  <!-- <view class="text">
-                    <view>{{ $t("rmb_icon") }} {{ item.goodsPrice }}</view>
-                    <view>x {{ item.goodsCount }}</view>
-                  </view> -->
+
                 </view>
               </view>
             </view>
@@ -87,22 +83,11 @@
                 <text
                   >{{ $t("commission")
                   }}
-                  <!-- <text
-                    v-if="item.commissionMul >= 2"
-                    class="tip-bubble tip-bubble-left"
-                    >x{{ item.commissionMul }}</text
-                  > -->
+
                   </text>
                 <text> {{ Math.floor(item.commission * 100 ) / 100 }} {{ $t("rmb_icon") }}</text>
               </view>
-              <!-- <view class="li">
-                <text>
-                  {{ $t("return_amount") }}
-                </text>
-                <text class="moeny">
-                  {{ $t("rmb_icon") }} {{ Math.floor(item.returnAmount * 100 ) / 100 }}
-                </text>
-              </view> -->
+
               <view class="li right" v-if="item.status === 0">
                 <view class="submit" @click="change(item)">
                   {{ $t("oredr_submit") }}
@@ -131,7 +116,6 @@ export default {
         { name: this.$t("error"), status: 2 },
       ],
       list: [],
-      // userData: {},
       loading: false,
       finished: false,
       isArray: true,
@@ -142,7 +126,6 @@ export default {
   methods: {
     open() {
       uni.showLoading();
-      // this.getInfo();
       this.list = [];
       this.page = 1;
       this.dataFn();
@@ -155,14 +138,6 @@ export default {
       this.page++;
       this.dataFn(this.page);
     },
-    //用户列表数据
-    // getInfo() {
-    //   this.$api.user_info().then((res) => {
-    //     if (res.data.code == 0) {
-    //       this.userData = res.data.data;
-    //     }
-    //   });
-    // },
     dataFn(page = 1, type = 1) {
       this.loading = true;
       this.$api
@@ -189,7 +164,6 @@ export default {
         });
     },
     ok() {
-      // this.getInfo();
       this.dataFn(1, 0);
       this.page = 1;
       this.finished = false;
@@ -232,8 +206,8 @@ export default {
   .tabs {
     border-top: 1rpx solid rgba($white, 0.2);
     position: relative;
-    background: #1e1e1e;
     z-index: 3;
+    color: #000;
   }
 }
 
@@ -247,13 +221,14 @@ export default {
 
   .box {
     padding: 20rpx 30rpx;
-    background-color: #1e1e1e;
-    border-radius: 16rpx;
+    background-color: #fff;
+    border-radius: 10rpx;
     background-size: 100% 100%;
     position: relative;
+    color: #4a4a4a;
+    border: 1px solid #7d7d7d;
     .uid,
     .time {
-      color: $white;
       font-size: 24rpx;
       padding-bottom: 10rpx;
       text {
@@ -265,7 +240,6 @@ export default {
         height: 34rpx;
         display: inline-block;
         line-height: 30rpx;
-        color: $white;
         font-size: 20rpx;
         text-align: center;
         margin-left: 10rpx;
@@ -277,6 +251,9 @@ export default {
     }
     .uid {
       padding-bottom: 0;
+      text{
+        color: #fff;
+      }
     }
   }
   .static {
@@ -324,7 +301,6 @@ export default {
       align-items: center;
       justify-content: space-between;
       width: calc(100% - 158rpx);
-      color: $white;
     }
     .name {
       display: -webkit-box;
@@ -367,7 +343,7 @@ export default {
       }
     }
     .submit {
-      background-color: #7000ed;
+      background-color: #4d5eee;
       margin-top: 10rpx;
       color: $white;
       font-size: 28rpx;
