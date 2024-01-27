@@ -85,19 +85,9 @@ export default {
   box-shadow: 0 0 16rpx 0 #ffb400b2;
   border-radius: 40rpx;
   width: 100%;
-  background-color: #1e1e1e;
+  background-color: #fff;
   position: relative;
   border: 1px solid;
-  border-image-source: conic-gradient(
-    from 180deg at 50% 50%,
-    rgba(245, 211, 172, 0) 0deg,
-    rgba(245, 211, 172, 0.38) 45deg,
-    rgba(245, 211, 172, 0) 84.38deg,
-    rgba(245, 211, 172, 0) 133.12deg,
-    rgba(245, 211, 172, 0.37) 187.5deg,
-    rgba(245, 211, 172, 0) 230.62deg,
-    rgba(245, 211, 172, 0) 360deg
-  );
   .message_info_content {
     border-radius: 20rpx;
     position: relative;
@@ -112,14 +102,14 @@ export default {
     }
     .box {
       padding: 32rpx 0;
-      color: $white;
+      color: #343434;
       font-size: 32rpx;
     }
     .btn {
       padding: 14rpx 32rpx;
       border-radius: 100rpx;
-      color: $white;
-      border: 1rpx solid #ffffffa6;
+      color: #fff;
+      background-color: #7d7d7d;
     }
   }
 }

@@ -6,12 +6,11 @@
       autoBack
       :title="$t('recharge')"
       fixed
-      leftIconColor="#ffffff"
-      bgColor="#1E1E1E"
+      leftIconColor="#000"
       leftIconSize="32"
-      safe-area-inset-top
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="content" v-if="!active">
@@ -23,10 +22,7 @@
         v-model="value"
         clearable
         type="number"
-      >
-        <!-- <template #prefix>
-          <view class="rmb">{{ $t("rmb_icon") }}</view>
-        </template> -->
+        >
       </u-input>
       <view class="list">
         <view
@@ -40,13 +36,12 @@
         </view>
       </view>
     </view>
-    <view class="btn" v-if="!active">
-      <u-button
-        type="primary"
-        @click="change"
-        class="button"
-        :text="$t('next_step')"
-      ></u-button>
+    <view
+      class="recharge-button"
+      @click="change"
+      v-if="!active"
+      >
+      {{ $t("next_step") }}
     </view>
     <rechargeMark ref="rechargeMarkRef" @ok="value = ''" />
   </view>
@@ -110,10 +105,10 @@ export default {
   width: 100%;
   .content {
     padding: 24rpx 32rpx;
-    background-color: #1e1e1e;
+    background-color: #fff;
+    color: #999;
     .title {
       font-size: 32rpx;
-      color: #ffffffd9;
       padding-bottom: 24rpx;
     }
     .link {
@@ -133,21 +128,19 @@ export default {
     .box {
       view:nth-child(1) {
         font-size: 32rpx;
-        color: #ffffffd9;
       }
       view:nth-child(2) {
         padding-top: 10rpx;
         font-size: 24rpx;
-        color: #ffffffa6;
       }
     }
   }
   .u-input {
-    padding: 20rpx 0rpx 44rpx !important;
+    padding: 20rpx 0rpx 20rpx !important;
     /deep/.uni-input-input {
       height: 80rpx !important;
       font-size: 64rpx;
-      color: $white;
+      color: #999;
     }
     /deep/.u-input__content__field-wrapper__field {
       height: 80rpx !important;
@@ -158,12 +151,10 @@ export default {
   }
   .rmb {
     font-size: 48rpx;
-    color: #ffffffd9;
   }
   .placeholder {
     font-size: 64rpx;
     font-weight: 500;
-    color: #ffffff4d;
     height: 80rpx !important;
     display: flex;
     align-items: center;
@@ -175,13 +166,14 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 16rpx;
+    border-top: 1px solid #999;
     .item {
-      border: 1rpx solid #ffffff4d;
+      border: 1rpx solid #ddd;
       font-size: 28rpx;
       padding: 15rpx 0;
       width: calc(25% - 16rpx);
-      color: #ffffffd9;
       text-align: center;
+      border-radius: 10rpx;
     }
   }
   .btn {
@@ -190,5 +182,15 @@ export default {
       border-radius: 100rpx;
     }
   }
+}
+.recharge-button{
+  width: 92%;
+  margin: auto;
+  height: 104rpx;
+  line-height: 104rpx;
+  background-color: #7d7d7d;
+  border-radius: 10rpx;
+  text-align: center;
+  color: #fff;
 }
 </style>

@@ -72,6 +72,11 @@
             />
           </view>
           <view class="text">{{ item.label }}</view>
+          <image
+              class="user-jiaobiao"
+              src="@/static/img/jiaobiao.png"
+              mode="widthFix"
+            />
         </view>
       </view>
       <u-modal
@@ -102,91 +107,57 @@ export default {
       list: [
         {
           label: this.$t("userset"),
-          icon: "bg-021.png",
+          icon: "user-icon1.png",
           url: "/pages/set",
           width: "36",
         },
         {
           label: this.$t("USDTAddr"),
-          icon: "bg-025.png",
+          icon: "user-icon2.png",
           url: "/pages/bindUSDT",
           className: "mb",
           width: "40",
         },
         {
           label: this.$t("recharge_log"),
-          icon: "bg-024.png",
+          icon: "user-icon3.png",
           url: "/pages/rechargeRecord",
           width: "40",
         },
         {
           label: this.$t("deposit_log"),
-          icon: "bg-025.png",
+          icon: "user-icon4.png",
           url: "/pages/withdrawalRecords",
           width: "40",
         },
 
         {
           label: this.$t("order_log"),
-          icon: "bg-022.png",
+          icon: "user-icon5.png",
           url: "/pages/accountDetails",
           className: "mb",
           width: "36",
         },
-        // {
-        //   label: this.$t("order_log"),
-        //   icon: "bg-022.png",
-        //   url: "/pages/index?tabs=1",
-        //   className: "mb",
-        //   width: "36",
-        // },
         {
           label: this.$t("service"),
-          icon: "bg-023.png",
+          icon: "user-icon6.png",
           url: "/pages/onlineService",
           width: "36",
         },
         {
           label: this.$t("notice"),
-          icon: "bg-027.png",
+          icon: "user-icon7.png",
           url: "/pages/message",
           width: "40",
         },
-        
-        // {
-        //   label: this.$t("invitation"),
-        //   icon: "bg-026.png",
-        //   url: "/pages/promotion",
-        //   className: "mb",
-        //   width: "40",
-        // },
-       
-        // {
-        //   label: this.$t("team"),
-        //   icon: "bg-028.png",
-        //   url: "/pages/team",
-        //   className: "mb",
-        //   width: "42",
-        // },
         {
           label: this.$t("renturn_login"),
-          icon: "bg-029.png",
+          icon: "user-icon9.png",
           url: "",
           width: "32",
           className: "mb",
         },
       ],
-      // userData: {
-      //   nickName: "", //昵称
-      //   avatarUrl: "", //头像
-      //   balance: "", //余额
-      //   creditValue: "", //信用分
-      //   inviteCode: "", //邀请码
-      //   userName: "", //用户名
-      //   levelName: "", //会员名称
-      //   levelIcon: "", //
-      //   walletAddr: "",//usdt 地址
-      // },
       loginoutShow: false,
       config: {},
     };
@@ -452,18 +423,18 @@ export default {
         display: none;
       }
     }
-    &:after {
-      content: "";
-      width: 18rpx;
-      height: 18rpx;
-      position: absolute;
-      right: 30rpx;
-      top: 50%;
+    // &:after {
+    //   content: "";
+    //   width: 18rpx;
+    //   height: 18rpx;
+    //   position: absolute;
+    //   right: 30rpx;
+    //   top: 50%;
 
-      border-left: 2rpx solid #aaa;
-      border-bottom: 2rpx solid #aaa;
-      transform: translateY(-50%) rotate(-135deg);
-    }
+    //   border-left: 2rpx solid #aaa;
+    //   border-bottom: 2rpx solid #aaa;
+    //   transform: translateY(-50%) rotate(-135deg);
+    // }
     .item-img {
       width: 40rpx;
       .image {
@@ -474,6 +445,11 @@ export default {
   .text {
     font-size: 32rpx;
     margin-left: 16rpx;
+    flex: 1;
+  }
+  .user-jiaobiao{
+    width: 28rpx;
+    margin-right: 2rpx;
   }
 }
 /deep/.u-popup__content {
