@@ -4,9 +4,6 @@ const home = [
     aliasPath: "/",
   },
   {
-    path: "/pages/team",
-  },
-  {
     path: "/pages/vip",
   },
   {

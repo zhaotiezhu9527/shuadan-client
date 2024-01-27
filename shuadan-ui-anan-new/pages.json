@@ -10,12 +10,6 @@
       }
     },
     {
-      "path": "pages/team",
-      "style": {
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
       "path": "pages/onlineService",
       "style": {
         "navigationBarTextStyle": "white"

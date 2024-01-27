@@ -7,6 +7,11 @@
     />
     <view class="form">
       <view class="input">
+        <image
+          src="/static/img/icon_phone.png"
+          mode="widthFix"
+          class="input_icon"
+        />
         <u-input
           border="none"
           :placeholder="$t('account')"
@@ -16,6 +21,11 @@
         </u-input>
       </view>
       <view class="input">
+        <image
+          src="/static/img/icon_passward.png"
+          mode="widthFix"
+          class="input_icon"
+        />
         <u-input
           border="none"
           :placeholder="$t('password')"
@@ -26,24 +36,23 @@
         </u-input>
       </view>
     </view>
-    <u-button
-      class="button-50"
-      @click="login"
-      :loading="loading"
-      shape="circle"
+    <view
+      class="forget-password"
+      @click="nopass('/pages/onlineService')"  
     >
-      <u-icon class="rightward" name="arrow-rightward"></u-icon>
-    </u-button>
-    <view class="flex items-center ul justify-center">
-      <!-- <view class="li" @click="nopass('/pages/onlineService')">
-        {{ $t("forget_pwd") }}
-      </view> -->
-      <view class="li" @click="$refs.registerRef.open(inviteCode)">
-        {{ $t("free_reg") }}
-      </view>
-      <view class="li" @click="nopass('/pages/onlineService')">
-        {{ $t("service") }}
-      </view>
+      {{ $t("forget_pwd") }}
+    </view>
+    <view
+      class="login-button"
+      @click="login"
+      >
+      {{ $t("login") }}
+    </view>
+    <view
+      class="free_reg"
+      @click="$refs.registerRef.open(inviteCode)"
+      >
+      {{ $t("free_reg") }}
     </view>
     <register ref="registerRef" />
   </view>

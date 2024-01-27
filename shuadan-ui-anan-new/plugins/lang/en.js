@@ -2,8 +2,8 @@ export default {
   title: "Cognizant",
   account: "Username",
   password: "Password",
-  forget_pwd: "Forget password",
-  free_reg: "Register",
+  forget_pwd: "Forget password?",
+  free_reg: "No account yet, go to register!",
   service: "Customer service",
   input_act: "Please input username~",
   input_pwd: "Please login password~",
@@ -206,4 +206,5 @@ export default {
   phoneNumber: "Phone number",
   edit: "Alter",
   notNetwork: "Network connection abnormality",
+  login: "Log in immediately",
 }

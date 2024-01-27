@@ -6,37 +6,34 @@
   width: 100%;
   height: 100vh;
   .logo {
-    width: 520rpx;
+    width: 335rpx;
     margin: 0 auto;
-    padding-top: 150rpx;
-    padding-bottom: 128rpx;
+    padding-top: 85rpx;
+    padding-bottom: 60rpx;
     position: relative;
     z-index: 10;
   }
 
   padding-top: var(--status-bar-height);
   .form {
-    width: 528rpx;
+    width: 92%;
     padding-top: 26px;
     box-sizing: border-box;
     margin: 0 auto;
-    padding-bottom: 96rpx;
+    padding-bottom: 52rpx;
     position: relative;
     z-index: 1;
 
     /deep/.u-input {
       .u-input__content__field-wrapper__field {
         text-align: center !important;
-
-        background-color: #242424;
-        border-radius: 100rpx;
+        background-color: #fff;
+        border-radius: 10rpx;
         height: 96rpx;
         font-size: 32rpx;
         transition: all 0.5s;
-        border: 2rpx solid transparent;
-        color: $white !important;
+        color: #575651;
         &:hover {
-          border: 2rpx solid $white;
           .placeholder {
             transition: all 0.5s;
             color: $white !important;
@@ -45,7 +42,11 @@
       }
     }
     .input {
-      padding-bottom: 32rpx;
+      display: flex;
+      border: 1px solid #4b4b4b;
+      border-radius: 10rpx;
+      margin-bottom: 26rpx;
+      align-items: center;
     }
     .placeholder {
       color: #666 !important;
@@ -85,4 +86,31 @@
       border-right: 2rpx solid rgba($white, 0.5);
     }
   }
+}
+.login-button{
+  width: 92%;
+  margin: auto;
+  height: 104rpx;
+  line-height: 104rpx;
+  background-color: #7d7d7d;
+  border-radius: 10rpx;
+  text-align: center;
+  color: #fff;
+}
+.input_icon{
+  width: 44rpx;
+  height: 44rpx;
+  margin-left: 40rpx;
+}
+.forget-password{
+  width: 92%;
+  margin: auto;
+  text-align: right;
+  margin-bottom: 64rpx;
+}
+.free_reg{
+  width: 92%;
+  margin: auto;
+  text-align: center;
+  margin-top: 108rpx;
 }

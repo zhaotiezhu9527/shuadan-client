@@ -1,11 +1,16 @@
 <template>
   <u-popup :show="show" @close="close">
     <view class="main">
+      <image
+        src="/static/img/logo.png"
+        class="logo flex items-center"
+        mode="widthFix"
+      />
       <view class="form form2">
         <view class="flex items-center justify-center title">
           <u-icon
             @click="close"
-            color="#ffffff"
+            color="#5c5c5c"
             size="30"
             class="close"
             name="close"
@@ -186,19 +191,15 @@ export default {
   width: 90% !important;
 }
 .title {
-  background: #161617;
-  box-shadow: 8rpx 8rpx 8rpx 0 rgba(20, 20, 22, 1);
-  box-shadow: -8rpx -8rpx 8rpx 0 rgba(50, 51, 54, 0.3);
-  box-shadow: -8rpx -8rpx 8rpx 0 rgba(32, 32, 34, 0.6) inset;
-  box-shadow: 8rpx 8rpx 8rpx 0 rgba(18, 18, 20, 1) inset;
-  margin-bottom: 64rpx;
-  border-radius: 100rpx;
+  border: 1px solid #4b4b4b;
+  border-radius: 10rpx;
+  margin-bottom: 26rpx;
   height: 96rpx;
   line-height: 96rpx;
   position: relative;
   .name {
     font-size: 36rpx;
-    color: $white;
+    color: #5c5c5c;
     font-weight: 600;
   }
   .close {
