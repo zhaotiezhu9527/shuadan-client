@@ -54,15 +54,6 @@
     }
   }
 }
-.button-50 {
-  /deep/ .uicon-arrow-rightward {
-    color: $white !important;
-    font-size: 40rpx !important;
-    font-weight: bold !important;
-  }
-  position: relative;
-  z-index: 1;
-}
 .back {
   width: 100%;
   position: fixed;

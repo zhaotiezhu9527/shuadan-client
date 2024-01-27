@@ -86,14 +86,9 @@
             </u-radio>
           </u-radio-group>
         </view> -->
-        <view class="btn">
-          <u-button
-            class="button"
-            @click="login"
-            :text="$t('register')"
-            :loading="loading"
-            shape="circle"
-          ></u-button>
+        <view class="register-btn"
+          @click="login"
+          >
           <!-- <u-button
             class="button-plain mt-20"
             @click="close"
@@ -101,6 +96,7 @@
             :loading="loading"
             shape="circle"
           ></u-button> -->
+          {{$t('register')}}
         </view>
       </view>
     </view>
@@ -239,5 +235,13 @@ export default {
 .form {
   padding-bottom: calc(64rpx + constant(safe-area-inset-bottom));
   padding-bottom: calc(64rpx + env(safe-area-inset-bottom));
+}
+.register-btn{
+  height: 104rpx;
+  line-height: 104rpx;
+  background-color: #575651;
+  border-radius: 10rpx;
+  text-align: center;
+  color: #fff;
 }
 </style>
