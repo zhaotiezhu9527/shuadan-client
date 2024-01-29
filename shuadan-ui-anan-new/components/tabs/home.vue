@@ -5,13 +5,27 @@
       :border="false"
       :title="$t('home')"
       fixed
-      bgColor="#000000"
-      leftIconSize="0"
       safe-area-inset-top
+      leftIconSize="0"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
+    <view class="content">
+      <view class="title">
+        <view v-for="(item, index) in nav"
+        :key="index"
+        @click="change(item.en)"
+        :class="index == 2 ? 'width105': 'title-item'"
+        >
+          <view class="title-bg">
+            <image class="title-img" :src="item.img" />
+          </view>
+          <view class="title-text">{{ item.name }}</view>
+        </view>
+      </view>
+    </view>
     <view class="price">
       <view class="price-box">
         <view class="flex">
@@ -118,10 +132,10 @@
 </template>
 
 <script>
-import img13 from "@/static/img/icon13.png";
-import img14 from "@/static/img/icon14.png";
-import img15 from "@/static/img/icon15.png";
-import img16 from "@/static/img/icon16.png";
+import img13 from "@/static/img/title-about.png";
+import img14 from "@/static/img/title-yinzhang.png";
+import img15 from "@/static/img/title-rul.png";
+import img16 from "@/static/img/title-q.png";
 
 export default {
   props:['userData'],
@@ -274,7 +288,6 @@ export default {
 }
 .main {
   padding-top: 32rpx;
-  background-color: #280c43;
   .header {
     width: 90%;
     font-weight: bold;
@@ -542,5 +555,44 @@ export default {
   font-weight: normal;
   line-height: 40rpx;
   color: $white;
+}
+.content{
+  width: 95%;
+  margin: auto;
+  .title{
+    width: 100%;
+    height: 228rpx;
+    background-color: #fff;
+    color: #343434;
+    font-size: 24rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    .title-item{
+      flex: 1;
+    }
+    .width105{
+      width: 210rpx;
+    }
+    .title-bg{
+      width: 120rpx;
+      height: 120rpx;
+      border-radius: 60rpx;
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 2px 2px 2px 0 #333;
+      margin: auto;
+      .title-img{
+        width: 72rpx;
+        height: 72rpx;
+        display: block;
+        margin: auto;
+        padding-top: 24rpx;
+      }
+    }
+    .title-text{
+      margin-top: 16rpx;
+    }
+  }
 }
 </style>
