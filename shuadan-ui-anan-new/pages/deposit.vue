@@ -6,34 +6,15 @@
       autoBack
       :title="$t('deposit')"
       fixed
-      leftIconColor="#ffffff"
+      leftIconColor="#000"
       leftIconSize="32"
       safe-area-inset-top
-      bgColor="#1E1E1E"
+      bgColor="#fff"
       height="100rpx"
-      titleStyle="color:#fff;font-weight:600;font-size:32rpx;"
+      titleStyle="color:#000;font-weight:600;font-size:32rpx;"
     >
     </u-navbar>
     <view class="main">
-      <!-- 银行卡信息 -->
-      <!-- <view class="link">
-        <view class="flex">
-          <image
-            class="image"
-            src="@/static/img/unionpay.png"
-            mode="widthFix"
-          />
-          <view class="box">
-            <view>{{ bankName }}</view>
-            <view>{{ bankNo }}</view>
-          </view>
-        </view>
-        <view class="name">
-          <view>{{ realName }}</view>
-          <view>{{ phone }}</view>
-        </view>
-      </view> -->
-      <!-- 钱包地址 -->
       <view class="link">
         <view class="flex">
           <image
@@ -63,13 +44,9 @@
           type="number"
           @blur="update"
         >
-          <!-- <template #prefix>
-            <view class="rmb">{{ $t("rmb_icon") }}</view>
-          </template> -->
         </u-input>
         <view class="text">
           <text>{{ $t("usable") }}：
-            <!-- {{ $t("rmb_icon") }} -->
             {{ Number(balance).toFixed(2) }}</text>
           <text @click="amount = balance">{{ $t("all_deposit") }}</text>
         </view>
@@ -78,10 +55,8 @@
         {{ $t("withdrawFee_info") }}<br />
         {{ $t("withdrawFee") }} {{ withdrawFee }}%
       </view>
-      <view class="btn">
-        <u-button class="button" block @click="submit" :loading="loading">
-          {{ $t("config_deposit") }}
-        </u-button>
+      <view class="tixian-btn" @click="submit">
+        {{ $t("config_deposit") }}
       </view>
     </view>
     <depositMark ref="depositMarkRef" @ok="clear" />
@@ -157,15 +132,20 @@ export default {
 .main {
   height: calc(100vh - 52px + var(--status-bar-height));
   overflow: hidden;
+  width: 95%;
+  margin: auto;
   .link {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24rpx 32rpx;
+    padding: 24rpx 24rpx;
     margin-top: 16rpx;
-    background-color: #1e1e1e;
+    background-color: #fff;
+    color: #696969;
+    border: 1px solid #575651;
+    border-radius: 10rpx;
     .image {
-      width: 96rpx;
+      width: 58rpx;
       margin-right: 16rpx;
     }
     .flex {
@@ -176,30 +156,27 @@ export default {
       text-align: right;
       view:nth-child(1) {
         font-size: 24rpx;
-        color: #ffffffd9;
       }
       view:nth-child(2) {
-        padding-top: 10rpx;
         font-size: 24rpx;
-        color: #ffffffa6;
       }
     }
   }
   .box {
     view:nth-child(1) {
       font-size: 32rpx;
-      color: #ffffffd9;
     }
     view:nth-child(2) {
-      padding-top: 10rpx;
       font-size: 24rpx;
-      color: #ffffffa6;
     }
   }
   .content {
     margin-top: 16rpx;
     padding: 24rpx 32rpx;
-    background-color: #1e1e1e;
+    background-color: #fff;
+    color: #696969;
+    border: 1px solid #575651;
+    border-radius: 10rpx;
     .title {
       padding-bottom: 24rpx;
       display: flex;
@@ -207,12 +184,10 @@ export default {
       justify-content: space-between;
       .name {
         font-size: 32rpx;
-        color: #ffffffd9;
         font-weight: 600;
       }
       .rate {
-        color: $white;
-        border: 1rpx solid #ffffffa6;
+        border: 1rpx solid #575651;
         height: 48rpx;
         display: flex;
         align-items: center;
@@ -223,11 +198,9 @@ export default {
       }
     }
     .u-input {
-      padding: 20rpx 0rpx 44rpx !important;
       /deep/.uni-input-input {
         height: 80rpx !important;
         font-size: 64rpx;
-        color: $white;
       }
       /deep/.u-input__content__field-wrapper__field {
         height: 80rpx !important;
@@ -238,12 +211,10 @@ export default {
     }
     .rmb {
       font-size: 48rpx;
-      color: #ffffffd9;
     }
     .placeholder {
       font-size: 64rpx;
       font-weight: 500;
-      color: #ffffff4d;
       height: 80rpx !important;
       display: flex;
       align-items: center;
@@ -255,24 +226,27 @@ export default {
       align-items: center;
       text {
         font-size: 28rpx;
-        color: #ffffffa6;
       }
     }
   }
 
   .foot-text {
     margin: 20rpx auto;
-    background-color: #1e1e1e;
-    padding: 32rpx;
-    color: #ffffff73;
+    background-color: #fff;
+    color: #696969;
+    border: 1px solid #575651;
+    border-radius: 10rpx;
+    padding: 24rpx;
     font-size: 24rpx;
     line-height: 2;
   }
-  .btn {
-    padding: 48rpx 42rpx 0;
-    .button {
-      border-radius: 100rpx;
-    }
+  .tixian-btn {
+    height: 104rpx;
+    line-height: 104rpx;
+    background-color: #7d7d7d;
+    border-radius: 10rpx;
+    text-align: center;
+    color: #fff;
   }
 }
 </style>
