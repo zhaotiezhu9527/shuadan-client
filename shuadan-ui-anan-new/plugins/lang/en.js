@@ -207,4 +207,5 @@ export default {
   edit: "Alter",
   notNetwork: "Network connection abnormality",
   login: "Log in immediately",
+  vipName: "VIP",
 }
