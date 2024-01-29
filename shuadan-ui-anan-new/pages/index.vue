@@ -11,23 +11,23 @@
         <view
           class="item"
           :key="index"
-          v-if="index !== 2"
           @click="change(index)"
         >
-          <image
-            class="img"
-            v-if="active === index"
-            :src="item.image1"
-            mode="heightFix"
-          />
-          <image class="img" v-else :src="item.image2" mode="heightFix" />
+          <view
+            :class="active === index ? 'active item-list' : 'item-list'"
+          >
+            <image
+              class="img"
+              v-if="active === index"
+              :src="item.image1"
+              mode="heightFix"
+            />
+            <image class="img" v-else :src="item.image2" mode="heightFix" />
+          </view>
+          <!-- <image class="img" v-else :src="item.image2" mode="heightFix" /> -->
           <view class="name" :class="{ active: active === index }">
             {{ item.name }}
           </view>
-        </view>
-        <view class="item other button-50" v-else @click="change(index)">
-          <image class="img2" :src="item.image1" mode="widthFix" />
-          <view class="txt">{{ $t("task_name") }}</view>
         </view>
       </template>
     </view>
@@ -42,7 +42,8 @@ import kefu1 from "@/static/img/kefu1.png";
 import kefu2 from "@/static/img/kefu1.png";
 import user1 from "@/static/img/user1.png";
 import user2 from "@/static/img/user1.png";
-import rw1 from "@/static/img/bg-013.png";
+import rw1 from "@/static/img/task1.png";
+import rw2 from "@/static/img/task1.png";
 import home from "@/components/tabs/home.vue";
 import order from "@/components/tabs/order.vue";
 import service from "@/components/tabs/service.vue";
@@ -56,7 +57,7 @@ export default {
       list: [
         { image1: home1, image2: home2, name: this.$t("home") },
         { image1: jilv1, image2: jilv2, name: this.$t("log") },
-        { image1: rw1 },
+        { image1: rw1,image2: rw2, name: this.$t("task_name") },
         {
           image1: kefu1,
           image2: kefu2,
@@ -132,8 +133,8 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  color: #757575;
-  background: url("@/static/img/footer.png") #290c44;
+  color: #575651;
+  background: #fff;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: bottom;
@@ -152,9 +153,7 @@ export default {
     .name {
       padding-top: 6rpx;
       font-size: 20rpx;
-      color: $white;
       &.active {
-        color: $white;
       }
     }
   }
@@ -165,13 +164,29 @@ export default {
     height: 120rpx !important;
     display: flex;
   }
+  .item-list{
+    &.active{
+      width: 100rpx;
+      height: 100rpx;
+      margin-top: -60rpx;
+      background-color: #fff;
+      border-radius: 100rpx;
+      border: 1px solid #333;
+      .img{
+        width: 80rpx;
+        height: 80rpx;
+        display: block;
+        margin: 10rpx;
+      }
+    }
+  }
   .img {
     height: 40rpx;
     height: 40rpx;
   }
   .img2 {
-    width: 60rpx;
-    height: 60rpx;
+    width: 40rpx;
+    height: 40rpx;
   }
 }
 </style>

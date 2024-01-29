@@ -51,7 +51,7 @@
     <view class="notice">
       <view class="tips">
         <view class="image">
-          <image class="img" src="@/static/img/bg-004.png" mode="widthFix" />
+          <!-- <image class="img" src="@/static/img/bg-004.png" mode="widthFix" /> -->
         </view>
         <!-- <marquee class="marquee">
           <div v-html="homeNotice"></div>
@@ -114,12 +114,10 @@
         ></u-icon>
       </view>
     </view>
-    <!-- <annunciate ref="annunciateRef" /> -->
   </view>
 </template>
 
 <script>
-import annunciate from "@/components/annunciate";
 import img13 from "@/static/img/icon13.png";
 import img14 from "@/static/img/icon14.png";
 import img15 from "@/static/img/icon15.png";
@@ -245,7 +243,6 @@ export default {
     },
   },
   components: {
-    annunciate,
   },
 };
 </script>
