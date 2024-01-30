@@ -95,4 +95,18 @@
     color: #909399;
     font-size: 24rpx;
   }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .fs-inherit {
+    font-size: inherit !important;
+  }
+
+  .img-fill {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>

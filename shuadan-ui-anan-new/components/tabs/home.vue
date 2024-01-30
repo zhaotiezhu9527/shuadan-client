@@ -90,7 +90,7 @@
               </view>
             </view>
           </view>
-          <view v-if="topChartsList.length === 0" class="no-data">- No data -</view>
+          <view v-if="topChartsList.length === 0" class="no-data">- {{$t('nodata')}} -</view>
         </view>
       </view>
     </view>
