@@ -32,7 +32,6 @@
           :key="index"
         >
           {{ item }}
-          <!-- {{ $t("rmb") }} -->
         </view>
       </view>
     </view>
@@ -70,7 +69,6 @@ export default {
       if (!num.test(this.value)) {
         this.$base.show(this.$t("input_integer"));
       } else {
-        // this.active = 1;
         this.$refs.rechargeMarkRef.open();
       }
     },

@@ -18,7 +18,6 @@
       <view class="title">{{ $t("enterUsdt") }}</view>
       <view class="input-box">
         <view class="from-input border-bottom393939">
-          <!-- <label>{{ $t("realName") }}</label> -->
           <input
             type="text"
             v-model="userData.realName"
@@ -28,7 +27,6 @@
           />
         </view>
         <view class="from-input">
-          <!-- <label>{{ $t("realName") }}</label> -->
           <input
             type="text"
             v-model="userData.addr"

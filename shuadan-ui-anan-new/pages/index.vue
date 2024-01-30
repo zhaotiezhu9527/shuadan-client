@@ -1,6 +1,5 @@
 <template>
   <view>
-    <!-- <component :is="list[active].route" ref="main" /> -->
     <home v-show="active === 0" ref="main0" :userData="userData"/>
     <order v-show="active === 1" ref="main1" />
     <task v-show="active === 2" ref="main2" />
@@ -24,7 +23,6 @@
             />
             <image class="img" v-else :src="item.image2" mode="heightFix" />
           </view>
-          <!-- <image class="img" v-else :src="item.image2" mode="heightFix" /> -->
           <view class="name" :class="{ active: active === index }">
             {{ item.name }}
           </view>

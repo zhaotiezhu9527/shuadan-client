@@ -15,7 +15,6 @@
     >
     </u-navbar>
     <view class="main">
-      <!-- <view class="title">{{ $t("input_my_new_pwd") }}</view> -->
       <view class="from-input">
         <label>{{ $t("former_pwd") }}：</label>
         <input

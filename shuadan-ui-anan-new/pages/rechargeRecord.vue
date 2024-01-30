@@ -15,10 +15,6 @@
     >
     </u-navbar>
     <view class="main">
-      <!-- <view class="title">
-        <view class="tab active">线下充值</view>
-        <view class="tab">线上充值</view>
-      </view> -->
       <u-list @scrolltolower="load" v-if="isArray" class="scroll">
         <u-list-item
           v-for="(item, index) in list"
@@ -66,14 +62,6 @@ export default {
       isArray: true,
       page: 0,
       background: {
-        // backgroundColor: '#001f3f',
-
-        // 导航栏背景图
-        // background: 'url(https://cdn.uviewui.com/uview/swiper/1.jpg) no-repeat',
-        // 还可以设置背景图size属性
-        // backgroundSize: 'cover',
-
-        // 渐变色
         backgroundImage: "linear-gradient(47deg, #F8A057 0%, #FFC860 100%);",
       },
     };
