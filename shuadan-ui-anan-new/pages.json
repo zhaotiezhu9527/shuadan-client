@@ -2,8 +2,7 @@
   "easycom": {
     "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
   },
-  "pages": [
-    {
+  "pages": [{
       "path": "pages/index",
       "style": {
         "navigationBarTextStyle": "white"
@@ -47,12 +46,6 @@
     },
     {
       "path": "pages/withdrawalRecords",
-      "style": {
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
-      "path": "pages/rechargeRecord",
       "style": {
         "navigationBarTextStyle": "white"
       }

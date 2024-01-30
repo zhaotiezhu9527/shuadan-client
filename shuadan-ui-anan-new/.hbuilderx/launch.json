@@ -24,7 +24,7 @@
             "type" : "uni-app:app-android"
         },
         {
-            "openVueDevtools" : true,
+            "openVueDevtools" : false,
             "type" : "uni-app:h5"
         },
         {

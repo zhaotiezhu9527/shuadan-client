@@ -78,6 +78,7 @@ unpackage
 
 # IDE / Editor
 .idea
+.hbuilderx
 
 # Service worker
 sw.*
