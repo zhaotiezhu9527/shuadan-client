@@ -4,7 +4,7 @@
     </u-navbar>
     <!-- app 气泡图 -->
     <view class="bubble-container">
-      <!-- <image src="../../static/img/task-bubbles/task-bg.png" mode="widthFix" class="img-fill"></image> -->
+      <image src="../../static/img/task-bubbles/bg.png" mode="widthFix" class="img-fill"></image>
       <view class="bubble-inner">
         <image v-for="item in bubbles" :key="item.id" :src="item.url" :data-id="item.id" mode="aspectFill"
           :style="{width: `${item.size}px`, height: `${item.size}px`, top: `${item.top}px`, left: `${item.left}px`}"
@@ -383,6 +383,8 @@
     position: relative;
     margin: 32rpx 0;
     aspect-ratio: 1.6;
+    border-radius: 20rpx;
+    overflow: hidden;
 
     .bubble-inner {
       position: absolute;
