@@ -264,8 +264,8 @@ export default {
       
       .level-img {
         float: left;
-        height: 36rpx;
-        width: 96rpx;
+        height: 66rpx;
+        width: 66rpx;
         margin: 0 16rpx;
       }
       .credit {
