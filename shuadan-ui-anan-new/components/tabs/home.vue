@@ -1,7 +1,7 @@
 <template>
   <view class="main">
-    <u-navbar placeholder :border="false" :title="$t('home')" fixed safe-area-inset-top leftIconSize="0" bgColor="#fff"
-      height="100rpx" titleStyle="color:#000;font-weight:600;font-size:32rpx;">
+    <u-navbar placeholder :title="$t('home')" :border="true" leftIconSize="0" bgColor="#fff" height="100rpx"
+      titleStyle="font-weight:600;">
     </u-navbar>
     <view class="content">
       <!-- 规则抬头 -->
@@ -54,14 +54,12 @@
         <view class="header">{{ $t("vipName") }}</view>
       </view>
       <view class="list">
-        <!-- <view class="item" v-for="(item, index) in list" :key="index" @click="
-            routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)
-          "> -->
+        <!-- <view class="item" v-for="(item, index) in list" :key="index" @click="routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)"> -->
         <view class="item" v-for="(item, index) in list" :key="index">
-          <!-- <view class="no" v-if="!item.unlock">
-            <image class="img" src="@/static/img/suo.png" mode="widthFix" />
+          <view class="no" v-if="!item.unlock">
+            <!-- <image class="img" src="@/static/img/suo.png" mode="widthFix" /> -->
             <view class="txt">{{ $t("unlock") }}</view>
-          </view> -->
+          </view>
           <view class="reactive">
             <image :src="item.levelImg" class="img" mode="widthFix" />
           </view>
@@ -82,15 +80,17 @@
             <view class="top-charts-list-item-logo">
               <image :src="item.icon" mode="aspectFill" style="width: 100%; height: 100%;"></image>
             </view>
-            <view class="top-charts-list-item-content">
+            <view class="top-charts-list-item-content u-border-bottom">
               <view class="top-charts-list-item-content-num">{{item.id}}</view>
-              <view>
-                <view class="top-charts-list-item-content-title">{{item.title}}</view>
-                <view class="top-charts-list-item-content-desc">{{item.desc}}</view>
+              <view class="top-charts-list-item-content-right">
+                <view class="flex1">
+                  <view class="top-charts-list-item-content-title">{{item.title}}</view>
+                  <view class="top-charts-list-item-content-desc">{{item.desc}}</view>
+                </view>
+                <view v-if="topChartsActive === 1" class="paid-app-price">USD {{item.price}}</view>
               </view>
             </view>
           </view>
-          <view v-if="topChartsList.length === 0" class="no-data">- No data -</view>
         </view>
       </view>
     </view>
@@ -257,10 +257,10 @@
     .no {
       position: absolute;
       z-index: 10;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: -10rpx;
+      bottom: -10rpx;
+      left: -10rpx;
+      right: -10rpx;
       background-color: rgba(#000, 0.5);
       border-radius: 20rpx;
       display: flex;
@@ -271,13 +271,12 @@
 
       .img {
         width: 36rpx;
-        margin: 0 auto;
+        margin: 0 auto 10rpx;
       }
 
       .txt {
         color: $white;
         font-size: 24rpx;
-        padding-top: 10rpx;
       }
     }
 
@@ -311,9 +310,10 @@
     }
 
     .img {
+      position: relative;
+      display: block;
       width: 150rpx;
       z-index: 2;
-      position: relative;
     }
   }
 
@@ -525,12 +525,12 @@
         display: flex;
         margin-bottom: 32rpx;
 
-        &:last-of-type {
+        // &:last-of-type {
 
-          .top-charts-list-item-content {
-            border-bottom: none;
-          }
-        }
+        //   .top-charts-list-item-content {
+        //     border-bottom: none;
+        //   }
+        // }
 
         &-logo {
           width: 120rpx;
@@ -543,7 +543,7 @@
         &-content {
           position: relative;
           flex: 1;
-          min-height: 156rpx;
+          min-height: 140rpx;
           padding-left: 60rpx;
           padding-bottom: 32rpx;
           border-bottom: 1rpx solid #C7C7C7;
@@ -565,7 +565,27 @@
             font-size: 24rpx;
             color: #8A8A8A;
             line-height: 32rpx;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
+
+          &-right {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+        }
+
+        .paid-app-price {
+          margin-left: 32rpx;
+          padding: 12rpx 24rpx;
+          border-radius: 48rpx;
+          background-color: #EEEEEF;
+          color: #157EFB;
+          font-size: 28rpx;
+          font-weight: bold;
+          flex-shrink: 0;
         }
       }
     }
