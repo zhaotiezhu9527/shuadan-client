@@ -46,13 +46,12 @@
         >
         </u-input>
         <view class="text">
-          <text>{{ $t("usable") }}：
-            {{ Number(balance).toFixed(2) }}</text>
+          <text>{{ $t("usable") }}：{{ Number(balance).toFixed(2) }}</text>
           <text @click="amount = balance">{{ $t("all_deposit") }}</text>
         </view>
       </view>
       <view class="foot-text">
-        {{ $t("withdrawFee_info") }}<br />
+        {{ $t("withdrawFee_info") }}
         {{ $t("withdrawFee") }} {{ withdrawFee }}%
       </view>
       <view class="tixian-btn" @click="submit">
@@ -224,6 +223,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-top: 1px solid #d7d7d7;
       text {
         font-size: 28rpx;
       }

@@ -19,9 +19,9 @@
               @confirm="submit"
             >
             </u-input>
-            <u-button class="button" block @click="submit">
+            <view class="btn" @click="submit">
               {{ $t("confirmText") }}
-            </u-button>
+            </view>
           </view>
         </view>
         <u-icon
@@ -136,27 +136,15 @@ export default {
   box-shadow: 0 0 16rpx 0 #ffb400b2;
   border-radius: 40rpx;
   width: 100%;
-  background-color: #1e1e1e;
+  background-color: #fff;
   position: relative;
-  border: 1px solid;
-  border-image-source: conic-gradient(
-    from 180deg at 50% 50%,
-    rgba(245, 211, 172, 0) 0deg,
-    rgba(245, 211, 172, 0.38) 45deg,
-    rgba(245, 211, 172, 0) 84.38deg,
-    rgba(245, 211, 172, 0) 133.12deg,
-    rgba(245, 211, 172, 0.37) 187.5deg,
-    rgba(245, 211, 172, 0) 230.62deg,
-    rgba(245, 211, 172, 0) 360deg
-  );
-
+  color: #343434;
   .u-input {
     padding: 20rpx 0rpx 44rpx !important;
-    width: 80%;
+    width: 100%;
     /deep/.uni-input-input {
-      background: #1d1c1c;
       box-shadow: 0px 4px 4px 0px #00000040 inset;
-      color: $white;
+      color: #343434;
       text-align: center;
     }
     /deep/.u-input__content__field-wrapper__field {
@@ -177,7 +165,6 @@ export default {
     }
     .box {
       padding: 32rpx 0;
-      color: $white;
       font-size: 32rpx;
     }
     .button {
@@ -195,5 +182,15 @@ export default {
 }
 .close {
   margin-top: 80rpx;
+}
+.btn{
+  font-size: 32rpx;
+  text-align: center;
+  background-color: #7d7d7d;
+  border-radius: 10rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  color: #fff;
+  width: 100%;
 }
 </style>
