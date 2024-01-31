@@ -516,8 +516,8 @@
       align-items: center;
 
       &-avatar {
-        width: 96rpx;
-        height: 96rpx;
+        width: 120rpx;
+        height: 120rpx;
         margin-right: 12rpx;
       }
 

@@ -34,8 +34,8 @@ export const bubbles = [{
     size: 30,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -44,8 +44,8 @@ export const bubbles = [{
     size: 39,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -54,8 +54,8 @@ export const bubbles = [{
     size: 25,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -64,8 +64,8 @@ export const bubbles = [{
     size: 36,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -74,8 +74,8 @@ export const bubbles = [{
     size: 36,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -84,8 +84,8 @@ export const bubbles = [{
     size: 40,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -94,8 +94,8 @@ export const bubbles = [{
     size: 37,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -104,8 +104,8 @@ export const bubbles = [{
     size: 36,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -114,8 +114,8 @@ export const bubbles = [{
     size: 50,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -124,8 +124,8 @@ export const bubbles = [{
     size: 58,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -134,8 +134,8 @@ export const bubbles = [{
     size: 49,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -144,8 +144,8 @@ export const bubbles = [{
     size: 44,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -154,8 +154,8 @@ export const bubbles = [{
     size: 50,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -164,8 +164,8 @@ export const bubbles = [{
     size: 48,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -174,8 +174,8 @@ export const bubbles = [{
     size: 30,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -184,8 +184,8 @@ export const bubbles = [{
     size: 36,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -194,8 +194,8 @@ export const bubbles = [{
     size: 64,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -204,8 +204,8 @@ export const bubbles = [{
     size: 50,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -214,8 +214,8 @@ export const bubbles = [{
     size: 32,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -224,8 +224,8 @@ export const bubbles = [{
     size: 40,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -234,8 +234,8 @@ export const bubbles = [{
     size: 40,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -244,8 +244,8 @@ export const bubbles = [{
     size: 32,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -254,8 +254,8 @@ export const bubbles = [{
     size: 36,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -264,8 +264,8 @@ export const bubbles = [{
     size: 40,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -274,8 +274,8 @@ export const bubbles = [{
     size: 40,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -284,8 +284,8 @@ export const bubbles = [{
     size: 39,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -294,8 +294,8 @@ export const bubbles = [{
     size: 30,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -304,8 +304,8 @@ export const bubbles = [{
     size: 40,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   },
   {
@@ -314,8 +314,8 @@ export const bubbles = [{
     size: 64,
     top: 0,
     left: 0,
-    vx: Math.random() / 5,
-    vy: Math.random() / 5,
+    vx: Math.random() / 10,
+    vy: Math.random() / 10,
     collisionFree: false
   }
 ]

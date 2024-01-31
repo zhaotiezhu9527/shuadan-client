@@ -57,7 +57,7 @@
         <!-- <view class="item" v-for="(item, index) in list" :key="index" @click="routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)"> -->
         <view class="item" v-for="(item, index) in list" :key="index">
           <view class="no" v-if="!item.unlock">
-            <!-- <image class="img" src="@/static/img/suo.png" mode="widthFix" /> -->
+            <image class="img" src="@/static/img/suo.png" mode="widthFix" />
             <view class="txt">{{ $t("unlock") }}</view>
           </view>
           <view class="reactive">
@@ -83,7 +83,7 @@
             <view class="top-charts-list-item-content u-border-bottom">
               <view class="top-charts-list-item-content-num">{{item.id}}</view>
               <view class="top-charts-list-item-content-right">
-                <view class="flex1">
+                <view class="flex1" style="overflow: hidden;">
                   <view class="top-charts-list-item-content-title">{{item.title}}</view>
                   <view class="top-charts-list-item-content-desc">{{item.desc}}</view>
                 </view>
@@ -257,11 +257,11 @@
     .no {
       position: absolute;
       z-index: 10;
-      top: -10rpx;
-      bottom: -10rpx;
-      left: -10rpx;
-      right: -10rpx;
-      background-color: rgba(#000, 0.5);
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(#000, 0.65);
       border-radius: 20rpx;
       display: flex;
       justify-content: center;
@@ -482,7 +482,7 @@
   }
 
   .top-charts {
-    margin: 72rpx 20rpx;
+    margin: 72rpx 12rpx;
     padding-top: 24rpx;
     border-top: 1rpx solid #C7C7C7;
 
@@ -546,7 +546,7 @@
           min-height: 140rpx;
           padding-left: 60rpx;
           padding-bottom: 32rpx;
-          border-bottom: 1rpx solid #C7C7C7;
+          overflow: hidden;
 
           &-num {
             position: absolute;
@@ -558,10 +558,11 @@
 
           &-title {
             font-size: 32rpx;
-            line-height: 48rpx;
+            line-height: 40rpx;
           }
 
           &-desc {
+            margin-top: 16rpx;
             font-size: 24rpx;
             color: #8A8A8A;
             line-height: 32rpx;
@@ -578,13 +579,14 @@
         }
 
         .paid-app-price {
-          margin-left: 32rpx;
-          padding: 12rpx 24rpx;
+          margin-left: 28rpx;
+          padding: 12rpx 18rpx;
           border-radius: 48rpx;
           background-color: #EEEEEF;
           color: #157EFB;
-          font-size: 28rpx;
-          font-weight: bold;
+          font-size: 14px;
+          font-weight: 700;
+          font-family: Arial, Helvetica, sans-serif;
           flex-shrink: 0;
         }
       }
