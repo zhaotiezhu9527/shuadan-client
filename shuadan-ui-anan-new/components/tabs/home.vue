@@ -241,8 +241,10 @@
 
 <style scoped lang="scss">
   .main {
+    height: 100vh;
     padding-top: 32rpx;
     padding-bottom: 160rpx;
+    overflow-y: auto;
   }
 
   .list {
@@ -252,6 +254,7 @@
     .reactive {
       position: relative;
       margin: auto;
+      height: inherit;
     }
 
     .no {
@@ -284,6 +287,7 @@
       position: relative;
       display: flex;
       align-items: center;
+      height: 150rpx;
 
       .icon {
         width: 44rpx;
