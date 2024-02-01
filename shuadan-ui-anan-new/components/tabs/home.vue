@@ -54,8 +54,8 @@
         <view class="header">{{ $t("vipName") }}</view>
       </view>
       <view class="list">
-        <!-- <view class="item" v-for="(item, index) in list" :key="index" @click="routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)"> -->
-        <view class="item" v-for="(item, index) in list" :key="index">
+        <view class="item" v-for="(item, index) in list" :key="index" @click="routechange2(item.unlock, '/pages/index?tabs=2&level=' + item.areaId)">
+        <!-- <view class="item" v-for="(item, index) in list" :key="index"> -->
           <view class="no" v-if="!item.unlock">
             <image class="img" src="@/static/img/suo.png" mode="widthFix" />
             <view class="txt">{{ $t("unlock") }}</view>

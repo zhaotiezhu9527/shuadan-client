@@ -8,7 +8,6 @@ import freeApps7 from '../img/apps-free/7.png';
 import freeApps8 from '../img/apps-free/8.png';
 import freeApps9 from '../img/apps-free/9.png';
 import freeApps10 from '../img/apps-free/10.png';
-import freeApps11 from '../img/apps-free/11.png';
 
 import paidApps1 from '../img/apps-paid/1.png';
 import paidApps2 from '../img/apps-paid/2.png';
@@ -71,11 +70,6 @@ export const topChartsFreeApps = [{
   icon: freeApps10,
   title: 'Google Translate',
   desc: 'Text, Photo & Voice Translator'
-}, {
-  id: 11,
-  icon: freeApps11,
-  title: 'Khmer Lunar Calendar 1900-2100',
-  desc: '1900-2100'
 }]
 
 export const topChartsPaidApps = [{
