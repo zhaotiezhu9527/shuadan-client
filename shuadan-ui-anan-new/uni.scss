@@ -50,6 +50,9 @@ $blue: #449beb;
 //项目主题色end
 html{
   // background-color: #1c1c1c;
+  background-image: url(@/static/img/bg.png);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
 }
 view,
 text {

@@ -11,7 +11,7 @@
   @import "./static/utils.scss";
 
   /*  #ifdef  H5  */
-  html,
+  // html,
   body,
   .u-modal,
   .width818 {
