@@ -87,7 +87,7 @@
         ref="uModal"
         :asyncClose="true"
         showCancelButton
-        confirmColor="#6c38ed"
+        confirmColor="#666"
         cancelColor="#ffffff"
         :confirmText="$t('confirmText')"
         :cancelText="$t('cancelText')"
