@@ -48,7 +48,6 @@ export default {
 <style scoped lang="scss">
 .main {
   min-height: calc(100vh - 100rpx);
-  background: linear-gradient(#000, #2d154d);
   .bg-box{
     width:100%;
     .bg-img{
