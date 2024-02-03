@@ -208,7 +208,7 @@ export default {
       float: left;
       color: #fff;
       height: 36rpx;
-      width: 96rpx;
+      width: 40rpx;
       margin: 0 16rpx;
     }
     .title {
