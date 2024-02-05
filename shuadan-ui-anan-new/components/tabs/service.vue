@@ -6,7 +6,7 @@
       :title="$t('service')"
       fixed
       safe-area-inset-top
-      leftIconSize="32"
+      leftIconSize="0"
       bgColor="#fff"
       height="100rpx"
       titleStyle="color:#000;font-weight:600;font-size:32rpx;"
