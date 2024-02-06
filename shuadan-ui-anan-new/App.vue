@@ -28,7 +28,7 @@
 
   @media screen and(min-width: 1100px) {
     .maxwidth {
-      max-width: 818rpx;
+      // max-width: 818rpx;
       margin: auto !important;
       transform: translateX(-50%);
       left: 50% !important;
