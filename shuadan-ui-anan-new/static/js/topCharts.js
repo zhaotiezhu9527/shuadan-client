@@ -24,51 +24,61 @@ export const topChartsFreeApps = [{
   id: 1,
   icon: freeApps1,
   title: 'You Tube',
+  url: "https://apps.apple.com/us/app/youtube-watch-listen-stream/id544007664",
   desc: 'Video, music, and live  streaming'
 }, {
   id: 2,
   icon: freeApps2,
   title: 'ACLEDA mobile',
+  url: "https://apps.apple.com/us/app/acleda-mobile/id1196285236",
   desc: 'Finance'
 }, {
   id: 3,
   icon: freeApps3,
   title: 'Telegram Messenger',
+  url: "https://apps.apple.com/us/app/telegram-messenger/id686449807",
   desc: 'Fast.Secure.Powerful.'
 }, {
   id: 4,
   icon: freeApps4,
   title: 'TikTok-Global VideoCommunity',
+  url: "https://apps.apple.com/us/app/tiktok/id835599320",
   desc: 'Short-Form Video Platform'
 }, {
   id: 5,
   icon: freeApps5,
   title: 'Facebook',
+  url: "https://apps.apple.com/us/app/facebook/id284882215",
   desc: 'Explore the things you love'
 }, {
   id: 6,
   icon: freeApps6,
   title: 'Messenger',
+  url: "https://apps.apple.com/us/app/messenger/id454638411",
   desc: 'Text, audio and video calls'
 }, {
   id: 7,
   icon: freeApps7,
   title: 'ABA Mobile Bank',
+  url: "https://apps.apple.com/us/app/aba-mobile-bank/id968860649",
   desc: 'Finance'
 }, {
   id: 8,
   icon: freeApps8,
   title: 'CapCut-Photo &Video Editor',
+  url: "https://apps.apple.com/us/app/capcut-video-editor/id1500855883",
   desc: 'Video maker with music'
 }, {
   id: 9,
   icon: freeApps9,
   title: 'Google Maps -Transit& Food',
+  url: "https://apps.apple.com/us/app/google-maps/id585027354",
   desc: 'Video maker with music'
 }, {
   id: 10,
   icon: freeApps10,
   title: 'Google Translate',
+  url: "https://apps.apple.com/us/app/google-translate/id414706506",
   desc: 'Text, Photo & Voice Translator'
 }]
 
@@ -76,6 +86,7 @@ export const topChartsPaidApps = [{
   id: 1,
   icon: paidApps1,
   title: 'Shadowrocket',
+  url: "https://apps.apple.com/us/app/shadowrocket/id932747118",
   desc: 'Rule based proxy utility',
   price: 2.99
 }, {
@@ -83,53 +94,62 @@ export const topChartsPaidApps = [{
   icon: paidApps2,
   title: 'aRacerSmart',
   desc: 'Utilities',
+  url: "https://apps.apple.com/us/app/aracersmart/id1296085645",
   price: 14.99
 }, {
   id: 3,
   icon: paidApps3,
   title: 'Streaks',
   desc: 'The habit-forming to-do list',
+  url: "https://apps.apple.com/us/app/streaks/id963034692",
   price: 4.99
 }, {
   id: 4,
   icon: paidApps4,
   title: 'Little Bean - Cosmetic Checker',
   desc: 'Pregnancy   Ingredient...',
+  url: "https://www.youtube.com/",
   price: 0.99
 }, {
   id: 5,
   icon: paidApps5,
   title: 'Orthopedic Examination',
   desc: 'All Orthopedic Special...',
+  url: "https://www.youtube.com/",
   price: 14.99
 }, {
   id: 6,
   icon: paidApps6,
   title: 'Quadrilateral Calculator',
   desc: 'Area of Quadrilateral Calc',
+  url: "https://www.youtube.com/",
   price: 2.99
 }, {
   id: 7,
   icon: paidApps7,
   title: 'Video Master Pro',
   desc: 'Record, and playback',
+  url: "https://www.youtube.com/",
   price: 3.99
 }, {
   id: 8,
   icon: paidApps8,
   title: 'VirtualDJ Remote',
   desc: 'Music',
+  url: "https://www.youtube.com/",
   price: 9.99
 }, {
   id: 9,
   icon: paidApps9,
   title: 'Feng Shui kua Compass',
   desc: 'Kua Number & Lucky Di...',
+  url: "https://www.youtube.com/",
   price: 2.99
 }, {
   id: 10,
   icon: paidApps10,
   title: 'English-khmer  Dictionary',
   desc: 'Reference',
+  url: "https://www.youtube.com/",
   price: 3.99
 }]
