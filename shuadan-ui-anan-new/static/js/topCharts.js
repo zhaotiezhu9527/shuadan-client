@@ -29,9 +29,9 @@ export const topChartsFreeApps = [{
 }, {
   id: 2,
   icon: freeApps2,
-  title: 'ACLEDA mobile',
-  url: "https://apps.apple.com/us/app/acleda-mobile/id1196285236",
-  desc: 'Finance'
+  title: 'Instagram',
+  url: "https://apps.apple.com/us/app/instagram/id389801252",
+  desc: 'Photo & Video'
 }, {
   id: 3,
   icon: freeApps3,
@@ -59,9 +59,9 @@ export const topChartsFreeApps = [{
 }, {
   id: 7,
   icon: freeApps7,
-  title: 'ABA Mobile Bank',
-  url: "https://apps.apple.com/us/app/aba-mobile-bank/id968860649",
-  desc: 'Finance'
+  title: 'Gmail -Email byGoogle',
+  url: "https://apps.apple.com/us/app/gmail-email-by-google/id422689480",
+  desc: 'Secure, fast & organised...'
 }, {
   id: 8,
   icon: freeApps8,
@@ -108,48 +108,48 @@ export const topChartsPaidApps = [{
   icon: paidApps4,
   title: 'Little Bean - Cosmetic Checker',
   desc: 'Pregnancy   Ingredient...',
-  url: "https://www.youtube.com/",
+  url: "https://apps.apple.com/us/app/little-bean-cosmetic-checker/id1578243186",
   price: 0.99
 }, {
   id: 5,
   icon: paidApps5,
   title: 'Orthopedic Examination',
   desc: 'All Orthopedic Special...',
-  url: "https://www.youtube.com/",
+  url: "https://apps.apple.com/us/app-bundle/best-orthopedic-learning-apps/id1699619818",
   price: 14.99
 }, {
   id: 6,
   icon: paidApps6,
   title: 'Quadrilateral Calculator',
   desc: 'Area of Quadrilateral Calc',
-  url: "https://www.youtube.com/",
+  url: "https://apps.apple.com/us/app/quadrilateral-calculator/id1626770065",
   price: 2.99
 }, {
   id: 7,
   icon: paidApps7,
   title: 'Video Master Pro',
   desc: 'Record, and playback',
-  url: "https://www.youtube.com/",
+  url: "https://apps.apple.com/fr/app/video-master-pro/id1500098830?l=en-GB",
   price: 3.99
 }, {
   id: 8,
   icon: paidApps8,
   title: 'VirtualDJ Remote',
   desc: 'Music',
-  url: "https://www.youtube.com/",
+  url: "https://apps.apple.com/ie/app/virtualdj-remote/id407160120",
   price: 9.99
 }, {
   id: 9,
   icon: paidApps9,
-  title: 'Feng Shui kua Compass',
-  desc: 'Kua Number & Lucky Di...',
-  url: "https://www.youtube.com/",
-  price: 2.99
+  title: 'Serato Remote Mini',
+  desc: 'Music',
+  url: "https://apps.apple.com/us/app/serato-remote/id661982948",
+  price: 4.99
 }, {
   id: 10,
   icon: paidApps10,
-  title: 'English-khmer  Dictionary',
-  desc: 'Reference',
-  url: "https://www.youtube.com/",
-  price: 3.99
+  title: 'FL Studio Mobile',
+  desc: 'Music',
+  url: "https://apps.apple.com/us/app/fl-studio-mobile/id432850619",
+  price: 14.99
 }]
