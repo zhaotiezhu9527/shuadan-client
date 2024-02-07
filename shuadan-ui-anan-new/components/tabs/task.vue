@@ -3,32 +3,36 @@
     <u-navbar :title="$t('rob_order')" :border="true" leftIconSize="0" height="100rpx" titleStyle="font-weight:600;">
     </u-navbar>
     <!-- app 气泡图 -->
-    <view class="bubble-container">
-      <image src="../../static/img/task-bubbles/bg.png" mode="widthFix" class="img-fill"></image>
-      <view class="bubble-inner">
-        <image v-for="item in bubbles" :key="item.id" :src="item.url" :data-id="item.id" mode="aspectFill"
-          :style="{width: `${item.size}px`, height: `${item.size}px`, top: `${item.top}px`, left: `${item.left}px`}"
-          class="bubble"></image>
-      </view>
+    <view class="task-title">
+      <image src="@/static/img/task-bg2.png" class="task-title-img"></image>
+      <image src="@/static/img/task-bg1.png" class="task-title-img"></image>
+    </view>
+    <!-- app logo -->
+    <view class="task-logo">
+      <image src="@/static/img/app-logo1.png" class="task-logo-img"></image>
+      <image src="@/static/img/app-logo2.png" class="task-logo-img"></image>
+      <image src="@/static/img/app-logo3.png" class="task-logo-img"></image>
+      <image src="@/static/img/app-logo4.png" class="task-logo-img"></image>
+      <image src="@/static/img/app-logo5.png" class="task-logo-img"></image>
+      <image src="@/static/img/app-logo6.png" class="task-logo-img"></image>
+    </view>
+    <view class="schedule">
+      {{ infos.todayOrderCount }} / {{ items.dayOrderCount }}
+    </view>
+    <!-- start btn -->
+    <view class="summary-container-start-btn" @click="startCallBack">
+      <text class="start-btn-text">{{$t('start_call_back')}}</text>
     </view>
     <!-- Today's results -->
-    <view class="today">{{ $t("today") }}</view>
     <view class="summary-container">
-      <view class="summary-container-balance">
-        <view class="summary-container-balance-num ">
-          <text class="fs-inherit bold">$</text>
-          <text class="fs-inherit">{{ Number(infos.balance).toFixed(2) }}</text>
-        </view>
-        <view class="summary-container-balance-text">{{ $t("my_balance") }}</view>
-      </view>
       <view class="summary-container-panels">
         <view class="summary-container-panel-item">
           <view class="icon-box">
             <image src="../../static/img/task-1.png" mode="aspectFill" class="img-fill"></image>
           </view>
           <view class="summary-container-panel-item-content">
-            <view class="summary-container-panel-item-content-num"> {{ Number(infos.todayIncome).toFixed(2) }}</view>
-            <view class="summary-container-panel-item-content-text">{{ $t("todayIncome") }}</view>
+            <view class="summary-container-panel-item-content-num"> ${{ Number(infos.balance).toFixed(2) }}</view>
+            <view class="summary-container-panel-item-content-text">{{ $t("my_balance") }}</view>
           </view>
         </view>
         <view class="summary-container-panel-item">
@@ -37,18 +41,13 @@
           </view>
           <view class="summary-container-panel-item-content">
             <view class="summary-container-panel-item-content-num">
-              {{ infos.todayOrderCount }} / {{ items.dayOrderCount }}
+              ${{ Number(infos.todayIncome).toFixed(2)  }}
             </view>
-            <view class="summary-container-panel-item-content-text">{{ $t("todayOrderCount") }}</view>
+            <view class="summary-container-panel-item-content-text">{{ $t("todayIncome") }}</view>
           </view>
         </view>
       </view>
-      <!-- start btn -->
-      <view class="summary-container-start-btn" @click="startCallBack">
-        <image src="../../static/img/task-3.png" mode="aspectFill" class="start-btn-icon"></image>
-        <text class="start-btn-text">{{$t('start_call_back')}}</text>
-        <image src="../../static/img/task-4.png" mode="aspectFill" class="start-btn-icon"></image>
-      </view>
+      
     </view>
     <!-- user info -->
     <view class="user-info-container">
@@ -401,26 +400,34 @@
     }
   }
 
-  .today {
+  // .today {
+  //   position: relative;
+  //   text-align: center;
+  //   font-size: 32rpx;
+  //   color: #373737;
+  //   line-height: 40rpx;
+
+  //   &::after {
+  //     content: '';
+  //     position: absolute;
+  //     bottom: -10rpx;
+  //     left: 0;
+  //     right: 0;
+  //     width: 24rpx;
+  //     height: 4rpx;
+  //     margin: auto;
+  //     background-color: #7D7D7D;
+  //   }
+  // }
+  .schedule{
     position: relative;
     text-align: center;
-    font-size: 32rpx;
-    color: #373737;
-    line-height: 40rpx;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -10rpx;
-      left: 0;
-      right: 0;
-      width: 24rpx;
-      height: 4rpx;
-      margin: auto;
-      background-color: #7D7D7D;
-    }
+    font-size: 48rpx;
+    color: #3A3A3A;
+    line-height: 48rpx;
+    font-weight: 500;
+    margin-top: 62rpx;
   }
-
   .summary-container {
     margin: 56rpx 0 40rpx;
     padding: 40rpx 30rpx 30rpx;
@@ -444,22 +451,21 @@
       display: flex;
       justify-content: space-between;
       column-gap: 24rpx;
-      margin-top: 40rpx;
     }
 
     &-panel-item {
       flex: 1;
-      display: flex;
       padding: 24rpx;
       background-color: #fff;
       border-radius: 20rpx;
 
       .icon-box {
-        width: 76rpx;
-        height: 76rpx;
-        margin-right: 16rpx;
+        width: 100rpx;
+        height: 100rpx;
         flex-shrink: 0;
         overflow: hidden;
+        display: block;
+        margin: 20rpx auto;
       }
 
       &-content {
@@ -728,6 +734,24 @@
       padding-bottom: 10rpx;
       color: #ffffffd9;
       text-align: center;
+    }
+  }
+  .task-title{
+    display: flex;
+    .task-title-img{
+      width: 340rpx;
+      height: 400rpx;
+      &:nth-child(2){
+        margin-left: 26rpx;
+      }
+    }
+  }
+  .task-logo{
+    display: flex;
+    margin-top: 35rpx;
+    .task-logo-img{
+      width: 120rpx;
+      height: 120rpx;
     }
   }
 </style>
