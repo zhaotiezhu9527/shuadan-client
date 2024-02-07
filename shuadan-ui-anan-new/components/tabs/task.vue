@@ -28,7 +28,7 @@
       <view class="summary-container-panels">
         <view class="summary-container-panel-item">
           <view class="icon-box">
-            <image src="../../static/img/task-1.png" mode="aspectFill" class="img-fill"></image>
+            <image src="@/static/img/task-1.png" mode="aspectFill" class="img-fill"></image>
           </view>
           <view class="summary-container-panel-item-content">
             <view class="summary-container-panel-item-content-num"> ${{ Number(infos.balance).toFixed(2) }}</view>
@@ -37,7 +37,7 @@
         </view>
         <view class="summary-container-panel-item">
           <view class="icon-box">
-            <image src="../../static/img/task-2.png" mode="aspectFill" class="img-fill"></image>
+            <image src="@/static/img/task-2.png" mode="aspectFill" class="img-fill"></image>
           </view>
           <view class="summary-container-panel-item-content">
             <view class="summary-container-panel-item-content-num">
