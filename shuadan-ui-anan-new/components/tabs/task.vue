@@ -4,8 +4,17 @@
     </u-navbar>
     <!-- app 气泡图 -->
     <view class="task-title">
-      <image src="@/static/img/task-bg2.png" class="task-title-img"></image>
-      <image src="@/static/img/task-bg1.png" class="task-title-img"></image>
+      <view class="banner">
+          <u-swiper 
+            previousMargin="175"
+            nextMargin="175"
+            circular
+            :autoplay="true"
+            displayMultipleItems="1"
+            :list="list2" class="my-swipe" indicator> </u-swiper>
+        </view>
+      <!-- <image src="@/static/img/task-bg2.png" class="task-title-img"></image> -->
+      <!-- <image src="@/static/img/task-bg1.png" class="task-title-img"></image> -->
     </view>
     <!-- app logo -->
     <view class="task-logo">
@@ -72,6 +81,9 @@
 </template>
 
 <script>
+import banner1 from "@/static/img/task-bg2.png";
+import banner2 from "@/static/img/task-bg1.png";
+import banner3 from "@/static/img/taskall-bg1.jpg";
   import success from "@/components/success.vue";
   import {
     bubbles
@@ -127,6 +139,8 @@
         loading: false,
         vim: {},
         that: {},
+        // list2: [banner3,banner3,banner3,banner3,banner3,banner3,banner3],
+        list2: [banner1,banner2,banner1,banner2,banner1,banner2,banner1],
       };
     },
     methods: {
@@ -754,4 +768,18 @@
       height: 120rpx;
     }
   }
+  .banner {
+  height: 400rpx;
+  width: 100vw;
+  box-sizing: border-box;
+}
+/deep/.u-swiper,
+/deep/.u-swiper__wrapper,
+.my-swipe {
+  // width: 600rpx !important;
+  height: 400rpx !important;
+  .u-swiper__wrapper__item__wrapper__image {
+    height: 100% !important;
+  }
+}
 </style>

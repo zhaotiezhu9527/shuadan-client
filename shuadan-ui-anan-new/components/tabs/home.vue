@@ -80,18 +80,19 @@
               <view class="top-charts-list-item-logo">
                 <image :src="item.icon" mode="aspectFill" style="width: 100%; height: 100%;"></image>
               </view>
-              <a :href="item.url" target="_blank" class="a-nostyle">
-                <view class="top-charts-list-item-content u-border-bottom">
-                  <view class="top-charts-list-item-content-num">{{item.id}}</view>
-                  <view class="top-charts-list-item-content-right">
-                    <view class="flex1" style="overflow: hidden;">
-                      <view class="top-charts-list-item-content-title">{{item.title}}</view>
-                      <view class="top-charts-list-item-content-desc">{{item.desc}}</view>
-                    </view>
-                    <view v-if="topChartsActive === 1" class="paid-app-price">USD {{item.price}}</view>
+              <view class="top-charts-list-item-content u-border-bottom">
+                <view class="top-charts-list-item-content-num">{{item.id}}</view>
+                <view class="top-charts-list-item-content-right">
+                  <view class="flex1" style="overflow: hidden;">
+                    <view class="top-charts-list-item-content-title">{{item.title}}</view>
+                    <view class="top-charts-list-item-content-desc">{{item.desc}}</view>
                   </view>
+                  <a :href="item.url" target="_blank" class="a-nostyle">
+                    <view v-if="topChartsActive === 1" class="paid-app-price">USD {{item.price}}</view>
+                    <view v-if="topChartsActive === 0" class="paid-app-price">GET</view>
+                  </a>
                 </view>
-              </a>
+              </view>
           </view>
         </view>
       </view>
@@ -601,6 +602,5 @@
   .a-nostyle{
     color: #000;
     text-decoration:none;
-    flex: 1;
   }
 </style>
