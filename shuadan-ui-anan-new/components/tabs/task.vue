@@ -2,22 +2,6 @@
   <view class="main">
     <u-navbar :title="$t('rob_order')" :border="true" leftIconSize="0" height="100rpx" titleStyle="font-weight:600;">
     </u-navbar>
-<<<<<<< HEAD
-    <!-- app 气泡图 -->
-    <view class="task-title">
-      <view class="banner">
-          <u-swiper 
-            previousMargin="175"
-            nextMargin="175"
-            circular
-            :autoplay="true"
-            displayMultipleItems="1"
-            :list="list2" class="my-swipe" indicator> </u-swiper>
-        </view>
-      <!-- <image src="@/static/img/task-bg2.png" class="task-title-img"></image> -->
-      <!-- <image src="@/static/img/task-bg1.png" class="task-title-img"></image> -->
-    </view>
-=======
     <!-- app 轮播图 -->
     <swiper class="app-swiper" :indicator-dots="false" :autoplay="true" :circular="true" :interval="3000"
       :duration="1000">
@@ -27,7 +11,6 @@
         </view>
       </swiper-item>
     </swiper>
->>>>>>> a18e95573e0c0cdeb694c6f7b237c7f9c670168d
     <!-- app logo -->
     <view class="task-logo">
       <image src="@/static/img/app-logo1.png" class="task-logo-img"></image>
@@ -128,12 +111,7 @@ import banner3 from "@/static/img/taskall-bg1.jpg";
         loading: false,
         vim: {},
         that: {},
-<<<<<<< HEAD
-        // list2: [banner3,banner3,banner3,banner3,banner3,banner3,banner3],
-        list2: [banner1,banner2,banner1,banner2,banner1,banner2,banner1],
-=======
         taskAppList
->>>>>>> a18e95573e0c0cdeb694c6f7b237c7f9c670168d
       };
     },
     methods: {
