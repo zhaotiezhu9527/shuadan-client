@@ -13,11 +13,10 @@
     </swiper> -->
     <!-- app 轮播图 版本二 -->
     <view style="padding: 8px 0;">
-      <mosowe-move :list="taskAppList" :speed="17" style="height: auto;">
+      <mosowe-move :list="taskAppList" :speed="16" style="height: auto;">
         <template #default="{ row, rowIndex, colIndex }">
           <view style="padding: 8px;">
-            <image :src="row.url" mode="widthFix"
-              style="width: 50vw; border-radius: 8px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);">
+            <image :src="row.url" mode="widthFix" class="banner-img">
             </image>
           </view>
         </template>
@@ -397,6 +396,17 @@
 
     .app-swiper-item {
       height: 100%;
+    }
+  }
+
+  .banner-img {
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  @media screen and (max-width: 640px) {
+    .banner-img {
+      width: 50vw;
     }
   }
 </style>
