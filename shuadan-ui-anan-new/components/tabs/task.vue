@@ -2,15 +2,27 @@
   <view class="main">
     <u-navbar :title="$t('rob_order')" :border="true" leftIconSize="0" height="100rpx" titleStyle="font-weight:600;">
     </u-navbar>
-    <!-- app 轮播图 -->
-    <swiper class="app-swiper" :indicator-dots="false" :autoplay="true" :circular="true" :interval="3000"
+    <!-- app 轮播图 版本一 -->
+    <!-- <swiper class="app-swiper" :indicator-dots="false" :autoplay="true" :circular="true" :interval="3000"
       :duration="1000">
       <swiper-item v-for="(item, index) in taskAppList" :key="index">
         <view class="app-swiper-item">
           <image :src="item.url" class="img-fill"></image>
         </view>
       </swiper-item>
-    </swiper>
+    </swiper> -->
+    <!-- app 轮播图 版本二 -->
+    <view style="padding: 8px 0;">
+      <mosowe-move :list="taskAppList" :speed="17" style="height: auto;">
+        <template #default="{ row, rowIndex, colIndex }">
+          <view style="padding: 8px;">
+            <image :src="row.url" mode="widthFix"
+              style="width: 50vw; border-radius: 8px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);">
+            </image>
+          </view>
+        </template>
+      </mosowe-move>
+    </view>
     <!-- app logo -->
     <view class="task-logo">
       <image src="@/static/img/app-logo1.png" class="task-logo-img"></image>
@@ -76,9 +88,6 @@
 </template>
 
 <script>
-import banner1 from "@/static/img/task-bg2.png";
-import banner2 from "@/static/img/task-bg1.png";
-import banner3 from "@/static/img/taskall-bg1.jpg";
   import success from "@/components/success.vue";
   import taskAppList from '@/static/js/taskApp.js'
 
@@ -390,18 +399,4 @@ import banner3 from "@/static/img/taskall-bg1.jpg";
       height: 100%;
     }
   }
-  .banner {
-  height: 400rpx;
-  width: 100vw;
-  box-sizing: border-box;
-}
-/deep/.u-swiper,
-/deep/.u-swiper__wrapper,
-.my-swipe {
-  // width: 600rpx !important;
-  height: 400rpx !important;
-  .u-swiper__wrapper__item__wrapper__image {
-    height: 100% !important;
-  }
-}
 </style>
