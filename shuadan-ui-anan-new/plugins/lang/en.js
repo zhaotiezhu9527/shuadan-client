@@ -1,5 +1,5 @@
 export default {
-  title: "Cognizant",
+  title: "Vmware",
   account: "Username",
   password: "Password",
   forget_pwd: "Forget password?",

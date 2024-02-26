@@ -1,5 +1,5 @@
 {
-    "name" : "Cognizant",
+    "name" : "Vmware",
     "appid" : "__UNI__B27C69D",
     "description" : "",
     "versionName" : "100",
@@ -108,7 +108,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "Cognizant",
+        "title" : "Vmware",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",
