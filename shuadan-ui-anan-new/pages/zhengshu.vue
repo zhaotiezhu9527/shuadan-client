@@ -16,7 +16,10 @@
     >
     </u-navbar>
     <view class="main">
-      <image class="img" src="@/static/img/zhengshu.jpg" mode="widthFix" />
+      <!-- <image class="img" src="@/static/img/zhengshu.jpg" mode="widthFix" /> -->
+      <image class="img" src="@/static/img/zhengshu1.jpg" mode="widthFix" />
+      <image class="img" src="@/static/img/zhengshu2.jpg" mode="widthFix" />
+      <image class="img" src="@/static/img/zhengshu3.jpg" mode="widthFix" />
     </view>
   </view>
 </template>
