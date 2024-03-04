@@ -1,9 +1,9 @@
 {
-    "name" : "Picodi",
+    "name" : "Biconsi",
     "appid" : "__UNI__80AC7D2",
     "description" : "",
-    "versionName" : "108",
-    "versionCode" : 108,
+    "versionName" : "109",
+    "versionCode" : 109,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -108,7 +108,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "Picodi",
+        "title" : "Biconsi",
         "template" : "index.html",
         "router" : {
             "mode" : "hash",

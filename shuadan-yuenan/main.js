@@ -31,10 +31,10 @@ const app = new Vue({
 Vue.mixin({
   onShow() {
     uni.setNavigationBarTitle({
-      title: "Picodi",
+      title: "Biconsi",
     });
     // #ifdef H5
-    document.title = "Picodi";
+    document.title = "Biconsi";
     // #endif
   },
 });

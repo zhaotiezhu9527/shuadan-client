@@ -1,5 +1,5 @@
 export default {
-  companyName: "Picodi",
+  companyName: "Biconsi",
   version: "số phiên bản",
   userLogin: "Đăng nhập tài khoản",
   enterAccount: "Số điện thoại",
