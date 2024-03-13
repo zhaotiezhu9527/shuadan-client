@@ -276,9 +276,12 @@ public class OrderController {
 //                    continue;
 //                }
                 BigDecimal div = NumberUtil.div(randomGoodsPrice, temp.getGoodsPrice());
+                // 计算出当前订单数量
                 int goodsCountTemp = div.intValue();
+                // 计算出当前订单金额
                 BigDecimal orderPrice = NumberUtil.mul(goodsCountTemp, temp.getGoodsPrice());
-                if (goodsCountTemp >= 1 && orderPrice.doubleValue() > minBalance.doubleValue() && orderPrice.doubleValue() < maxBalance.doubleValue()) {
+                // 商品数量>=1 并且订单金额在区间内
+                if (goodsCountTemp >= 1 && NumberUtil.isIn(orderPrice, minBalance, maxBalance)) {
                     goodsCount = goodsCountTemp;
                     goods = temp;
                     break;
