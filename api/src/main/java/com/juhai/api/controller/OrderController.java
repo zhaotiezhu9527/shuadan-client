@@ -276,8 +276,10 @@ public class OrderController {
 //                    continue;
 //                }
                 BigDecimal div = NumberUtil.div(randomGoodsPrice, temp.getGoodsPrice());
-                if (div.intValue() >= 1) {
-                    goodsCount = div.intValue();
+                int goodsCountTemp = div.intValue();
+                BigDecimal orderPrice = NumberUtil.mul(goodsCountTemp, temp.getGoodsPrice());
+                if (goodsCountTemp >= 1 && orderPrice.doubleValue() > orderPrice.doubleValue()) {
+                    goodsCount = goodsCountTemp;
                     goods = temp;
                     break;
                 }
