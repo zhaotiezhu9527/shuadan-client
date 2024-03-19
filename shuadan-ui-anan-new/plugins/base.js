@@ -30,7 +30,7 @@ export const loading = (title) => {
 const PATH_URL =
   process.env.NODE_ENV === "development"
     // ? "http://8.222.224.10:9544/" //本地环境
-    ? "http://sdqt.juhai.xyz/sd-qtapi-test/" //测试环境
+    ? "http://vmwareshop.com/api/" //测试环境
     // : "http://sdqt.juhai.xyz/sd-qtapi-test/"; //app打包地址
     : "/api/"; //h5打包地址
 
