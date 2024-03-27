@@ -15,7 +15,6 @@
               placeholder=" "
               border="none"
               v-model="pwd"
-              type="password"
               @confirm="submit"
             >
             </u-input>
