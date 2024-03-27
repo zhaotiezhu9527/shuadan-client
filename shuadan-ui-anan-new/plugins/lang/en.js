@@ -18,7 +18,7 @@ export default {
   nickname_len: "Please enter a name and the length is greater than 2~",
   account_len: "Please enter the username number and the length is bigger than 4~",
   pwd_len: "Please enter the password and the length is bigger than 6~",
-  deal_pwd_len: "Please enter the 6-digit payment password~",
+  deal_pwd_len: "Please enter the 6-15 digit payment password~",
   invite_code_len: "Please enter the referral code ID and the length is bigger than 6~",
   home: "Home",
   balance: "Total Balance",
