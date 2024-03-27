@@ -522,7 +522,7 @@ public class OrderController {
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                             String pankou = paramsMap.get("pankou");
-                            if (StringUtils.equals(pankou, "anan")) {
+                            if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
                                 agentCommission = NumberUtil.mul(commission, rate);
                             }
                             // 上级代理加钱
@@ -649,7 +649,7 @@ public class OrderController {
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                             String pankou = paramsMap.get("pankou");
-                            if (StringUtils.equals(pankou, "anan")) {
+                            if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
                                 agentCommission = NumberUtil.mul(commission, rate);
                             }
                             // 上级代理加钱
@@ -820,7 +820,7 @@ public class OrderController {
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                             String pankou = paramsMap.get("pankou");
-                            if (StringUtils.equals(pankou, "anan")) {
+                            if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
                                 agentCommission = NumberUtil.mul(commission, rate);
                             }
                             // 上级代理加钱
@@ -943,7 +943,7 @@ public class OrderController {
                             // 计算返点
                             BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                             String pankou = paramsMap.get("pankou");
-                            if (StringUtils.equals(pankou, "anan")) {
+                            if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
                                 agentCommission = NumberUtil.mul(commission, rate);
                             }
                             // 上级代理加钱
@@ -1138,7 +1138,7 @@ public class OrderController {
                 // 计算返点
                 BigDecimal agentCommission = NumberUtil.mul(order.getOrderAmount(), rate);
                 String pankou = paramsMap.get("pankou");
-                if (StringUtils.equals(pankou, "anan")) {
+                if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
                     agentCommission = NumberUtil.mul(commission, rate);
                 }
                 // 上级代理加钱
