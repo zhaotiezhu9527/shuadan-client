@@ -93,12 +93,26 @@ public class UserController {
         Map<String, String> allParamByMap = paramterService.getAllParamByMap();
 
         String pankou = allParamByMap.get("pankou");
-        if (StringUtils.equals(pankou, "anan")) {
+        if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
             // 阿楠盘口需要填写手机号
             if (StringUtils.isBlank(request.getPhone())) {
                 return R.error(MsgUtil.get("system.param.err"));
             }
         }
+
+        // 阿楠1特殊处理 需要6-15位资金密码
+        if (StringUtils.equals(pankou, "anan1")) {
+            boolean matchPayPwd = ReUtil.isMatch("^[a-zA-Z0-9]{6,15}$", request.getPayPwd());
+            if (!matchPayPwd) {
+                return R.error(MsgUtil.get("validation.user.register.paypwd1"));
+            }
+        } else {
+            boolean matchPayPwd = ReUtil.isMatch("^\\d{6}$", request.getPayPwd());
+            if (!matchPayPwd) {
+                return R.error(MsgUtil.get("validation.user.register.paypwd"));
+            }
+        }
+
         // 查询用户名是否存在
         long exist = userService.count(
                 new LambdaQueryWrapper<User>()
@@ -868,14 +882,28 @@ public class UserController {
             return R.error(MsgUtil.get("system.order.paypwderror"));
         }
 
+
         String pankou = params.get("pankou");
         if (StringUtils.equals(pankou, "paopao") || StringUtils.equals(pankou, "guanzhang") || StringUtils.equals(pankou, "liehuo")) {
             if (StringUtils.isBlank(user.getRealName()) || StringUtils.isBlank(user.getBankNo())) {
                 return R.error(MsgUtil.get("system.withdraw.nobank"));
             }
-        } else if (StringUtils.equals(pankou, "anan")) {
+        } else if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
             if (StringUtils.isBlank(user.getWalletAddr())) {
                 return R.error(MsgUtil.get("system.withdraw.nowalletaddr"));
+            }
+        }
+
+        // 阿楠1特殊处理 需要6-15位资金密码
+        if (StringUtils.equals(pankou, "anan1")) {
+            boolean matchPayPwd = ReUtil.isMatch("^[a-zA-Z0-9]{6,15}$", request.getPwd());
+            if (!matchPayPwd) {
+                return R.error(MsgUtil.get("validation.user.register.paypwd1"));
+            }
+        } else {
+            boolean matchPayPwd = ReUtil.isMatch("^\\d{6}$", request.getPwd());
+            if (!matchPayPwd) {
+                return R.error(MsgUtil.get("validation.user.register.paypwd"));
             }
         }
 
@@ -956,7 +984,7 @@ public class UserController {
             withdraw.setBankNo(user.getBankNo());
             withdraw.setWalletType(1);
             withdraw.setUsdtAmount(null);
-        } else if (StringUtils.equals(pankou, "anan")) {
+        } else if (StringUtils.equals(pankou, "anan") || StringUtils.equals(pankou, "anan1")) {
             withdraw.setWalletAddr(user.getWalletAddr());
             withdraw.setWalletType(2);
             withdraw.setUsdtAmount(withdraw.getOptAmount());

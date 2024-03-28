@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 public class WithdrawRequest {
 
     @NotNull(message = "validation.user.register.paypwd")
-    @Pattern(regexp = RegConstant.WITHDRAW_PWD_REG, message = "validation.user.register.paypwd")
+//    @Pattern(regexp = RegConstant.WITHDRAW_PWD_REG, message = "validation.user.register.paypwd")
     @ApiModelProperty(value = "支付密码", example = "123qwe", required = true)
     private String pwd;
 

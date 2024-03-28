@@ -32,7 +32,7 @@ public class UserRegisterRequest {
     private String loginPwd;
 
     @NotNull(message = "validation.user.register.paypwd")
-    @Pattern(regexp = RegConstant.WITHDRAW_PWD_REG, message = "validation.user.register.paypwd")
+//    @Pattern(regexp = RegConstant.WITHDRAW_PWD_REG, message = "validation.user.register.paypwd")
     @ApiModelProperty(value = "支付密码", example = "123456", required = true)
     private String payPwd;
 
