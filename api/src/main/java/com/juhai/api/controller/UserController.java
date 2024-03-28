@@ -102,7 +102,7 @@ public class UserController {
 
         // 阿楠1特殊处理 需要6-15位资金密码
         if (StringUtils.equals(pankou, "anan1")) {
-            boolean matchPayPwd = ReUtil.isMatch("^\\d{6,15}$", request.getPayPwd());
+            boolean matchPayPwd = ReUtil.isMatch("^[a-zA-Z0-9]{6,15}$", request.getPayPwd());
             if (!matchPayPwd) {
                 return R.error(MsgUtil.get("validation.user.register.paypwd1"));
             }
@@ -896,7 +896,7 @@ public class UserController {
 
         // 阿楠1特殊处理 需要6-15位资金密码
         if (StringUtils.equals(pankou, "anan1")) {
-            boolean matchPayPwd = ReUtil.isMatch("^\\d{6,15}$", request.getPwd());
+            boolean matchPayPwd = ReUtil.isMatch("^[a-zA-Z0-9]{6,15}$", request.getPwd());
             if (!matchPayPwd) {
                 return R.error(MsgUtil.get("validation.user.register.paypwd1"));
             }
