@@ -112,19 +112,19 @@ export default {
     },
     nopass(url) {
       // 客服修改
-      // if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))
-      // {
-      //   uni.navigateTo({
-      //     url,
-      //   });
-      // }else{
+      if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))
+      {
+        uni.navigateTo({
+          url,
+        });
+      }else{
         // #ifdef APP-PLUS
         plus.runtime.openURL(this.config.onlineService);
         // #endif
         // #ifdef H5
         window.open(this.config.onlineService);
         // #endif
-      // }
+      }
     },
     getConfig(){
       this.$api.system_config().then(({ data }) => {
